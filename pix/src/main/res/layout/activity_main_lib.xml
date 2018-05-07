@@ -22,15 +22,14 @@
             android:id="@+id/status_bar_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_top"
-            android:background="#075e54"
+            android:background="@color/colorPrimaryDark"
             android:translationY="@dimen/margin_top_nve" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0"
-            android:scaleType="fitXY"
-            android:src="@drawable/ss6" />
+            android:scaleType="fitXY" />
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/main_content"

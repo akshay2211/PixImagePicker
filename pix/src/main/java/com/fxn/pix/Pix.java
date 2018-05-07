@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -89,6 +90,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private boolean mHideScrollbar = true;
     private boolean LongSelection = false;
     private int SelectionCount = 1;
+    int colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, getTheme());
+    int colorPrimary = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
+    int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -143,7 +147,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 if (selectionList.size() == 0) {
                     LongSelection = false;
                     selection_check.setVisibility(View.VISIBLE);
-                    DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#075e54"));
+                    DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
                     topbar.setBackgroundColor(Color.parseColor("#ffffff"));
                     Animation anim = new ScaleAnimation(
                             1f, 0f, // Start and end values for the X axis scaling
@@ -180,7 +184,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 img.setPosition(position);
                 selectionList.add(img);
                 returnObjects();
-                DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#075e54"));
+                DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
                 topbar.setBackgroundColor(Color.parseColor("#ffffff"));
             }
         }
@@ -216,7 +220,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     mainImageAdapter.Select(true, position);
                 }
                 selection_check.setVisibility(View.GONE);
-                topbar.setBackgroundColor(Color.parseColor("#075e54"));
+                topbar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText("Selected " + selectionList.size());
                 img_count.setText("" + selectionList.size());
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
@@ -453,7 +457,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         selection_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                topbar.setBackgroundColor(Color.parseColor("#075e54"));
+                topbar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText("Tap photo to select");
                 img_count.setText("" + selectionList.size());
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
@@ -533,7 +537,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 return false;
             }
         });*/
-        DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#075e54"));
+        DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
 
         updateImages();
     }
@@ -745,7 +749,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             if (SelectionCount > 1) {
                 selection_check.setVisibility(View.VISIBLE);
             }
-            DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#075e54"));
+            DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
             topbar.setBackgroundColor(Color.parseColor("#ffffff"));
             Animation anim = new ScaleAnimation(
                     1f, 0f, // Start and end values for the X axis scaling
