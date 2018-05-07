@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.fxn.instapickersample"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 16
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,10 +28,10 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 }
-
+def supportLibraryVersion = '27.0.0'
 dependencies {
    // implementation fileTree(include: ['*.aar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:'+rootProject.ext.supportLibraryVersion
+    implementation 'com.android.support:appcompat-v7:'+supportLibraryVersion
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
