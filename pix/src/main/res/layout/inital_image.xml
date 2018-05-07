@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/sdv"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="4px"
+        android:background="#DDDDDD" />
+
+    <ImageView
+        android:id="@+id/selection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="#30000000"
+        android:src="@drawable/ic_check_black_24dp" />
+
+</FrameLayout>
+

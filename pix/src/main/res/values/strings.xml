@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PixSample</string>
+    <string name="selection_limiter_pix">Cant select more than %d items.</string>
+</resources>
