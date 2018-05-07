@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.design.widget.BottomSheetBehavior;
@@ -51,7 +50,6 @@ import com.wonderkiln.camerakit.CameraKitImage;
 import com.wonderkiln.camerakit.CameraView;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -66,6 +64,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     public static String IMAGE_RESULTS = "image_results";
     public static float TOPBAR_HEIGHT;
     int BottomBarHeight = 0;
+    int colorPrimaryDark;
     private Handler handler = new Handler();
     private FastScrollStateChangeListener mFastScrollStateChangeListener;
     private CameraView mCamera;
@@ -90,9 +89,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private boolean mHideScrollbar = true;
     private boolean LongSelection = false;
     private int SelectionCount = 1;
-    int colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryDark, getTheme());
-    int colorPrimary = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-    int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, null);
+    /*int colorPrimary = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, getTheme());
+    int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, getTheme());*/
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -336,6 +334,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         mCamera = findViewById(R.id.camera);
         mCamera.start();
         mCamera.setFocus(CameraKit.Constants.FOCUS_TAP_WITH_MARKER);
@@ -405,20 +404,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     @Override
                     public void callback(CameraKitImage cameraKitImage) {
                         synchronized (cameraKitImage) {
-                            File photo = new File(Environment.getExternalStorageDirectory(), "photo.jpg");
-
-                            if (photo.exists()) {
-                                photo.delete();
-                            }
-
-                            try {
-                                FileOutputStream fos = new FileOutputStream(photo.getPath());
-
-                                fos.write(cameraKitImage.getJpeg()[0]);
-                                fos.close();
-                            } catch (java.io.IOException e) {
-                                Log.e("PictureDemo", "Exception in photoCallback", e);
-                            }
+                            File photo = Utility.writeImage(cameraKitImage.getJpeg());
                             selectionList.clear();
                             selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
                             returnObjects();
@@ -466,7 +452,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             }
         });
         final ImageView iv = (ImageView) flash.getChildAt(0);
-        mCamera.setFlash(CameraKit.Constants.FLASH_ON);
+        mCamera.setFlash(CameraKit.Constants.FLASH_AUTO);
         flash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

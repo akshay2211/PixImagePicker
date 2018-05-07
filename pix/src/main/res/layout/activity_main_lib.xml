@@ -22,7 +22,7 @@
             android:id="@+id/status_bar_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_top"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryPix"
             android:translationY="@dimen/margin_top_nve" />
 
         <ImageView
@@ -69,6 +69,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     tools:text="SEPTEMBER 2017"
                     tools:textColor="#000" />
 
@@ -78,7 +79,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="right"
                     android:layout_marginTop="56dp"
-                    android:minWidth="20dp">
+                    android:minWidth="20dp"
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/fastscroll_track"
@@ -219,7 +221,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
 
-                    android:src="@drawable/ic_flash_on_black_24dp" />
+                    android:src="@drawable/ic_flash_auto_black_24dp" />
             </FrameLayout>
 
             <ImageView
@@ -232,6 +234,15 @@
                 android:background="@drawable/circle"
                 android:padding="11dp"
                 android:src="@drawable/ic_photo_camera" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="5dp"
+                android:text="Drag images up for gallery"
+                android:textColor="#fff"
+                android:textSize="12dp" />
         </FrameLayout>
 
     </FrameLayout>

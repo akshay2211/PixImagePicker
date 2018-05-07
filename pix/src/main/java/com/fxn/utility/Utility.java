@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.Window;
@@ -22,6 +23,8 @@ import android.view.WindowManager;
 
 import com.fxn.pix.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -230,6 +233,25 @@ public class Utility {
         ((Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(l);
     }
 
+    public static File writeImage(byte[] jpeg) {
+        File dir = new File(Environment.getExternalStorageDirectory(), "/DCIM/Camera");
+        if (!dir.exists())
+            dir.mkdir();
+        File photo = new File(dir, "IMG_" + new SimpleDateFormat("YYYYMMDD_HHmmSS").format(new Date()) + ".jpg");
+        if (photo.exists()) {
+            photo.delete();
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(photo.getPath());
+            fos.write(jpeg);
+            fos.close();
+        } catch (java.io.IOException e) {
+            Log.e("PictureDemo", "Exception in photoCallback", e);
+        }
+        return photo;
+    }
+
     public List<Uri> getImagesFromGallary(Context context) {
         List<Uri> images = new ArrayList<Uri>();
         Cursor imageCursor = null;
@@ -302,6 +324,4 @@ public class Utility {
                     Environment.DIRECTORY_DCIM + "/Camera").getAbsolutePath();
         return pathDir;
     }
-
-
 }

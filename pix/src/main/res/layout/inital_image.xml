@@ -8,7 +8,7 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_margin="4px"
-        android:background="#DDDDDD" />
+        android:background="#80000000" />
 
     <ImageView
         android:id="@+id/selection"

@@ -7,9 +7,10 @@
         android:id="@+id/sdv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#DDDDDD" />
+        android:background="#DDDDDDDD" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/selection"
         android:layout_width="80dp"
         android:layout_height="80dp"
