@@ -61,7 +61,7 @@ or Maven:
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='2.0'>
+        <dependency org='com.fxn769' name='pix' rev='1.0'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
