@@ -413,24 +413,24 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                 });
                 mCamera.captureImage();
-                Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
-                Log.e("Hello", "onclick");
+                // Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
+                //Log.e("Hello", "onclick");
 
             }
         });
         selection_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
-                Log.e("Hello", "onclick");
+                // Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
+                //Log.e("Hello", "onclick");
                 returnObjects();
             }
         });
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
-                Log.e("Hello", "onclick");
+                //Toast.makeText(Pix.this, "fin", Toast.LENGTH_SHORT).show();
+                //Log.e("Hello", "onclick");
                 returnObjects();
             }
         });
