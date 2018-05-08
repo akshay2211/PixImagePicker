@@ -71,7 +71,7 @@ Snapshots of the development version are available in [Sonatype's `snapshots` re
 
 
 ## License
-Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE.txt).
+Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
 
 ## Author & support
 This project was created by [Akshay Sharma](https://akshay2211.github.io/).
