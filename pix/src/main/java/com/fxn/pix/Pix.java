@@ -33,6 +33,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
 import com.fxn.interfaces.OnSelectionListner;
@@ -311,6 +312,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         Utility.SetupStatusBarHiden(this);
         Utility.hideStatusBar(this);
         setContentView(R.layout.activity_main_lib);
+        Fresco.initialize(this);
         initialize();
     }
 
