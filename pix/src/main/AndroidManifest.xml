@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.fxn.pix.PixApp"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.fxn.pix.Pix"
