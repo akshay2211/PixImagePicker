@@ -34,12 +34,14 @@ Use onActivityResult method to get results
 ## Customise
 
 include these items in colors.xml with custom color codes
-```groovy
-    <color name="colorPrimaryPix">#075e54</color>
-    <color name="colorPrimaryLightPix">#80075e54</color>
+```xml
+    <resources>
+        <color name="colorPrimaryPix">#075e54</color>
+        <color name="colorPrimaryLightPix">#80075e54</color>
+    </resources>
 ```
 
-## Libaries used
+## Thanks to
 
   - [Fresco]
   - [FastScroll]
@@ -49,20 +51,20 @@ include these items in colors.xml with custom color codes
 
  [ ![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg) ](https://bintray.com/fxn769/android_projects/Pix/_latestVersion)  or grab via Gradle:
 ```groovy
-        compile 'com.fxn769:pix:1.0'
+        compile 'com.fxn769:pix:1.0.1'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.0</version>
+          <version>1.0.1</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.0'>
+        <dependency org='com.fxn769' name='pix' rev='1.0.1'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
