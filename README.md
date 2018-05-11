@@ -1,4 +1,4 @@
-# Pix
+# PixImagePicker
 
 Pix is a Whatsapp image picker replica. with this you can integrate a image picker just like whatsapp.
 
