@@ -43,9 +43,9 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
 
                 if (!header.equalsIgnoreCase("" + mydate)) {
                     header = "" + mydate;
-                    LIST.add(new Img("" + mydate, "", "", new SimpleDateFormat("MMMM YYYY").format(calendar.getTime())));
+                    LIST.add(new Img("" + mydate, "", "", new SimpleDateFormat("MMMM yyyy").format(calendar.getTime())));
                 }
-                LIST.add(new Img("" + header, "" + curl, "" + cursor.getString(data), new SimpleDateFormat("MMMM YYYY").format(calendar.getTime())));
+                LIST.add(new Img("" + header, "" + curl, "" + cursor.getString(data), new SimpleDateFormat("MMMM yyyy").format(calendar.getTime())));
             }
         }
         cursor.close();

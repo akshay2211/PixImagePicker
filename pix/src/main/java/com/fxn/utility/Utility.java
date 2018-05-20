@@ -237,7 +237,7 @@ public class Utility {
         File dir = new File(Environment.getExternalStorageDirectory(), "/DCIM/Camera");
         if (!dir.exists())
             dir.mkdir();
-        File photo = new File(dir, "IMG_" + new SimpleDateFormat("YYYYMMDD_HHmmSS").format(new Date()) + ".jpg");
+        File photo = new File(dir, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmSS").format(new Date()) + ".jpg");
         if (photo.exists()) {
             photo.delete();
         }
