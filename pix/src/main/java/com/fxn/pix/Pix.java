@@ -330,7 +330,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
     private void initialize() {
         Utility.getScreensize(this);
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
         try {
             SelectionCount = getIntent().getIntExtra(SELECTION, 1);
         } catch (Exception e) {
