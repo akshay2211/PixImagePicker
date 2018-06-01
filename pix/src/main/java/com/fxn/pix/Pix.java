@@ -268,9 +268,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         }
     }
 
-    public static void start(Activity context, int requestCode) {
-        Intent i = new Intent(context, Pix.class);
-        context.startActivityForResult(i, requestCode);
+    public static void start(final FragmentActivity context, int requestCode) {
+        start(context, requestCode, 1);
     }
 
     private void hideScrollbar() {
