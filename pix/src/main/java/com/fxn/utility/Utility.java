@@ -6,6 +6,10 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -246,10 +250,45 @@ public class Utility {
             FileOutputStream fos = new FileOutputStream(photo.getPath());
             fos.write(jpeg);
             fos.close();
-        } catch (java.io.IOException e) {
+        } catch (Exception e) {
             Log.e("PictureDemo", "Exception in photoCallback", e);
         }
         return photo;
+    }
+
+    public static Bitmap getExcifCorrectedBitmap(File f) {
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(f.getAbsolutePath(), bounds);
+
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(f.getAbsolutePath(), opts);
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(f.getAbsolutePath().toString());
+
+            String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+            int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+
+            int rotationAngle = 0;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+            if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+
+            Matrix matrix = new Matrix();
+            matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+            return rotatedBitmap;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Bitmap getScaledBitmap(int maxWidth, Bitmap rotatedBitmap) {
+        int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
+        Bitmap scaled = Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
+        return scaled;
     }
 
     public List<Uri> getImagesFromGallary(Context context) {
