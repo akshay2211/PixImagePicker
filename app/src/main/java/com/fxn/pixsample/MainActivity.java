@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.fxn.adapters.MyAdapter;
@@ -27,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new MyAdapter(this);
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.tv).setOnClickListener((View view) -> {
-            Pix.start(this, 100, 5);
-
-
+            Pix.start(MainActivity.this, 100, 5);
         });
 
     }
@@ -37,14 +34,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Log.e("val", "requestCode ->  " + requestCode+"  resultCode "+resultCode);
         switch (requestCode) {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
                     myAdapter.AddImage(returnValue);
-                    for (String s : returnValue) {
+                    /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
-                    }
+                    }*/
                 }
                 break;
             }

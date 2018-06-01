@@ -8,10 +8,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.fxn.pix.Pix"
-            android:launchMode="singleInstance"
             android:noHistory="true"
             android:theme="@style/AppTheme"></activity>
     </application>

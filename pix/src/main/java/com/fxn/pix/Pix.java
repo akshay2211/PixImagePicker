@@ -22,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -127,7 +126,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private OnSelectionListner onSelectionListner = new OnSelectionListner() {
         @Override
         public void OnClick(Img img, View view, int position) {
-            Log.e("OnClick", "OnClick");
+            //Log.e("OnClick", "OnClick");
             if (LongSelection) {
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
@@ -192,7 +191,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         public void OnLongClick(Img img, View view, int position) {
             if (SelectionCount > 1) {
                 Utility.vibe(Pix.this, 50);
-                Log.e("OnLongClick", "OnLongClick");
+                //Log.e("OnLongClick", "OnLongClick");
                 LongSelection = true;
                 if (selectionList.size() == 0) {
                     if (mBottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
@@ -299,6 +298,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         ArrayList<String> list = new ArrayList<>();
         for (Img i : selectionList) {
             list.add(i.getUrl());
+            // Log.e("Pix images", "img " + i.getUrl());
         }
         Intent resultIntent = new Intent();
         resultIntent.putStringArrayListExtra(IMAGE_RESULTS, list);
@@ -342,7 +342,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mCamera = findViewById(R.id.camera);
         mCamera.start();
         mCamera.setFocus(CameraKit.Constants.FOCUS_TAP_WITH_MARKER);
-        mCamera.setZoom(CameraKit.Constants.ZOOM_PINCH);
+
         clickme = findViewById(R.id.clickme);
         flash = findViewById(R.id.flash);
         front = findViewById(R.id.front);
@@ -407,11 +407,15 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 mCamera.captureImage(new CameraKitEventCallback<CameraKitImage>() {
                     @Override
                     public void callback(CameraKitImage cameraKitImage) {
-                        synchronized (cameraKitImage) {
-                            File photo = Utility.writeImage(cameraKitImage.getJpeg());
-                            selectionList.clear();
-                            selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
-                            returnObjects();
+                        if (cameraKitImage.getJpeg() != null) {
+                            synchronized (cameraKitImage) {
+                                File photo = Utility.writeImage(cameraKitImage.getJpeg());
+                                selectionList.clear();
+                                selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
+                                returnObjects();
+                            }
+                        } else {
+                            Toast.makeText(Pix.this, "Unable to Get The Image", Toast.LENGTH_SHORT).show();
                         }
 
                     }
