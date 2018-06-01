@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
-    PUBLISH_VERSION = '1.0.3'
+    PUBLISH_VERSION = '1.0.4'
 }
 android {
     compileSdkVersion 27
@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 2
-        versionName "1.0.3"
+        versionName "1.0.4"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -24,7 +24,7 @@ android {
     }
 
 }
-def supportLibraryVersion = '27.0.0'
+def supportLibraryVersion = '27.0.2'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -34,7 +34,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation 'com.wonderkiln:camerakit:0.12.0'
+    implementation 'com.wonderkiln:camerakit:0.13.1'
     implementation 'com.facebook.fresco:fresco:1.8.1'
     implementation 'com.android.support:recyclerview-v7:' + supportLibraryVersion
 }
