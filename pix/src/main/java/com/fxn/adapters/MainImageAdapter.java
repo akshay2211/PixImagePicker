@@ -16,7 +16,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.fxn.interfaces.OnSelectionListner;
+import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.interfaces.SectionIndexer;
 import com.fxn.modals.Img;
 import com.fxn.pix.R;
@@ -35,7 +35,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static int spanCount = 3;
     Context context;
     ArrayList<Img> list;
-    OnSelectionListner onSelectionListner;
+    OnSelectionListener onSelectionListener;
 
     int margin = 2;
     float size = ((Utility.WIDTH / spanCount));
@@ -47,7 +47,6 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.list = new ArrayList<>();
         layoutParams = new FrameLayout.LayoutParams((int) size, (int) size);
         layoutParams.setMargins(margin, margin, margin, margin);
-
     }
 
     public ArrayList<Img> getItemList() {
@@ -60,21 +59,21 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return this;
     }
 
-    public void AddOnSelectionListner(OnSelectionListner onSelectionListner) {
-        this.onSelectionListner = onSelectionListner;
+    public void addOnSelectionListener(OnSelectionListener onSelectionListener) {
+        this.onSelectionListener = onSelectionListener;
     }
 
-    public MainImageAdapter addImageList(ArrayList<Img> imagelist) {
-        list.addAll(imagelist);
+    public MainImageAdapter addImageList(ArrayList<Img> images) {
+        list.addAll(images);
         notifyDataSetChanged();
         return this;
     }
 
-    public void ClearList() {
+    public void clearList() {
         list.clear();
     }
 
-    public void Select(boolean selection, int pos) {
+    public void select(boolean selection, int pos) {
         list.get(pos).setSelected(selection);
         notifyItemChanged(pos);
     }
@@ -93,11 +92,11 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Img i = list.get(position);
+        Img image = list.get(position);
         if (holder instanceof Holder) {
             Holder h = (Holder) holder;
 
-            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(i.getContentUrl()))
+            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(image.getContentUrl()))
                     .setProgressiveRenderingEnabled(true)
                     .setResizeOptions(new ResizeOptions(130, 130))
                     .build();
@@ -105,17 +104,16 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .setImageRequest(request)
                     .build();
             h.sdv.setController(controller);
-            h.selection.setVisibility(i.getSelected() ? View.VISIBLE : View.GONE);
+            h.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
-            headerHolder.header.setText(i.getHeaderDate());
+            headerHolder.header.setText(image.getHeaderDate());
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        Img i = list.get(position);
-        return (i.getContentUrl().equalsIgnoreCase("")) ?
+        return (list.get(position).getContentUrl().equalsIgnoreCase("")) ?
                 HEADER : ITEM;
     }
 
@@ -134,24 +132,18 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             itemPosition -= 1;
         } while (itemPosition >= 0);
-        // Log.e("itemPosition", " ---- " + itemPosition);
         return headerPosition;
-       /*
-        pos = () ? itemPosition : pos;
-        Log.e("itemPosition", " ---- " + itemPosition + "  pos  - " + pos);
-        return pos;*/
     }
 
     @Override
     public int getHeaderLayout(int headerPosition) {
-        //  Log.e("headerPosition", " ---- " + headerPosition);
         return R.layout.header_row;
     }
 
     @Override
     public void bindHeaderData(View header, int headerPosition) {
-        Img i = list.get(headerPosition);
-        ((TextView) header.findViewById(R.id.header)).setText(i.getHeaderDate());
+        Img image = list.get(headerPosition);
+        ((TextView) header.findViewById(R.id.header)).setText(image.getHeaderDate());
     }
 
     @Override
@@ -161,20 +153,18 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public String getSectionText(int position) {
-        Img i = list.get(position);
-        return "" + i.getHeaderDate();
+        return list.get(position).getHeaderDate();
     }
 
     public String getSectionMonthYearText(int position) {
-        Img i = list.get(position);
-        return "" + i.getScrollerDate();
+        return list.get(position).getScrollerDate();
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         SimpleDraweeView sdv;
         ImageView selection;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             sdv = itemView.findViewById(R.id.sdv);
             selection = itemView.findViewById(R.id.selection);
@@ -186,13 +176,13 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnClick(list.get(id), view, id);
+            onSelectionListener.OnClick(list.get(id), view, id);
         }
 
         @Override
         public boolean onLongClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnLongClick(list.get(id), view, id);
+            onSelectionListener.OnLongClick(list.get(id), view, id);
             return true;
         }
     }
@@ -200,7 +190,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class HeaderHolder extends RecyclerView.ViewHolder {
         TextView header;
 
-        public HeaderHolder(View itemView) {
+        HeaderHolder(View itemView) {
             super(itemView);
             header = itemView.findViewById(R.id.header);
         }

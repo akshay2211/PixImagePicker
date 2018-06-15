@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,7 +36,7 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
-import com.fxn.interfaces.OnSelectionListner;
+import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.interfaces.WorkFinish;
 import com.fxn.modals.Img;
 import com.fxn.utility.Constants;
@@ -77,7 +78,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private ImageView mHandleView, clickme, selection_back, selection_check;
     private ViewPropertyAnimator mScrollbarAnimator;
     private ViewPropertyAnimator mBubbleAnimator;
-    private Set<Img> selectionList = new HashSet<Img>();
+    private Set<Img> selectionList = new HashSet<>();
     private Runnable mScrollbarHider = new Runnable() {
         @Override
         public void run() {
@@ -89,8 +90,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private boolean mHideScrollbar = true;
     private boolean LongSelection = false;
     private int SelectionCount = 1;
-    /*int colorPrimary = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, getTheme());
-    int colorAccent = ResourcesCompat.getColor(getResources(), R.color.colorAccent, getTheme());*/
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -123,15 +122,15 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         }
     };
     private TextView selection_count;
-    private OnSelectionListner onSelectionListner = new OnSelectionListner() {
+    private OnSelectionListener onSelectionListener = new OnSelectionListener() {
         @Override
         public void OnClick(Img img, View view, int position) {
             //Log.e("OnClick", "OnClick");
             if (LongSelection) {
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
-                    initaliseadapter.Select(false, position);
-                    mainImageAdapter.Select(false, position);
+                    initaliseadapter.select(false, position);
+                    mainImageAdapter.select(false, position);
                 } else {
                     if (SelectionCount <= selectionList.size()) {
                         Toast.makeText(Pix.this, String.format(getResources().getString(R.string.selection_limiter_pix), selectionList.size()), Toast.LENGTH_SHORT).show();
@@ -139,8 +138,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                     img.setPosition(position);
                     selectionList.add(img);
-                    initaliseadapter.Select(true, position);
-                    mainImageAdapter.Select(true, position);
+                    initaliseadapter.select(true, position);
+                    mainImageAdapter.select(true, position);
                 }
                 if (selectionList.size() == 0) {
                     LongSelection = false;
@@ -175,9 +174,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
                 }
                 selection_count.setText("Selected " + selectionList.size());
-                img_count.setText("" + selectionList.size());
-
-                //DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff "));
+                img_count.setText(String.valueOf(selectionList.size()));
             } else {
                 img.setPosition(position);
                 selectionList.add(img);
@@ -205,22 +202,21 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         anim.setDuration(300);
                         sendButton.startAnimation(anim);
                     }
-                    //sendButton.animate().scaleX(1).scaleY(1).setDuration(800).start();
                 }
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
-                    initaliseadapter.Select(false, position);
-                    mainImageAdapter.Select(false, position);
+                    initaliseadapter.select(false, position);
+                    mainImageAdapter.select(false, position);
                 } else {
                     img.setPosition(position);
                     selectionList.add(img);
-                    initaliseadapter.Select(true, position);
-                    mainImageAdapter.Select(true, position);
+                    initaliseadapter.select(true, position);
+                    mainImageAdapter.select(true, position);
                 }
                 selection_check.setVisibility(View.GONE);
                 topbar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText("Selected " + selectionList.size());
-                img_count.setText("" + selectionList.size());
+                img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
             }
 
@@ -308,7 +304,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utility.SetupStatusBarHiden(this);
+        Utility.setupStatusBarHidden(this);
         Utility.hideStatusBar(this);
         setContentView(R.layout.activity_main_lib);
         Fresco.initialize(this);
@@ -328,7 +324,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void initialize() {
-        Utility.getScreensize(this);
+        Utility.getScreenSize(this);
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
@@ -366,7 +362,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         instantRecyclerView.setLayoutManager(linearLayoutManager);
         initaliseadapter = new InstantImageAdapter(this);
-        initaliseadapter.AddOnSelectionListner(onSelectionListner);
+        initaliseadapter.addOnSelectionListener(onSelectionListener);
         instantRecyclerView.setAdapter(initaliseadapter);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.addOnScrollListener(mScrollListener);
@@ -376,10 +372,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 FrameLayout.LayoutParams.MATCH_PARENT);
         lp.setMargins(0, 0, 0, BottomBarHeight);
         mainFrameLayout.setLayoutParams(lp);
-        FrameLayout.LayoutParams fllp = (FrameLayout.LayoutParams) sendButton.getLayoutParams();
-        fllp.setMargins(0, 0, (int) (Utility.convertDpToPixel(16, this)),
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sendButton.getLayoutParams();
+        layoutParams.setMargins(0, 0, (int) (Utility.convertDpToPixel(16, this)),
                 (int) (Utility.convertDpToPixel(174, this)));
-        sendButton.setLayoutParams(fllp);
+        sendButton.setLayoutParams(layoutParams);
         mainImageAdapter = new MainImageAdapter(this);
         mLayoutManager = new GridLayoutManager(this, MainImageAdapter.spanCount);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -396,7 +392,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             }
         });
         recyclerView.setLayoutManager(mLayoutManager);
-        mainImageAdapter.AddOnSelectionListner(onSelectionListner);
+        mainImageAdapter.addOnSelectionListener(onSelectionListener);
         recyclerView.setAdapter(mainImageAdapter);
         recyclerView.addItemDecoration(new HeaderItemDecoration(this, recyclerView, mainImageAdapter));
         mHandleView.setOnTouchListener(this);
@@ -451,7 +447,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onClick(View view) {
                 topbar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText("Tap photo to select");
-                img_count.setText("" + selectionList.size());
+                img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
                 LongSelection = true;
                 selection_check.setVisibility(View.GONE);
@@ -468,7 +464,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         iv.setTranslationY(-(height / 2));
-                        int image_id = 0;
                         switch (mCamera.getFlash()) {
                             case CameraKit.Constants.FLASH_ON: {
                                 iv.setImageResource(R.drawable.ic_flash_auto_black_24dp);
@@ -485,7 +480,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                                 mCamera.setFlash(CameraKit.Constants.FLASH_ON);
                             }
                             break;
-
                         }
 
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
@@ -511,52 +505,32 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 mCamera.setFacing((mCamera.getFacing() == CameraKit.Constants.FACING_FRONT) ? CameraKit.Constants.FACING_BACK : CameraKit.Constants.FACING_FRONT);
             }
         });
-        /*flash.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        flash.setBackgroundResource(R.drawable.bubble);
-                    }
-                    break;
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_OUTSIDE:
-                    case MotionEvent.ACTION_CANCEL:
-                    case MotionEvent.ACTION_HOVER_EXIT:
-                        flash.setBackgroundResource(0);
-                        break;
-                }
-                return false;
-            }
-        });*/
         DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
 
         updateImages();
     }
 
     private void updateImages() {
-        mainImageAdapter.ClearList();
+        mainImageAdapter.clearList();
         Cursor cursor = Utility.getCursor(Pix.this);
         ArrayList<Img> INSTANTLIST = new ArrayList<>();
         String header = "";
         int limit = 100;
-        if (cursor.getCount() >= 100) {
-            limit = 100;
-        } else {
+        if (cursor.getCount() < 100) {
             limit = cursor.getCount();
         }
         int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
         int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-        int contenturl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
+        int contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
         for (int i = 0; i < limit; i++) {
             cursor.moveToNext();
-            Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contenturl));
+            Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contentUrl));
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(cursor.getLong(date));
-            String mydate = Utility.getDateDifference(calendar);
-            if (!header.equalsIgnoreCase("" + mydate)) {
-                header = "" + mydate;
-                INSTANTLIST.add(new Img("" + mydate, "", "", ""));
+            String dateDifference = Utility.getDateDifference(calendar);
+            if (!header.equalsIgnoreCase("" + dateDifference)) {
+                header = "" + dateDifference;
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
             }
             INSTANTLIST.add(new Img("" + header, "" + path, cursor.getString(data), ""));
         }
@@ -579,12 +553,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mBottomSheetBehavior.setPeekHeight((int) (Utility.convertDpToPixel(194, this)));
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
-            public void onStateChanged(View bottomSheet, int newState) {
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
             }
 
             @Override
-            public void onSlide(View bottomSheet, float slideOffset) {
-                Utility.manupulateVisibility(Pix.this, slideOffset,
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                Utility.manipulateVisibility(Pix.this, slideOffset,
                         instantRecyclerView, recyclerView, status_bar_bg,
                         topbar, bottomButtons, sendButton, LongSelection);
                 if (slideOffset == 1) {
@@ -602,13 +576,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
                     initaliseadapter.notifyDataSetChanged();
                     hideScrollbar();
-                    img_count.setText("" + selectionList.size());
+                    img_count.setText(String.valueOf(selectionList.size()));
                 }
             }
         });
     }
 
-    //
     private float getScrollProportion(RecyclerView recyclerView) {
         final int verticalScrollOffset = recyclerView.computeVerticalScrollOffset();
         final int verticalScrollRange = recyclerView.computeVerticalScrollRange();
@@ -622,7 +595,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mBubbleView.setY(handleY + Utility.convertDpToPixel((56), Pix.this));
         mHandleView.setY(handleY);
     }
-
 
     private void setRecyclerViewPosition(float y) {
         if (recyclerView != null && recyclerView.getAdapter() != null) {
@@ -774,7 +746,5 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } else {
             super.onBackPressed();
         }
-
     }
-
 }

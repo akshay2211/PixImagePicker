@@ -22,30 +22,12 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
     public HeaderItemDecoration(Context context, RecyclerView recyclerView, @NonNull StickyHeaderInterface listener) {
         mListener = listener;
         this.context = context;
-        // On Sticky Header Click
-       /* recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-                if (motionEvent.getY() <= mStickyHeaderHeight) {
-                    // Handle the clicks on the header here ...
-                    return true;
-                }
-                return false;
-            }
-
-            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
-
-            }
-
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });*/
     }
 
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
-        // Log.e("state", " --->> " + state.toString());
+
         View topChild = parent.getChildAt(0);
         if (Utility.isNull(topChild)) {
             return;
@@ -65,7 +47,7 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
         int contactPoint = currentHeader.getBottom();
         View childInContact = getChildInContact(parent, contactPoint);
         if (Utility.isNull(childInContact)) {
-            Log.e("childInContact", "childInContact is null" + childInContact);
+            Log.e("childInContact", "childInContact is null");
             return;
         }
 

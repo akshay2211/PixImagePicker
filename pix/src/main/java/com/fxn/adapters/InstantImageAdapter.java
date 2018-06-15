@@ -15,7 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.fxn.interfaces.OnSelectionListner;
+import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.modals.Img;
 import com.fxn.pix.R;
 import com.fxn.utility.Utility;
@@ -27,17 +27,17 @@ import java.util.ArrayList;
  */
 
 public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    Context context;
-    ArrayList<Img> list;
-    OnSelectionListner onSelectionListner;
+    private Context context;
+    private ArrayList<Img> list;
+    private OnSelectionListener onSelectionListener;
 
     public InstantImageAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
     }
 
-    public void AddOnSelectionListner(OnSelectionListner onSelectionListner) {
-        this.onSelectionListner = onSelectionListner;
+    public void addOnSelectionListener(OnSelectionListener onSelectionListener) {
+        this.onSelectionListener = onSelectionListener;
     }
 
     public InstantImageAdapter addImage(Img image) {
@@ -51,17 +51,17 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    public InstantImageAdapter addImageList(ArrayList<Img> imagelist) {
-        list.addAll(imagelist);
+    public InstantImageAdapter addImageList(ArrayList<Img> images) {
+        list.addAll(images);
         notifyDataSetChanged();
         return this;
     }
 
-    public void ClearList() {
+    public void clearList() {
         list.clear();
     }
 
-    public void Select(boolean selection, int pos) {
+    public void select(boolean selection, int pos) {
         if (pos < 100) {
             list.get(pos).setSelected(selection);
             notifyItemChanged(pos);
@@ -83,14 +83,14 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        Img i = list.get(position);
-        return (i.getContentUrl().equalsIgnoreCase("")) ?
+        Img image = list.get(position);
+        return (image.getContentUrl().equalsIgnoreCase("")) ?
                 MainImageAdapter.HEADER : MainImageAdapter.ITEM;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder h, int position) {
-        Img i = list.get(position);
+        Img image = list.get(position);
         if (h instanceof Holder) {
             Holder holder = (Holder) h;
             int margin = 2;
@@ -101,7 +101,7 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             int padding = (int) (size / 3.5);
             holder.selection.setPadding(padding, padding, padding, padding);
             holder.sdv.setLayoutParams(layoutParams);
-            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(i.getContentUrl()))
+            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(image.getContentUrl()))
                     .setProgressiveRenderingEnabled(true)
                     .setResizeOptions(new ResizeOptions(200, 200))
                     .build();
@@ -110,7 +110,7 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     .setOldController(holder.sdv.getController())
                     .build();
             holder.sdv.setController(controller);
-            holder.selection.setVisibility(i.getSelected() ? View.VISIBLE : View.GONE);
+            holder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
         } else {
             HolderNone hn = (HolderNone) h;
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(0, 0);
@@ -130,7 +130,7 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         SimpleDraweeView sdv;
         ImageView selection;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
             sdv = itemView.findViewById(R.id.sdv);
             selection = itemView.findViewById(R.id.selection);
@@ -141,24 +141,20 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnClick(list.get(id), view, id);
+            onSelectionListener.OnClick(list.get(id), view, id);
         }
 
         @Override
         public boolean onLongClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnLongClick(list.get(id), view, id);
+            onSelectionListener.OnLongClick(list.get(id), view, id);
             return true;
         }
     }
 
     public class HolderNone extends RecyclerView.ViewHolder {
-
-
-        public HolderNone(View itemView) {
+        HolderNone(View itemView) {
             super(itemView);
-
         }
-
     }
 }

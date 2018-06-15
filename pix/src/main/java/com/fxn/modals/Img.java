@@ -10,7 +10,7 @@ public class Img implements Serializable {
     private String headerDate;
     private String contentUrl;
     private String url;
-    private Boolean isSelected = false;
+    private Boolean isSelected;
     private String scrollerDate;
     private int position;
 
