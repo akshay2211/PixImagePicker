@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">PixSample</string>
+    <string name="app_name">Pix</string>
     <string name="selection_limiter_pix">Cant select more than %d items.</string>
+    <string name="message_to_drag_up">Drag images up for gallery</string>
 </resources>

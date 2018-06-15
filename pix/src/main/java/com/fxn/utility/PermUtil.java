@@ -2,10 +2,10 @@ package com.fxn.utility;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.fxn.interfaces.WorkFinish;
