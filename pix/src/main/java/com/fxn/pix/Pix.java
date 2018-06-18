@@ -566,11 +566,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         }
                     });
                     sendButton.setVisibility(View.GONE);
+                    mCamera.stop();
                 } else if (slideOffset == 0) {
 
                     initaliseadapter.notifyDataSetChanged();
                     hideScrollbar();
                     img_count.setText(String.valueOf(selectionList.size()));
+                    mCamera.start();
                 }
             }
         });
