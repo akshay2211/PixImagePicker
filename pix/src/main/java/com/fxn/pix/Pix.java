@@ -33,7 +33,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
 import com.fxn.interfaces.OnSelectionListener;
@@ -307,7 +306,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         Utility.setupStatusBarHidden(this);
         Utility.hideStatusBar(this);
         setContentView(R.layout.activity_main_lib);
-        Fresco.initialize(this);
         initialize();
     }
 
@@ -377,18 +375,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 (int) (Utility.convertDpToPixel(174, this)));
         sendButton.setLayoutParams(layoutParams);
         mainImageAdapter = new MainImageAdapter(this);
-        mLayoutManager = new GridLayoutManager(this, MainImageAdapter.spanCount);
+        mLayoutManager = new GridLayoutManager(this, MainImageAdapter.SPAN_COUNT);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (mainImageAdapter.getItemViewType(position)) {
-                    case MainImageAdapter.HEADER:
-                        return MainImageAdapter.spanCount;
-                    case MainImageAdapter.ITEM:
-                        return 1;
-                    default:
-                        return 1;
+                if (mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER) {
+                    return MainImageAdapter.SPAN_COUNT;
                 }
+                return 1;
             }
         });
         recyclerView.setLayoutManager(mLayoutManager);
