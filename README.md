@@ -55,6 +55,27 @@ include this theme in style.xml with prefered screen orientation
          <item name="android:screenOrientation">portrait</item>
    </style>
 ```
+##Permission Handling
+include onRequestPermissionsResult method in your Activity/Fragment for permission selection
+```groovy
+   @Override
+       public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+           switch (requestCode) {
+               case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+                   // If request is cancelled, the result arrays are empty.
+                   if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                       Pix.start(Context, RequestCode,NumberOfImagesToSelect);
+                    } else {
+                       Toast.makeText(MainActivity.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
+                   }
+                   return;
+               }
+   
+               // other 'case' lines to check for other
+               // permissions this app might request.
+           }
+       }
+```
 
 ## Thanks to
 
