@@ -59,7 +59,7 @@ include this theme in style.xml with prefered screen orientation
 include onRequestPermissionsResult method in your Activity/Fragment for permission selection
 ```groovy
    @Override
-       public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+   public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
            switch (requestCode) {
                case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                    // If request is cancelled, the result arrays are empty.
@@ -70,9 +70,6 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
                    }
                    return;
                }
-   
-               // other 'case' lines to check for other
-               // permissions this app might request.
            }
        }
 ```
