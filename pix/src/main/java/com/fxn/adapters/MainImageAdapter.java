@@ -48,9 +48,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         int size = Utility.WIDTH / SPAN_COUNT;
         layoutParams = new FrameLayout.LayoutParams(size, size);
-        layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
-
-        options = new RequestOptions().override(256).transform(new CenterCrop()).transform(new FitCenter());
+        layoutParams.setMargins(MARGIN, MARGIN - 1, MARGIN, MARGIN - 1);
+        options = new RequestOptions().override(300).transform(new CenterCrop()).transform(new FitCenter());
         glide = Glide.with(context);
     }
 
@@ -71,6 +70,13 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void addImageList(ArrayList<Img> images) {
         list.addAll(images);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        Img i = list.get(position);
+        return (i.getContentUrl().equalsIgnoreCase("")) ?
+                HEADER : ITEM;
     }
 
     public void clearList() {
@@ -105,9 +111,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Img image = list.get(position);
         if (holder instanceof Holder) {
             Holder imageHolder = (Holder) holder;
-
             glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
-
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
