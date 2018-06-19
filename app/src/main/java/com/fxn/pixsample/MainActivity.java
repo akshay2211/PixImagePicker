@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Pix;
+import com.fxn.utility.PermUtil;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("val", " ->  " + s);
                     }*/
                 }
-                break;
+            }
+            break;
+            case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
+                Pix.start(MainActivity.this, 100, 5);
             }
         }
     }
