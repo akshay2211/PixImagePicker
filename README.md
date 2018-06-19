@@ -39,7 +39,7 @@ Use onActivityResult method to get results
         }
 ```
 ## Customise
-###Theme
+### Theme
 include these items in colors.xml with custom color codes
 ```xml
     <resources>
@@ -48,14 +48,14 @@ include these items in colors.xml with custom color codes
     </resources>
 ```
 
-###Orientaion
+### Orientaion
 include this theme in style.xml with prefered screen orientation
 ```xml
    <style name="PixAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
          <item name="android:screenOrientation">portrait</item>
    </style>
 ```
-##Permission Handling
+## Permission Handling
 include onRequestPermissionsResult method in your Activity/Fragment for permission selection
 ```groovy
    @Override
