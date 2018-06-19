@@ -8,10 +8,10 @@
     android:paddingBottom="9dp"
     android:paddingLeft="13dp"
     android:paddingTop="11dp"
-    android:text="Recent"
+    android:text="@string/pix_recent"
     android:textAllCaps="true"
     android:textColor="#807f7f"
-    android:textSize="14dp"
+    android:textSize="14sp"
     android:textStyle="bold">
 
 </TextView>

@@ -2,4 +2,10 @@
     <string name="app_name">Pix</string>
     <string name="selection_limiter_pix">Cant select more than %d items.</string>
     <string name="message_to_drag_up">Drag images up for gallery</string>
+    <string name="pix_ok">OK</string>
+    <string name="pix_tap_to_select">Tap photo to select</string>
+    <string name="pix_selected">Selected</string>
+    <string name="pix_recent">Recent</string>
+    <string name="pix_last_month">Last Month</string>
+    <string name="pix_last_week">Last Week</string>
 </resources>

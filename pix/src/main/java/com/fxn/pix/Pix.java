@@ -172,7 +172,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     sendButton.startAnimation(anim);
 
                 }
-                selection_count.setText("Selected " + selectionList.size());
+                selection_count.setText(getResources().getString(R.string.pix_selected) + selectionList.size());
                 img_count.setText(String.valueOf(selectionList.size()));
             } else {
                 img.setPosition(position);
@@ -440,7 +440,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             @Override
             public void onClick(View view) {
                 topbar.setBackgroundColor(colorPrimaryDark);
-                selection_count.setText("Tap photo to select");
+                selection_count.setText(getResources().getString(R.string.pix_tap_to_select));
                 img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
                 LongSelection = true;
@@ -516,12 +516,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
         int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
         int contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
+        Calendar calendar;
         for (int i = 0; i < limit; i++) {
             cursor.moveToNext();
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contentUrl));
-            Calendar calendar = Calendar.getInstance();
+            calendar = Calendar.getInstance();
             calendar.setTimeInMillis(cursor.getLong(date));
-            String dateDifference = Utility.getDateDifference(calendar);
+            String dateDifference = Utility.getDateDifference(Pix.this, calendar);
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
@@ -529,7 +530,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             INSTANTLIST.add(new Img("" + header, "" + path, cursor.getString(data), ""));
         }
         cursor.close();
-        new ImageFetcher() {
+        new ImageFetcher(Pix.this) {
             @Override
             protected void onPostExecute(ArrayList<Img> imgs) {
                 super.onPostExecute(imgs);

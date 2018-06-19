@@ -25,11 +25,6 @@
             android:background="@color/colorPrimaryPix"
             android:translationY="@dimen/margin_top_nve" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:alpha="0"
-            android:scaleType="fitXY" />
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/main_content"
@@ -55,8 +50,6 @@
                     android:background="#fff"
                     android:visibility="invisible" />
 
-                <!--<include layout="@layout/fastscroller" />
--->
                 <TextView
                     android:id="@+id/fastscroll_bubble"
                     android:layout_width="140dp"
@@ -70,7 +63,6 @@
                     android:maxLines="1"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    tools:text="SEPTEMBER 2017"
                     tools:textColor="#000" />
 
                 <FrameLayout
@@ -130,9 +122,8 @@
                             android:layout_marginLeft="50dp"
                             android:layout_marginRight="10dp"
                             android:gravity="center_vertical"
-                            android:text="selected"
                             android:textColor="#fff"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/selection_ok"
@@ -141,9 +132,9 @@
                             android:layout_gravity="center_vertical|right"
                             android:layout_marginRight="20dp"
                             android:gravity="center_vertical"
-                            android:text="OK"
+                            android:text="@string/pix_ok"
                             android:textColor="#fff"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/selection_check"
@@ -187,9 +178,8 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginRight="8dp"
                 android:padding="5dp"
-                android:text="9"
                 android:textColor="#fff"
-                android:textSize="11dp" />
+                android:textSize="11sp" />
         </FrameLayout>
 
         <FrameLayout
@@ -242,7 +232,7 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/message_to_drag_up"
                 android:textColor="#fff"
-                android:textSize="12dp" />
+                android:textSize="12sp" />
         </FrameLayout>
 
     </FrameLayout>

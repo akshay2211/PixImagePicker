@@ -49,7 +49,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         int size = Utility.WIDTH / SPAN_COUNT;
         layoutParams = new FrameLayout.LayoutParams(size, size);
         layoutParams.setMargins(MARGIN, MARGIN - 1, MARGIN, MARGIN - 1);
-        options = new RequestOptions().override(300).transform(new CenterCrop()).transform(new FitCenter());
+        options = new RequestOptions().override(360).transform(new CenterCrop()).transform(new FitCenter());
         glide = Glide.with(context);
     }
 

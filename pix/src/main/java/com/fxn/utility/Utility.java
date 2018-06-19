@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by akshay on 21/01/18.
@@ -55,47 +56,21 @@ public class Utility {
     public static void showStatusBar(AppCompatActivity appCompatActivity) {
         synchronized (appCompatActivity) {
             Window w = appCompatActivity.getWindow();
-            if (Build.VERSION.SDK_INT < 16) {
-                w.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            } else {
-                View decorView = w.getDecorView();
-                // Show Status Bar.
-                int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
+            View decorView = w.getDecorView();
+            // Show Status Bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+            decorView.setSystemUiVisibility(uiOptions);
+
         }
     }
 
     public static void hideStatusBar(AppCompatActivity appCompatActivity) {
         synchronized (appCompatActivity) {
             Window w = appCompatActivity.getWindow();
-            if (Build.VERSION.SDK_INT < 16) {
-                w.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                w.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            } else {
-                View decorView = w.getDecorView();
-                // Hide Status Bar.
-                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
-        }
-    }
-
-    public static void showTranslucentNavigation(AppCompatActivity appCompatActivity) {
-        synchronized (appCompatActivity) {
-            Window w = appCompatActivity.getWindow();
-            if (Build.VERSION.SDK_INT < 16) {
-                w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
-        }
-    }
-
-    public static void hideTranslucentNavigation(AppCompatActivity appCompatActivity) {
-        synchronized (appCompatActivity) {
-            Window w = appCompatActivity.getWindow();
-            if (Build.VERSION.SDK_INT < 16) {
-                w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
+            View decorView = w.getDecorView();
+            // Hide Status Bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
         }
     }
 
@@ -134,7 +109,7 @@ public class Utility {
         return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
-    public static String getDateDifference(Calendar calendar) {
+    public static String getDateDifference(Context context, Calendar calendar) {
         Date d = calendar.getTime();
         Calendar lastMonth = Calendar.getInstance();
         Calendar lastWeek = Calendar.getInstance();
@@ -145,11 +120,11 @@ public class Utility {
         if (calendar.before(lastMonth)) {
             return new SimpleDateFormat("MMMM").format(d);
         } else if (calendar.after(lastMonth) && calendar.before(lastWeek)) {
-            return "last month";
+            return context.getResources().getString(R.string.pix_last_month);
         } else if (calendar.after(lastWeek) && calendar.before(recent)) {
-            return "last week";
+            return context.getResources().getString(R.string.pix_last_week);
         } else {
-            return "recent";
+            return context.getResources().getString(R.string.pix_recent);
         }
     }
 
@@ -209,10 +184,8 @@ public class Utility {
             status_bar_bg.animate().translationY(0).setDuration(300).start();
             topbar.setVisibility(View.VISIBLE);
             Utility.showStatusBar(activity);
-            Utility.hideTranslucentNavigation(activity);
         } else if (recyclerView.getVisibility() == View.VISIBLE && (slideOffset) == 0) {
             Utility.hideStatusBar(activity);
-            Utility.showTranslucentNavigation(activity);
             recyclerView.setVisibility(View.INVISIBLE);
             topbar.setVisibility(View.GONE);
             status_bar_bg.animate().translationY(-(status_bar_bg.getHeight())).setDuration(300).start();
@@ -233,7 +206,7 @@ public class Utility {
         File dir = new File(Environment.getExternalStorageDirectory(), "/DCIM/Camera");
         if (!dir.exists())
             dir.mkdir();
-        File photo = new File(dir, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmSS").format(new Date()) + ".jpg");
+        File photo = new File(dir, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date()) + ".jpg");
         if (photo.exists()) {
             photo.delete();
         }
