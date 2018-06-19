@@ -9,6 +9,7 @@
 
     <com.wonderkiln.camerakit.CameraView
         android:id="@+id/camera"
+        app:ckPermissions="picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
