@@ -58,20 +58,20 @@ include these items in colors.xml with custom color codes
 
  [ ![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg) ](https://bintray.com/fxn769/android_projects/Pix/_latestVersion)  or grab via Gradle:
 ```groovy
-        compile 'com.fxn769:pix:1.0.7'
+        compile 'com.fxn769:pix:1.0.8'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.0.7</version>
+          <version>1.0.8</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.0.7'>
+        <dependency org='com.fxn769' name='pix' rev='1.0.8'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
