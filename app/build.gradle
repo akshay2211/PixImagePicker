@@ -28,7 +28,7 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 }
-def supportLibraryVersion = '27.0.2'
+def supportLibraryVersion = '27.1.1'
 dependencies {
    // implementation fileTree(include: ['*.aar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:'+supportLibraryVersion
