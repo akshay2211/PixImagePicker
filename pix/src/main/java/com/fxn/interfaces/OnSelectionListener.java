@@ -9,7 +9,7 @@ import com.fxn.modals.Img;
  */
 
 
-public interface OnSelectionListner {
+public interface OnSelectionListener {
     void OnClick(Img Img, View view, int position);
 
     void OnLongClick(Img img, View view, int position);

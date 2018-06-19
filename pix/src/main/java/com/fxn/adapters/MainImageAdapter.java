@@ -1,7 +1,7 @@
 package com.fxn.adapters;
 
 import android.content.Context;
-import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +10,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.facebook.imagepipeline.common.ResizeOptions;
-import com.facebook.imagepipeline.request.ImageRequest;
-import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.fxn.interfaces.OnSelectionListner;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.request.RequestOptions;
+import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.interfaces.SectionIndexer;
 import com.fxn.modals.Img;
 import com.fxn.pix.R;
@@ -30,24 +29,29 @@ import java.util.ArrayList;
  */
 
 public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements HeaderItemDecoration.StickyHeaderInterface, SectionIndexer {
+
     public static final int HEADER = 1;
     public static final int ITEM = 2;
-    public static int spanCount = 3;
-    Context context;
-    ArrayList<Img> list;
-    OnSelectionListner onSelectionListner;
+    public static final int SPAN_COUNT = 3;
+    private static final int MARGIN = 2;
 
-    int margin = 2;
-    float size = ((Utility.WIDTH / spanCount));
-
-    FrameLayout.LayoutParams layoutParams;
+    private Context context;
+    private ArrayList<Img> list;
+    private OnSelectionListener onSelectionListener;
+    private FrameLayout.LayoutParams layoutParams;
+    private RequestManager glide;
+    private RequestOptions options;
 
     public MainImageAdapter(Context context) {
         this.context = context;
         this.list = new ArrayList<>();
-        layoutParams = new FrameLayout.LayoutParams((int) size, (int) size);
-        layoutParams.setMargins(margin, margin, margin, margin);
 
+        int size = Utility.WIDTH / SPAN_COUNT;
+        layoutParams = new FrameLayout.LayoutParams(size, size);
+        layoutParams.setMargins(MARGIN, MARGIN, MARGIN, MARGIN);
+
+        options = new RequestOptions().override(256).transform(new CenterCrop()).transform(new FitCenter());
+        glide = Glide.with(context);
     }
 
     public ArrayList<Img> getItemList() {
@@ -60,27 +64,32 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return this;
     }
 
-    public void AddOnSelectionListner(OnSelectionListner onSelectionListner) {
-        this.onSelectionListner = onSelectionListner;
+    public void addOnSelectionListener(OnSelectionListener onSelectionListener) {
+        this.onSelectionListener = onSelectionListener;
     }
 
-    public MainImageAdapter addImageList(ArrayList<Img> imagelist) {
-        list.addAll(imagelist);
+    public void addImageList(ArrayList<Img> images) {
+        list.addAll(images);
         notifyDataSetChanged();
-        return this;
     }
 
-    public void ClearList() {
+    public void clearList() {
         list.clear();
     }
 
-    public void Select(boolean selection, int pos) {
+    public void select(boolean selection, int pos) {
         list.get(pos).setSelected(selection);
         notifyItemChanged(pos);
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public long getItemId(int position) {
+        return list.get(position).getContentUrl().hashCode();
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == HEADER) {
             return new HeaderHolder(LayoutInflater.from(parent.getContext()).
                     inflate(R.layout.header_row, parent, false));
@@ -92,31 +101,18 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Img i = list.get(position);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Img image = list.get(position);
         if (holder instanceof Holder) {
-            Holder h = (Holder) holder;
+            Holder imageHolder = (Holder) holder;
 
-            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(i.getContentUrl()))
-                    .setProgressiveRenderingEnabled(true)
-                    .setResizeOptions(new ResizeOptions(130, 130))
-                    .build();
-            DraweeController controller = Fresco.newDraweeControllerBuilder()
-                    .setImageRequest(request)
-                    .build();
-            h.sdv.setController(controller);
-            h.selection.setVisibility(i.getSelected() ? View.VISIBLE : View.GONE);
+            glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
+
+            imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
-            headerHolder.header.setText(i.getHeaderDate());
+            headerHolder.header.setText(image.getHeaderDate());
         }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        Img i = list.get(position);
-        return (i.getContentUrl().equalsIgnoreCase("")) ?
-                HEADER : ITEM;
     }
 
     @Override
@@ -134,24 +130,18 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
             itemPosition -= 1;
         } while (itemPosition >= 0);
-        // Log.e("itemPosition", " ---- " + itemPosition);
         return headerPosition;
-       /*
-        pos = () ? itemPosition : pos;
-        Log.e("itemPosition", " ---- " + itemPosition + "  pos  - " + pos);
-        return pos;*/
     }
 
     @Override
     public int getHeaderLayout(int headerPosition) {
-        //  Log.e("headerPosition", " ---- " + headerPosition);
         return R.layout.header_row;
     }
 
     @Override
     public void bindHeaderData(View header, int headerPosition) {
-        Img i = list.get(headerPosition);
-        ((TextView) header.findViewById(R.id.header)).setText(i.getHeaderDate());
+        Img image = list.get(headerPosition);
+        ((TextView) header.findViewById(R.id.header)).setText(image.getHeaderDate());
     }
 
     @Override
@@ -161,38 +151,36 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public String getSectionText(int position) {
-        Img i = list.get(position);
-        return "" + i.getHeaderDate();
+        return list.get(position).getHeaderDate();
     }
 
     public String getSectionMonthYearText(int position) {
-        Img i = list.get(position);
-        return "" + i.getScrollerDate();
+        return list.get(position).getScrollerDate();
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        SimpleDraweeView sdv;
+        ImageView preview;
         ImageView selection;
 
-        public Holder(View itemView) {
+        Holder(View itemView) {
             super(itemView);
-            sdv = itemView.findViewById(R.id.sdv);
+            preview = itemView.findViewById(R.id.preview);
             selection = itemView.findViewById(R.id.selection);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            sdv.setLayoutParams(layoutParams);
+            preview.setLayoutParams(layoutParams);
         }
 
         @Override
         public void onClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnClick(list.get(id), view, id);
+            onSelectionListener.OnClick(list.get(id), view, id);
         }
 
         @Override
         public boolean onLongClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListner.OnLongClick(list.get(id), view, id);
+            onSelectionListener.OnLongClick(list.get(id), view, id);
             return true;
         }
     }
@@ -200,7 +188,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public class HeaderHolder extends RecyclerView.ViewHolder {
         TextView header;
 
-        public HeaderHolder(View itemView) {
+        HeaderHolder(View itemView) {
             super(itemView);
             header = itemView.findViewById(R.id.header);
         }

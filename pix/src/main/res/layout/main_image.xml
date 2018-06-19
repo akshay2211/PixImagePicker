@@ -3,21 +3,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#DDDDDDDD" />
-
     <ImageView
-        android:visibility="gone"
-        android:id="@+id/selection"
+        android:id="@+id/preview"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:background="#DDDDDDDD"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/selection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/bg_dark"
         android:padding="14dp"
-        android:src="@drawable/ic_check_black_24dp" />
+        android:src="@drawable/ic_check_black_24dp"
+        android:visibility="gone" />
 
 </FrameLayout>
-

@@ -44,8 +44,7 @@ public abstract class PermUtil {
         if (ac.checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
             permissionsList.add(permission);
             // Check for Rationale Option
-            if (!ac.shouldShowRequestPermissionRationale(permission))
-                return false;
+            return ac.shouldShowRequestPermissionRationale(permission);
         }
         return true;
     }
@@ -67,15 +66,15 @@ public abstract class PermUtil {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static void checkForCamara_WritePermissions(final Fragment activity, WorkFinish workFinish) {
+    public static void checkForCamara_WritePermissions(final Fragment fragment, WorkFinish workFinish) {
         List<String> permissionsNeeded = new ArrayList<String>();
         final List<String> permissionsList = new ArrayList<String>();
-        if (!addPermission(permissionsList, Manifest.permission.CAMERA, activity.getActivity()))
+        if (!addPermission(permissionsList, Manifest.permission.CAMERA, fragment.getActivity()))
             permissionsNeeded.add("CAMERA");
-        if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, activity.getActivity()))
+        if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, fragment.getActivity()))
             permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
         if (permissionsList.size() > 0) {
-            activity.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
+            fragment.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                     REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
         } else {
             workFinish.onWorkFinish(true);

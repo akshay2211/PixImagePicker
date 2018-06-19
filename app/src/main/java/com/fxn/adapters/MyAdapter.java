@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //Log.e("hello", "- " + imageUri.toString());
         File f = new File(list.get(position));
         // Bitmap d = new BitmapDrawable(context.getResources() ,f.getAbsolutePath()).getBitmap();
-        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExcifCorrectedBitmap(f));
+        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
         ((Holder) holder).iv.setImageBitmap(scaled);
         // ((Holder) holder).iv.setImageURI(imageUri);
     }

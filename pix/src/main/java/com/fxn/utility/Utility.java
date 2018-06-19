@@ -44,7 +44,7 @@ public class Utility {
     public static int HEIGHT, WIDTH;
     private String pathDir;
 
-    public static void SetupStatusBarHiden(AppCompatActivity appCompatActivity) {
+    public static void setupStatusBarHidden(AppCompatActivity appCompatActivity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = appCompatActivity.getWindow();
             w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -56,7 +56,6 @@ public class Utility {
         synchronized (appCompatActivity) {
             Window w = appCompatActivity.getWindow();
             if (Build.VERSION.SDK_INT < 16) {
-
                 w.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
             } else {
                 View decorView = w.getDecorView();
@@ -86,7 +85,6 @@ public class Utility {
         synchronized (appCompatActivity) {
             Window w = appCompatActivity.getWindow();
             if (Build.VERSION.SDK_INT < 16) {
-
                 w.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
         }
@@ -117,42 +115,38 @@ public class Utility {
         return 0;
     }
 
-    public static void getScreensize(Activity activity) {
+    public static void getScreenSize(Activity activity) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         HEIGHT = displayMetrics.heightPixels;
         WIDTH = displayMetrics.widthPixels;
-        //  Log.e("WIDTH", "- " + WIDTH);
     }
 
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     public static float convertPixelsToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        //   Log.e("-----", "px " + px + "         dp " + dp);
-        return dp;
+        return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     public static String getDateDifference(Calendar calendar) {
         Date d = calendar.getTime();
-        Calendar lastmonth = Calendar.getInstance();
-        Calendar lastweek = Calendar.getInstance();
+        Calendar lastMonth = Calendar.getInstance();
+        Calendar lastWeek = Calendar.getInstance();
         Calendar recent = Calendar.getInstance();
-        lastmonth.add(Calendar.DAY_OF_MONTH, -(Calendar.DAY_OF_MONTH));
-        lastweek.add(Calendar.DAY_OF_MONTH, -7);
+        lastMonth.add(Calendar.DAY_OF_MONTH, -(Calendar.DAY_OF_MONTH));
+        lastWeek.add(Calendar.DAY_OF_MONTH, -7);
         recent.add(Calendar.DAY_OF_MONTH, -2);
-        if (calendar.before(lastmonth)) {
+        if (calendar.before(lastMonth)) {
             return new SimpleDateFormat("MMMM").format(d);
-        } else if (calendar.after(lastmonth) && calendar.before(lastweek)) {
+        } else if (calendar.after(lastMonth) && calendar.before(lastWeek)) {
             return "last month";
-        } else if (calendar.after(lastweek) && calendar.before(recent)) {
+        } else if (calendar.after(lastWeek) && calendar.before(recent)) {
             return "last week";
         } else {
             return "recent";
@@ -189,7 +183,7 @@ public class Utility {
         }
     }
 
-    public static void manupulateVisibility(AppCompatActivity activity, float slideOffset,
+    public static void manipulateVisibility(AppCompatActivity activity, float slideOffset,
                                             RecyclerView instantRecyclerView, RecyclerView recyclerView,
                                             View status_bar_bg, View topbar, View clickme, View sendButton, boolean longSelection) {
         instantRecyclerView.setAlpha(1 - slideOffset);
@@ -209,7 +203,6 @@ public class Utility {
                 sendButton.clearAnimation();
                 sendButton.setVisibility(View.VISIBLE);
             }
-
         }
         if ((slideOffset) > 0 && recyclerView.getVisibility() == View.INVISIBLE) {
             recyclerView.setVisibility(View.VISIBLE);
@@ -223,7 +216,6 @@ public class Utility {
             recyclerView.setVisibility(View.INVISIBLE);
             topbar.setVisibility(View.GONE);
             status_bar_bg.animate().translationY(-(status_bar_bg.getHeight())).setDuration(300).start();
-
         }
     }
 
@@ -256,16 +248,15 @@ public class Utility {
         return photo;
     }
 
-    public static Bitmap getExcifCorrectedBitmap(File f) {
+    public static Bitmap getExifCorrectedBitmap(File f) {
         BitmapFactory.Options bounds = new BitmapFactory.Options();
         bounds.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(f.getAbsolutePath(), bounds);
 
         BitmapFactory.Options opts = new BitmapFactory.Options();
         Bitmap bm = BitmapFactory.decodeFile(f.getAbsolutePath(), opts);
-        ExifInterface exif = null;
         try {
-            exif = new ExifInterface(f.getAbsolutePath().toString());
+            ExifInterface exif = new ExifInterface(f.getAbsolutePath());
 
             String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
             int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
@@ -277,8 +268,7 @@ public class Utility {
 
             Matrix matrix = new Matrix();
             matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
-            Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
-            return rotatedBitmap;
+            return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -287,12 +277,11 @@ public class Utility {
 
     public static Bitmap getScaledBitmap(int maxWidth, Bitmap rotatedBitmap) {
         int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
-        Bitmap scaled = Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
-        return scaled;
+        return Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
     }
 
     public List<Uri> getImagesFromGallary(Context context) {
-        List<Uri> images = new ArrayList<Uri>();
+        List<Uri> images = new ArrayList<>();
         Cursor imageCursor = null;
         try {
             final String[] columns = {MediaStore.Images.Media.DATA, MediaStore.Images.ImageColumns.ORIENTATION};
