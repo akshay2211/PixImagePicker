@@ -39,13 +39,21 @@ Use onActivityResult method to get results
         }
 ```
 ## Customise
-
+###Theme
 include these items in colors.xml with custom color codes
 ```xml
     <resources>
         <color name="colorPrimaryPix">#075e54</color>
         <color name="colorPrimaryLightPix">#80075e54</color>
     </resources>
+```
+
+###Orientaion
+include this theme in style.xml with prefered screen orientation
+```xml
+   <style name="PixAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+         <item name="android:screenOrientation">portrait</item>
+   </style>
 ```
 
 ## Thanks to
@@ -58,20 +66,20 @@ include these items in colors.xml with custom color codes
 
  [ ![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg) ](https://bintray.com/fxn769/android_projects/Pix/_latestVersion)  or grab via Gradle:
 ```groovy
-        compile 'com.fxn769:pix:1.0.8'
+        compile 'com.fxn769:pix:1.0.9'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.0.8</version>
+          <version>1.0.9</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.0.8'>
+        <dependency org='com.fxn769' name='pix' rev='1.0.9'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
