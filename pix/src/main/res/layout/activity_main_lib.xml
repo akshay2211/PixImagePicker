@@ -7,12 +7,10 @@
     android:background="#000">
 
 
-    <com.wonderkiln.camerakit.CameraView
-        android:id="@+id/camera"
-        app:ckPermissions="picture"
+    <io.fotoapparat.view.CameraView
+        android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"
@@ -208,10 +206,8 @@
                 android:padding="11dp">
 
                 <ImageView
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-
                     android:src="@drawable/ic_flash_auto_black_24dp" />
             </FrameLayout>
 

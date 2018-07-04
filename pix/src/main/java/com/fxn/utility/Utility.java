@@ -202,7 +202,7 @@ public class Utility {
         ((Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(l);
     }
 
-    public static File writeImage(byte[] jpeg) {
+    public static File writeImage(Bitmap bitmap) {
         File dir = new File(Environment.getExternalStorageDirectory(), "/DCIM/Camera");
         if (!dir.exists())
             dir.mkdir();
@@ -213,7 +213,9 @@ public class Utility {
 
         try {
             FileOutputStream fos = new FileOutputStream(photo.getPath());
-            fos.write(jpeg);
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+            // fos.write(jpeg);
             fos.close();
         } catch (Exception e) {
             Log.e("PictureDemo", "Exception in photoCallback", e);
@@ -251,6 +253,13 @@ public class Utility {
     public static Bitmap getScaledBitmap(int maxWidth, Bitmap rotatedBitmap) {
         int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
         return Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
+    }
+
+    public static Bitmap rotate(Bitmap bitmap, int i) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(i);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+        return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
     }
 
     public List<Uri> getImagesFromGallary(Context context) {

@@ -2,6 +2,7 @@ package com.fxn.adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +40,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //Uri imageUri = Uri.fromFile(new File(list.get(position)));// For files on device
         //Log.e("hello", "- " + imageUri.toString());
         File f = new File(list.get(position));
-        // Bitmap d = new BitmapDrawable(context.getResources() ,f.getAbsolutePath()).getBitmap();
-        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
+        Bitmap d = new BitmapDrawable(context.getResources(), f.getAbsolutePath()).getBitmap();
+        //Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
+        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, d);
         ((Holder) holder).iv.setImageBitmap(scaled);
         // ((Holder) holder).iv.setImageURI(imageUri);
     }
