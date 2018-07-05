@@ -371,7 +371,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         fotoapparat.start();
         fotoapparat.autoFocus();
         cameraConfiguration = new CameraConfiguration();
-        CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash());
+        CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
         fotoapparat.updateConfiguration(cameraConfiguration);
 
         clickme = findViewById(R.id.clickme);
@@ -517,23 +517,21 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         iv.setTranslationY(-(height / 2));
-                        Log.e("getFlashMode", " -> " + cameraConfiguration.getFlashMode().hashCode() + "   --   " +
-                                FlashSelectorsKt.autoFlash().hashCode() + "   --  " + FlashSelectorsKt.off().hashCode()
-                        );
+
                         if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_off_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.off());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_on_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.on());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         } else {
                             flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         }
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
