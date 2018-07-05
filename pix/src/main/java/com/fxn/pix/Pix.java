@@ -59,7 +59,6 @@ import io.fotoapparat.log.LoggersKt;
 import io.fotoapparat.parameter.ScaleType;
 import io.fotoapparat.result.BitmapPhoto;
 import io.fotoapparat.selector.FlashSelectorsKt;
-import io.fotoapparat.selector.FocusModeSelectorsKt;
 import io.fotoapparat.selector.LensPositionSelectorsKt;
 import io.fotoapparat.selector.SelectorsKt;
 import io.fotoapparat.view.CameraView;
@@ -318,6 +317,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Utility.setupStatusBarHidden(this);
         Utility.hideStatusBar(this);
         setContentView(R.layout.activity_main_lib);
@@ -352,11 +352,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 .previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
                 //   .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
                 .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
-                .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
+                /*.focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
                         FocusModeSelectorsKt.continuousFocusPicture(),
                         FocusModeSelectorsKt.autoFocus(),        // in case if continuous focus is not available on device, auto focus will be used
                         FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
-                ))
+                ))*/
                 .flash(SelectorsKt.firstAvailable(      // (optional) similar to how it is done for focus mode, this time for flash
                         FlashSelectorsKt.autoRedEye(),
                         FlashSelectorsKt.autoFlash(),
@@ -369,7 +369,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 .build();
 
         fotoapparat.start();
-        fotoapparat.autoFocus();
+        //fotoapparat.autoFocus();
         cameraConfiguration = new CameraConfiguration();
         CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
         fotoapparat.updateConfiguration(cameraConfiguration);
@@ -447,6 +447,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             selectionList.clear();
                             selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
                             returnObjects();
+
                         }
                         return null;
                     }
@@ -517,12 +518,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         iv.setTranslationY(-(height / 2));
-
                         if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_off_black_24dp;
                             iv.setImageResource(flashDrawable);
                             CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
+
                         } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_on_black_24dp;
                             iv.setImageResource(flashDrawable);
@@ -532,9 +533,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                             iv.setImageResource(flashDrawable);
                             CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
-
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         }
+                        // fotoapparat.focus();
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
                     }
                 }).start();
