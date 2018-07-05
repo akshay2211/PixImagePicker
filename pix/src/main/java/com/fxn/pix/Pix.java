@@ -532,6 +532,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                             iv.setImageResource(flashDrawable);
                             CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
+
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         }
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
