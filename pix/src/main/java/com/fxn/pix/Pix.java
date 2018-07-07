@@ -59,6 +59,7 @@ import io.fotoapparat.log.LoggersKt;
 import io.fotoapparat.parameter.ScaleType;
 import io.fotoapparat.result.BitmapPhoto;
 import io.fotoapparat.selector.FlashSelectorsKt;
+import io.fotoapparat.selector.FocusModeSelectorsKt;
 import io.fotoapparat.selector.LensPositionSelectorsKt;
 import io.fotoapparat.selector.SelectorsKt;
 import io.fotoapparat.view.CameraView;
@@ -317,7 +318,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         Utility.setupStatusBarHidden(this);
         Utility.hideStatusBar(this);
         setContentView(R.layout.activity_main_lib);
@@ -350,18 +350,18 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mCamera = findViewById(R.id.camera_view);
         fotoapparat = Fotoapparat.with(this).into(mCamera)
                 .previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
-                //   .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
+                // .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
                 .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
-                /*.focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
-                        FocusModeSelectorsKt.continuousFocusPicture(),
-                        FocusModeSelectorsKt.autoFocus(),        // in case if continuous focus is not available on device, auto focus will be used
-                        FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
-                ))*/
-                .flash(SelectorsKt.firstAvailable(      // (optional) similar to how it is done for focus mode, this time for flash
+                .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
+                        // FocusModeSelectorsKt.continuousFocusPicture(),
+                        FocusModeSelectorsKt.autoFocus()     // in case if continuous focus is not available on device, auto focus will be used
+                        //FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
+                ))
+                /*.flash(SelectorsKt.firstAvailable(      // (optional) similar to how it is done for focus mode, this time for flash
                         FlashSelectorsKt.autoRedEye(),
                         FlashSelectorsKt.autoFlash(),
                         FlashSelectorsKt.torch()
-                ))
+                ))*/
                 .logger(LoggersKt.loggers(            // (optional) we want to log camera events in 2 places at once
                         LoggersKt.logcat(),           // ... in logcat
                         LoggersKt.fileLogger(this)    // ... and to file
@@ -431,10 +431,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         clickme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
                     @Override
                     public Bitmap invoke(BitmapPhoto bitmapPhoto) {
                         Log.e("my pick transform", bitmapPhoto.toString());
+                        fotoapparat.stop();
                         return Utility.rotate(bitmapPhoto.bitmap, -bitmapPhoto.rotationDegrees);
                     }
                 }).whenAvailable(new Function1<Bitmap, Unit>() {
@@ -452,6 +454,25 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         return null;
                     }
                 });
+             /*   try {
+
+
+                    File photo = Utility.writeImage(fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
+                        @Override
+                        public Bitmap invoke(BitmapPhoto bitmapPhoto) {
+                            Log.e("my pick transform", bitmapPhoto.toString());
+                            return Utility.rotate(bitmapPhoto.bitmap, -bitmapPhoto.rotationDegrees);
+                        }
+                    }).await());
+                    Log.e("my pick saved",   "    ->  " + photo.length() / 1024);
+                    selectionList.clear();
+                    selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
+                    returnObjects();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
 
 
            /*.whenAvailable(new Function1<BitmapPhoto, Unit>() {
