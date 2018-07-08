@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAdapter = new MyAdapter(this);
         recyclerView.setAdapter(myAdapter);
-        findViewById(R.id.tv).setOnClickListener((View view) -> {
+        findViewById(R.id.fab).setOnClickListener((View view) -> {
             Pix.start(MainActivity.this, 100, 5);
         });
 
