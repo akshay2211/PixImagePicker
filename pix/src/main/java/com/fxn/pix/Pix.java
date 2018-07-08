@@ -55,7 +55,6 @@ import java.util.Set;
 
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.configuration.CameraConfiguration;
-import io.fotoapparat.log.LoggersKt;
 import io.fotoapparat.parameter.ScaleType;
 import io.fotoapparat.result.BitmapPhoto;
 import io.fotoapparat.selector.FlashSelectorsKt;
@@ -76,7 +75,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     public static float TOPBAR_HEIGHT;
     int BottomBarHeight = 0;
     int colorPrimaryDark;
-    CameraConfiguration cameraConfiguration;
+
     Fotoapparat fotoapparat;
     private Handler handler = new Handler();
     private FastScrollStateChangeListener mFastScrollStateChangeListener;
@@ -353,26 +352,22 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 // .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
                 .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
                 .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
-                        // FocusModeSelectorsKt.continuousFocusPicture(),
-                        FocusModeSelectorsKt.autoFocus()     // in case if continuous focus is not available on device, auto focus will be used
-                        //FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
+                        FocusModeSelectorsKt.continuousFocusPicture(),
+                        FocusModeSelectorsKt.autoFocus(),    // in case if continuous focus is not available on device, auto focus will be used
+                        FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
                 ))
-                /*.flash(SelectorsKt.firstAvailable(      // (optional) similar to how it is done for focus mode, this time for flash
-                        FlashSelectorsKt.autoRedEye(),
-                        FlashSelectorsKt.autoFlash(),
-                        FlashSelectorsKt.torch()
-                ))*/
-                .logger(LoggersKt.loggers(            // (optional) we want to log camera events in 2 places at once
+                //.flash(FlashSelectorsKt.autoRedEye())
+                /*.logger(LoggersKt.loggers(            // (optional) we want to log camera events in 2 places at once
                         LoggersKt.logcat(),           // ... in logcat
                         LoggersKt.fileLogger(this)    // ... and to file
-                ))
+                ))*/
                 .build();
 
         fotoapparat.start();
-        //fotoapparat.autoFocus();
-        cameraConfiguration = new CameraConfiguration();
-        CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
-        fotoapparat.updateConfiguration(cameraConfiguration);
+        fotoapparat.autoFocus();
+        CameraConfiguration cameraConfiguration = new CameraConfiguration();
+        fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
+        //fotoapparat.updateConfiguration(cameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
 
         clickme = findViewById(R.id.clickme);
         flash = findViewById(R.id.flash);
@@ -528,11 +523,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         });
         final ImageView iv = (ImageView) flash.getChildAt(0);
 
-        flashDrawable = R.drawable.ic_flash_auto_black_24dp;
+        flashDrawable = R.drawable.ic_flash_off_black_24dp;
         flash.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                final CameraConfiguration cameraConfiguration = new CameraConfiguration();
                 final int height = flash.getHeight();
                 iv.animate().translationY(height).setDuration(100).setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -542,19 +537,15 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_off_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build();
-                            fotoapparat.updateConfiguration(cameraConfiguration);
-
+                            fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build());
                         } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_on_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build();
-                            fotoapparat.updateConfiguration(cameraConfiguration);
+                            fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build());
                         } else {
                             flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
-                            fotoapparat.updateConfiguration(cameraConfiguration);
+                            fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
                         }
                         // fotoapparat.focus();
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
@@ -566,6 +557,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final CameraConfiguration cameraConfiguration = new CameraConfiguration();
                 final ObjectAnimator oa1 = ObjectAnimator.ofFloat(front, "scaleX", 1f, 0f).setDuration(150);
                 final ObjectAnimator oa2 = ObjectAnimator.ofFloat(front, "scaleX", 0f, 1f).setDuration(150);
                 oa1.addListener(new AnimatorListenerAdapter() {
