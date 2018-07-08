@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
-    PUBLISH_VERSION = '1.0.9'
+    PUBLISH_VERSION = '1.0.10-SNAPSHOT'
 }
 android {
     compileSdkVersion 27
@@ -10,7 +10,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 2
-        versionName "1.0.9"
+        versionName "1.0.10"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -36,7 +36,6 @@ dependencies {
     implementation 'com.android.support:design:' + supportLibraryVersion
     implementation 'com.android.support:exifinterface:' + supportLibraryVersion
     testImplementation 'junit:junit:4.12'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'io.fotoapparat.fotoapparat:library:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
