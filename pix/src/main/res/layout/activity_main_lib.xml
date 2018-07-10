@@ -35,8 +35,8 @@
             <FrameLayout
                 android:id="@+id/bottom_sheet"
                 android:layout_width="match_parent"
-                android:layout_marginLeft="-2px"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="-2px"
                 android:minHeight="194dp"
                 app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -208,7 +208,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_flash_auto_black_24dp" />
+                    android:src="@drawable/ic_flash_off_black_24dp" />
             </FrameLayout>
 
             <ImageView

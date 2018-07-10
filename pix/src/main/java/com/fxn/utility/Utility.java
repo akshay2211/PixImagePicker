@@ -214,7 +214,7 @@ public class Utility {
         try {
             FileOutputStream fos = new FileOutputStream(photo.getPath());
 
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 40, fos);
             // fos.write(jpeg);
             fos.close();
         } catch (Exception e) {
