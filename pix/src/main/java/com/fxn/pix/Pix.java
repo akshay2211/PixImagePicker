@@ -56,7 +56,6 @@ import java.util.Set;
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.configuration.CameraConfiguration;
 import io.fotoapparat.log.LoggersKt;
-import io.fotoapparat.parameter.ScaleType;
 import io.fotoapparat.result.BitmapPhoto;
 import io.fotoapparat.selector.FlashSelectorsKt;
 import io.fotoapparat.selector.FocusModeSelectorsKt;
@@ -349,14 +348,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         mCamera = findViewById(R.id.camera_view);
         fotoapparat = Fotoapparat.with(this).into(mCamera)
-                .previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
+                //.previewScaleType(ScaleType.CenterCrop)  // we want the preview to fill the view
                 //   .photoResolution(ResolutionSelectorsKt.lowestResolution())   // we want to have the biggest photo possible
                 .lensPosition(LensPositionSelectorsKt.back())      // we want back camera
-                .focusMode(SelectorsKt.firstAvailable(  // (optional) use the first focus mode which is supported by device
-                        FocusModeSelectorsKt.continuousFocusPicture(),
-                        FocusModeSelectorsKt.autoFocus(),        // in case if continuous focus is not available on device, auto focus will be used
-                        FocusModeSelectorsKt.fixed()             // if even auto focus is not available - fixed focus mode will be used
-                ))
+                .focusMode(FocusModeSelectorsKt.autoFocus())
                 .flash(SelectorsKt.firstAvailable(      // (optional) similar to how it is done for focus mode, this time for flash
                         FlashSelectorsKt.autoRedEye(),
                         FlashSelectorsKt.autoFlash(),
@@ -371,7 +366,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         fotoapparat.start();
         fotoapparat.autoFocus();
         cameraConfiguration = new CameraConfiguration();
-        CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash());
+        CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
         fotoapparat.updateConfiguration(cameraConfiguration);
 
         clickme = findViewById(R.id.clickme);
@@ -451,24 +446,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         return null;
                     }
                 });
-
-
-           /*.whenAvailable(new Function1<BitmapPhoto, Unit>() {
-                    @Override
-                    public Unit invoke(BitmapPhoto bitmapPhoto) {
-                        Log.e("my pick", bitmapPhoto.toString());
-                        synchronized (bitmapPhoto) {
-                            File photo = Utility.writeImage(bitmapPhoto.bitmap);
-                            Log.e("my pick saved", bitmapPhoto.toString());
-                            selectionList.clear();
-                            selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
-                            returnObjects();
-                            return null;
-                        }
-                    }
-                })*/
-
-
             }
         });
         selection_ok.setOnClickListener(new View.OnClickListener() {
@@ -523,17 +500,17 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_off_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.off());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
                             flashDrawable = R.drawable.ic_flash_on_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.on());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         } else {
                             flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                             iv.setImageResource(flashDrawable);
-                            CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash());
+                            CameraConfiguration.builder().flash(FlashSelectorsKt.autoFlash()).build();
                             fotoapparat.updateConfiguration(cameraConfiguration);
                         }
                         iv.animate().translationY(0).setDuration(50).setListener(null).start();
