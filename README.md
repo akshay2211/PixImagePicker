@@ -79,25 +79,26 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
   - [Glide]
   - [FastScroll]
   - [Header-decor]
+  - [Fotoapparat]
 
 ## Download
 
  [ ![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg) ](https://bintray.com/fxn769/android_projects/Pix/_latestVersion)  or grab via Gradle:
 ```groovy
-        compile 'com.fxn769:pix:1.0.10'
+        implementation  'com.fxn769:pix:1.2.1'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.0.10</version>
+          <version>1.2.1</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.0.10'>
+        <dependency org='com.fxn769' name='pix' rev='1.2.1'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
@@ -119,3 +120,4 @@ This project was created by [Akshay Sharma](https://akshay2211.github.io/).
    [Glide]: <https://github.com/bumptech/glide>
    [FastScroll]: <https://github.com/L4Digital/FastScroll>
    [Header-decor]: <https://github.com/edubarr/header-decor>
+   [Fotoapparat]: <https://github.com/RedApparat/Fotoapparat>
