@@ -84,6 +84,13 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
 ## Download
 
  [ ![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg) ](https://bintray.com/fxn769/android_projects/Pix/_latestVersion)  or grab via Gradle:
+ 
+ include in app level build.gradle
+ ```groovy
+        repositories {
+           maven { url 'https://jitpack.io' }
+        }
+ ```
 ```groovy
         implementation  'com.fxn769:pix:1.2.1'
 ```
