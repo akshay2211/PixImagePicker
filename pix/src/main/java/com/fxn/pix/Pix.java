@@ -364,8 +364,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 .build();
 
         fotoapparat.start();
-        fotoapparat.autoFocus();
-        CameraConfiguration cameraConfiguration = new CameraConfiguration();
         fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
 
         clickme = findViewById(R.id.clickme);
@@ -448,43 +446,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         return null;
                     }
                 });
-             /*   try {
-
-
-                    File photo = Utility.writeImage(fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
-                        @Override
-                        public Bitmap invoke(BitmapPhoto bitmapPhoto) {
-                            Log.e("my pick transform", bitmapPhoto.toString());
-                            return Utility.rotate(bitmapPhoto.bitmap, -bitmapPhoto.rotationDegrees);
-                        }
-                    }).await());
-                    Log.e("my pick saved",   "    ->  " + photo.length() / 1024);
-                    selectionList.clear();
-                    selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
-                    returnObjects();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
-
-
-           /*.whenAvailable(new Function1<BitmapPhoto, Unit>() {
-                    @Override
-                    public Unit invoke(BitmapPhoto bitmapPhoto) {
-                        Log.e("my pick", bitmapPhoto.toString());
-                        synchronized (bitmapPhoto) {
-                            File photo = Utility.writeImage(bitmapPhoto.bitmap);
-                            Log.e("my pick saved", bitmapPhoto.toString());
-                            selectionList.clear();
-                            selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
-                            returnObjects();
-                            return null;
-                        }
-                    }
-                })*/
-
-
             }
         });
         selection_ok.setOnClickListener(new View.OnClickListener() {
