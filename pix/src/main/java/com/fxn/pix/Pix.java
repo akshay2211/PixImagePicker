@@ -606,13 +606,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         }
                     });
                     sendButton.setVisibility(View.GONE);
-                    fotoapparat.stop();
+                    //  fotoapparat.stop();
                 } else if (slideOffset == 0) {
 
                     initaliseadapter.notifyDataSetChanged();
                     hideScrollbar();
                     img_count.setText(String.valueOf(selectionList.size()));
-                    fotoapparat.start();
+                    //fotoapparat.start();
                 }
             }
         });
@@ -650,7 +650,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             recyclerView.getLayoutManager().scrollToPosition(targetPos);
 
             if (mainImageAdapter != null) {
-                mBubbleView.setText(mainImageAdapter.getSectionMonthYearText(targetPos));
+                String text = mainImageAdapter.getSectionMonthYearText(targetPos);
+                mBubbleView.setText(text);
+                if (text.equalsIgnoreCase("")) {
+                    mBubbleView.setVisibility(View.GONE);
+                }
             }
         }
     }
@@ -717,7 +721,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
             case MotionEvent.ACTION_MOVE:
                 final float y = event.getRawY();
-                mBubbleView.setText(mainImageAdapter.getSectionText(recyclerView.getVerticalScrollbarPosition()));
+             /*   String text = mainImageAdapter.getSectionText(recyclerView.getVerticalScrollbarPosition()).trim();
+                mBubbleView.setText("hello------>"+text+"<--");
+                if (text.equalsIgnoreCase("")) {
+                    mBubbleView.setVisibility(View.GONE);
+                }
+                Log.e("hello"," -->> "+ mBubbleView.getText());*/
                 setViewPositions(y - TOPBAR_HEIGHT);
                 setRecyclerViewPosition(y);
                 return true;

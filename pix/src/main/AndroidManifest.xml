@@ -16,5 +16,4 @@
             android:screenOrientation="portrait"
             android:theme="@style/PixAppTheme"></activity>
     </application>
-
 </manifest>
