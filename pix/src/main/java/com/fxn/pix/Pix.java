@@ -77,6 +77,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     int colorPrimaryDark;
 
     Fotoapparat fotoapparat;
+    float zoom = 0.0f;
+    float dist = 0.0f;
     private Handler handler = new Handler();
     private FastScrollStateChangeListener mFastScrollStateChangeListener;
     private CameraView mCamera;
@@ -363,6 +365,37 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 ))*/
                 .build();
 
+        zoom = 0.0f;
+        mCamera.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getPointerCount() > 1) {
+
+                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                        case MotionEvent.ACTION_POINTER_DOWN:
+                            dist = Utility.getFingerSpacing(event);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            float maxZoom = 1f;
+
+                            float newDist = Utility.getFingerSpacing(event);
+                            if (newDist > dist) {
+                                //zoom in
+                                if (zoom < maxZoom)
+                                    zoom = zoom + 0.01f;
+                            } else if (newDist < dist) {
+                                //zoom out
+                                if (zoom > 0)
+                                    zoom = zoom - 0.01f;
+                            }
+                            dist = newDist;
+                            fotoapparat.setZoom(zoom);
+                            break;
+                    }
+                }
+                return true;
+            }
+        });
         fotoapparat.start();
         fotoapparat.updateConfiguration(CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
 
@@ -434,14 +467,16 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }).whenAvailable(new Function1<Bitmap, Unit>() {
                     @Override
                     public Unit invoke(Bitmap bitmap) {
-                        Log.e("my pick", bitmap.toString());
-                        synchronized (bitmap) {
-                            File photo = Utility.writeImage(bitmap);
-                            Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
-                            selectionList.clear();
-                            selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
-                            returnObjects();
+                        if (bitmap != null) {
+                            Log.e("my pick", bitmap.toString());
+                            synchronized (bitmap) {
+                                File photo = Utility.writeImage(bitmap);
+                                Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
+                                selectionList.clear();
+                                selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
+                                returnObjects();
 
+                            }
                         }
                         return null;
                     }
@@ -612,7 +647,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     initaliseadapter.notifyDataSetChanged();
                     hideScrollbar();
                     img_count.setText(String.valueOf(selectionList.size()));
-                    //fotoapparat.start();
+                    fotoapparat.start();
                 }
             }
         });
@@ -792,4 +827,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             super.onBackPressed();
         }
     }
+
+
 }

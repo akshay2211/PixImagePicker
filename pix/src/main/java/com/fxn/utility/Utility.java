@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
 import android.view.Window;
@@ -333,5 +334,16 @@ public class Utility {
             pathDir = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DCIM + "/Camera").getAbsolutePath();
         return pathDir;
+    }
+
+    public static float getFingerSpacing(MotionEvent event) {
+        try {
+            float x = event.getX(0) - event.getX(1);
+            float y = event.getY(0) - event.getY(1);
+            return (float) Math.sqrt(x * x + y * y);
+        } catch (Exception e) {
+            Log.e("exc", "->" + e.getMessage());
+            return 0;
+        }
     }
 }
