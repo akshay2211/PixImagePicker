@@ -326,6 +326,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     }
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        initialize();
+        fotoapparat.start();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         fotoapparat.start();
