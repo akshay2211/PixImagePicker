@@ -252,8 +252,14 @@ public class Utility {
     }
 
     public static Bitmap getScaledBitmap(int maxWidth, Bitmap rotatedBitmap) {
-        int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
-        return Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
+        try {
+
+            int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
+            return Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static Bitmap rotate(Bitmap bitmap, int i) {
@@ -261,6 +267,17 @@ public class Utility {
         matrix.postRotate(i);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
         return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+    }
+
+    public static float getFingerSpacing(MotionEvent event) {
+        try {
+            float x = event.getX(0) - event.getX(1);
+            float y = event.getY(0) - event.getY(1);
+            return (float) Math.sqrt(x * x + y * y);
+        } catch (Exception e) {
+            Log.e("exc", "->" + e.getMessage());
+            return 0;
+        }
     }
 
     public List<Uri> getImagesFromGallary(Context context) {
@@ -334,16 +351,5 @@ public class Utility {
             pathDir = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DCIM + "/Camera").getAbsolutePath();
         return pathDir;
-    }
-
-    public static float getFingerSpacing(MotionEvent event) {
-        try {
-            float x = event.getX(0) - event.getX(1);
-            float y = event.getY(0) - event.getY(1);
-            return (float) Math.sqrt(x * x + y * y);
-        } catch (Exception e) {
-            Log.e("exc", "->" + e.getMessage());
-            return 0;
-        }
     }
 }
