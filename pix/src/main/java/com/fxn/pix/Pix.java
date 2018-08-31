@@ -186,7 +186,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     sendButton.startAnimation(anim);
 
                 }
-                selection_count.setText(getResources().getString(R.string.pix_selected) + selectionList.size());
+                selection_count.setText(getResources().getString(R.string.pix_selected) + " " + selectionList.size());
                 img_count.setText(String.valueOf(selectionList.size()));
             } else {
                 img.setPosition(position);
@@ -228,7 +228,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
                 selection_check.setVisibility(View.GONE);
                 topbar.setBackgroundColor(colorPrimaryDark);
-                selection_count.setText("Selected " + selectionList.size());
+                selection_count.setText(getResources().getString(R.string.pix_selected) + " " + selectionList.size());
                 img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
             }
