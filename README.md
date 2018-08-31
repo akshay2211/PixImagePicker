@@ -92,20 +92,20 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
         }
  ```
 ```groovy
-        implementation  'com.fxn769:pix:1.2.4'
+        implementation  'com.fxn769:pix:1.2.5'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.2.4</version>
+          <version>1.2.5</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.2.4'>
+        <dependency org='com.fxn769' name='pix' rev='1.2.5'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
