@@ -16,10 +16,9 @@ import android.view.ViewGroup;
 public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
 
     private StickyHeaderInterface mListener;
-    private int mStickyHeaderHeight;
     private Context context;
 
-    public HeaderItemDecoration(Context context, RecyclerView recyclerView, @NonNull StickyHeaderInterface listener) {
+    public HeaderItemDecoration(Context context, @NonNull StickyHeaderInterface listener) {
         mListener = listener;
         this.context = context;
     }
@@ -85,12 +84,10 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
         View childInContact = null;
         for (int i = 0; i < parent.getChildCount(); i++) {
             View child = parent.getChildAt(i);
-            if (child.getBottom() > contactPoint) {
-                if (child.getTop() <= contactPoint) {
-                    // This child overlaps the contactPoint
-                    childInContact = child;
-                    break;
-                }
+            if ((child.getBottom() > contactPoint) && (child.getTop() <= contactPoint)) {
+                // This child overlaps the contactPoint
+                childInContact = child;
+                break;
             }
         }
         return childInContact;
@@ -113,7 +110,7 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
 
         view.measure(childWidthSpec, childHeightSpec);
 
-        view.layout(0, 0, view.getMeasuredWidth(), mStickyHeaderHeight = view.getMeasuredHeight());
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
     }
 
     public interface StickyHeaderInterface {

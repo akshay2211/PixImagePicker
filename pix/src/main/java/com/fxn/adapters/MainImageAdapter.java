@@ -35,7 +35,6 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static final int SPAN_COUNT = 3;
     private static final int MARGIN = 2;
 
-    private Context context;
     private ArrayList<Img> list;
     private OnSelectionListener onSelectionListener;
     private FrameLayout.LayoutParams layoutParams;
@@ -43,9 +42,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private RequestOptions options;
 
     public MainImageAdapter(Context context) {
-        this.context = context;
         this.list = new ArrayList<>();
-
         int size = Utility.WIDTH / SPAN_COUNT;
         layoutParams = new FrameLayout.LayoutParams(size, size);
         layoutParams.setMargins(MARGIN, MARGIN - 1, MARGIN, MARGIN - 1);
@@ -125,7 +122,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public int getHeaderPositionForItem(int itemPosition) {
+    public int getHeaderPositionForItem(int position) {
+        int itemPosition = position;
         int headerPosition = 0;
         do {
             if (this.isHeader(itemPosition)) {
@@ -163,8 +161,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        ImageView preview;
-        ImageView selection;
+        private ImageView preview;
+        private ImageView selection;
 
         Holder(View itemView) {
             super(itemView);
@@ -178,19 +176,19 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         @Override
         public void onClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListener.OnClick(list.get(id), view, id);
+            onSelectionListener.onClick(list.get(id), view, id);
         }
 
         @Override
         public boolean onLongClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListener.OnLongClick(list.get(id), view, id);
+            onSelectionListener.onLongClick(list.get(id), view, id);
             return true;
         }
     }
 
     public class HeaderHolder extends RecyclerView.ViewHolder {
-        TextView header;
+        private TextView header;
 
         HeaderHolder(View itemView) {
             super(itemView);

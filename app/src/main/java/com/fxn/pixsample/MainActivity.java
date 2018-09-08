@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                    myAdapter.AddImage(returnValue);
+                    myAdapter.addImage(returnValue);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                     }*/

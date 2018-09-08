@@ -15,14 +15,14 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    ArrayList<String> list = new ArrayList<>();
-    Context context;
+    private ArrayList<String> list = new ArrayList<>();
+    private Context context;
 
     public MyAdapter(Context context) {
         this.context = context;
     }
 
-    public void AddImage(ArrayList<String> list) {
+    public void addImage(ArrayList<String> list) {
         this.list.clear();
         this.list.addAll(list);
         notifyDataSetChanged();

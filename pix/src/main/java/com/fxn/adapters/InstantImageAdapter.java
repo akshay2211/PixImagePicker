@@ -26,16 +26,18 @@ import java.util.ArrayList;
  */
 
 public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private Context context;
     private ArrayList<Img> list;
     private OnSelectionListener onSelectionListener;
     private RequestManager glide;
     private RequestOptions options;
+    private float size;
+    private int margin = 2;
+    private int padding;
 
     public InstantImageAdapter(Context context) {
-        this.context = context;
         this.list = new ArrayList<>();
-
+        size = Utility.convertDpToPixel(72, context) - 2;
+        padding = (int) (size / 3.5);
         glide = Glide.with(context);
         options = new RequestOptions().override(256).transform(new CenterCrop()).transform(new FitCenter());
     }
@@ -95,12 +97,10 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Img image = list.get(position);
         if (holder instanceof Holder) {
             Holder imageHolder = (Holder) holder;
-            int margin = 2;
-            float size = Utility.convertDpToPixel(72, context) - 2;
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((int) size, (int) size);
             layoutParams.setMargins(margin, margin, margin, margin);
             imageHolder.itemView.setLayoutParams(layoutParams);
-            int padding = (int) (size / 3.5);
+
             imageHolder.selection.setPadding(padding, padding, padding, padding);
             imageHolder.preview.setLayoutParams(layoutParams);
 
@@ -121,8 +121,9 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        ImageView preview;
-        ImageView selection;
+        private ImageView preview;
+        private ImageView selection;
+
 
         Holder(View itemView) {
             super(itemView);
@@ -135,13 +136,13 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         @Override
         public void onClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListener.OnClick(list.get(id), view, id);
+            onSelectionListener.onClick(list.get(id), view, id);
         }
 
         @Override
         public boolean onLongClick(View view) {
             int id = this.getLayoutPosition();
-            onSelectionListener.OnLongClick(list.get(id), view, id);
+            onSelectionListener.onLongClick(list.get(id), view, id);
             return true;
         }
     }
