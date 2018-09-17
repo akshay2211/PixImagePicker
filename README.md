@@ -49,8 +49,8 @@ include these items in colors.xml with custom color codes
     </resources>
 ```
 
-### Orientaion
-include this theme in style.xml with prefered screen orientation
+### Orientation
+include this theme in style.xml with preferred screen orientation
 ```xml
    <style name="PixAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
          <item name="android:screenOrientation">portrait</item>
