@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.android.support:exifinterface:' + supportLibraryVersion
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'io.fotoapparat.fotoapparat:library:2.3.1'
+    implementation 'io.fotoapparat.fotoapparat:library:2.6.1'
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.android.support:recyclerview-v7:' + supportLibraryVersion
 }
