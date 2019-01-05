@@ -166,11 +166,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     anim.setDuration(300);
                     anim.setAnimationListener(new Animation.AnimationListener() {
 
-                        /**
-                         * <p>Notifies the start of the animation.</p>
-                         *
-                         * @param animation The started animation.
-                         */
                         @Override
                         public void onAnimationStart(Animation animation) {
 
@@ -182,11 +177,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             sendButton.clearAnimation();
                         }
 
-                        /**
-                         * <p>Notifies the repetition of the animation.</p>
-                         *
-                         * @param animation The animation which was repeated.
-                         */
                         @Override
                         public void onAnimationRepeat(Animation animation) {
 
@@ -244,7 +234,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     };
     private FrameLayout flash;
     private ImageView front;
-    private boolean isback = true;
     private int flashDrawable;
     private View.OnTouchListener onCameraTouchListner = new View.OnTouchListener() {
         @Override
@@ -455,6 +444,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         recyclerView.setAdapter(mainImageAdapter);
         recyclerView.addItemDecoration(new HeaderItemDecoration(this, mainImageAdapter));
         mHandleView.setOnTouchListener(this);
+        final CameraConfiguration cameraConfiguration = new CameraConfiguration();
+        if (options.isFrontfacing()) {
+            fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
+        } else {
+            fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
+        }
         onClickMethods();
 
 
@@ -483,7 +478,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         if (bitmap != null) {
                             Log.e("my pick", bitmap.toString());
                             synchronized (bitmap) {
-                                File photo = Utility.writeImage(bitmap, options.getPath());
+                                File photo = Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(), options.getWidth(), options.getHeight());
                                 Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
                                 selectionList.clear();
                                 selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
@@ -562,7 +557,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         front.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final CameraConfiguration cameraConfiguration = new CameraConfiguration();
                 final ObjectAnimator oa1 = ObjectAnimator.ofFloat(front, "scaleX", 1f, 0f).setDuration(150);
                 final ObjectAnimator oa2 = ObjectAnimator.ofFloat(front, "scaleX", 0f, 1f).setDuration(150);
                 oa1.addListener(new AnimatorListenerAdapter() {
@@ -574,12 +568,16 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                 });
                 oa1.start();
-                if (isback) {
-                    isback = false;
-                    fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
-                } else {
-                    isback = true;
+                Log.e("isFrontfacing", "-> " + options.isFrontfacing());
+                if (options.isFrontfacing()) {
+                    options.setFrontfacing(false);
+                    final CameraConfiguration cameraConfiguration = new CameraConfiguration();
                     fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
+                } else {
+                    final CameraConfiguration cameraConfiguration = new CameraConfiguration();
+                    options.setFrontfacing(true);
+                    fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
+
                 }
             }
         });
@@ -588,6 +586,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private void updateImages() {
         mainImageAdapter.clearList();
         Cursor cursor = Utility.getCursor(Pix.this);
+        if (cursor == null) {
+            return;
+        }
         ArrayList<Img> INSTANTLIST = new ArrayList<>();
         String header = "";
         int limit = 100;

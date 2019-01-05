@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new MyAdapter(this);
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) ->
-                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(6)));
+                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(2).setFrontfacing(true)));
 
     }
 
