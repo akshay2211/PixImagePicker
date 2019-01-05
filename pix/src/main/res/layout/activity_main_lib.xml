@@ -25,7 +25,7 @@
             android:translationY="@dimen/margin_top_nve" />
 
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/main_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -38,9 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="-2px"
                 android:minHeight="194dp"
-                app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -91,7 +91,6 @@
                         android:minWidth="20dp"
                         android:paddingLeft="5dp"
                         android:src="@drawable/handle" />
-
                 </FrameLayout>
 
                 <FrameLayout
@@ -145,14 +144,14 @@
                             android:src="@drawable/ic_check_box" />
                     </FrameLayout>
 
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/instantRecyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="82dp" />
                 </FrameLayout>
             </FrameLayout>
 
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <FrameLayout
             android:id="@+id/sendButton"
@@ -230,6 +229,7 @@
                 android:text="@string/message_to_drag_up"
                 android:textColor="#fff"
                 android:textSize="12sp" />
+
         </FrameLayout>
 
     </FrameLayout>
