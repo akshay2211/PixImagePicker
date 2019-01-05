@@ -196,8 +196,8 @@ public class Utility {
         ((Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(l);
     }
 
-    public static File writeImage(Bitmap bitmap) {
-        File dir = new File(Environment.getExternalStorageDirectory(), "/DCIM/Camera");
+    public static File writeImage(Bitmap bitmap, String path) {
+        File dir = new File(Environment.getExternalStorageDirectory(), path);
         if (!dir.exists())
             dir.mkdir();
         File photo = new File(dir, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date()) + ".jpg");

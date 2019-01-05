@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.fxn.adapters.MyAdapter;
+import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.PermUtil;
 
@@ -29,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAdapter = new MyAdapter(this);
         recyclerView.setAdapter(myAdapter);
-        findViewById(R.id.fab).setOnClickListener((View view) -> {
-            Pix.start(MainActivity.this, 100, 5);
-        });
+        findViewById(R.id.fab).setOnClickListener((View view) ->
+                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(6)));
 
     }
 
@@ -59,15 +59,12 @@ public class MainActivity extends AppCompatActivity {
             case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Pix.start(MainActivity.this, 100, 5);
+                    Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(1));
                 } else {
                     Toast.makeText(MainActivity.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 }

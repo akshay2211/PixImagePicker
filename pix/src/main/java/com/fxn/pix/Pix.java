@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -69,7 +68,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
     private static final int sBubbleAnimDuration = 1000;
     private static final int sScrollbarHideDelay = 1000;
-    private static final String SELECTION = "selection";
+    private static final String OPTIONS = "options";
     private static final int sTrackSnapRange = 5;
     public static String IMAGE_RESULTS = "image_results";
     public static float TOPBAR_HEIGHT;
@@ -99,7 +98,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private float mViewHeight;
     private boolean mHideScrollbar = true;
     private boolean LongSelection = false;
-    private int SelectionCount = 1;
+    private Options options = null;
     private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
@@ -144,7 +143,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     initaliseadapter.select(false, position);
                     mainImageAdapter.select(false, position);
                 } else {
-                    if (SelectionCount <= selectionList.size()) {
+                    if (options.getCount() <= selectionList.size()) {
                         Toast.makeText(Pix.this, String.format(getResources().getString(R.string.selection_limiter_pix), selectionList.size()), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -209,7 +208,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
         @Override
         public void onLongClick(Img img, View view, int position) {
-            if (SelectionCount > 1) {
+            if (options.getCount() > 1) {
                 Utility.vibe(Pix.this, 50);
                 //Log.e("onLongClick", "onLongClick");
                 LongSelection = true;
@@ -279,47 +278,35 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         }
     };
 
-    public static void start(final Fragment context, final int requestCode, final int selectionCount) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
-                @Override
-                public void onWorkFinish(Boolean check) {
-                    Intent i = new Intent(context.getActivity(), Pix.class);
-                    i.putExtra(SELECTION, selectionCount);
-                    context.startActivityForResult(i, requestCode);
-                }
-            });
-        } else {
-            Intent i = new Intent(context.getActivity(), Pix.class);
-            i.putExtra(SELECTION, selectionCount);
-            context.startActivityForResult(i, requestCode);
-        }
 
+    public static void start(final Fragment context, final Options options) {
+        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+            @Override
+            public void onWorkFinish(Boolean check) {
+                Intent i = new Intent(context.getActivity(), Pix.class);
+                i.putExtra(OPTIONS, options);
+                context.startActivityForResult(i, options.getRequestCode());
+            }
+        });
     }
 
     public static void start(Fragment context, int requestCode) {
-        start(context, requestCode, 1);
+        start(context, Options.init().setRequestCode(requestCode).setCount(1));
     }
 
-    public static void start(final FragmentActivity context, final int requestCode, final int selectionCount) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
-                @Override
-                public void onWorkFinish(Boolean check) {
-                    Intent i = new Intent(context, Pix.class);
-                    i.putExtra(SELECTION, selectionCount);
-                    context.startActivityForResult(i, requestCode);
-                }
-            });
-        } else {
-            Intent i = new Intent(context, Pix.class);
-            i.putExtra(SELECTION, selectionCount);
-            context.startActivityForResult(i, requestCode);
-        }
+    public static void start(final FragmentActivity context, final Options options) {
+        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+            @Override
+            public void onWorkFinish(Boolean check) {
+                Intent i = new Intent(context, Pix.class);
+                i.putExtra(OPTIONS, options);
+                context.startActivityForResult(i, options.getRequestCode());
+            }
+        });
     }
 
     public static void start(final FragmentActivity context, int requestCode) {
-        start(context, requestCode, 1);
+        start(context, Options.init().setRequestCode(requestCode).setCount(1));
     }
 
     private void hideScrollbar() {
@@ -389,7 +376,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             getSupportActionBar().hide();
         }
         try {
-            SelectionCount = getIntent().getIntExtra(SELECTION, 1);
+            options = (Options) getIntent().getSerializableExtra(OPTIONS);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -422,7 +409,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         selection_count = findViewById(R.id.selection_count);
         selection_back = findViewById(R.id.selection_back);
         selection_check = findViewById(R.id.selection_check);
-        selection_check.setVisibility((SelectionCount > 1) ? View.VISIBLE : View.GONE);
+        selection_check.setVisibility((options.getCount() > 1) ? View.VISIBLE : View.GONE);
         sendButton = findViewById(R.id.sendButton);
         img_count = findViewById(R.id.img_count);
         mBubbleView = findViewById(R.id.fastscroll_bubble);
@@ -496,7 +483,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         if (bitmap != null) {
                             Log.e("my pick", bitmap.toString());
                             synchronized (bitmap) {
-                                File photo = Utility.writeImage(bitmap);
+                                File photo = Utility.writeImage(bitmap, options.getPath());
                                 Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
                                 selectionList.clear();
                                 selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
@@ -641,14 +628,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
         mBottomSheetBehavior.setPeekHeight((int) (Utility.convertDpToPixel(194, this)));
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            /**
-             * Called when the bottom sheet changes its state.
-             *
-             * @param bottomSheet The bottom sheet view.
-             * @param newState    The new state. This will be one of {@link #STATE_DRAGGING},
-             *                    {@link #STATE_SETTLING}, {@link #STATE_EXPANDED},
-             *                    {@link #STATE_COLLAPSED}, or {@link #STATE_HIDDEN}.
-             */
+
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
 
@@ -819,7 +799,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 initaliseadapter.notifyItemChanged(img.getPosition());
             }
             LongSelection = false;
-            if (SelectionCount > 1) {
+            if (options.getCount() > 1) {
                 selection_check.setVisibility(View.VISIBLE);
             }
             DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
