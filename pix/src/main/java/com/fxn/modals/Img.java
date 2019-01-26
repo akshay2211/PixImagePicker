@@ -11,15 +11,20 @@ public class Img implements Serializable {
     private String contentUrl;
     private String url;
     private Boolean isSelected;
+    private Boolean isPreviouslySelected;
     private String scrollerDate;
     private int position;
-
-    public Img(String headerDate, String contentUrl, String url, String scrollerDate) {
+    public Img(String headerDate, String contentUrl, String url, String scrollerDate, boolean isPreviouslySelected) {
         this.headerDate = headerDate;
         this.contentUrl = contentUrl;
         this.url = url;
         this.isSelected = false;
+        this.isPreviouslySelected = isPreviouslySelected;
         this.scrollerDate = scrollerDate;
+    }
+
+    public Boolean getPreviouslySelected() {
+        return isPreviouslySelected;
     }
 
     public int getPosition() {

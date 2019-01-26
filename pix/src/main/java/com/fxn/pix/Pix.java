@@ -480,8 +480,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             synchronized (bitmap) {
                                 File photo = Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(), options.getWidth(), options.getHeight());
                                 Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
+                                boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(photo.getAbsolutePath());
                                 selectionList.clear();
-                                selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
+                                selectionList.add(new Img("", "", photo.getAbsolutePath(), "", isPreviouslySelectedPix));
                                 returnObjects();
 
                             }
@@ -605,20 +606,23 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             calendar = Calendar.getInstance();
             calendar.setTimeInMillis(cursor.getLong(date));
             String dateDifference = Utility.getDateDifference(Pix.this, calendar);
+            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", isPreviouslySelectedPix));
             }
-            INSTANTLIST.add(new Img("" + header, "" + path, cursor.getString(data), ""));
+            INSTANTLIST.add(new Img("" + header, "" + path, cursor.getString(data), "", isPreviouslySelectedPix));
         }
         cursor.close();
-        new ImageFetcher(Pix.this) {
+        ImageFetcher fetcher = new ImageFetcher(Pix.this) {
             @Override
             protected void onPostExecute(ArrayList<Img> imgs) {
                 super.onPostExecute(imgs);
                 mainImageAdapter.addImageList(imgs);
             }
-        }.execute(Utility.getCursor(Pix.this));
+        };
+        fetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
+        fetcher.execute(Utility.getCursor(Pix.this));
         initaliseadapter.addImageList(INSTANTLIST);
         mainImageAdapter.addImageList(INSTANTLIST);
         setBottomSheetBehavior();

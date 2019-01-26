@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new MyAdapter(this);
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) ->
-                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(2).setFrontfacing(true)));
+                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(2).setFrontfacing(true).setPreviouslySelectedPathList(previouslySelectedPathList)));
 
     }
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
                     myAdapter.addImage(returnValue);
+                    previouslySelectedPathList.addAll(returnValue);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                     }*/

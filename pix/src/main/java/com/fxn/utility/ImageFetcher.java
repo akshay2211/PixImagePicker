@@ -11,6 +11,7 @@ import com.fxn.modals.Img;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -19,7 +20,9 @@ import java.util.Locale;
 
 public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
     private ArrayList<Img> LIST = new ArrayList<>();
+    private List<String> previouslySelectedPathList = new ArrayList<>();
     private Context context;
+
     public ImageFetcher(Context context) {
         this.context = context;
     }
@@ -44,16 +47,25 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(cursor.getLong(date));
                 String dateDifference = Utility.getDateDifference(context, calendar);
+                boolean isPrevisoulySelectedPix = previouslySelectedPathList.contains(cursor.getString(data));
 
                 if (!header.equalsIgnoreCase(dateDifference)) {
                     header = dateDifference;
-                    LIST.add(new Img(dateDifference, "", "", dateFormat.format(calendar.getTime())));
+                    LIST.add(new Img(dateDifference, "", "", dateFormat.format(calendar.getTime()), isPrevisoulySelectedPix));
                 }
-                LIST.add(new Img(header, curl.toString(), cursor.getString(data), dateFormat.format(calendar.getTime())));
+                LIST.add(new Img(header, curl.toString(), cursor.getString(data), dateFormat.format(calendar.getTime()), isPrevisoulySelectedPix));
             }
             cursor.close();
         }
         return LIST;
     }
 
+    public void setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
+        if(previouslySelectedPathList == null){
+            this.previouslySelectedPathList = new ArrayList<>();
+        }
+        else{
+            this.previouslySelectedPathList = previouslySelectedPathList;
+        }
+    }
 }

@@ -3,6 +3,8 @@ package com.fxn.pix;
 import com.fxn.utility.ImageQuality;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Options implements Serializable {
     private int count = 1;
@@ -11,12 +13,26 @@ public class Options implements Serializable {
     private int imageQuality = 40;
     private int height = 0, width = 0;
     private boolean frontfacing = false;
+    private List<String> previouslySelectedPathList = new ArrayList<>();
 
     private Options() {
     }
 
     public static Options init() {
         return new Options();
+    }
+
+    public List<String> getPreviouslySelectedPathList() {
+        return previouslySelectedPathList;
+    }
+
+    public Options setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
+        if(previouslySelectedPathList == null){
+            this.previouslySelectedPathList = new ArrayList<>();
+        }else{
+            this.previouslySelectedPathList = previouslySelectedPathList;
+        }
+        return this;
     }
 
     public int getImageQuality() {
