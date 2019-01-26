@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 ext {
-    PUBLISH_GROUP_ID = 'com.fxn769'
+    PUBLISH_GROUP_ID = 'com.fxn769-qismo'
     PUBLISH_ARTIFACT_ID = 'pix'
     PUBLISH_VERSION = '1.3.0'
 }
