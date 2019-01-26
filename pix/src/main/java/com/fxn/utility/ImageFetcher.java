@@ -9,6 +9,7 @@ import com.fxn.modals.Img;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -19,6 +20,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
 
     private ArrayList<Img> selectionList = new ArrayList<>();
+    private List<String> previouslySelectedPathList = new ArrayList<>();
   public int startingCount = 0;
   private ArrayList<Img> LIST = new ArrayList<>();
 
@@ -64,6 +66,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(cursor.getLong(date));
                         String dateDifference = Utility.getDateDifference(context, calendar);
+                        boolean isPrevisoulySelectedPix = previouslySelectedPathList.contains(cursor.getString(data));
 
 
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
@@ -111,6 +114,15 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
         public ArrayList<Img> getSelection() {
             return selection;
+        }
+    }
+
+    public void setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
+        if(previouslySelectedPathList == null){
+            this.previouslySelectedPathList = new ArrayList<>();
+        }
+        else{
+            this.previouslySelectedPathList = previouslySelectedPathList;
         }
     }
 

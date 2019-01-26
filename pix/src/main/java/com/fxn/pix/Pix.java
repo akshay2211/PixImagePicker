@@ -483,8 +483,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         if (bitmap != null) {
                             synchronized (bitmap) {
                                 File photo = Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(), options.getWidth(), options.getHeight());
+                                boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(photo.getAbsolutePath());
                                 selectionList.clear();
-                                selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
+                                selectionList.add(new Img("", "", photo.getAbsolutePath(), "", isPreviouslySelectedPix));
                                 returnObjects();
 
                             }
@@ -607,12 +608,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             calendar = Calendar.getInstance();
             calendar.setTimeInMillis(cursor.getLong(date));
             String dateDifference = Utility.getDateDifference(Pix.this, calendar);
+            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 pos += 1;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", isPreviouslySelectedPix));
             }
-            Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
+            Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, isPreviouslySelectedPix);
             img.setPosition(pos);
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
@@ -668,6 +670,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         };
       imageFetcher.setStartingCount(pos);
         imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
+        imageFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
         imageFetcher.execute(Utility.getCursor(Pix.this));
         cursor.close();
         setBottomSheetBehavior();
