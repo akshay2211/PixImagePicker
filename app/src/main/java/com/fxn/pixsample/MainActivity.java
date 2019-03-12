@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
+import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
 
 import java.util.ArrayList;
@@ -21,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     MyAdapter myAdapter;
+    Options options;
+    ArrayList<String> returnValue = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +33,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myAdapter = new MyAdapter(this);
+        options = Options.init()
+                .setRequestCode(100)
+                .setCount(3)
+                .setFrontfacing(true)
+                .setImageQuality(ImageQuality.HIGH)
+                .setImageResolution(1024, 800)
+                .setPreSelectedUrls(returnValue)
+                .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)
+                .setPath("/akshay/new")
+        ;
         recyclerView.setAdapter(myAdapter);
-        findViewById(R.id.fab).setOnClickListener((View view) ->
-                Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(2).setFrontfacing(true)));
+        findViewById(R.id.fab).setOnClickListener((View view) -> {
+            options.setPreSelectedUrls(returnValue);
+            Pix.start(MainActivity.this, options);
+        });
 
     }
 
@@ -42,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
-                    ArrayList<String> returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                    returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                    Log.e("got preSelectedlist", "->     " + returnValue.size());
                     myAdapter.addImage(returnValue);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
@@ -59,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
             case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Pix.start(MainActivity.this, Options.init().setRequestCode(100).setCount(1));
+                    Pix.start(MainActivity.this, options);
                 } else {
                     Toast.makeText(MainActivity.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
                 }
