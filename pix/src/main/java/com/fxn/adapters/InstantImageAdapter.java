@@ -101,10 +101,8 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((int) size, (int) size);
             layoutParams.setMargins(margin, margin, margin, margin);
             imageHolder.itemView.setLayoutParams(layoutParams);
-
             imageHolder.selection.setPadding(padding, padding, padding, padding);
             imageHolder.preview.setLayoutParams(layoutParams);
-
             glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
 
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);

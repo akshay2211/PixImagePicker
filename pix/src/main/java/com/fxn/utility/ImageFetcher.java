@@ -17,15 +17,25 @@ import java.util.Locale;
  * Created by akshay on 06/04/18.
  */
 
-public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
+public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList> {
+
+
+    private ArrayList<Img> selectionList = new ArrayList<>();
+
     private ArrayList<Img> LIST = new ArrayList<>();
-    private Context context;
-    public ImageFetcher(Context context) {
-        this.context = context;
+    private ArrayList<String> preSelectedUrls = new ArrayList<>();
+
+    public ArrayList<String> getPreSelectedUrls() {
+        return preSelectedUrls;
+    }
+
+    public ImageFetcher setPreSelectedUrls(ArrayList<String> preSelectedUrls) {
+        this.preSelectedUrls = preSelectedUrls;
+        return this;
     }
 
     @Override
-    protected ArrayList<Img> doInBackground(Cursor... cursors) {
+    protected ModelList doInBackground(Cursor... cursors) {
         Cursor cursor = cursors[0];
         if (cursor != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
@@ -49,11 +59,42 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ArrayList<Img>> {
                     header = dateDifference;
                     LIST.add(new Img(dateDifference, "", "", dateFormat.format(calendar.getTime())));
                 }
-                LIST.add(new Img(header, curl.toString(), cursor.getString(data), dateFormat.format(calendar.getTime())));
+                Img img = new Img("" + header, "" + curl.toString(), cursor.getString(data), "" + dateFormat.format(calendar.getTime()));
+
+                if (getPreSelectedUrls().contains(img.getUrl())) {
+                    img.setSelected(true);
+                    selectionList.add(img);
+                }
+                LIST.add(img);
             }
             cursor.close();
         }
-        return LIST;
+
+        return new ModelList(LIST, selectionList);
+    }
+
+    private Context context;
+
+    public ImageFetcher(Context context) {
+        this.context = context;
+    }
+
+    public class ModelList {
+        ArrayList<Img> LIST = new ArrayList<>();
+        ArrayList<Img> selection = new ArrayList<>();
+
+        public ModelList(ArrayList<Img> LIST, ArrayList<Img> selection) {
+            this.LIST = LIST;
+            this.selection = selection;
+        }
+
+        public ArrayList<Img> getLIST() {
+            return LIST;
+        }
+
+        public ArrayList<Img> getSelection() {
+            return selection;
+        }
     }
 
 }

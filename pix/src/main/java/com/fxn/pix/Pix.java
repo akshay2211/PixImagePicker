@@ -369,6 +369,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setRequestedOrientation(options.getScreenOrientation());
         colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         CameraView mCamera = findViewById(R.id.camera_view);
         fotoapparat = Fotoapparat.with(this).into(mCamera)
@@ -458,6 +459,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
         DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
         updateImages();
+
     }
 
     private void onClickMethods() {
@@ -586,9 +588,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private void updateImages() {
         mainImageAdapter.clearList();
         Cursor cursor = Utility.getCursor(Pix.this);
-        if (cursor == null) {
+        if (cursor == null)
             return;
-        }
         ArrayList<Img> INSTANTLIST = new ArrayList<>();
         String header = "";
         int limit = 100;
@@ -609,18 +610,60 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 header = "" + dateDifference;
                 INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
             }
-            INSTANTLIST.add(new Img("" + header, "" + path, cursor.getString(data), ""));
-        }
-        cursor.close();
-        new ImageFetcher(Pix.this) {
-            @Override
-            protected void onPostExecute(ArrayList<Img> imgs) {
-                super.onPostExecute(imgs);
-                mainImageAdapter.addImageList(imgs);
+            Img img = new Img("" + header, "" + path, cursor.getString(data), "");
+            if (options.getPreSelectedUrls().contains(img.getUrl())) {
+                img.setSelected(true);
+                selectionList.add(img);
             }
-        }.execute(Utility.getCursor(Pix.this));
-        initaliseadapter.addImageList(INSTANTLIST);
+            INSTANTLIST.add(img);
+        }
+        if (selectionList.size() > 0) {
+            LongSelection = true;
+            sendButton.setVisibility(View.VISIBLE);
+            Animation anim = new ScaleAnimation(
+                    0f, 1f, // Start and end values for the X axis scaling
+                    0f, 1f, // Start and end values for the Y axis scaling
+                    Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                    Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+            anim.setFillAfter(true); // Needed to keep the result of the animation
+            anim.setDuration(300);
+            sendButton.startAnimation(anim);
+            selection_check.setVisibility(View.GONE);
+            topbar.setBackgroundColor(colorPrimaryDark);
+            selection_count.setText(getResources().getString(R.string.pix_selected) + " " + selectionList.size());
+            img_count.setText(String.valueOf(selectionList.size()));
+            DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
+        }
         mainImageAdapter.addImageList(INSTANTLIST);
+        initaliseadapter.addImageList(INSTANTLIST);
+        ImageFetcher imageFetcher = new ImageFetcher(Pix.this) {
+            @Override
+            protected void onPostExecute(ImageFetcher.ModelList imgs) {
+                super.onPostExecute(imgs);
+                mainImageAdapter.addImageList(imgs.getLIST());
+                selectionList.addAll(imgs.getSelection());
+                if (selectionList.size() > 0) {
+                    LongSelection = true;
+                    sendButton.setVisibility(View.VISIBLE);
+                    Animation anim = new ScaleAnimation(
+                            0f, 1f, // Start and end values for the X axis scaling
+                            0f, 1f, // Start and end values for the Y axis scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+                            Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+                    anim.setFillAfter(true); // Needed to keep the result of the animation
+                    anim.setDuration(300);
+                    sendButton.startAnimation(anim);
+                    selection_check.setVisibility(View.GONE);
+                    topbar.setBackgroundColor(colorPrimaryDark);
+                    selection_count.setText(getResources().getString(R.string.pix_selected) + " " + selectionList.size());
+                    img_count.setText(String.valueOf(selectionList.size()));
+                    DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
+                }
+            }
+        };
+        imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
+        imageFetcher.execute(Utility.getCursor(Pix.this));
+        cursor.close();
         setBottomSheetBehavior();
     }
 

@@ -13,7 +13,6 @@
         <activity
             android:name="com.fxn.pix.Pix"
             android:noHistory="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/PixAppTheme"></activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 </manifest>

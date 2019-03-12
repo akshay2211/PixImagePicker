@@ -18,11 +18,13 @@ import android.view.ViewPropertyAnimator;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.fxn.modals.Img;
 import com.fxn.pix.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -200,7 +202,7 @@ public class Utility {
     public static File writeImage(Bitmap bitmap, String path, int quality, int newWidth, int newHeight) {
         File dir = new File(Environment.getExternalStorageDirectory(), path);
         if (!dir.exists())
-            dir.mkdir();
+            dir.mkdirs();
         File photo = new File(dir, "IMG_" + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date()) + ".jpg");
         if (photo.exists()) {
             photo.delete();
@@ -262,5 +264,14 @@ public class Utility {
             Log.e("exc", "->" + e.getMessage());
             return 0;
         }
+    }
+
+    public static boolean containsName(final ArrayList<Img> list, final String url) {
+        for (Img o : list) {
+            if (o != null && o.getContentUrl().equals(url)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
