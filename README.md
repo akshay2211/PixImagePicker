@@ -28,7 +28,8 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
           .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
           .setPath("/pix/images");                                             //Custom Path For Image Storage
         
-          Pix.start(MainActivity.this, options);
+   Pix.start(MainActivity.this, options);
+   
 ```
 or just use
 ```groovy
