@@ -1,14 +1,14 @@
 package com.fxn.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -20,11 +20,7 @@ import com.fxn.modals.Img;
 import com.fxn.pix.R;
 import com.fxn.utility.HeaderItemDecoration;
 import com.fxn.utility.Utility;
-
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by akshay on 17/03/18.
@@ -112,12 +108,9 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Holder imageHolder = (Holder) holder;
             glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
-            Log.e("i--------", "  " + position + "   " + image.getPosition() + "  " + image.getUrl());
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.header.setText(image.getHeaderDate());
-            Log.e("h--------", "  " + position + "   " + image.getPosition());
-
         }
     }
 

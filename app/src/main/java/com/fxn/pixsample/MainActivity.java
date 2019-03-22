@@ -4,21 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
-
 import java.util.ArrayList;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -61,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
                     returnValue1.addAll(returnValue);
-                    Log.e("count preSelectedlist", "->     " + returnValue1.size());
+                    //    Log.e("count preSelectedlist", "->     " + returnValue1.size());
                     myAdapter.addImage(returnValue1);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
