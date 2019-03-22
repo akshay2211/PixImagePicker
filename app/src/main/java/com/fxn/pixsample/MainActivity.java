@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter myAdapter;
     Options options;
     ArrayList<String> returnValue = new ArrayList<>();
+    ArrayList<String> returnValue1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 .setFrontfacing(true)
                 .setImageQuality(ImageQuality.HIGH)
                 .setImageResolution(1024, 800)
-                .setPreSelectedUrls(returnValue)
+                .setPreSelectedUrls(returnValue1)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)
                 .setPath("/akshay/new")
         ;
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) -> {
-            options.setPreSelectedUrls(returnValue);
+            options.setPreSelectedUrls(returnValue1);
             Pix.start(MainActivity.this, options);
         });
 
@@ -59,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                    Log.e("got preSelectedlist", "->     " + returnValue.size());
-                    myAdapter.addImage(returnValue);
+                    returnValue1.addAll(returnValue);
+                    Log.e("count preSelectedlist", "->     " + returnValue1.size());
+                    myAdapter.addImage(returnValue1);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
                     }*/

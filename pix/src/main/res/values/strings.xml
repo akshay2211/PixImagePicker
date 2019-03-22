@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pix</string>
-    <string name="selection_limiter_pix">Cant select more than %d items.</string>
+    <string name="selection_limiter_pix">Can\'t select more than %d items.</string>
     <string name="message_to_drag_up">Drag images up for gallery</string>
     <string name="pix_ok">OK</string>
     <string name="pix_tap_to_select">Tap photo to select</string>

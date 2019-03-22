@@ -1,6 +1,7 @@
 package com.fxn.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,9 +112,12 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Holder imageHolder = (Holder) holder;
             glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
+            Log.e("i--------", "  " + position + "   " + image.getPosition() + "  " + image.getUrl());
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.header.setText(image.getHeaderDate());
+            Log.e("h--------", "  " + position + "   " + image.getPosition());
+
         }
     }
 
