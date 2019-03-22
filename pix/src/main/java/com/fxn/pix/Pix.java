@@ -22,7 +22,16 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
 import com.fxn.interfaces.OnSelectionListener;
@@ -35,23 +44,6 @@ import com.fxn.utility.PermUtil;
 import com.fxn.utility.Utility;
 import com.fxn.utility.ui.FastScrollStateChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.configuration.CameraConfiguration;
 import io.fotoapparat.parameter.ScaleType;
@@ -61,6 +53,11 @@ import io.fotoapparat.selector.FocusModeSelectorsKt;
 import io.fotoapparat.selector.LensPositionSelectorsKt;
 import io.fotoapparat.selector.SelectorsKt;
 import io.fotoapparat.view.CameraView;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -627,6 +624,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             }
             Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
             img.setPosition(pos);
+          Log.e("pos", "-- " + pos + "  " + cursor.getString(data));
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
                 selectionList.add(img);
@@ -679,6 +677,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
             }
         };
+      imageFetcher.setStartingCount(pos);
         imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
         imageFetcher.execute(Utility.getCursor(Pix.this));
         cursor.close();
