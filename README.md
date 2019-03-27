@@ -114,6 +114,14 @@ or ivy:
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
+## Updates
+[Pix](https://github.com/akshay2211/PixImagePicker) is using the new Material library with the legacy Support Library. You have to migrate to android.support to androidx in order to use com.google.android.material. 
+
+With Android Studio 3.2 and higher, you can quickly migrate an existing project to use AndroidX by selecting *Refactor > Migrate* to AndroidX from the menu bar.
+
+For more details kindly refer [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate#migrate)
+ 
+
 ### for Version 1.2.5 refer [here](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
 
 ## License
