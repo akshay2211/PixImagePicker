@@ -66,7 +66,7 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
                case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                    // If request is cancelled, the result arrays are empty.
                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                       Pix.start(Context, RequestCode,NumberOfImagesToSelect);
+                        Pix.start(context, Options.init().setRequestCode(100));
                     } else {
                        Toast.makeText(MainActivity.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
                    }
