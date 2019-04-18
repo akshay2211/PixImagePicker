@@ -595,7 +595,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         String header = "";
         int limit = 100;
         if (cursor.getCount() < 100) {
-            limit = cursor.getCount();
+            limit = cursor.getCount() - 1;
         }
         int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
         int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
