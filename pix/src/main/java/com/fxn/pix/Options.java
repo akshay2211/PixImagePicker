@@ -1,10 +1,10 @@
 package com.fxn.pix;
 
 import com.fxn.utility.ImageQuality;
+
 import java.io.Serializable;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Options implements Serializable {
     private int count = 1;
@@ -13,27 +13,7 @@ public class Options implements Serializable {
     private int imageQuality = 40;
     private int height = 0, width = 0;
     private boolean frontfacing = false;
-    public static final int SCREEN_ORIENTATION_UNSET = -2;
-    public static final int SCREEN_ORIENTATION_UNSPECIFIED = -1;
-    public static final int SCREEN_ORIENTATION_LANDSCAPE = 0;
-    public static final int SCREEN_ORIENTATION_PORTRAIT = 1;
-    public static final int SCREEN_ORIENTATION_USER = 2;
-    public static final int SCREEN_ORIENTATION_BEHIND = 3;
-    public static final int SCREEN_ORIENTATION_SENSOR = 4;
-    public static final int SCREEN_ORIENTATION_NOSENSOR = 5;
-    public static final int SCREEN_ORIENTATION_SENSOR_LANDSCAPE = 6;
-    public static final int SCREEN_ORIENTATION_SENSOR_PORTRAIT = 7;
-    public static final int SCREEN_ORIENTATION_REVERSE_LANDSCAPE = 8;
-    public static final int SCREEN_ORIENTATION_REVERSE_PORTRAIT = 9;
-    public static final int SCREEN_ORIENTATION_FULL_SENSOR = 10;
-    public static final int SCREEN_ORIENTATION_USER_LANDSCAPE = 11;
-    public static final int SCREEN_ORIENTATION_USER_PORTRAIT = 12;
-    public static final int SCREEN_ORIENTATION_FULL_USER = 13;
-    public static final int SCREEN_ORIENTATION_LOCKED = 14;
-    private ArrayList<String> preSelectedUrls = new ArrayList<>();
-    private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
-    @ScreenOrientation
-    private int screenOrientation = SCREEN_ORIENTATION_UNSPECIFIED;
+    private List<String> previouslySelectedPathList = new ArrayList<>();
 
     private Options() {
     }
@@ -42,21 +22,11 @@ public class Options implements Serializable {
         return new Options();
     }
 
-    public ArrayList<String> getPreSelectedUrls() {
-        return preSelectedUrls;
-    }
-
-    public Options setPreSelectedUrls(ArrayList<String> preSelectedUrls) {
-        check();
-        this.preSelectedUrls = preSelectedUrls;
-        return this;
-    }
-
-    public ArrayList<String> getPreviouslySelectedPathList() {
+    public List<String> getPreviouslySelectedPathList() {
         return previouslySelectedPathList;
     }
 
-    public Options setPreviouslySelectedPathList(ArrayList<String> previouslySelectedPathList) {
+    public Options setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
         if(previouslySelectedPathList == null){
             this.previouslySelectedPathList = new ArrayList<>();
         }else{
@@ -80,14 +50,12 @@ public class Options implements Serializable {
         return this;
     }
 
-    public Options setImageResolution(int height, int width) {
-        check();
+    public void setImageResolution(int height, int width) {
         if (height == 0 || width == 0) {
             throw new NullPointerException("width or height can not be 0");
         }
         this.height = height;
         this.width = width;
-        return this;
     }
 
     public int getHeight() {
@@ -144,20 +112,6 @@ public class Options implements Serializable {
         check();
         this.path = path;
         return this;
-    }
-
-    public int getScreenOrientation() {
-        return screenOrientation;
-    }
-
-    public Options setScreenOrientation(@ScreenOrientation int screenOrientation) {
-        check();
-        this.screenOrientation = screenOrientation;
-        return this;
-    }
-
-    @Retention(RetentionPolicy.SOURCE)
-    public @interface ScreenOrientation {
     }
 
 }

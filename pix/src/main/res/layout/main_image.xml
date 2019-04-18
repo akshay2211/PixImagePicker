@@ -30,4 +30,14 @@
         android:src="@drawable/ic_check_green_24dp"
         android:visibility="gone" />
 
+    <ImageView
+        android:id="@+id/previouslySelected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_dark"
+        android:padding="14dp"
+        android:src="@drawable/ic_check_green_24dp"
+        android:visibility="gone" />
+
 </FrameLayout>
