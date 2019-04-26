@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.fxn.modals.Img;
 
@@ -22,8 +21,16 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
 
     private ArrayList<Img> selectionList = new ArrayList<>();
-
+    public int startingCount = 0;
     private ArrayList<Img> LIST = new ArrayList<>();
+
+    public int getStartingCount() {
+        return startingCount;
+    }
+
+    public void setStartingCount(int startingCount) {
+        this.startingCount = startingCount;
+    }
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
 
     public ArrayList<String> getPreSelectedUrls() {
@@ -51,7 +58,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                 }
                 cursor.move(limit);
                 synchronized (context) {
-                    int pos = limit;
+                    int pos = getStartingCount();
 
                     for (int i = limit; i < cursor.getCount(); i++) {
                         cursor.moveToNext();
@@ -63,13 +70,11 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
-                            Log.e("pos", "-- " + pos);
                             pos += 1;
                             LIST.add(new Img("" + dateDifference, "", "", ""));
                         }
                         Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
                         img.setPosition(pos);
-                        Log.e("pos", "-- " + pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);
                             selectionList.add(img);

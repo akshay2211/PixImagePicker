@@ -18,14 +18,22 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
 ## Usage
  
 ```groovy
-          Pix.start(Context,                    //Activity or Fragment Instance
-                    RequestCode,                //Request code for activity results
-                    NumberOfImagesToSelect);    //Number of images to restict selection count
+   Options options = Options.init()
+          .setRequestCode(100)                                                 //Request code for activity results
+          .setCount(3)                                                         //Number of images to restict selection count
+          .setFrontfacing(true)                                                //Front Facing camera on start
+          .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
+          .setImageResolution(1024, 800)                                       //Custom Resolution
+          .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
+          .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
+          .setPath("/pix/images");                                             //Custom Path For Image Storage
+        
+   Pix.start(MainActivity.this, options);
+   
 ```
 or just use
 ```groovy
-          Pix.start(Context,
-                    RequestCode);
+          Pix.start(context, Options.init().setRequestCode(100));
 ```
 for fetching only a single picture.
 
@@ -49,13 +57,6 @@ include these items in colors.xml with custom color codes
     </resources>
 ```
 
-### Orientation
-include this theme in style.xml with preferred screen orientation
-```xml
-   <style name="PixAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-         <item name="android:screenOrientation">portrait</item>
-   </style>
-```
 ## Permission Handling
 include onRequestPermissionsResult method in your Activity/Fragment for permission selection
 ```groovy
@@ -65,7 +66,7 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
                case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                    // If request is cancelled, the result arrays are empty.
                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                       Pix.start(Context, RequestCode,NumberOfImagesToSelect);
+                        Pix.start(context, Options.init().setRequestCode(100));
                     } else {
                        Toast.makeText(MainActivity.this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show();
                    }
@@ -93,27 +94,35 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
         }
  ```
 ```groovy
-        implementation  'com.fxn769:pix:1.2.5'
+        implementation  'com.fxn769:pix:1.3.0'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.2.5</version>
+          <version>1.3.0</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.2.5'>
+        <dependency org='com.fxn769' name='pix' rev='1.3.0'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
 
+## Updates
+[Pix](https://github.com/akshay2211/PixImagePicker) is using the new Material library with the legacy Support Library. You have to migrate to android.support to androidx in order to use com.google.android.material. 
 
+With Android Studio 3.2 and higher, you can quickly migrate an existing project to use AndroidX by selecting *Refactor > Migrate* to AndroidX from the menu bar.
+
+For more details kindly refer [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate#migrate)
+ 
+
+### for Version 1.2.5 refer [here](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
 
 ## License
 Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).

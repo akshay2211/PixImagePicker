@@ -1,7 +1,5 @@
 package com.fxn.pix;
 
-import android.util.Log;
-
 import com.fxn.utility.ImageQuality;
 
 import java.io.Serializable;
@@ -50,7 +48,6 @@ public class Options implements Serializable {
 
     public Options setPreSelectedUrls(ArrayList<String> preSelectedUrls) {
         check();
-        Log.e("check preSelectedlist", "------------------------> " + preSelectedUrls.size());
         this.preSelectedUrls = preSelectedUrls;
         return this;
     }

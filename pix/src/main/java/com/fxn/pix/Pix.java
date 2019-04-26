@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
@@ -22,6 +21,17 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
@@ -42,16 +52,6 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.configuration.CameraConfiguration;
 import io.fotoapparat.parameter.ScaleType;
@@ -136,7 +136,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private OnSelectionListener onSelectionListener = new OnSelectionListener() {
         @Override
         public void onClick(Img img, View view, int position) {
-            Log.e("onClick", "onClick " + position);
             if (LongSelection) {
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
@@ -373,7 +372,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.e("count", "-> " + options.getPreSelectedUrls().size());
         setRequestedOrientation(options.getScreenOrientation());
         colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         CameraView mCamera = findViewById(R.id.camera_view);
@@ -463,10 +461,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         if ((options.getPreSelectedUrls().size()) > options.getCount()) {
             int large = options.getPreSelectedUrls().size() - 1;
             int small = options.getCount();
-            Log.e("count", "-> " + large + "   " + small);
-            Log.e("count", "-> ------------------------");
             for (int i = large; i > (small - 1); i--) {
-                Log.e("count", "-> " + large + "   " + small + "  " + i);
                 options.getPreSelectedUrls().remove(i);
             }
         }
@@ -483,7 +478,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
                     @Override
                     public Bitmap invoke(BitmapPhoto bitmapPhoto) {
-                        Log.e("my pick transform", bitmapPhoto.toString());
                         fotoapparat.stop();
                         return Utility.rotate(bitmapPhoto.bitmap, -bitmapPhoto.rotationDegrees);
                     }
@@ -491,10 +485,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     @Override
                     public Unit invoke(Bitmap bitmap) {
                         if (bitmap != null) {
-                            Log.e("my pick", bitmap.toString());
                             synchronized (bitmap) {
                                 File photo = Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(), options.getWidth(), options.getHeight());
-                                Log.e("my pick saved", bitmap.toString() + "    ->  " + photo.length() / 1024);
                                 selectionList.clear();
                                 selectionList.add(new Img("", "", photo.getAbsolutePath(), ""));
                                 returnObjects();
@@ -583,7 +575,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                 });
                 oa1.start();
-                Log.e("isFrontfacing", "-> " + options.isFrontfacing());
                 if (options.isFrontfacing()) {
                     options.setFrontfacing(false);
                     final CameraConfiguration cameraConfiguration = new CameraConfiguration();
@@ -679,6 +670,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
             }
         };
+        imageFetcher.setStartingCount(pos);
         imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
         imageFetcher.execute(Utility.getCursor(Pix.this));
         cursor.close();
@@ -858,7 +850,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         if (selectionList.size() > 0) {
             for (Img img : selectionList) {
                 options.setPreSelectedUrls(new ArrayList<String>());
-                Log.e("count ", "->  " + selectionList.size() + "   " + img.getUrl() + "  " + img.getPosition());
                 mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
                 mainImageAdapter.notifyItemChanged(img.getPosition());
                 initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
