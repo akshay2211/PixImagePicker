@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -31,6 +32,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.fxn.adapters.InstantImageAdapter;
 import com.fxn.adapters.MainImageAdapter;
 import com.fxn.interfaces.OnSelectionListener;
@@ -43,6 +45,13 @@ import com.fxn.utility.PermUtil;
 import com.fxn.utility.Utility;
 import com.fxn.utility.ui.FastScrollStateChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
+
 import io.fotoapparat.Fotoapparat;
 import io.fotoapparat.configuration.CameraConfiguration;
 import io.fotoapparat.parameter.ScaleType;
@@ -52,11 +61,6 @@ import io.fotoapparat.selector.FocusModeSelectorsKt;
 import io.fotoapparat.selector.LensPositionSelectorsKt;
 import io.fotoapparat.selector.SelectorsKt;
 import io.fotoapparat.view.CameraView;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.Set;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 
@@ -594,7 +598,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         ArrayList<Img> INSTANTLIST = new ArrayList<>();
         String header = "";
         int limit = 100;
-        if (cursor.getCount() < 100) {
+        if (cursor.getCount() < limit) {
             limit = cursor.getCount() - 1;
         }
         int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
@@ -668,7 +672,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
             }
         };
-      imageFetcher.setStartingCount(pos);
+        imageFetcher.setStartingCount(pos);
+        imageFetcher.header = header;
         imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
         imageFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
         imageFetcher.execute(Utility.getCursor(Pix.this));

@@ -1,6 +1,7 @@
 package com.fxn.pix;
 
 import com.fxn.utility.ImageQuality;
+
 import java.io.Serializable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

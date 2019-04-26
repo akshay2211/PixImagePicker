@@ -4,16 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -60,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
                     returnValue1.addAll(returnValue);
                     previouslySelectedPathList.addAll(returnValue);
-                    //    Log.e("count preSelectedlist", "->     " + returnValue1.size());
                     myAdapter.addImage(returnValue1);
                     /*for (String s : returnValue) {
                         Log.e("val", " ->  " + s);
@@ -72,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 // If request is cancelled, the result arrays are empty.

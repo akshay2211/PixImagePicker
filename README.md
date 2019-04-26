@@ -26,7 +26,7 @@ I forked it to add the possibility to pass a list of already previously selected
           .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
           .setImageResolution(1024, 800)                                       //Custom Resolution
           .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
-          .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)   //Orientaion
+          .setScreenOrientation(Options.SCREEN_ORIENTATION_FULL_SENSOR)        //Orientaion
           .setPath("/pix/images");                                             //Custom Path For Image Storage
         
    Pix.start(MainActivity.this, options);
@@ -95,20 +95,20 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
         }
  ```
 ```groovy
-        implementation  'com.fxn769:pix:1.3.0'
+        implementation  'com.fxn769:pix:1.3.1'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.3.0</version>
+          <version>1.3.1</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.3.0'>
+        <dependency org='com.fxn769' name='pix' rev='1.3.1'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
