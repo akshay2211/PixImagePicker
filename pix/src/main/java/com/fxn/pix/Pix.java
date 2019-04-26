@@ -597,8 +597,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         ArrayList<Img> INSTANTLIST = new ArrayList<>();
         String header = "";
         int limit = 100;
-        if (cursor.getCount() < 100) {
-            limit = cursor.getCount();
+        if (cursor.getCount() < limit) {
+            limit = cursor.getCount() - 1;
         }
         int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
         int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
@@ -671,6 +671,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             }
         };
         imageFetcher.setStartingCount(pos);
+        imageFetcher.header = header;
         imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
         imageFetcher.execute(Utility.getCursor(Pix.this));
         cursor.close();

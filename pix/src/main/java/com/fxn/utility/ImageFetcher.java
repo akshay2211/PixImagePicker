@@ -8,10 +8,8 @@ import android.provider.MediaStore;
 
 import com.fxn.modals.Img;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Created by akshay on 06/04/18.
@@ -20,9 +18,16 @@ import java.util.Locale;
 public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList> {
 
 
-    private ArrayList<Img> selectionList = new ArrayList<>();
     public int startingCount = 0;
+    public String header = "";
+    private ArrayList<Img> selectionList = new ArrayList<>();
     private ArrayList<Img> LIST = new ArrayList<>();
+    private ArrayList<String> preSelectedUrls = new ArrayList<>();
+    private Context context;
+
+    public ImageFetcher(Context context) {
+        this.context = context;
+    }
 
     public int getStartingCount() {
         return startingCount;
@@ -31,7 +36,6 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
     public void setStartingCount(int startingCount) {
         this.startingCount = startingCount;
     }
-    private ArrayList<String> preSelectedUrls = new ArrayList<>();
 
     public ArrayList<String> getPreSelectedUrls() {
         return preSelectedUrls;
@@ -47,13 +51,12 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
         Cursor cursor = cursors[0];
         try {
             if (cursor != null) {
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.ENGLISH);
                 int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
                 int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
                 int contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                String header = "";
+
                 int limit = 100;
-                if (cursor.getCount() < 100) {
+                if (cursor.getCount() < limit) {
                     limit = cursor.getCount() - 1;
                 }
                 cursor.move(limit);
@@ -90,12 +93,6 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
         }
 
         return new ModelList(LIST, selectionList);
-    }
-
-    private Context context;
-
-    public ImageFetcher(Context context) {
-        this.context = context;
     }
 
     public class ModelList {
