@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
@@ -15,10 +19,6 @@ import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
 
 import java.util.ArrayList;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 .setImageQuality(ImageQuality.HIGH)
                 .setImageResolution(1024, 800)
                 .setPreSelectedUrls(returnValue1)
-                .setScreenOrientation(Options.SCREEN_ORIENTATION_REVERSE_PORTRAIT)
+                .setScreenOrientation(Options.SCREEN_ORIENTATION_FULL_SENSOR)
                 .setPath("/akshay/new")
         ;
         recyclerView.setAdapter(myAdapter);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
                 // If request is cancelled, the result arrays are empty.

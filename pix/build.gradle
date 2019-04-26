@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
@@ -28,6 +30,7 @@ android {
 }
 repositories {
     maven { url 'https://jitpack.io' }
+    mavenCentral()
 }
 
 dependencies {
@@ -40,6 +43,8 @@ dependencies {
     implementation 'io.fotoapparat:fotoapparat:2.7.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
+    implementation "androidx.core:core-ktx:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
