@@ -852,12 +852,20 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     public void onBackPressed() {
 
         if (selectionList.size() > 0) {
-            for (Img img : selectionList) {
-                options.setPreSelectedUrls(new ArrayList<String>());
-                mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
-                mainImageAdapter.notifyItemChanged(img.getPosition());
-                initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
-                initaliseadapter.notifyItemChanged(img.getPosition());
+            try {
+                for (Img img : selectionList) {
+                    options.setPreSelectedUrls(new ArrayList<String>());
+                    mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
+                    mainImageAdapter.notifyItemChanged(img.getPosition());
+                    initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
+                    initaliseadapter.notifyItemChanged(img.getPosition());
+                }
+            }
+            //In case of unsynchronized selectionList, we close the activity to avoid complexity and crash
+            catch (IndexOutOfBoundsException e){
+                e.printStackTrace();
+                super.onBackPressed();
+                return;
             }
             LongSelection = false;
             if (options.getCount() > 1) {
