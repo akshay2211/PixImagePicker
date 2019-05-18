@@ -24,7 +24,7 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
           .setFrontfacing(false)                                                //Front Facing camera on start
           .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
           .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
-          .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)        //Orientaion
+          .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)           //Orientaion
           .setPath("/pix/images");                                             //Custom Path For Image Storage
         
    Pix.start(MainActivity.this, options);
