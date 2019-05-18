@@ -4,20 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
 import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter myAdapter;
     Options options;
     ArrayList<String> returnValue = new ArrayList<>();
-    ArrayList<String> returnValue1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +32,15 @@ public class MainActivity extends AppCompatActivity {
         options = Options.init()
                 .setRequestCode(100)
                 .setCount(3)
-                .setFrontfacing(true)
-                .setImageQuality(ImageQuality.HIGH)
-                .setImageResolution(1024, 800)
-                .setPreSelectedUrls(returnValue1)
-                .setScreenOrientation(Options.SCREEN_ORIENTATION_FULL_SENSOR)
+            .setFrontfacing(false)
+            .setImageQuality(ImageQuality.LOW)
+            .setPreSelectedUrls(returnValue)
+            .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("/akshay/new")
         ;
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) -> {
-            options.setPreSelectedUrls(returnValue1);
+            options.setPreSelectedUrls(returnValue);
             Pix.start(MainActivity.this, options);
         });
 
@@ -60,12 +54,7 @@ public class MainActivity extends AppCompatActivity {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                    returnValue1.addAll(returnValue);
-                    Log.e("count preSelectedlist", "->     " + returnValue1.size());
-                    myAdapter.addImage(returnValue1);
-                    /*for (String s : returnValue) {
-                        Log.e("val", " ->  " + s);
-                    }*/
+                    myAdapter.addImage(returnValue);
                 }
             }
             break;

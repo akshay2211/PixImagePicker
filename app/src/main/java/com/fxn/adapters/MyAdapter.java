@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
+import androidx.recyclerview.widget.RecyclerView;
 import com.fxn.pixsample.R;
-
 import java.io.File;
 import java.util.ArrayList;
-
-import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<String> list = new ArrayList<>();
@@ -42,10 +39,9 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         //Log.e("hello", "- " + imageUri.toString());
         File f = new File(list.get(position));
         Bitmap d = new BitmapDrawable(context.getResources(), f.getAbsolutePath()).getBitmap();
-        //Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, com.fxn.utility.Utility.getExifCorrectedBitmap(f));
-        Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(512, d);
-        ((Holder) holder).iv.setImageBitmap(scaled);
-        // ((Holder) holder).iv.setImageURI(imageUri);
+        /*Bitmap scaled = com.fxn.utility.Utility.getScaledBitmap(
+            500f, com.fxn.utility.Utility.rotate(d,list.get(position).getOrientation()));*/
+        ((Holder) holder).iv.setImageBitmap(d);
     }
 
     @Override
