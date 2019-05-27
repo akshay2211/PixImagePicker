@@ -72,6 +72,9 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
+        if (list.size() <= position) {
+            return 0;
+        }
         Img i = list.get(position);
         return (i.getContentUrl().equalsIgnoreCase("")) ?
                 HEADER : ITEM;
@@ -111,7 +114,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Holder imageHolder = (Holder) holder;
             glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
-            imageHolder.previouslySelected.setVisibility(image.getPreviouslySelected() && ! image.getSelected() ? View.VISIBLE : View.GONE);
+            imageHolder.previouslySelected.setVisibility(image.getPreviouslySelected() && !image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.header.setText(image.getHeaderDate());
