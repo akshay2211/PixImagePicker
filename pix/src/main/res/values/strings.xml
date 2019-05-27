@@ -8,4 +8,5 @@
     <string name="pix_recent">Recent</string>
     <string name="pix_last_month">Last Month</string>
     <string name="pix_last_week">Last Week</string>
+  <string name="cannot_click_image_pix">Can not add more than %s images</string>
 </resources>

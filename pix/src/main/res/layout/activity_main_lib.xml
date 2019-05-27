@@ -10,7 +10,14 @@
     <io.fotoapparat.view.CameraView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        >
+        <io.fotoapparat.view.FocusView
+            android:id="@+id/focusView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </io.fotoapparat.view.CameraView>
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"

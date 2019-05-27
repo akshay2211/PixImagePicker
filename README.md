@@ -22,11 +22,10 @@ I forked it to add the possibility to pass a list of already previously selected
    Options options = Options.init()
           .setRequestCode(100)                                                 //Request code for activity results
           .setCount(3)                                                         //Number of images to restict selection count
-          .setFrontfacing(true)                                                //Front Facing camera on start
+          .setFrontfacing(false)                                                //Front Facing camera on start
           .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
-          .setImageResolution(1024, 800)                                       //Custom Resolution
           .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
-          .setScreenOrientation(Options.SCREEN_ORIENTATION_FULL_SENSOR)        //Orientaion
+          .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)           //Orientaion
           .setPath("/pix/images");                                             //Custom Path For Image Storage
         
    Pix.start(MainActivity.this, options);
@@ -95,20 +94,20 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
         }
  ```
 ```groovy
-        implementation  'com.fxn769:pix:1.3.1'
+        implementation  'com.fxn769:pix:1.4.4'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.3.1</version>
+          <version>1.4.4</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.3.1'>
+        <dependency org='com.fxn769' name='pix' rev='1.4.4'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
