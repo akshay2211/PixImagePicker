@@ -191,9 +191,6 @@ public class Utility {
 
   @SuppressWarnings("SameParameterValue")
   public static int getValueInRange(int min, int max, int value) {
-    if(max < min){
-      max = min;
-    }
     int minimum = Math.max(min, value);
     return Math.min(minimum, max);
   }
