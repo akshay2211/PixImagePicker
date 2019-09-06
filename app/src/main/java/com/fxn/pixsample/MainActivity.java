@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter myAdapter;
     Options options;
     ArrayList<String> returnValue = new ArrayList<>();
-    ArrayList<String> returnValue1 = new ArrayList<>();
-    ArrayList<String> previouslySelectedPathList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 .setCount(3)
             .setFrontfacing(false)
             .setImageQuality(ImageQuality.LOW)
-            .setPreSelectedUrls(returnValue1)
+            .setPreSelectedUrls(returnValue)
             .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("/akshay/new")
-                .setPreviouslySelectedPathList(previouslySelectedPathList)
         ;
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) -> {
-            options.setPreSelectedUrls(returnValue1);
+            options.setPreSelectedUrls(returnValue);
             Pix.start(MainActivity.this, options);
         });
 
@@ -57,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
-                    returnValue1.addAll(returnValue);
-                    previouslySelectedPathList.addAll(returnValue);
-                    myAdapter.addImage(returnValue1);
+                    myAdapter.addImage(returnValue);
                 }
             }
             break;

@@ -1,9 +1,8 @@
 ![](media/two.png)
 
-# Pix   (WhatsApp Style Image Picker) Already Sent Fork
+# Pix   (WhatsApp Style Image Picker)
 
 Pix is a Whatsapp image picker replica. with this you can integrate a image picker just like whatsapp.
-I forked it to add the possibility to pass a list of already previously selected images. 
 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/887abd593a5a499495c4f071accb132a)](https://app.codacy.com/app/akshay2211/PixImagePicker?utm_source=github.com&utm_medium=referral&utm_content=akshay2211/PixImagePicker&utm_campaign=Badge_Grade_Dashboard)

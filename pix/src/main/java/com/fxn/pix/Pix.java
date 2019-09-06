@@ -520,8 +520,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 File photo =
                     Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(),
                         options.getWidth(), options.getHeight());
-                boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(photo.getAbsolutePath());
-                Img img = new Img("", "", photo.getAbsolutePath(), "", isPreviouslySelectedPix);
+                Img img = new Img("", "", photo.getAbsolutePath(), "");
                 selectionList.add(img);
                 Utility.scanPhoto(Pix.this, photo);
                 Log.e("click time", "--------------------------------2");
@@ -654,13 +653,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
       calendar = Calendar.getInstance();
       calendar.setTimeInMillis(cursor.getLong(date));
       String dateDifference = Utility.getDateDifference(Pix.this, calendar);
-      boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
       if (!header.equalsIgnoreCase("" + dateDifference)) {
         header = "" + dateDifference;
         pos += 1;
-        INSTANTLIST.add(new Img("" + dateDifference, "", "", "", isPreviouslySelectedPix));
+        INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
       }
-      Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, isPreviouslySelectedPix);
+      Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
       img.setPosition(pos);
       if (options.getPreSelectedUrls().contains(img.getUrl())) {
         img.setSelected(true);
@@ -719,7 +717,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     imageFetcher.setStartingCount(pos);
     imageFetcher.header = header;
     imageFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
-    imageFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
     imageFetcher.execute(Utility.getCursor(Pix.this));
     cursor.close();
     setBottomSheetBehavior();
@@ -898,21 +895,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
   public void onBackPressed() {
 
     if (selectionList.size() > 0) {
-        try {
-          for (Img img : selectionList) {
-            options.setPreSelectedUrls(new ArrayList<String>());
-            mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
-            mainImageAdapter.notifyItemChanged(img.getPosition());
-            initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
-            initaliseadapter.notifyItemChanged(img.getPosition());
-          }
-        }
-        //In case of unsynchronized selectionList, we close the activity to avoid complexity and crash
-        catch (IndexOutOfBoundsException e){
-            e.printStackTrace();
-            super.onBackPressed();
-            return;
-        }
+      for (Img img : selectionList) {
+        options.setPreSelectedUrls(new ArrayList<String>());
+        mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
+        mainImageAdapter.notifyItemChanged(img.getPosition());
+        initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
+        initaliseadapter.notifyItemChanged(img.getPosition());
+      }
       LongSelection = false;
       if (options.getCount() > 1) {
         selection_check.setVisibility(View.VISIBLE);
