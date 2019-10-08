@@ -10,6 +10,7 @@ import com.fxn.modals.Img;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by akshay on 06/04/18.
@@ -23,6 +24,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
     private ArrayList<Img> selectionList = new ArrayList<>();
     private ArrayList<Img> LIST = new ArrayList<>();
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
+    private List<String> previouslySelectedPathList = new ArrayList<>();
     private Context context;
 
     public ImageFetcher(Context context) {
@@ -69,14 +71,15 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         Calendar calendar = Calendar.getInstance();
                         calendar.setTimeInMillis(cursor.getLong(date));
                         String dateDifference = Utility.getDateDifference(context, calendar);
+                        boolean isPrevisoulySelectedPix = previouslySelectedPathList.contains(cursor.getString(data));
 
 
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
-                            LIST.add(new Img("" + dateDifference, "", "", ""));
+                            LIST.add(new Img("" + dateDifference, "", "", "",isPrevisoulySelectedPix));
                         }
-                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,isPrevisoulySelectedPix);
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);
@@ -110,6 +113,15 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
         public ArrayList<Img> getSelection() {
             return selection;
+        }
+    }
+
+    public void setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
+        if(previouslySelectedPathList == null){
+            this.previouslySelectedPathList = new ArrayList<>();
+        }
+        else{
+            this.previouslySelectedPathList = previouslySelectedPathList;
         }
     }
 

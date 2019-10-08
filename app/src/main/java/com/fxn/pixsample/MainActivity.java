@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter myAdapter;
     Options options;
     ArrayList<String> returnValue = new ArrayList<>();
+    ArrayList<String> previouslySelectedPathList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
             .setPreSelectedUrls(returnValue)
             .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("/akshay/new")
+                .setPreviouslySelectedPathList(previouslySelectedPathList)
         ;
         recyclerView.setAdapter(myAdapter);
         findViewById(R.id.fab).setOnClickListener((View view) -> {
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             case (100): {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data.getStringArrayListExtra(Pix.IMAGE_RESULTS);
+                    previouslySelectedPathList.addAll(returnValue);
                     myAdapter.addImage(returnValue);
                 }
             }
