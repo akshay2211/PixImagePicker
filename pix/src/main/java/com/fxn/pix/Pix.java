@@ -937,7 +937,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
       });
       sendButton.startAnimation(anim);
       selectionList.clear();
-    } else if (mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+    } else if (null != mBottomSheetBehavior && mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
       mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     } else {
       super.onBackPressed();
