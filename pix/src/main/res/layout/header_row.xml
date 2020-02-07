@@ -11,7 +11,7 @@
     android:text="@string/pix_recent"
     android:textAllCaps="true"
     android:textColor="#807f7f"
-    android:textSize="14sp"
+		android:textSize = "12sp"
     android:textStyle="bold">
 
 </TextView>

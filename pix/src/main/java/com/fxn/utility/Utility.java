@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
@@ -44,28 +45,40 @@ public class Utility {
   public static void setupStatusBarHidden(AppCompatActivity appCompatActivity) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
       Window w = appCompatActivity.getWindow();
-      w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-      w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+      w.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+          | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+      w.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+          WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        w.setStatusBarColor(Color.TRANSPARENT);
+      }
+      //w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+      //  w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+
     }
   }
 
   public static void showStatusBar(AppCompatActivity appCompatActivity) {
     synchronized (appCompatActivity) {
-      Window w = appCompatActivity.getWindow();
+     /* Window w = appCompatActivity.getWindow();
       View decorView = w.getDecorView();
       // Show Status Bar.
       int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-      decorView.setSystemUiVisibility(uiOptions);
+      decorView.setSystemUiVisibility(uiOptions);*/
+
+      appCompatActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
     }
   }
 
   public static void hideStatusBar(AppCompatActivity appCompatActivity) {
     synchronized (appCompatActivity) {
-      Window w = appCompatActivity.getWindow();
+      /*Window w = appCompatActivity.getWindow();
       View decorView = w.getDecorView();
       // Hide Status Bar.
       int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-      decorView.setSystemUiVisibility(uiOptions);
+      decorView.setSystemUiVisibility(uiOptions);*/
+      appCompatActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
   }
 
@@ -85,6 +98,21 @@ public class Utility {
     }
     return 0;
   }
+
+public static int getStatusBarSizePort(AppCompatActivity check) {
+  // getRealMetrics is only available with API 17 and +
+  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+    int result = 0;
+    Log.e("->activity", "----------->  " + check);
+    Resources res = check.getBaseContext().getResources();
+    int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
+    if (resourceId > 0) {
+      result = check.getResources().getDimensionPixelSize(resourceId);
+    }
+    return result;
+  }
+  return 0;
+}
 
   public static void getScreenSize(Activity activity) {
     DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -138,8 +166,7 @@ public class Utility {
   }
 
   public static ViewPropertyAnimator showScrollbar(View mScrollbar, Context context) {
-    float transX =
-        context.getResources().getDimensionPixelSize(R.dimen.fastscroll_scrollbar_padding_end);
+    float transX = context.getResources().getDimensionPixelSize(R.dimen.fastscroll_bubble_size);
     mScrollbar.setTranslationX(transX);
     mScrollbar.setVisibility(View.VISIBLE);
     return mScrollbar.animate().translationX(0f).alpha(1f)
@@ -178,14 +205,14 @@ public class Utility {
     }
     if ((slideOffset) > 0 && recyclerView.getVisibility() == View.INVISIBLE) {
       recyclerView.setVisibility(View.VISIBLE);
-      status_bar_bg.animate().translationY(0).setDuration(300).start();
+      status_bar_bg.animate().translationY(0).setDuration(200).start();
       topbar.setVisibility(View.VISIBLE);
       Utility.showStatusBar(activity);
     } else if (recyclerView.getVisibility() == View.VISIBLE && (slideOffset) == 0) {
       Utility.hideStatusBar(activity);
       recyclerView.setVisibility(View.INVISIBLE);
       topbar.setVisibility(View.GONE);
-      status_bar_bg.animate().translationY(-(status_bar_bg.getHeight())).setDuration(300).start();
+      status_bar_bg.animate().translationY(-(status_bar_bg.getHeight())).setDuration(550).start();
     }
   }
 
