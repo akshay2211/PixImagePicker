@@ -158,6 +158,9 @@ private static final int MARGIN = 4;
     }
 
     public String getSectionMonthYearText(int position) {
+	    if (list.size() <= position) {
+		    return "";
+	    }
         return list.get(position).getHeaderDate();
     }
 
