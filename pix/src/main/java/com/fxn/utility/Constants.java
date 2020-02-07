@@ -8,7 +8,7 @@ import android.provider.MediaStore;
  */
 
 public class Constants {
-    public static final int sScrollbarAnimDuration = 300;
+public static final int sScrollbarAnimDuration = 500;
     public static String[] PROJECTION = new String[]{
             MediaStore.Images.Media.DATA,
             MediaStore.Images.Media._ID,
