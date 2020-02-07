@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -16,6 +17,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewPropertyAnimator;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -110,6 +113,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
   private boolean mHideScrollbar = true;
   private boolean LongSelection = false;
   private Options options = null;
+int status_bar_height = 0;
+private TextView selection_count;
   private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
     @Override
@@ -127,11 +132,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         switch (newState) {
           case RecyclerView.SCROLL_STATE_DRAGGING:
             handler.removeCallbacks(mScrollbarHider);
-            Utility.cancelAnimation(mScrollbarAnimator);
-            if (!Utility.isViewVisible(mScrollbar) && (recyclerView.computeVerticalScrollRange()
-                - mViewHeight > 0)) {
-              mScrollbarAnimator = Utility.showScrollbar(mScrollbar, Pix.this);
-            }
+	          if (mScrollbar.getVisibility() != View.VISIBLE) {
+		          Utility.cancelAnimation(mScrollbarAnimator);
+		          if (!Utility.isViewVisible(mScrollbar) && (recyclerView.computeVerticalScrollRange()
+				          - mViewHeight > 0)) {
+
+			          mScrollbarAnimator = Utility.showScrollbar(mScrollbar, Pix.this);
+		          }
+	          }
             break;
           case RecyclerView.SCROLL_STATE_IDLE:
             if (mHideScrollbar && !mHandleView.isSelected()) {
@@ -141,114 +149,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
           default:
             break;
         }
-      }
-    }
-  };
-  private TextView selection_count;
-  private OnSelectionListener onSelectionListener = new OnSelectionListener() {
-    @Override
-    public void onClick(Img img, View view, int position) {
-      if (LongSelection) {
-        if (selectionList.contains(img)) {
-          selectionList.remove(img);
-          initaliseadapter.select(false, position);
-          mainImageAdapter.select(false, position);
-        } else {
-          if (options.getCount() <= selectionList.size()) {
-            Toast.makeText(Pix.this,
-                String.format(getResources().getString(R.string.selection_limiter_pix),
-                    selectionList.size()), Toast.LENGTH_SHORT).show();
-            return;
-          }
-          img.setPosition(position);
-          selectionList.add(img);
-          initaliseadapter.select(true, position);
-          mainImageAdapter.select(true, position);
-        }
-        if (selectionList.size() == 0) {
-          LongSelection = false;
-          selection_check.setVisibility(View.VISIBLE);
-          DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
-          topbar.setBackgroundColor(Color.parseColor("#ffffff"));
-          Animation anim = new ScaleAnimation(
-              1f, 0f, // Start and end values for the X axis scaling
-              1f, 0f, // Start and end values for the Y axis scaling
-              Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-              Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
-          anim.setFillAfter(true); // Needed to keep the result of the animation
-          anim.setDuration(300);
-          anim.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-              sendButton.setVisibility(View.GONE);
-              sendButton.clearAnimation();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-          });
-          sendButton.startAnimation(anim);
-        }
-        selection_count.setText(
-            getResources().getString(R.string.pix_selected) + " " + selectionList.size());
-        img_count.setText(String.valueOf(selectionList.size()));
-      } else {
-        img.setPosition(position);
-        selectionList.add(img);
-        returnObjects();
-        DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
-        topbar.setBackgroundColor(Color.parseColor("#ffffff"));
-      }
-    }
-
-    @Override
-    public void onLongClick(Img img, View view, int position) {
-      if (options.getCount() > 1) {
-        Utility.vibe(Pix.this, 50);
-        //Log.e("onLongClick", "onLongClick");
-        LongSelection = true;
-        if ((selectionList.size() == 0) && (mBottomSheetBehavior.getState()
-            != BottomSheetBehavior.STATE_EXPANDED)) {
-          sendButton.setVisibility(View.VISIBLE);
-          Animation anim = new ScaleAnimation(
-              0f, 1f, // Start and end values for the X axis scaling
-              0f, 1f, // Start and end values for the Y axis scaling
-              Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
-              Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
-          anim.setFillAfter(true); // Needed to keep the result of the animation
-          anim.setDuration(300);
-          sendButton.startAnimation(anim);
-        }
-        if (selectionList.contains(img)) {
-          selectionList.remove(img);
-          initaliseadapter.select(false, position);
-          mainImageAdapter.select(false, position);
-        } else {
-          if (options.getCount() <= selectionList.size()) {
-            Toast.makeText(Pix.this,
-                String.format(getResources().getString(R.string.selection_limiter_pix),
-                    selectionList.size()), Toast.LENGTH_SHORT).show();
-            return;
-          }
-          img.setPosition(position);
-          selectionList.add(img);
-          initaliseadapter.select(true, position);
-          mainImageAdapter.select(true, position);
-        }
-        selection_check.setVisibility(View.GONE);
-        topbar.setBackgroundColor(colorPrimaryDark);
-        selection_count.setText(
-            getResources().getString(R.string.pix_selected) + " " + selectionList.size());
-        img_count.setText(String.valueOf(selectionList.size()));
-        DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
       }
     }
   };
@@ -379,7 +279,120 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     super.onPause();
   }
 
+private OnSelectionListener onSelectionListener = new OnSelectionListener() {
+	@Override
+	public void onClick(Img img, View view, int position) {
+		if (LongSelection) {
+			if (selectionList.contains(img)) {
+				selectionList.remove(img);
+				initaliseadapter.select(false, position);
+				mainImageAdapter.select(false, position);
+			} else {
+				if (options.getCount() <= selectionList.size()) {
+					Toast.makeText(Pix.this,
+							String.format(getResources().getString(R.string.selection_limiter_pix),
+									selectionList.size()), Toast.LENGTH_SHORT).show();
+					return;
+				}
+				img.setPosition(position);
+				selectionList.add(img);
+				initaliseadapter.select(true, position);
+				mainImageAdapter.select(true, position);
+			}
+			if (selectionList.size() == 0) {
+				LongSelection = false;
+				selection_check.setVisibility(View.VISIBLE);
+				DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
+				topbar.setBackgroundColor(Color.parseColor("#ffffff"));
+				Animation anim = new ScaleAnimation(
+						1f, 0f, // Start and end values for the X axis scaling
+						1f, 0f, // Start and end values for the Y axis scaling
+						Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+						Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+				anim.setFillAfter(true); // Needed to keep the result of the animation
+				anim.setDuration(300);
+				anim.setAnimationListener(new Animation.AnimationListener() {
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+
+					}
+
+					@Override
+					public void onAnimationEnd(Animation animation) {
+						sendButton.setVisibility(View.GONE);
+						sendButton.clearAnimation();
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+
+					}
+				});
+				sendButton.startAnimation(anim);
+			}
+			selection_count.setText(selectionList.size() + " " +
+					getResources().getString(R.string.pix_selected));
+			img_count.setText(String.valueOf(selectionList.size()));
+		} else {
+			img.setPosition(position);
+			selectionList.add(img);
+			returnObjects();
+			DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
+			topbar.setBackgroundColor(Color.parseColor("#ffffff"));
+		}
+	}
+
+	@Override
+	public void onLongClick(Img img, View view, int position) {
+		if (options.getCount() > 1) {
+			Utility.vibe(Pix.this, 50);
+			//Log.e("onLongClick", "onLongClick");
+			LongSelection = true;
+			if ((selectionList.size() == 0) && (mBottomSheetBehavior.getState()
+					!= BottomSheetBehavior.STATE_EXPANDED)) {
+				sendButton.setVisibility(View.VISIBLE);
+				Animation anim = new ScaleAnimation(
+						0f, 1f, // Start and end values for the X axis scaling
+						0f, 1f, // Start and end values for the Y axis scaling
+						Animation.RELATIVE_TO_SELF, 0.5f, // Pivot point of X scaling
+						Animation.RELATIVE_TO_SELF, 0.5f); // Pivot point of Y scaling
+				anim.setFillAfter(true); // Needed to keep the result of the animation
+				anim.setDuration(300);
+				sendButton.startAnimation(anim);
+			}
+			if (selectionList.contains(img)) {
+				selectionList.remove(img);
+				initaliseadapter.select(false, position);
+				mainImageAdapter.select(false, position);
+			} else {
+				if (options.getCount() <= selectionList.size()) {
+					Toast.makeText(Pix.this,
+							String.format(getResources().getString(R.string.selection_limiter_pix),
+									selectionList.size()), Toast.LENGTH_SHORT).show();
+					return;
+				}
+				img.setPosition(position);
+				selectionList.add(img);
+				initaliseadapter.select(true, position);
+				mainImageAdapter.select(true, position);
+			}
+			selection_check.setVisibility(View.GONE);
+			topbar.setBackgroundColor(colorPrimaryDark);
+			selection_count.setText(selectionList.size() + " " +
+					getResources().getString(R.string.pix_selected));
+			img_count.setText(String.valueOf(selectionList.size()));
+			DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
+		}
+	}
+};
+
   private void initialize() {
+	  WindowManager.LayoutParams params = getWindow().getAttributes();
+	  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+		  params.layoutInDisplayCutoutMode =
+				  WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+	  }
     Utility.getScreenSize(this);
     if (getSupportActionBar() != null) {
       getSupportActionBar().hide();
@@ -389,6 +402,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     } catch (Exception e) {
       e.printStackTrace();
     }
+	  status_bar_height = Utility.getStatusBarSizePort(Pix.this);
     setRequestedOrientation(options.getScreenOrientation());
     colorPrimaryDark =
         ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
@@ -432,6 +446,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     bottomButtons = findViewById(R.id.bottomButtons);
     TOPBAR_HEIGHT = Utility.convertDpToPixel(56, Pix.this);
     status_bar_bg = findViewById(R.id.status_bar_bg);
+
+	  Log.e("status_bar_bg", "->   " + status_bar_height);
+	  status_bar_bg.getLayoutParams().height = status_bar_height;
+	  status_bar_bg.setTranslationY(-1 * status_bar_height);
+	  status_bar_bg.requestLayout();
     instantRecyclerView = findViewById(R.id.instantRecyclerView);
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
     linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -442,12 +461,18 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     recyclerView = findViewById(R.id.recyclerView);
     recyclerView.addOnScrollListener(mScrollListener);
     FrameLayout mainFrameLayout = findViewById(R.id.mainFrameLayout);
+	  CoordinatorLayout main_content = findViewById(R.id.main_content);
     BottomBarHeight = Utility.getSoftButtonsBarSizePort(this);
-    FrameLayout.LayoutParams lp =
+   /* FrameLayout.LayoutParams lp =
         new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT);
-    lp.setMargins(0, 0, 0, BottomBarHeight);
-    mainFrameLayout.setLayoutParams(lp);
+    lp.setMargins(0, 0, 0, BottomBarHeight);*/
+	  FrameLayout.LayoutParams lp1 =
+        new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT);
+	  lp1.setMargins(0, status_bar_height, 0, 0);
+	  main_content.setLayoutParams(lp1);
+	  //mainFrameLayout.setLayoutParams(lp);
     FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) sendButton.getLayoutParams();
     layoutParams.setMargins(0, 0, (int) (Utility.convertDpToPixel(16, this)),
         (int) (Utility.convertDpToPixel(174, this)));
@@ -682,8 +707,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
       sendButton.startAnimation(anim);
       selection_check.setVisibility(View.GONE);
       topbar.setBackgroundColor(colorPrimaryDark);
-      selection_count.setText(
-          getResources().getString(R.string.pix_selected) + " " + selectionList.size());
+	    selection_count.setText(selectionList.size() + " " +
+			    getResources().getString(R.string.pix_selected));
       img_count.setText(String.valueOf(selectionList.size()));
       DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
     }
@@ -709,8 +734,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
           sendButton.startAnimation(anim);
           selection_check.setVisibility(View.GONE);
           topbar.setBackgroundColor(colorPrimaryDark);
-          selection_count.setText(
-              getResources().getString(R.string.pix_selected) + " " + selectionList.size());
+	        selection_count.setText(selectionList.size() + " " +
+			        getResources().getString(R.string.pix_selected));
           img_count.setText(String.valueOf(selectionList.size()));
           DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
         }
@@ -774,7 +799,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
   private void setViewPositions(float y) {
     int handleY = Utility.getValueInRange(0, (int) (mViewHeight - mHandleView.getHeight()),
         (int) (y - mHandleView.getHeight() / 2));
-    mBubbleView.setY(handleY + Utility.convertDpToPixel((56), Pix.this));
+	  mBubbleView.setY(handleY + Utility.convertDpToPixel(60, this));
     mHandleView.setY(handleY);
   }
 
