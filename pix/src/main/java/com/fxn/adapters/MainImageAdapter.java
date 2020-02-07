@@ -30,8 +30,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static final int HEADER = 1;
     public static final int ITEM = 2;
-    public static final int SPAN_COUNT = 3;
-    private static final int MARGIN = 2;
+public static final int SPAN_COUNT = 4;
+private static final int MARGIN = 4;
 
     private ArrayList<Img> list;
     private OnSelectionListener onSelectionListener;
@@ -41,9 +41,9 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public MainImageAdapter(Context context) {
         this.list = new ArrayList<>();
-        int size = Utility.WIDTH / SPAN_COUNT;
+        int size = (Utility.WIDTH / SPAN_COUNT) - (MARGIN / 2);
         layoutParams = new FrameLayout.LayoutParams(size, size);
-        layoutParams.setMargins(MARGIN, MARGIN - 1, MARGIN, MARGIN - 1);
+        layoutParams.setMargins(MARGIN, MARGIN - (MARGIN / 2), MARGIN, MARGIN - (MARGIN / 2));
         options = new RequestOptions().override(360).transform(new CenterCrop()).transform(new FitCenter());
         glide = Glide.with(context);
     }
@@ -158,7 +158,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public String getSectionMonthYearText(int position) {
-        return list.get(position).getScrollerDate();
+        return list.get(position).getHeaderDate();
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {

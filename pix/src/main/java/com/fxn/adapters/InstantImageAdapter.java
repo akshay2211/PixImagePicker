@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -16,11 +17,7 @@ import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.modals.Img;
 import com.fxn.pix.R;
 import com.fxn.utility.Utility;
-
 import java.util.ArrayList;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by akshay on 17/03/18.
@@ -32,7 +29,7 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private RequestManager glide;
     private RequestOptions options;
     private float size;
-    private int margin = 2;
+private int margin = 3;
     private int padding;
 
     public InstantImageAdapter(Context context) {
@@ -99,7 +96,11 @@ public class InstantImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (holder instanceof Holder) {
             Holder imageHolder = (Holder) holder;
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams((int) size, (int) size);
-            layoutParams.setMargins(margin, margin, margin, margin);
+            if (position == 0) {
+                layoutParams.setMargins(-(margin / 2), margin, margin, margin);
+            } else {
+                layoutParams.setMargins(margin, margin, margin, margin);
+            }
             imageHolder.itemView.setLayoutParams(layoutParams);
             imageHolder.selection.setPadding(padding, padding, padding, padding);
             imageHolder.preview.setLayoutParams(layoutParams);
