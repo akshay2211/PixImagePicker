@@ -6,11 +6,11 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.res.ResourcesCompat;
@@ -47,24 +48,22 @@ import com.fxn.utility.PermUtil;
 import com.fxn.utility.Utility;
 import com.fxn.utility.ui.FastScrollStateChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import io.fotoapparat.Fotoapparat;
-import io.fotoapparat.configuration.CameraConfiguration;
-import io.fotoapparat.error.CameraErrorListener;
-import io.fotoapparat.exception.camera.CameraException;
-import io.fotoapparat.parameter.ScaleType;
-import io.fotoapparat.result.BitmapPhoto;
-import io.fotoapparat.selector.FlashSelectorsKt;
-import io.fotoapparat.selector.LensPositionSelectorsKt;
-import io.fotoapparat.view.CameraView;
-import io.fotoapparat.view.FocusView;
+import com.otaliastudios.cameraview.CameraListener;
+import com.otaliastudios.cameraview.CameraView;
+import com.otaliastudios.cameraview.FileCallback;
+import com.otaliastudios.cameraview.PictureResult;
+import com.otaliastudios.cameraview.VideoResult;
+import com.otaliastudios.cameraview.controls.Facing;
+import com.otaliastudios.cameraview.controls.Flash;
+import com.otaliastudios.cameraview.controls.Mode;
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
-import org.jetbrains.annotations.NotNull;
 
 public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
@@ -74,21 +73,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
   private static final int sTrackSnapRange = 5;
   public static String IMAGE_RESULTS = "image_results";
   public static float TOPBAR_HEIGHT;
-  CameraView cameraView;
-  FocusView focusView;
+CameraView camera;
   boolean camAvail = true;
-  Handler handler2 = new Handler();
   private int BottomBarHeight = 0;
   private int colorPrimaryDark;
-  private Fotoapparat fotoapparat;
-  Runnable runnable = new Runnable() {
-    @Override public void run() {
-      // Log.e("start","foto apparat-----------------------------------------------------------------");
-      if (camAvail) {
-        fotoapparat.start();
-      }
-    }
-  };
+
   private float zoom = 0.0f;
   private float dist = 0.0f;
   private Handler handler = new Handler();
@@ -179,7 +168,7 @@ private TextView selection_count;
               zoom = zoom - 0.01f;
             }
             dist = newDist;
-            fotoapparat.setZoom(zoom);
+	          camera.setZoom(zoom);
             break;
           default:
             break;
@@ -264,18 +253,20 @@ private TextView selection_count;
   @Override
   protected void onRestart() {
     super.onRestart();
-    handler2.postDelayed(runnable, 0);
+	  camera.open();
+	  camera.setMode(Mode.PICTURE);
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    handler2.postDelayed(runnable, 0);
+	  camera.open();
+	  camera.setMode(Mode.PICTURE);
   }
 
   @Override
   protected void onPause() {
-    fotoapparat.stop();
+	  camera.close();
     super.onPause();
   }
 
@@ -406,29 +397,81 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
     setRequestedOrientation(options.getScreenOrientation());
     colorPrimaryDark =
         ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
-    cameraView = findViewById(R.id.camera_view);
-    focusView = findViewById(R.id.focusView);
-    try {
-      fotoapparat = Fotoapparat
-          .with(this)
-          .into(cameraView)
-          .focusView(focusView)
-          .previewScaleType(ScaleType.CenterCrop)
-          .cameraErrorCallback(new CameraErrorListener() {
-            @Override
-            public void onError(@NotNull CameraException e) {
-              Toast.makeText(Pix.this, e.toString(), Toast.LENGTH_LONG).show();
-            }
-          })
-          .build();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+	  camera = findViewById(R.id.camera_view);
+	 /* camera.getLayoutParams().width = Utility.WIDTH;
+	  camera.getLayoutParams().height = Utility.HEIGHT;
+	  camera.requestLayout();*/
+	  camera.setLifecycleOwner(Pix.this);
+	  camera.setMode(Mode.PICTURE);
+	  camera.addCameraListener(new CameraListener() {
+		  @Override
+		  public void onPictureTaken(PictureResult result) {
+			  // A Picture was taken!
+			  /* Picture was taken!
+        // If planning to show a Bitmap, we will take care of
+        // EXIF rotation and background threading for you...
+        ;
+
+        // If planning to save a file on a background thread,
+        // just use toFile. Ensure you have permissions.
+
+
+        // Access the raw data if needed.
+        byte[] data = result.getData();*/
+			  Log.e("CLICK ", "IMAGE ");
+			  File dir = new File(Environment.getExternalStorageDirectory(), options.getPath());
+			  if (!dir.exists()) {
+				  dir.mkdirs();
+			  }
+			  File photo = new File(dir, "IMG_"
+					  + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
+					  + ".jpg");
+
+			  result.toFile(photo, new FileCallback() {
+				  @Override public void onFileReady(@Nullable File photo) {
+					  Utility.vibe(Pix.this, 50);
+					  Log.e("CLICK ", "IMAGE " + photo.getPath());
+					  Img img = new Img("", "", photo.getAbsolutePath(), "");
+					  selectionList.add(img);
+					  Utility.scanPhoto(Pix.this, photo);
+					  Log.e("CLICK ", "IMAGE SCAN");
+					  Log.e("click time", "--------------------------------2");
+					  returnObjects();
+				  }
+			  });
+			/* result.toBitmap(options.getWidth(), options.getHeight(), new BitmapCallback() {
+				  @Override public void onBitmapReady(@Nullable Bitmap bitmap) {
+					  Log.e("CLICK ","IMAGE bitmap");
+					  if (bitmap != null) {
+						  synchronized (bitmap) {
+							  Utility.vibe(Pix.this, 50);
+							  File photo =
+									  Utility.writeImage(bitmap, options.getPath(), options.getImageQuality(),
+											  options.getWidth(), options.getHeight());
+							  Log.e("CLICK ","IMAGE bitmap "+photo.getAbsolutePath());
+
+							  Img img = new Img("", "", photo.getAbsolutePath(), "");
+							  selectionList.add(img);
+							  Utility.scanPhoto(Pix.this, photo);
+							  Log.e("CLICK ","IMAGE SCAN");
+							  Log.e("click time", "--------------------------------2");
+							  returnObjects();
+						  }
+					  }
+				  }
+			  });*/
+
+		  }
+
+		  @Override
+		  public void onVideoTaken(VideoResult result) {
+			  // A Video was taken!
+		  }
+
+		  // And much more
+	  });
     zoom = 0.0f;
-    focusView.setOnTouchListener(onCameraTouchListner);
-    handler2.postDelayed(runnable, 0);
-    fotoapparat.updateConfiguration(
-        CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
+	  // camera.setOnTouchListener(onCameraTouchListner);
     flash = findViewById(R.id.flash);
     front = findViewById(R.id.front);
     topbar = findViewById(R.id.topbar);
@@ -493,12 +536,12 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
     recyclerView.setAdapter(mainImageAdapter);
     recyclerView.addItemDecoration(new HeaderItemDecoration(this, mainImageAdapter));
     mHandleView.setOnTouchListener(this);
-    final CameraConfiguration cameraConfiguration = new CameraConfiguration();
+   /* final CameraConfiguration cameraConfiguration = new CameraConfiguration();
     if (options.isFrontfacing()) {
       fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
     } else {
       fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
-    }
+    }*/
     onClickMethods();
 
     flashDrawable = R.drawable.ic_flash_off_black_24dp;
@@ -518,19 +561,34 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
     findViewById(R.id.clickme).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
+	      Log.e("CLICK", "IMAGE INIT");
+
         if (selectionList.size() >= options.getCount()) {
           Toast.makeText(Pix.this,
               String.format(getResources().getString(R.string.cannot_click_image_pix),
                   "" + options.getCount()), Toast.LENGTH_LONG).show();
           return;
         }
+	      /*SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
+	      SizeSelector height = SizeSelectors.minHeight(Utility.HEIGHT);
+	      SizeSelector dimensions = SizeSelectors.and(width, height); // Matches sizes bigger than 1000x2000.
+	      SizeSelector ratio = SizeSelectors.aspectRatio(AspectRatio.of(Utility.WIDTH, Utility.HEIGHT), 0); // Matches 1:1 sizes.
 
-        final ObjectAnimator oj = ObjectAnimator.ofFloat(cameraView, "alpha", 1f, 0f, 0f, 1f);
+	      SizeSelector result = SizeSelectors.or(
+			      SizeSelectors.and(ratio, dimensions), // Try to match both constraints
+			      ratio, // If none is found, at least try to match the aspect ratio
+			      SizeSelectors.biggest() // If none is found, take the biggest
+	      );*/
+	      //camera.setPictureSize(result);
+	      camera.takePicture();
+	      return;
+
+      /*  final ObjectAnimator oj = ObjectAnimator.ofFloat(cameraView, "alpha", 1f, 0f, 0f, 1f);
         oj.setStartDelay(200l);
         oj.setDuration(900l);
-        oj.start();
-        Log.e("click time", "--------------------------------");
-        fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
+        oj.start();*/
+	      //  Log.e("click time", "--------------------------------");
+     /*   fotoapparat.takePicture().toBitmap().transform(new Function1<BitmapPhoto, Bitmap>() {
           @Override
           public Bitmap invoke(BitmapPhoto bitmapPhoto) {
             Log.e("click time", "--------------------------------1");
@@ -554,7 +612,7 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
             }
             return null;
           }
-        });
+        });*/
       }
     });
     findViewById(R.id.selection_ok).setOnClickListener(new View.OnClickListener() {
@@ -606,20 +664,24 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
                 if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
                   flashDrawable = R.drawable.ic_flash_off_black_24dp;
                   iv.setImageResource(flashDrawable);
-                  fotoapparat.updateConfiguration(
-                      CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build());
+	                camera.setFlash(Flash.OFF);
+	                //fotoapparat.updateConfiguration(
+	                //  CameraConfiguration.builder().flash(FlashSelectorsKt.off()).build());
                 } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
                   flashDrawable = R.drawable.ic_flash_on_black_24dp;
                   iv.setImageResource(flashDrawable);
-                  fotoapparat.updateConfiguration(
-                      CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build());
+	                camera.setFlash(Flash.ON);
+	                //   fotoapparat.updateConfiguration(
+	                //     CameraConfiguration.builder().flash(FlashSelectorsKt.on()).build());
                 } else {
                   flashDrawable = R.drawable.ic_flash_auto_black_24dp;
                   iv.setImageResource(flashDrawable);
-                  fotoapparat.updateConfiguration(
-                      CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
+	                camera.setFlash(Flash.AUTO);
+	                // fotoapparat.updateConfiguration(
+	                //   CameraConfiguration.builder().flash(FlashSelectorsKt.autoRedEye()).build());
                 }
                 // fotoapparat.focus();
+
                 iv.animate().translationY(0).setDuration(50).setListener(null).start();
               }
             })
@@ -643,12 +705,14 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
         oa1.start();
         if (options.isFrontfacing()) {
           options.setFrontfacing(false);
-          final CameraConfiguration cameraConfiguration = new CameraConfiguration();
-          fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
+	        camera.setFacing(Facing.BACK);
+	        //  final CameraConfiguration cameraConfiguration = new CameraConfiguration();
+	        //fotoapparat.switchTo(LensPositionSelectorsKt.back(), cameraConfiguration);
         } else {
-          final CameraConfiguration cameraConfiguration = new CameraConfiguration();
+	        camera.setFacing(Facing.FRONT);
+	        //final CameraConfiguration cameraConfiguration = new CameraConfiguration();
           options.setFrontfacing(true);
-          fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
+	        //fotoapparat.switchTo(LensPositionSelectorsKt.front(), cameraConfiguration);
         }
       }
     });
@@ -779,7 +843,7 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
           initaliseadapter.notifyDataSetChanged();
           hideScrollbar();
           img_count.setText(String.valueOf(selectionList.size()));
-          fotoapparat.start();
+	        camera.open();
         }
       }
     });
@@ -968,6 +1032,6 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
 
   @Override protected void onDestroy() {
     super.onDestroy();
-    handler2.removeCallbacks(runnable);
+	  camera.destroy();
   }
 }
