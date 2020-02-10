@@ -6,18 +6,23 @@
     android:layout_height="match_parent"
     android:background="#000">
 
-
-    <io.fotoapparat.view.CameraView
+    <com.otaliastudios.cameraview.CameraView
         android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <io.fotoapparat.view.FocusView
-            android:id="@+id/focusView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </io.fotoapparat.view.CameraView>
+        android:keepScreenOn = "true"
+    
+        app:cameraFacing = "back"
+        app:cameraFlash = "off"
+        app:cameraGestureLongTap = "autoFocus"
+        app:cameraGesturePinch = "zoom"
+        app:cameraGestureTap = "autoFocus"
+        app:cameraPictureFormat = "jpeg"
+        app:cameraVideoCodec = "deviceDefault"
+        app:cameraWhiteBalance = "auto"
+        />
+
+
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"
