@@ -44,7 +44,9 @@ import com.fxn.modals.Img;
 import com.fxn.utility.Constants;
 import com.fxn.utility.HeaderItemDecoration;
 import com.fxn.utility.ImageFetcher;
+import com.fxn.utility.ImageVideoFetcher;
 import com.fxn.utility.PermUtil;
+import com.fxn.utility.PixFileType;
 import com.fxn.utility.Utility;
 import com.fxn.utility.ui.FastScrollStateChangeListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -431,7 +433,7 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
 				  @Override public void onFileReady(@Nullable File photo) {
 					  Utility.vibe(Pix.this, 50);
 					  Log.e("CLICK ", "IMAGE " + photo.getPath());
-					  Img img = new Img("", "", photo.getAbsolutePath(), "");
+					  Img img = new Img("", "", photo.getAbsolutePath(), "", PixFileType.IMAGE);
 					  selectionList.add(img);
 					  Utility.scanPhoto(Pix.this, photo);
 					  Log.e("CLICK ", "IMAGE SCAN");
@@ -580,6 +582,10 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
 			      SizeSelectors.biggest() // If none is found, take the biggest
 	      );*/
 	      //camera.setPictureSize(result);
+	      final ObjectAnimator oj = ObjectAnimator.ofFloat(camera, "alpha", 1f, 0f, 0f, 1f);
+	      oj.setStartDelay(200l);
+	      oj.setDuration(600l);
+	      oj.start();
 	      camera.takePicture();
 	      return;
 
@@ -719,6 +725,16 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
   }
 
   private void updateImages() {
+	  ImageVideoFetcher imageVideoFetcher = new ImageVideoFetcher(Pix.this) {
+		  @Override protected void onPostExecute(ModelList modelList) {
+			  super.onPostExecute(modelList);
+		  }
+	  };
+
+	  imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this));
+	  imageVideoFetcher.setStartingCount(0);
+	  imageVideoFetcher.header = "";
+	  //imageVideoFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
     mainImageAdapter.clearList();
     Cursor cursor = Utility.getCursor(Pix.this);
     if (cursor == null) {
@@ -745,9 +761,10 @@ private OnSelectionListener onSelectionListener = new OnSelectionListener() {
       if (!header.equalsIgnoreCase("" + dateDifference)) {
         header = "" + dateDifference;
         pos += 1;
-        INSTANTLIST.add(new Img("" + dateDifference, "", "", ""));
+	      INSTANTLIST.add(new Img("" + dateDifference, "", "", "", PixFileType.IMAGE));
       }
-      Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
+	    Img img =
+			    new Img("" + header, "" + path, cursor.getString(data), "" + pos, PixFileType.IMAGE);
       img.setPosition(pos);
       if (options.getPreSelectedUrls().contains(img.getUrl())) {
         img.setSelected(true);
