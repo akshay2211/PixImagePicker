@@ -9,8 +9,8 @@
                 android:topLeftRadius="24dp" />
 
             <size
-                android:width="30dp"
-                android:height="45dp" />
+                android:width = "28dp"
+                android:height = "38dp" />
             <stroke
                 android:width="0.2dp"
                 android:color="#ccc" />
