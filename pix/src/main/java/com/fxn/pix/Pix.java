@@ -403,7 +403,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        maxVideoDuration = options.getVideoDurationLimitinSececonds() * 1000; //conversion in  milli seconds
+        maxVideoDuration = options.getVideoDurationLimitinSeconds() * 1000; //conversion in  milli seconds
 
         ((TextView) findViewById(R.id.message_bottom)).setText(options.isExcludeVideos() ? R.string.pix_bottom_message_without_video : R.string.pix_bottom_message_with_video);
         status_bar_height = Utility.getStatusBarSizePort(Pix.this);

@@ -12,7 +12,7 @@ public class Options implements Serializable {
     private String path = "/DCIM/Camera";
     private int height = 0, width = 0;
     private boolean frontfacing = false;
-    private int videoDurationLimitinSececonds = 40;
+    private int videoDurationLimitinSeconds = 40;
     private boolean excludeVideos = false;
     public static final int SCREEN_ORIENTATION_UNSET = -2;
     public static final int SCREEN_ORIENTATION_UNSPECIFIED = -1;
@@ -43,12 +43,12 @@ public class Options implements Serializable {
         return new Options();
     }
 
-    public int getVideoDurationLimitinSececonds() {
-        return videoDurationLimitinSececonds;
+    public int getVideoDurationLimitinSeconds() {
+        return videoDurationLimitinSeconds;
     }
 
-    public Options setVideoDurationLimitinSececonds(int videoDurationLimitinSececonds) {
-        this.videoDurationLimitinSececonds = videoDurationLimitinSececonds;
+    public Options setVideoDurationLimitinSeconds(int videoDurationLimitinSececonds) {
+        this.videoDurationLimitinSeconds = videoDurationLimitinSececonds;
         return this;
     }
 
