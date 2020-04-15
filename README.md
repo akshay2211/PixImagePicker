@@ -1,4 +1,4 @@
-![](media/two.png)
+![](media/media-tilt.png)
 
 # Pix   (WhatsApp Style Image Picker)
 
@@ -14,7 +14,7 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
 
 ![](media/media.gif)
 ![](media/one.png)
-![](media/media-tilt.png)
+
 
 ## Usage
  
