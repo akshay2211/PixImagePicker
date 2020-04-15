@@ -9,6 +9,7 @@
     <uses-permission android:name = "android.permission.RECORD_AUDIO" />
 
     <application
+        android:requestLegacyExternalStorage="true"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
