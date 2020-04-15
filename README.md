@@ -20,14 +20,14 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
  
 ```groovy
    Options options = Options.init()
-          .setRequestCode(100)                                                 //Request code for activity results
-          .setCount(3)                                                         //Number of images to restict selection count
-          .setFrontfacing(false)                                               //Front Facing camera on start
-          .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
-          .setExcludeVideos(false)                                             //Option to exclude videos
-          .setVideoDurationLimitinSececonds(30)                                //Duration for video recording
-          .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)           //Orientaion
-          .setPath("/pix/images");                                             //Custom Path For media Storage
+          .setRequestCode(100)                                           //Request code for activity results
+          .setCount(3)                                                   //Number of images to restict selection count
+          .setFrontfacing(false)                                         //Front Facing camera on start
+          .setPreSelectedUrls(returnValue)                               //Pre selected Image Urls
+          .setExcludeVideos(false)                                       //Option to exclude videos
+          .setVideoDurationLimitinSeconds(30)                            //Duration for video recording
+          .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)     //Orientaion
+          .setPath("/pix/images");                                       //Custom Path For media Storage
         
    Pix.start(MainActivity.this, options);
    
@@ -82,7 +82,7 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
   - [Glide]
   - [FastScroll]
   - [Header-decor]
-  - [Fotoapparat]
+  - [CameraView]
 
 ## Download
 
@@ -95,20 +95,20 @@ include onRequestPermissionsResult method in your Activity/Fragment for permissi
         }
  ```
 ```groovy
-        implementation  'com.fxn769:pix:1.4.4'
+        implementation  'com.fxn769:pix:1.5.1'
 ```
 or Maven:
 ```xml
         <dependency>
           <groupId>com.fxn769</groupId>
           <artifactId>pix</artifactId>
-          <version>1.4.4</version>
+          <version>1.5.1</version>
           <type>pom</type>
         </dependency>
 ```
 or ivy:
 ```xml
-        <dependency org='com.fxn769' name='pix' rev='1.4.4'>
+        <dependency org='com.fxn769' name='pix' rev='1.5.1'>
           <artifact name='pix' ext='pom' ></artifact>
         </dependency>
 ```
@@ -138,4 +138,4 @@ This project was created by [Akshay Sharma](https://akshay2211.github.io/).
    [Glide]: <https://github.com/bumptech/glide>
    [FastScroll]: <https://github.com/L4Digital/FastScroll>
    [Header-decor]: <https://github.com/edubarr/header-decor>
-   [Fotoapparat]: <https://github.com/RedApparat/Fotoapparat>
+   [CameraView]: <https://github.com/natario1/CameraView>
