@@ -5,7 +5,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
+
 import com.fxn.modals.Img;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -72,10 +74,10 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
-	                        LIST.add(new Img("" + dateDifference, "", "", "", PixFileType.IMAGE));
+                            LIST.add(new Img("" + dateDifference, "", "", "", 1));
                         }
-	                    Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
-			                    PixFileType.IMAGE);
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
+                                1);
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);

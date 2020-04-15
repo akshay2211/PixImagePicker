@@ -1,13 +1,16 @@
 package com.fxn.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -17,6 +20,8 @@ import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.modals.Img;
 import com.fxn.pix.R;
 import com.fxn.utility.Utility;
+
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -104,8 +109,16 @@ private int margin = 3;
             imageHolder.itemView.setLayoutParams(layoutParams);
             imageHolder.selection.setPadding(padding, padding, padding, padding);
             imageHolder.preview.setLayoutParams(layoutParams);
-            glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
-
+            if (image.getMedia_type() == 1) {
+                glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
+                imageHolder.isVideo.setVisibility(View.GONE);
+            } else if (image.getMedia_type() == 3) {
+                glide.asBitmap()
+                        .load(Uri.fromFile(new File(image.getUrl())))
+                        .apply(options)
+                        .into(imageHolder.preview);
+                imageHolder.isVideo.setVisibility(View.VISIBLE);
+            }
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
         } else {
             HolderNone noneHolder = (HolderNone) holder;
@@ -123,12 +136,14 @@ private int margin = 3;
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private ImageView preview;
         private ImageView selection;
+        private ImageView isVideo;
 
 
         Holder(View itemView) {
             super(itemView);
             preview = itemView.findViewById(R.id.preview);
             selection = itemView.findViewById(R.id.selection);
+            isVideo = itemView.findViewById(R.id.isVideo);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
