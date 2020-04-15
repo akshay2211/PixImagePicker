@@ -8,14 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.fxn.adapters.MyAdapter;
 import com.fxn.pix.Options;
 import com.fxn.pix.Pix;
-import com.fxn.utility.ImageQuality;
 import com.fxn.utility.PermUtil;
+
 import java.util.ArrayList;
 
 /**
@@ -66,10 +68,10 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	myAdapter = new MyAdapter(getActivity());
 	options = Options.init()
 			.setRequestCode(100)
-			.setCount(3)
-			.setFrontfacing(false)
-			.setImageQuality(ImageQuality.LOW)
+			.setCount(5)
 			.setPreSelectedUrls(returnValue)
+			.setExcludeVideos(false)
+			.setVideoDurationLimitinSececonds(30)
 			.setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
 			.setPath("/akshay/new")
 	;
