@@ -74,9 +74,10 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
-                            LIST.add(new Img("" + dateDifference, "", "", ""));
+                            LIST.add(new Img("" + dateDifference, "", "", "", 1));
                         }
-                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos);
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
+                                1);
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);

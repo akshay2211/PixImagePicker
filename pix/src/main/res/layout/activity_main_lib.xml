@@ -6,18 +6,74 @@
     android:layout_height="match_parent"
     android:background="#000">
 
-
-    <io.fotoapparat.view.CameraView
+    <com.otaliastudios.cameraview.CameraView
         android:id="@+id/camera_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:keepScreenOn = "true"
+        android:layout_gravity="center"
+        app:cameraFacing = "back"
+        app:cameraFlash = "off"
+        app:cameraGestureLongTap = "autoFocus"
+        app:cameraGesturePinch = "zoom"
+        app:cameraGestureTap = "autoFocus"
+        app:cameraPictureFormat = "jpeg"
+        app:cameraVideoCodec = "deviceDefault"
+        app:cameraWhiteBalance = "auto"
+        />
+
+    <LinearLayout
+        android:id="@+id/video_counter_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="41dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="14.5dp"
+                android:layout_height="14.5dp"
+                android:layout_gravity="center"
+                android:padding="1dp"
+                android:src="@drawable/red_circle" />
+
+            <ProgressBar
+                android:id="@+id/video_pbr"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:progress="0"
+                android:progressDrawable="@drawable/circle_pbr"
+                android:rotation="-90" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/video_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="9dp"
+            android:text="0:00"
+            android:textColor="@android:color/white"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <io.fotoapparat.view.FocusView
-            android:id="@+id/focusView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </io.fotoapparat.view.CameraView>
+        android:alpha="0"
+        android:src="@drawable/devicevideotest" />
+
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"
@@ -156,10 +212,25 @@
                             android:src="@drawable/ic_check_box" />
                     </FrameLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/instantRecyclerView"
+                    <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
-                        android:layout_height="82dp" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/arrow_up"
+                            android:layout_width="20dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="bottom|center_horizontal"
+                            android:background="@drawable/ic_expand_less_black_24dp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/instantRecyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="82dp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
                 </FrameLayout>
             </FrameLayout>
 
@@ -199,6 +270,16 @@
             android:layout_gravity="bottom">
 
             <ImageView
+                android:id="@+id/clickmebg"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center|bottom"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/red_circle"
+                android:visibility="gone" />
+
+            <ImageView
+                android:layout_marginTop="40dp"
                 android:id="@+id/clickme"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -212,7 +293,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="top|left"
                 android:layout_marginLeft="50dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="47dp"
                 android:background="@drawable/circle"
                 android:padding="11dp">
 
@@ -228,17 +309,18 @@
                 android:layout_height="50dp"
                 android:layout_gravity="top|right"
                 android:layout_marginRight="50dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="47dp"
                 android:background="@drawable/circle"
                 android:padding="11dp"
                 android:src="@drawable/ic_photo_camera" />
 
             <TextView
+                android:id="@+id/message_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_marginBottom="5dp"
-                android:text="@string/message_to_drag_up"
+                android:text="@string/pix_bottom_message_with_video"
                 android:textColor="#fff"
                 android:textSize="12sp" />
 
