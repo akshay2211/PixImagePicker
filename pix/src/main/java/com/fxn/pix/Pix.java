@@ -81,8 +81,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     public static String IMAGE_RESULTS = "image_results";
     public static float TOPBAR_HEIGHT;
     private static int maxVideoDuration = 40000;
-    CameraView camera;
-    int status_bar_height = 0;
+    private static ImageVideoFetcher imageVideoFetcher;
+    private CameraView camera;
+    private int status_bar_height = 0;
     private int BottomBarHeight = 0;
     private int colorPrimaryDark;
     private float zoom = 0.0f;
@@ -156,6 +157,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private ImageView clickme;
     private int flashDrawable;
     private View.OnTouchListener onCameraTouchListner = new View.OnTouchListener() {
+
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getPointerCount() > 1) {
@@ -739,8 +741,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         int data = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
         int mediaType = cursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE);
         int contentUrl = cursor.getColumnIndex(MediaStore.Files.FileColumns._ID);
-        int videoDate = cursor.getColumnIndex(MediaStore.Video.Media.DATE_TAKEN);
-        int imageDate = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
+        //int videoDate = cursor.getColumnIndex(MediaStore.Video.Media.DATE_TAKEN);
+        int imageDate = cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED);
         Calendar calendar;
         int pos = 0;
         for (int i = 0; i < limit; i++) {
@@ -748,8 +750,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     "" + cursor.getInt(contentUrl));
             calendar = Calendar.getInstance();
-            int finDate = mediaType == 1 ? imageDate : videoDate;
-            calendar.setTimeInMillis(cursor.getLong(finDate));
+            int finDate = imageDate; // mediaType == 1 ? imageDate : videoDate;
+            calendar.setTimeInMillis(cursor.getLong(finDate) * 1000);
+            //Log.e("time",i+"->"+new SimpleDateFormat("hh:mm:ss dd/MM/yyyy",Locale.ENGLISH).format(calendar.getTime()));
             String dateDifference = Utility.getDateDifference(Pix.this, calendar);
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
@@ -786,7 +789,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         }
         mainImageAdapter.addImageList(INSTANTLIST);
         initaliseadapter.addImageList(INSTANTLIST);
-        ImageVideoFetcher imageVideoFetcher = new ImageVideoFetcher(Pix.this) {
+        imageVideoFetcher = new ImageVideoFetcher(Pix.this) {
             @Override
             protected void onPostExecute(ModelList modelList) {
                 super.onPostExecute(modelList);

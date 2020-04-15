@@ -13,14 +13,14 @@ public class Constants {
     public static String[] PROJECTION = new String[]{
             MediaStore.Images.Media.DATA,
             MediaStore.Images.Media._ID,
-            MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.Images.Media.BUCKET_ID,
-            MediaStore.Images.Media.DATE_TAKEN,
+            //MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+            //MediaStore.Images.Media.BUCKET_ID,
+            // MediaStore.Images.Media.DATE_TAKEN,
             MediaStore.Images.Media.DATE_ADDED,
             MediaStore.Images.Media.DATE_MODIFIED,
     };
     public static Uri URI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-    public static String ORDERBY = MediaStore.Images.Media.DATE_TAKEN + " DESC";
+    public static String ORDERBY = MediaStore.Images.Media.DATE_MODIFIED + " DESC";
 
     public static String[] IMAGE_VIDEO_PROJECTION = new String[]{
             MediaStore.Files.FileColumns.DATA,
@@ -32,8 +32,7 @@ public class Constants {
             MediaStore.Files.FileColumns.MEDIA_TYPE,
             MediaStore.Files.FileColumns.MIME_TYPE,
             MediaStore.Files.FileColumns.TITLE,
-            MediaStore.Video.Media.DATE_TAKEN,
-            MediaStore.Images.Media.DATE_TAKEN
+            //MediaStore.Video.Media.DATE_TAKEN,
 
     };
     public static String IMAGE_VIDEO_SELECTION = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
@@ -45,5 +44,5 @@ public class Constants {
     public static String IMAGE_SELECTION = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
             + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
     public static Uri IMAGE_VIDEO_URI = MediaStore.Files.getContentUri("external");
-    public static String IMAGE_VIDEO_ORDERBY = MediaStore.Images.Media.DATE_TAKEN + " DESC";
+    public static String IMAGE_VIDEO_ORDERBY = MediaStore.Images.Media.DATE_MODIFIED + " DESC";
 }

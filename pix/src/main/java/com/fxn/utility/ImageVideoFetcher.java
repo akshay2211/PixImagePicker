@@ -58,8 +58,8 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
                 int title = cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE);
                 int parent = cursor.getColumnIndex(MediaStore.Files.FileColumns.PARENT);
 
-                int videoDate = cursor.getColumnIndex(MediaStore.Video.Media.DATE_TAKEN);
-                int imageDate = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
+                //int videoDate = cursor.getColumnIndex(MediaStore.Video.Media.DATE_TAKEN);
+                int imageDate = cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED);
 
                 int limit = 100;
                 if (cursor.getCount() < limit) {
@@ -73,8 +73,8 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
                         Uri path =
                                 Uri.withAppendedPath(Constants.IMAGE_VIDEO_URI, "" + cursor.getInt(contentUrl));
                         Calendar calendar = Calendar.getInstance();
-                        int finDate = mediaType == 1 ? imageDate : videoDate;
-                        calendar.setTimeInMillis(cursor.getLong(finDate));
+                        int finDate = imageDate; //mediaType == 1 ? imageDate : videoDate;
+                        calendar.setTimeInMillis(cursor.getLong(finDate) * 1000);
                         String dateDifference = Utility.getDateDifference(context, calendar);
                         //Log.e("difference "+i,"->  "+dateDifference);
                         int media_type = cursor.getInt(mediaType);
