@@ -106,7 +106,7 @@ public class Utility {
         // getRealMetrics is only available with API 17 and +
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             int result = 0;
-            Log.e("->activity", "----------->  " + check);
+            //Log.e("->activity", "----------->  " + check);
             Resources res = check.getBaseContext().getResources();
             int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
@@ -145,7 +145,7 @@ public class Utility {
         lastWeek.add(Calendar.DAY_OF_MONTH, -7);
         recent.add(Calendar.DAY_OF_MONTH, -2);
         if (calendar.before(lastMonth)) {
-            return new SimpleDateFormat("MMMM").format(d);
+            return new SimpleDateFormat("MMMM", Locale.ENGLISH).format(d);
         } else if (calendar.after(lastMonth) && calendar.before(lastWeek)) {
             return context.getResources().getString(R.string.pix_last_month);
         } else if (calendar.after(lastWeek) && calendar.before(recent)) {

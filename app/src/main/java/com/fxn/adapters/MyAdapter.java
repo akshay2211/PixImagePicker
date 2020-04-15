@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,12 +62,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         roundedBitmapDrawable.setCornerRadius(roundPx);
         ((Holder) holder).iv.setImageDrawable(roundedBitmapDrawable);
         ((Holder) holder).iv.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(f.getAbsolutePath()));
                 try {
-                    intent.setDataAndType(Uri.parse(f.getAbsolutePath()), Files.probeContentType(f.toPath()));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        intent.setDataAndType(Uri.parse(f.getAbsolutePath()), Files.probeContentType(f.toPath()));
+                    } else {
+                        intent.setData(Uri.parse(f.getAbsolutePath()));
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
