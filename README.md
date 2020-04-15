@@ -1,6 +1,6 @@
 ![](media/media-tilt.png)
 
-# Pix   (WhatsApp Style Image Picker)
+# Pix   (WhatsApp Style Image and Video Picker)
 
 Pix is a Whatsapp image picker replica. with this you can integrate a image picker just like whatsapp.
 
@@ -22,11 +22,12 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
    Options options = Options.init()
           .setRequestCode(100)                                                 //Request code for activity results
           .setCount(3)                                                         //Number of images to restict selection count
-          .setFrontfacing(false)                                                //Front Facing camera on start
-          .setImageQuality(ImageQuality.HIGH)                                  //Image Quality
+          .setFrontfacing(false)                                               //Front Facing camera on start
           .setPreSelectedUrls(returnValue)                                     //Pre selected Image Urls
+          .setExcludeVideos(false)                                             //Option to exclude videos
+          .setVideoDurationLimitinSececonds(30)                                //Duration for video recording
           .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)           //Orientaion
-          .setPath("/pix/images");                                             //Custom Path For Image Storage
+          .setPath("/pix/images");                                             //Custom Path For media Storage
         
    Pix.start(MainActivity.this, options);
    
