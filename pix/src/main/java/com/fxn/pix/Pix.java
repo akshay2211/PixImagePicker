@@ -427,6 +427,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         camera.setVideoSize(result);
         camera.setLifecycleOwner(Pix.this);
 
+        if (options.isFrontfacing()) {
+            camera.setFacing(Facing.FRONT);
+        } else {
+            camera.setFacing(Facing.BACK);
+        }
+
         camera.addCameraListener(new CameraListener() {
             @Override
             public void onPictureTaken(PictureResult result) {
