@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         options = Options.init()
                 .setRequestCode(100)
                 .setCount(5)
+                .setFrontfacing(false)
                 .setPreSelectedUrls(returnValue)
                 .setExcludeVideos(false)
                 .setVideoDurationLimitinSeconds(30)
