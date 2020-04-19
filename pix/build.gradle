@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
-    PUBLISH_VERSION = '1.5.1'
+    PUBLISH_VERSION = '1.5.2'
 }
 android {
     compileSdkVersion 29
