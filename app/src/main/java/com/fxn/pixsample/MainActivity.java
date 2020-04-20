@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 .setExcludeVideos(false)
                 .setVideoDurationLimitinSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
-                .setPath("/akshay/new");
+                .setPath("/akshay/new")
                 .setPreviouslySelectedPathList(previouslySelectedPathList)
         ;
         recyclerView.setAdapter(myAdapter);

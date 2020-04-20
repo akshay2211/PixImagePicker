@@ -448,7 +448,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     @Override
                     public void onFileReady(@Nullable File photo) {
                         Utility.vibe(Pix.this, 50);
-                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1);
+                        boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(photo.getAbsolutePath());
+                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1,isPreviouslySelectedPix);
                         selectionList.add(img);
                         Utility.scanPhoto(Pix.this, photo);
                         returnObjects();
@@ -460,7 +461,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onVideoTaken(VideoResult result) {
                 // A Video was taken!
                 Utility.vibe(Pix.this, 50);
-                boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(photo.getAbsolutePath());
+                boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(result.getFile().getAbsolutePath());
                 Img img = new Img("", "", result.getFile().getAbsolutePath(), "", 3, isPreviouslySelectedPix);
                 selectionList.add(img);
                 Utility.scanPhoto(Pix.this, result.getFile());
@@ -764,10 +765,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 pos += 1;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType)));
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType), false));
             }
             Img img =
-                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType));
+                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType),options.getPreviouslySelectedPathList().contains(cursor.getString(data)));
             img.setPosition(pos);
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
@@ -827,6 +828,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         imageVideoFetcher.setStartingCount(pos);
         imageVideoFetcher.header = header;
         imageVideoFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
+        imageVideoFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
         imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos()));
         cursor.close();
         setBottomSheetBehavior();
