@@ -20,6 +20,14 @@
         android:src="@drawable/ic_check_black_24dp" />
 
     <ImageView
+        android:id="@+id/isVideo"
+        android:layout_width="20dp"
+        android:layout_height="15dp"
+        android:layout_gravity="left|bottom"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_videocam_black_24dp" />
+
+    <ImageView
         android:id="@+id/previouslySelected"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

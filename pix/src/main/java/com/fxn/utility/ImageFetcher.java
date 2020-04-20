@@ -53,7 +53,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
         Cursor cursor = cursors[0];
         try {
             if (cursor != null) {
-                int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_TAKEN);
+                int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED);
                 int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
                 int contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
 
@@ -69,7 +69,7 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         cursor.moveToNext();
                         Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contentUrl));
                         Calendar calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(cursor.getLong(date));
+                        calendar.setTimeInMillis(cursor.getLong(date) * 1000);
                         String dateDifference = Utility.getDateDifference(context, calendar);
                         boolean isPrevisoulySelectedPix = previouslySelectedPathList.contains(cursor.getString(data));
 
@@ -77,9 +77,16 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
+<<<<<<< HEAD
                             LIST.add(new Img("" + dateDifference, "", "", "",isPrevisoulySelectedPix));
                         }
                         Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,isPrevisoulySelectedPix);
+=======
+                            LIST.add(new Img("" + dateDifference, "", "", "", 1));
+                        }
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
+                                1);
+>>>>>>> master
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);

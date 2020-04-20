@@ -2,7 +2,6 @@ package com.fxn.utility;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
         int contactPoint = currentHeader.getBottom();
         View childInContact = getChildInContact(parent, contactPoint);
         if (Utility.isNull(childInContact)) {
-            Log.e("childInContact", "childInContact is null");
+            //Log.e("childInContact", "childInContact is null");
             return;
         }
 

@@ -1,6 +1,5 @@
 package com.fxn.pix;
 
-import com.fxn.utility.ImageQuality;
 
 import java.io.Serializable;
 import java.lang.annotation.Retention;
@@ -11,9 +10,10 @@ public class Options implements Serializable {
     private int count = 1;
     private int requestCode = 0;
     private String path = "/DCIM/Camera";
-    private int imageQuality = 40;
     private int height = 0, width = 0;
     private boolean frontfacing = false;
+    private int videoDurationLimitinSeconds = 40;
+    private boolean excludeVideos = false;
     public static final int SCREEN_ORIENTATION_UNSET = -2;
     public static final int SCREEN_ORIENTATION_UNSPECIFIED = -1;
     public static final int SCREEN_ORIENTATION_LANDSCAPE = 0;
@@ -32,6 +32,7 @@ public class Options implements Serializable {
     public static final int SCREEN_ORIENTATION_FULL_USER = 13;
     public static final int SCREEN_ORIENTATION_LOCKED = 14;
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
+
     private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
     @ScreenOrientation
     private int screenOrientation = SCREEN_ORIENTATION_UNSPECIFIED;
@@ -41,6 +42,15 @@ public class Options implements Serializable {
 
     public static Options init() {
         return new Options();
+    }
+
+    public int getVideoDurationLimitinSeconds() {
+        return videoDurationLimitinSeconds;
+    }
+
+    public Options setVideoDurationLimitinSeconds(int videoDurationLimitinSececonds) {
+        this.videoDurationLimitinSeconds = videoDurationLimitinSececonds;
+        return this;
     }
 
     public ArrayList<String> getPreSelectedUrls() {
@@ -53,6 +63,10 @@ public class Options implements Serializable {
         return this;
     }
 
+    public boolean isExcludeVideos() {
+        return excludeVideos;
+    }
+    
     public ArrayList<String> getPreviouslySelectedPathList() {
         return previouslySelectedPathList;
     }
@@ -66,28 +80,8 @@ public class Options implements Serializable {
         return this;
     }
 
-    public int getImageQuality() {
-        return imageQuality;
-    }
-
-    public Options setImageQuality(final ImageQuality imageQuality) {
-        if (imageQuality == ImageQuality.LOW) {
-            this.imageQuality = 20;
-        } else if (imageQuality == ImageQuality.HIGH) {
-            this.imageQuality = 80;
-        } else {
-            this.imageQuality = 40;
-        }
-        return this;
-    }
-
-    public Options setImageResolution(int height, int width) {
-        check();
-        if (height == 0 || width == 0) {
-            throw new NullPointerException("width or height can not be 0");
-        }
-        this.height = height;
-        this.width = width;
+    public Options setExcludeVideos(boolean excludeVideos) {
+        this.excludeVideos = excludeVideos;
         return this;
     }
 

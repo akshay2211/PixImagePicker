@@ -1,6 +1,7 @@
 package com.fxn.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.fxn.pix.R;
 import com.fxn.utility.HeaderItemDecoration;
 import com.fxn.utility.Utility;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -33,8 +35,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static final int HEADER = 1;
     public static final int ITEM = 2;
-public static final int SPAN_COUNT = 4;
-private static final int MARGIN = 4;
+    public static final int SPAN_COUNT = 4;
+    private static final int MARGIN = 4;
 
     private ArrayList<Img> list;
     private OnSelectionListener onSelectionListener;
@@ -47,7 +49,7 @@ private static final int MARGIN = 4;
         int size = (Utility.WIDTH / SPAN_COUNT) - (MARGIN / 2);
         layoutParams = new FrameLayout.LayoutParams(size, size);
         layoutParams.setMargins(MARGIN, MARGIN - (MARGIN / 2), MARGIN, MARGIN - (MARGIN / 2));
-        options = new RequestOptions().override(360).transform(new CenterCrop()).transform(new FitCenter());
+        options = new RequestOptions().override(300).transform(new CenterCrop()).transform(new FitCenter());
         glide = Glide.with(context);
     }
 
@@ -112,7 +114,16 @@ private static final int MARGIN = 4;
         Img image = list.get(position);
         if (holder instanceof Holder) {
             Holder imageHolder = (Holder) holder;
-            glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
+            if (image.getMedia_type() == 1) {
+                glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
+                imageHolder.isVideo.setVisibility(View.GONE);
+            } else if (image.getMedia_type() == 3) {
+                glide.asBitmap()
+                        .load(Uri.fromFile(new File(image.getUrl())))
+                        .apply(options)
+                        .into(imageHolder.preview);
+                imageHolder.isVideo.setVisibility(View.VISIBLE);
+            }
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
             imageHolder.previouslySelected.setVisibility(image.getPreviouslySelected() && !image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
@@ -171,12 +182,14 @@ private static final int MARGIN = 4;
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private ImageView preview;
         private ImageView selection;
+        private ImageView isVideo;
         private ImageView previouslySelected;
 
         Holder(View itemView) {
             super(itemView);
             preview = itemView.findViewById(R.id.preview);
             selection = itemView.findViewById(R.id.selection);
+            isVideo = itemView.findViewById(R.id.isVideo);
             previouslySelected = itemView.findViewById(R.id.previouslySelected);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
