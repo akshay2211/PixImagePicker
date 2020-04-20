@@ -22,6 +22,7 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
     private ArrayList<Img> selectionList = new ArrayList<>();
     private ArrayList<Img> LIST = new ArrayList<>();
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
+    private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
     private Context context;
 
     public ImageVideoFetcher(Context context) {
@@ -34,6 +35,14 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
 
     public void setStartingCount(int startingCount) {
         this.startingCount = startingCount;
+    }
+
+    public void setPreviouslySelectedPathList(ArrayList<String> previouslySelectedPathList) {
+        this.previouslySelectedPathList = previouslySelectedPathList;
+    }
+
+    public ArrayList<String> getPreviouslySelectedPathList() {
+        return previouslySelectedPathList;
     }
 
     public ArrayList<String> getPreSelectedUrls() {
@@ -98,9 +107,9 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
                             header = "" + dateDifference;
                             pos += 1;
 
-                            LIST.add(new Img("" + dateDifference, "", "", "", media_type));
+                            LIST.add(new Img("" + dateDifference, "", "", "", media_type, false));
                         }
-                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, media_type);
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, media_type, previouslySelectedPathList.contains(cursor.getString(data)));
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);
