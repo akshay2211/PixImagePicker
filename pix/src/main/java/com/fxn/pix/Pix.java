@@ -56,6 +56,7 @@ import com.otaliastudios.cameraview.CameraView;
 import com.otaliastudios.cameraview.FileCallback;
 import com.otaliastudios.cameraview.PictureResult;
 import com.otaliastudios.cameraview.VideoResult;
+import com.otaliastudios.cameraview.controls.Audio;
 import com.otaliastudios.cameraview.controls.Facing;
 import com.otaliastudios.cameraview.controls.Flash;
 import com.otaliastudios.cameraview.controls.Mode;
@@ -417,10 +418,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         }
         SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
         SizeSelector height = SizeSelectors.minHeight(Utility.HEIGHT);
-        SizeSelector dimensions = SizeSelectors.and(width, height); // Matches sizes bigger than 1000x2000.
-        SizeSelector ratio = SizeSelectors.aspectRatio(AspectRatio.of(1, 2), 0); // Matches 1:1 sizes.
-        SizeSelector ratio3 = SizeSelectors.aspectRatio(AspectRatio.of(2, 3), 0); // Matches 1:1 sizes.
-        SizeSelector ratio2 = SizeSelectors.aspectRatio(AspectRatio.of(9, 16), 0); // Matches 1:1 sizes.
+        SizeSelector dimensions = SizeSelectors.and(width, height); // Matches sizes bigger than width X height
+        SizeSelector ratio = SizeSelectors.aspectRatio(AspectRatio.of(1, 2), 0); // Matches 1:2 sizes.
+        SizeSelector ratio3 = SizeSelectors.aspectRatio(AspectRatio.of(2, 3), 0); // Matches 2:3 sizes.
+        SizeSelector ratio2 = SizeSelectors.aspectRatio(AspectRatio.of(9, 16), 0); // Matches 9:16 sizes.
         SizeSelector result = SizeSelectors.or(
                 SizeSelectors.and(ratio, dimensions),
                 SizeSelectors.and(ratio2, dimensions),
