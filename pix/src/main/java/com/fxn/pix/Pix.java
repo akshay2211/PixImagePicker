@@ -412,6 +412,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         camera = findViewById(R.id.camera_view);
         camera.setMode(Mode.PICTURE);
+        if (options.isExcludeVideos()) {
+            camera.setAudio(Audio.OFF);
+        }
         SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
         SizeSelector height = SizeSelectors.minHeight(Utility.HEIGHT);
         SizeSelector dimensions = SizeSelectors.and(width, height); // Matches sizes bigger than 1000x2000.
