@@ -11,6 +11,7 @@ Pix is a Whatsapp image picker replica. with this you can integrate a image pick
 [![](https://img.shields.io/badge/Medium-Pix-black.svg?style=flat-square)](https://medium.com/@fxn769/pix-media-picker-android-library-1ec3c5e5f91a)
 [![](https://img.shields.io/badge/API-16%2B-orange.svg?style=flat-square)](https://android-arsenal.com/api?level=16)
 [![](https://img.shields.io/badge/Awesome%20Android-PixImagePicker-green.svg?style=flat-square)](https://android.libhunt.com/piximagepicker-alternatives)
+<img src="http://img.shields.io/liberapay/receives/akshay2211.svg?logo=liberapay">
 ## Demo
 
 ![](media/media.gif)
