@@ -120,6 +120,7 @@ private int margin = 3;
                 imageHolder.isVideo.setVisibility(View.VISIBLE);
             }
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
+            imageHolder.previouslySelected.setVisibility(image.getPreviouslySelected() && ! image.getSelected() ? View.VISIBLE : View.GONE);
         } else {
             HolderNone noneHolder = (HolderNone) holder;
             FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(0, 0);
@@ -137,6 +138,7 @@ private int margin = 3;
         private ImageView preview;
         private ImageView selection;
         private ImageView isVideo;
+        private ImageView previouslySelected;
 
 
         Holder(View itemView) {
@@ -144,6 +146,7 @@ private int margin = 3;
             preview = itemView.findViewById(R.id.preview);
             selection = itemView.findViewById(R.id.selection);
             isVideo = itemView.findViewById(R.id.isVideo);
+            previouslySelected = itemView.findViewById(R.id.previouslySelected);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }

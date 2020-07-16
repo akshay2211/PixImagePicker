@@ -137,3 +137,12 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
         }
     }
 }
+
+    private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
+    public void setPreviouslySelectedPathList(ArrayList<String> previouslySelectedPathList) {
+        this.previouslySelectedPathList = previouslySelectedPathList;
+    }
+    public ArrayList<String> getPreviouslySelectedPathList() {
+        return previouslySelectedPathList;
+    }
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, media_type, previouslySelectedPathList.contains(cursor.getString(data)));

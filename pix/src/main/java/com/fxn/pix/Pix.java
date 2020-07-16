@@ -756,6 +756,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         Calendar calendar;
         int pos = 0;
         for (int i = 0; i < limit; i++) {
+            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             cursor.moveToNext();
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     "" + cursor.getInt(contentUrl));
@@ -767,10 +768,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 pos += 1;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType)));
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType), isPreviouslySelectedPix));
             }
             Img img =
-                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType));
+                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType), isPreviouslySelectedPix);
             img.setPosition(pos);
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
@@ -830,6 +831,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         imageVideoFetcher.setStartingCount(pos);
         imageVideoFetcher.header = header;
         imageVideoFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
+        imageVideoFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
         imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos()));
         cursor.close();
         setBottomSheetBehavior();

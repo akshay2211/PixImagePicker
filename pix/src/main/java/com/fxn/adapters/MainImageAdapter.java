@@ -74,9 +74,9 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-	    if (list.size() <= position) {
-		    return 0;
-	    }
+        if (list.size() <= position) {
+            return 0;
+        }
         Img i = list.get(position);
         return (i.getContentUrl().equalsIgnoreCase("")) ?
                 HEADER : ITEM;
@@ -125,6 +125,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 imageHolder.isVideo.setVisibility(View.VISIBLE);
             }
             imageHolder.selection.setVisibility(image.getSelected() ? View.VISIBLE : View.GONE);
+            imageHolder.previouslySelected.setVisibility(image.getPreviouslySelected() && !image.getSelected() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof HeaderHolder) {
             HeaderHolder headerHolder = (HeaderHolder) holder;
             headerHolder.header.setText(image.getHeaderDate());
@@ -182,12 +183,14 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         private ImageView preview;
         private ImageView selection;
         private ImageView isVideo;
+        private ImageView previouslySelected;
 
         Holder(View itemView) {
             super(itemView);
             preview = itemView.findViewById(R.id.preview);
             selection = itemView.findViewById(R.id.selection);
             isVideo = itemView.findViewById(R.id.isVideo);
+            previouslySelected = itemView.findViewById(R.id.previouslySelected);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
             preview.setLayoutParams(layoutParams);
