@@ -4,20 +4,20 @@ apply plugin: 'kotlin-android-extensions'
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
-    PUBLISH_VERSION = '1.4.4'
+    PUBLISH_VERSION = '1.5.3'
 }
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 4
-        versionName "1.4.4"
+        targetSdkVersion 29
+        versionCode 5
+        versionName "1.5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     lintOptions {
-        abortOnError false
+        abortOnError true
     }
 
     buildTypes {
@@ -31,20 +31,19 @@ android {
 repositories {
     maven { url 'https://jitpack.io' }
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.exifinterface:exifinterface:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    implementation 'io.fotoapparat:fotoapparat:2.7.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.exifinterface:exifinterface:1.2.0'
+    implementation 'com.otaliastudios:cameraview:2.6.2'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
