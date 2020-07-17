@@ -11,16 +11,18 @@ public class Img implements Serializable {
     private String contentUrl;
     private String url;
     private Boolean isSelected;
+    private Boolean isPreviouslySelected;
     private String scrollerDate;
     private int media_type = 1;
     private int position;
 
     public Img(String headerDate, String contentUrl, String url, String scrollerDate,
-               int type) {
+               int type, boolean isPreviouslySelected) {
         this.headerDate = headerDate;
         this.contentUrl = contentUrl;
         this.url = url;
         this.isSelected = false;
+        this.isPreviouslySelected = isPreviouslySelected;
         this.scrollerDate = scrollerDate;
         this.media_type = type;
     }
@@ -32,6 +34,10 @@ public class Img implements Serializable {
 
     public void setMedia_type(int media_type) {
         this.media_type = media_type;
+    }
+
+    public Boolean getPreviouslySelected() {
+        return isPreviouslySelected;
     }
 
     public int getPosition() {

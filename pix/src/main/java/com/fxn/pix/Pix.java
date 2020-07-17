@@ -452,7 +452,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     @Override
                     public void onFileReady(@Nullable File photo) {
                         Utility.vibe(Pix.this, 50);
-                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1);
+                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1, false);
                         selectionList.add(img);
                         Utility.scanPhoto(Pix.this, photo);
                         returnObjects();
@@ -464,7 +464,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onVideoTaken(VideoResult result) {
                 // A Video was taken!
                 Utility.vibe(Pix.this, 50);
-                Img img = new Img("", "", result.getFile().getAbsolutePath(), "", 3);
+                Img img = new Img("", "", result.getFile().getAbsolutePath(), "", 3, false);
                 selectionList.add(img);
                 Utility.scanPhoto(Pix.this, result.getFile());
                 camera.setMode(Mode.PICTURE);
@@ -757,6 +757,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         int pos = 0;
         for (int i = 0; i < limit; i++) {
             cursor.moveToNext();
+            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     "" + cursor.getInt(contentUrl));
             calendar = Calendar.getInstance();
@@ -767,10 +768,10 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 pos += 1;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType)));
+                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType), isPreviouslySelectedPix));
             }
             Img img =
-                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType));
+                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType), isPreviouslySelectedPix);
             img.setPosition(pos);
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
@@ -830,6 +831,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         imageVideoFetcher.setStartingCount(pos);
         imageVideoFetcher.header = header;
         imageVideoFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
+        imageVideoFetcher.setPreviouslySelectedPathList(options.getPreviouslySelectedPathList());
         imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos()));
         cursor.close();
         setBottomSheetBehavior();
