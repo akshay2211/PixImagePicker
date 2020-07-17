@@ -452,7 +452,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     @Override
                     public void onFileReady(@Nullable File photo) {
                         Utility.vibe(Pix.this, 50);
-                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1);
+                        Img img = new Img("", "", photo.getAbsolutePath(), "", 1, false);
                         selectionList.add(img);
                         Utility.scanPhoto(Pix.this, photo);
                         returnObjects();
@@ -464,7 +464,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onVideoTaken(VideoResult result) {
                 // A Video was taken!
                 Utility.vibe(Pix.this, 50);
-                Img img = new Img("", "", result.getFile().getAbsolutePath(), "", 3);
+                Img img = new Img("", "", result.getFile().getAbsolutePath(), "", 3, false);
                 selectionList.add(img);
                 Utility.scanPhoto(Pix.this, result.getFile());
                 camera.setMode(Mode.PICTURE);
@@ -756,8 +756,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         Calendar calendar;
         int pos = 0;
         for (int i = 0; i < limit; i++) {
-            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             cursor.moveToNext();
+            boolean isPreviouslySelectedPix = options.getPreviouslySelectedPathList().contains(cursor.getString(data));
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     "" + cursor.getInt(contentUrl));
             calendar = Calendar.getInstance();

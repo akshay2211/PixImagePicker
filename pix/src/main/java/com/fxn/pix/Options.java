@@ -65,6 +65,7 @@ public class Options implements Serializable {
 
     public boolean isExcludeVideos() {
         return excludeVideos;
+    }
     public ArrayList<String> getPreviouslySelectedPathList() {
         return previouslySelectedPathList;
     }
@@ -76,8 +77,6 @@ public class Options implements Serializable {
             this.previouslySelectedPathList = previouslySelectedPathList;
         }
         return this;
-    }
-
     }
 
     public Options setExcludeVideos(boolean excludeVideos) {

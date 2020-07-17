@@ -77,11 +77,10 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
-                            LIST.add(new Img("" + dateDifference, "", "", "", 1,isPrevisoulySelectedPix));
+                            LIST.add(new Img("" + dateDifference, "", "", "", 1, isPrevisoulySelectedPix));
                         }
-                                1,isPrevisoulySelectedPix);
                         Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
-                                1,isPrevisoulySelectedPix);
+                                1, isPrevisoulySelectedPix);
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);
@@ -100,6 +99,14 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
         return new ModelList(LIST, selectionList);
     }
 
+    public void setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
+        if (previouslySelectedPathList == null) {
+            this.previouslySelectedPathList = new ArrayList<>();
+        } else {
+            this.previouslySelectedPathList = previouslySelectedPathList;
+        }
+    }
+
     public class ModelList {
         ArrayList<Img> LIST = new ArrayList<>();
         ArrayList<Img> selection = new ArrayList<>();
@@ -115,15 +122,6 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
 
         public ArrayList<Img> getSelection() {
             return selection;
-        }
-    }
-
-    public void setPreviouslySelectedPathList(List<String> previouslySelectedPathList) {
-        if(previouslySelectedPathList == null){
-            this.previouslySelectedPathList = new ArrayList<>();
-        }
-        else{
-            this.previouslySelectedPathList = previouslySelectedPathList;
         }
     }
 
