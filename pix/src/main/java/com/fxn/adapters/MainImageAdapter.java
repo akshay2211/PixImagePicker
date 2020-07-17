@@ -173,7 +173,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public String getSectionMonthYearText(int position) {
-	    if (list.size() <= position) {
+	    if (position == -1 || list.size() <= position) {
 		    return "";
 	    }
         return list.get(position).getHeaderDate();
