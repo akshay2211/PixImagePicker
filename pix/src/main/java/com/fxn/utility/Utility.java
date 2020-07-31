@@ -145,7 +145,7 @@ public class Utility {
         lastWeek.add(Calendar.DAY_OF_MONTH, -7);
         recent.add(Calendar.DAY_OF_MONTH, -2);
         if (calendar.before(lastMonth)) {
-            return new SimpleDateFormat("MMMM", Locale.ENGLISH).format(d);
+            return new SimpleDateFormat("MMMM", Locale.getDefault()).format(d);
         } else if (calendar.after(lastMonth) && calendar.before(lastWeek)) {
             return context.getResources().getString(R.string.pix_last_month);
         } else if (calendar.after(lastWeek) && calendar.before(recent)) {
