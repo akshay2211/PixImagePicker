@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Pix</string>
+    <string name="selection_limiter_pix">Nicht mehr als %d Elemente auswählbar.</string>
+    <string name="pix_bottom_message_without_video">Für Galerie Bilder hochwischen</string>
+    <string name="pix_bottom_message_with_video">Für Video halten, für Foto tippen</string>
+    <string name="pix_ok">OK</string>
+    <string name="pix_tap_to_select">Auf Foto tippen, um es auszuwählen</string>
+    <string name="pix_selected">Ausgewählt</string>
+    <string name="pix_recent">Letzte</string>
+    <string name="pix_last_month">Letzter Monat</string>
+    <string name="pix_last_week">Letzte Woche</string>
+  <string name="cannot_click_image_pix">Nicht mehr als %s Bilder hinzufügbar.</string>
+</resources>
