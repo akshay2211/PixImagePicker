@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.fxn.adapters.MyAdapter
 import com.fxn.pix.Options
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 .setExcludeVideos(false)
                 .setVideoDurationLimitinSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
-                .setPath("/akshay/new")
+                .setPath("pix/akshay")
         recyclerView.adapter = myAdapter
         fab.setOnClickListener {
             options.preSelectedUrls = returnValue
