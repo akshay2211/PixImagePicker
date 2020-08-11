@@ -440,7 +440,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         camera.addCameraListener(new CameraListener() {
             @Override
             public void onPictureTaken(PictureResult result) {
-                File dir = new File(Environment.getExternalStorageDirectory(), options.getPath());
+
+                File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -619,7 +620,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     return false;
                 }
                 camera.setMode(Mode.VIDEO);
-                File dir = new File(Environment.getExternalStorageDirectory(), options.getPath());
+                File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -639,6 +640,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     Toast.makeText(Pix.this,
                             String.format(getResources().getString(R.string.cannot_click_image_pix),
                                     "" + options.getCount()), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (camera.getMode() == Mode.VIDEO) {
                     return;
                 }
                 final ObjectAnimator oj = ObjectAnimator.ofFloat(camera, "alpha", 1f, 0f, 0f, 1f);

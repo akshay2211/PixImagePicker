@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Options implements Serializable {
     private int count = 1;
     private int requestCode = 0;
-    private String path = "/DCIM/Camera";
+    private String path = "Pix/Camera";
     private int height = 0, width = 0;
     private boolean frontfacing = false;
     private int videoDurationLimitinSeconds = 40;
