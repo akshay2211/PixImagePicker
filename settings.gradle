@@ -1,1 +1,1 @@
-include ':app', ':pix'
+include ':pix'
