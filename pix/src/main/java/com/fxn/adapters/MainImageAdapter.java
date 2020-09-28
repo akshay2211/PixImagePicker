@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.fxn.interfaces.OnSelectionListener;
 import com.fxn.interfaces.SectionIndexer;
@@ -35,7 +35,7 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public static final int HEADER = 1;
     public static final int ITEM = 2;
-    public static final int SPAN_COUNT = 4;
+    public static int SPAN_COUNT = 0;
     private static final int MARGIN = 4;
 
     private ArrayList<Img> list;
@@ -44,12 +44,16 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private RequestManager glide;
     private RequestOptions options;
 
-    public MainImageAdapter(Context context) {
+    public MainImageAdapter(Context context, int spanCount) {
         this.list = new ArrayList<>();
+        SPAN_COUNT = spanCount;
         int size = (Utility.WIDTH / SPAN_COUNT) - (MARGIN / 2);
         layoutParams = new FrameLayout.LayoutParams(size, size);
         layoutParams.setMargins(MARGIN, MARGIN - (MARGIN / 2), MARGIN, MARGIN - (MARGIN / 2));
-        options = new RequestOptions().override(300).transform(new CenterCrop()).transform(new FitCenter());
+        options = new RequestOptions().override(size - 50)
+                .format(DecodeFormat.PREFER_RGB_565)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         glide = Glide.with(context);
     }
 
