@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
                 .setFrontfacing(false)
                 .setPreSelectedUrls(returnValue)
                 .setExcludeVideos(false)
+                .setSpanCount(4)
                 .setVideoDurationLimitinSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("pix/akshay")

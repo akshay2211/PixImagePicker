@@ -21,6 +21,6 @@
     <dimen name="rounded_edges_dialog">6dp</dimen>
     <dimen name="fastscroll_bubble_radius">16dp</dimen>
     <dimen name="fastscroll_scrollbar_padding_end">12dp</dimen>
-    <dimen name = "fastscroll_bubble_size">38dp</dimen>
+    <dimen name="fastscroll_bubble_size">38dp</dimen>
 
 </resources>

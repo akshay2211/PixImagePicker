@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Options implements Serializable {
     private int count = 1;
     private int requestCode = 0;
+    private int spanCount = 4;
     private String path = "Pix/Camera";
     private int height = 0, width = 0;
     private boolean frontfacing = false;
@@ -140,5 +141,19 @@ public class Options implements Serializable {
     @Retention(RetentionPolicy.SOURCE)
     public @interface ScreenOrientation {
     }
+
+    public int getSpanCount() {
+        return spanCount;
+    }
+
+    public Options setSpanCount(int spanCount) {
+        check();
+        this.spanCount = spanCount;
+        if (spanCount < 1 && spanCount > 5) {
+            throw new IllegalArgumentException("span count can not be set below 0 or more than 5");
+        }
+        return this;
+    }
+
 
 }

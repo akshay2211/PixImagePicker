@@ -560,7 +560,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         layoutParams.setMargins(0, 0, (int) (Utility.convertDpToPixel(16, this)),
                 (int) (Utility.convertDpToPixel(174, this)));
         sendButton.setLayoutParams(layoutParams);
-        mainImageAdapter = new MainImageAdapter(this);
+        mainImageAdapter = new MainImageAdapter(this, options.getSpanCount());
         GridLayoutManager mLayoutManager = new GridLayoutManager(this, MainImageAdapter.SPAN_COUNT);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -572,7 +572,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             }
         });
         recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         mainImageAdapter.addOnSelectionListener(onSelectionListener);
+        mainImageAdapter.setHasStableIds(true);
         recyclerView.setAdapter(mainImageAdapter);
         recyclerView.addItemDecoration(new HeaderItemDecoration(this, mainImageAdapter));
         mHandleView.setOnTouchListener(this);
