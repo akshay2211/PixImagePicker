@@ -2,11 +2,12 @@ package com.fxn.adapters
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.ThumbnailUtils
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.util.Log
 import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
@@ -38,18 +39,22 @@ class MyAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerVie
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         //Uri imageUri = Uri.fromFile(new File(list.get(position)));// For files on device
         val f = File(list[position])
-        var bitmap: Bitmap? = null
-        if (f.absolutePath.endsWith("mp4")) {
+        val len = f.absolutePath.length
+        Log.e("check", "f.absolutePath.subSequence(len-3,len)  " + f.absolutePath.subSequence(len - 3, len))
+        val bitmap = if (f.absolutePath.subSequence(len - 3, len).equals("mp4")) {
             (holder as Holder).play.visibility = View.VISIBLE
-            bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ThumbnailUtils.createVideoThumbnail(f, Size(500, 500), null)
             } else {
                 ThumbnailUtils.createVideoThumbnail(f.absolutePath, MediaStore.Video.Thumbnails.MINI_KIND)
             }
         } else {
             (holder as Holder).play.visibility = View.GONE
+            BitmapFactory.decodeFile(f.absolutePath)
+            //BitmapDrawable(context.resources, f.absolutePath).bitmap
         }
         val roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, bitmap)
+
         val roundPx = bitmap!!.width.toFloat() * 0.06f
         roundedBitmapDrawable.cornerRadius = roundPx
         holder.iv.setImageDrawable(roundedBitmapDrawable)

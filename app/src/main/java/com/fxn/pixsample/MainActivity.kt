@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.size != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Pix.start(this, options)
                 } else {
                     Toast.makeText(this, "Approve permissions to open Pix ImagePicker", Toast.LENGTH_LONG).show()
