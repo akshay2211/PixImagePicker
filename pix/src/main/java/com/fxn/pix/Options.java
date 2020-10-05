@@ -34,6 +34,7 @@ public class Options implements Serializable {
     public static final int SCREEN_ORIENTATION_LOCKED = 14;
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
 
+    private ArrayList<String> previouslySelectedPathList = new ArrayList<>();
     @ScreenOrientation
     private int screenOrientation = SCREEN_ORIENTATION_UNSPECIFIED;
 
@@ -65,6 +66,18 @@ public class Options implements Serializable {
 
     public boolean isExcludeVideos() {
         return excludeVideos;
+    }
+    public ArrayList<String> getPreviouslySelectedPathList() {
+        return previouslySelectedPathList;
+    }
+
+    public Options setPreviouslySelectedPathList(ArrayList<String> previouslySelectedPathList) {
+        if(previouslySelectedPathList == null){
+            this.previouslySelectedPathList = new ArrayList<>();
+        }else{
+            this.previouslySelectedPathList = previouslySelectedPathList;
+        }
+        return this;
     }
 
     public Options setExcludeVideos(boolean excludeVideos) {
