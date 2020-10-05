@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var myAdapter: MyAdapter
     private lateinit var options: Options
     private var returnValue = ArrayList<String>()
+    private var previouslySelectedPathList = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 .setVideoDurationLimitinSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("pix/akshay")
+                .setPreviouslySelectedPathList(previouslySelectedPathList)
         recyclerView.adapter = myAdapter
         fab.setOnClickListener {
             options.preSelectedUrls = returnValue
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
             requestCodePicker -> {
                 if (resultCode == Activity.RESULT_OK) {
                     returnValue = data?.getStringArrayListExtra(Pix.IMAGE_RESULTS)!!
+                    previouslySelectedPathList.addAll(returnValue)
                     myAdapter.addImage(returnValue)
                 }
             }
