@@ -9,6 +9,7 @@ import com.fxn.interfaces.WorkFinish;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -21,8 +22,8 @@ import androidx.fragment.app.FragmentActivity;
 public abstract class PermUtil {
 
     public static final int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 9921;
-/*
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
+    /*@RequiresApi(api = Build.VERSION_CODES.M)
     public static void checkForPermissions(final FragmentActivity activity) {
         List<String> permissionsNeeded = new ArrayList<String>();
         final List<String> permissionsList = new ArrayList<String>();
@@ -50,13 +51,12 @@ public abstract class PermUtil {
         return true;
     }
 
-
-    public static void checkForCamaraWritePermissions(final FragmentActivity activity, WorkFinish workFinish) {
+    public static void checkForCameraWritePermissions(final FragmentActivity activity, WorkFinish workFinish) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             workFinish.onWorkFinish(true);
         } else {
-            List<String> permissionsNeeded = new ArrayList<String>();
-            final List<String> permissionsList = new ArrayList<String>();
+            List<String> permissionsNeeded = new ArrayList<>();
+            final List<String> permissionsList = new ArrayList<>();
             if (!addPermission(permissionsList, Manifest.permission.CAMERA, activity))
                 permissionsNeeded.add("CAMERA");
             if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, activity))
@@ -70,14 +70,13 @@ public abstract class PermUtil {
         }
     }
 
-
-    public static void checkForCamaraWritePermissions(final Fragment fragment, WorkFinish workFinish) {
+    public static void checkForCameraWritePermissions(final Fragment fragment, WorkFinish workFinish) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             workFinish.onWorkFinish(true);
         } else {
-            List<String> permissionsNeeded = new ArrayList<String>();
-            final List<String> permissionsList = new ArrayList<String>();
-            if (!addPermission(permissionsList, Manifest.permission.CAMERA, fragment.getActivity()))
+            List<String> permissionsNeeded = new ArrayList<>();
+            final List<String> permissionsList = new ArrayList<>();
+            if (!addPermission(permissionsList, Manifest.permission.CAMERA, Objects.requireNonNull(fragment.getActivity())))
                 permissionsNeeded.add("CAMERA");
             if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, fragment.getActivity()))
                 permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
@@ -89,5 +88,4 @@ public abstract class PermUtil {
             }
         }
     }
-
 }

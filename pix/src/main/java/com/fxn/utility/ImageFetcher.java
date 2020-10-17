@@ -17,13 +17,12 @@ import java.util.Calendar;
 
 public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList> {
 
-
     public int startingCount = 0;
     public String header = "";
-    private ArrayList<Img> selectionList = new ArrayList<>();
-    private ArrayList<Img> LIST = new ArrayList<>();
+    private final ArrayList<Img> selectionList = new ArrayList<>();
+    private final ArrayList<Img> LIST = new ArrayList<>();
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
-    private Context context;
+    private final Context context;
 
     public ImageFetcher(Context context) {
         this.context = context;
@@ -70,14 +69,12 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
                         calendar.setTimeInMillis(cursor.getLong(date) * 1000);
                         String dateDifference = Utility.getDateDifference(context, calendar);
 
-
                         if (!header.equalsIgnoreCase("" + dateDifference)) {
                             header = "" + dateDifference;
                             pos += 1;
                             LIST.add(new Img("" + dateDifference, "", "", "", 1));
                         }
-                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
-                                1);
+                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, 1);
                         img.setPosition(pos);
                         if (preSelectedUrls.contains(img.getUrl())) {
                             img.setSelected(true);
@@ -92,13 +89,12 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return new ModelList(LIST, selectionList);
     }
 
     public class ModelList {
-        ArrayList<Img> LIST = new ArrayList<>();
-        ArrayList<Img> selection = new ArrayList<>();
+        ArrayList<Img> LIST;
+        ArrayList<Img> selection;
 
         public ModelList(ArrayList<Img> LIST, ArrayList<Img> selection) {
             this.LIST = LIST;
@@ -113,5 +109,4 @@ public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList
             return selection;
         }
     }
-
 }

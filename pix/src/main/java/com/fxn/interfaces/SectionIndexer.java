@@ -7,4 +7,3 @@ package com.fxn.interfaces;
 public interface SectionIndexer {
     String getSectionText(int position);
 }
-

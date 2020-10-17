@@ -7,12 +7,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 public class Options implements Serializable {
+
     private int count = 1;
     private int requestCode = 0;
     private int spanCount = 4;
     private String path = "Pix/Camera";
     private int height = 0, width = 0;
-    private boolean frontfacing = false;
+    private boolean frontFacing = false;
     private int videoDurationLimitinSeconds = 40;
     private boolean excludeVideos = false;
     public static final int SCREEN_ORIENTATION_UNSET = -2;
@@ -37,18 +38,17 @@ public class Options implements Serializable {
     @ScreenOrientation
     private int screenOrientation = SCREEN_ORIENTATION_UNSPECIFIED;
 
-    private Options() {
-    }
+    private Options() {}
 
     public static Options init() {
         return new Options();
     }
 
-    public int getVideoDurationLimitinSeconds() {
+    public int getVideoDurationLimitInSeconds() {
         return videoDurationLimitinSeconds;
     }
 
-    public Options setVideoDurationLimitinSeconds(int videoDurationLimitinSececonds) {
+    public Options setVideoDurationLimitInSeconds(int videoDurationLimitinSececonds) {
         this.videoDurationLimitinSeconds = videoDurationLimitinSececonds;
         return this;
     }
@@ -80,19 +80,18 @@ public class Options implements Serializable {
         return width;
     }
 
-    public boolean isFrontfacing() {
-        return this.frontfacing;
+    public boolean isFrontFacing() {
+        return this.frontFacing;
     }
 
-    public Options setFrontfacing(boolean frontfacing) {
-        this.frontfacing = frontfacing;
+    public Options setFrontFacing(boolean frontFacing) {
+        this.frontFacing = frontFacing;
         return this;
     }
 
     private void check() {
-        if (this == null) {
+        if (this == null)
             throw new NullPointerException("call init() method to initialise Options class");
-        }
     }
 
     public int getCount() {
@@ -106,9 +105,8 @@ public class Options implements Serializable {
     }
 
     public int getRequestCode() {
-        if (this.requestCode == 0) {
+        if (this.requestCode == 0)
             throw new NullPointerException("requestCode in Options class is null");
-        }
         return requestCode;
     }
 
@@ -139,8 +137,7 @@ public class Options implements Serializable {
     }
 
     @Retention(RetentionPolicy.SOURCE)
-    public @interface ScreenOrientation {
-    }
+    public @interface ScreenOrientation {}
 
     public int getSpanCount() {
         return spanCount;
@@ -149,11 +146,8 @@ public class Options implements Serializable {
     public Options setSpanCount(int spanCount) {
         check();
         this.spanCount = spanCount;
-        if (spanCount < 1 && spanCount > 5) {
-            throw new IllegalArgumentException("span count can not be set below 0 or more than 5");
-        }
+        if (spanCount < 1 || spanCount > 5)
+            throw new IllegalArgumentException("span count can not be set below 1 or more than 5");
         return this;
     }
-
-
 }

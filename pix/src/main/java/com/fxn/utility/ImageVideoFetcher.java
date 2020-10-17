@@ -19,10 +19,10 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
 
     public int startingCount = 0;
     public String header = "";
-    private ArrayList<Img> selectionList = new ArrayList<>();
-    private ArrayList<Img> LIST = new ArrayList<>();
+    private final ArrayList<Img> selectionList = new ArrayList<>();
+    private final ArrayList<Img> LIST = new ArrayList<>();
     private ArrayList<String> preSelectedUrls = new ArrayList<>();
-    private Context context;
+    private final Context context;
 
     public ImageVideoFetcher(Context context) {
         this.context = context;
@@ -54,7 +54,7 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
                 int data = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
                 int mediaType = cursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE);
                 int contentUrl = cursor.getColumnIndex(MediaStore.Files.FileColumns._ID);
-                int displayname = cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME);
+                int displayName = cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME);
                 int title = cursor.getColumnIndex(MediaStore.Files.FileColumns.TITLE);
                 int parent = cursor.getColumnIndex(MediaStore.Files.FileColumns.PARENT);
 
@@ -78,7 +78,7 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
                         String dateDifference = Utility.getDateDifference(context, calendar);
                         //Log.e("difference "+i,"->  "+dateDifference);
                         int media_type = cursor.getInt(mediaType);
-                        String display_name = cursor.getString(displayname);
+                        String display_name = cursor.getString(displayName);
                         String Title = cursor.getString(title);
                         String Parent = cursor.getString(parent);
 					/*Log.e("all data", "->  mediaType "
@@ -119,9 +119,9 @@ public class ImageVideoFetcher extends AsyncTask<Cursor, Void, ImageVideoFetcher
         return new ModelList(LIST, selectionList);
     }
 
-    public class ModelList {
-        ArrayList<Img> LIST = new ArrayList<>();
-        ArrayList<Img> selection = new ArrayList<>();
+    public static class ModelList {
+        ArrayList<Img> LIST;
+        ArrayList<Img> selection;
 
         public ModelList(ArrayList<Img> LIST, ArrayList<Img> selection) {
             this.LIST = LIST;

@@ -64,6 +64,8 @@ import com.otaliastudios.cameraview.size.AspectRatio;
 import com.otaliastudios.cameraview.size.SizeSelector;
 import com.otaliastudios.cameraview.size.SizeSelectors;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -80,30 +82,30 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private static final String OPTIONS = "options";
     private static final int sTrackSnapRange = 5;
     public static String IMAGE_RESULTS = "image_results";
-    public static float TOPBAR_HEIGHT;
+    public static float TOP_BAR_HEIGHT;
     private static int maxVideoDuration = 40000;
-    private static ImageVideoFetcher imageVideoFetcher;
+    private ImageVideoFetcher imageVideoFetcher;
     private CameraView camera;
     private int status_bar_height = 0;
     private int BottomBarHeight = 0;
     private int colorPrimaryDark;
     private float zoom = 0.0f;
     private float dist = 0.0f;
-    private Handler handler = new Handler();
-    private Handler video_counter_handler = new Handler();
+    private final Handler handler = new Handler();
+    private final Handler video_counter_handler = new Handler();
     private Runnable video_counter_runnable = null;
     private FastScrollStateChangeListener mFastScrollStateChangeListener;
     private RecyclerView recyclerView, instantRecyclerView;
     private BottomSheetBehavior mBottomSheetBehavior;
-    private InstantImageAdapter initaliseadapter;
-    private View status_bar_bg, mScrollbar, topbar, bottomButtons, sendButton;
+    private InstantImageAdapter initializeAdapter;
+    private View status_bar_bg, mScrollbar, topBar, bottomButtons, sendButton;
     private TextView mBubbleView, img_count;
     private ImageView mHandleView, selection_back, selection_check;
     private ProgressBar video_counter_progressbar = null;
     private ViewPropertyAnimator mScrollbarAnimator;
     private ViewPropertyAnimator mBubbleAnimator;
-    private Set<Img> selectionList = new HashSet<>();
-    private Runnable mScrollbarHider = new Runnable() {
+    private final Set<Img> selectionList = new HashSet<>();
+    private final Runnable mScrollbarHider = new Runnable() {
         @Override
         public void run() {
             hideScrollbar();
@@ -111,21 +113,21 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     };
     private MainImageAdapter mainImageAdapter;
     private float mViewHeight;
-    private boolean mHideScrollbar = true;
+    private final boolean mHideScrollbar = true;
     private boolean LongSelection = false;
     private Options options = null;
     private TextView selection_count;
-    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
+    private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
         @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        public void onScrolled(@NotNull RecyclerView recyclerView, int dx, int dy) {
             if (!mHandleView.isSelected() && recyclerView.isEnabled()) {
                 setViewPositions(getScrollProportion(recyclerView));
             }
         }
 
         @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        public void onScrollStateChanged(@NotNull RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
 
             if (recyclerView.isEnabled()) {
@@ -155,14 +157,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
     private FrameLayout flash;
     private ImageView front;
-    private ImageView clickme;
+    private ImageView clickMe;
     private int flashDrawable;
-    private View.OnTouchListener onCameraTouchListner = new View.OnTouchListener() {
 
+    private final View.OnTouchListener onCameraTouchListener = new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getPointerCount() > 1) {
-
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_POINTER_DOWN:
                         dist = Utility.getFingerSpacing(event);
@@ -173,9 +174,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         float newDist = Utility.getFingerSpacing(event);
                         if (newDist > dist) {
                             //zoom in
-                            if (zoom < maxZoom) {
-                                zoom = zoom + 0.01f;
-                            }
+                            if (zoom < maxZoom) zoom = zoom + 0.01f;
                         } else if ((newDist < dist) && (zoom > 0)) {
                             //zoom out
                             zoom = zoom - 0.01f;
@@ -190,13 +189,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             return false;
         }
     };
-    private OnSelectionListener onSelectionListener = new OnSelectionListener() {
+
+    private final OnSelectionListener onSelectionListener = new OnSelectionListener() {
         @Override
         public void onClick(Img img, View view, int position) {
             if (LongSelection) {
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
-                    initaliseadapter.select(false, position);
+                    initializeAdapter.select(false, position);
                     mainImageAdapter.select(false, position);
                 } else {
                     if (options.getCount() <= selectionList.size()) {
@@ -207,14 +207,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                     img.setPosition(position);
                     selectionList.add(img);
-                    initaliseadapter.select(true, position);
+                    initializeAdapter.select(true, position);
                     mainImageAdapter.select(true, position);
                 }
                 if (selectionList.size() == 0) {
                     LongSelection = false;
                     selection_check.setVisibility(View.VISIBLE);
                     DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
-                    topbar.setBackgroundColor(Color.parseColor("#ffffff"));
+                    topBar.setBackgroundColor(Color.parseColor("#ffffff"));
                     Animation anim = new ScaleAnimation(
                             1f, 0f, // Start and end values for the X axis scaling
                             1f, 0f, // Start and end values for the Y axis scaling
@@ -223,11 +223,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     anim.setFillAfter(true); // Needed to keep the result of the animation
                     anim.setDuration(300);
                     anim.setAnimationListener(new Animation.AnimationListener() {
-
                         @Override
-                        public void onAnimationStart(Animation animation) {
-
-                        }
+                        public void onAnimationStart(Animation animation) {}
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
@@ -236,9 +233,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         }
 
                         @Override
-                        public void onAnimationRepeat(Animation animation) {
-
-                        }
+                        public void onAnimationRepeat(Animation animation) {}
                     });
                     sendButton.startAnimation(anim);
                 }
@@ -250,7 +245,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 selectionList.add(img);
                 returnObjects();
                 DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
-                topbar.setBackgroundColor(Color.parseColor("#ffffff"));
+                topBar.setBackgroundColor(Color.parseColor("#ffffff"));
             }
         }
 
@@ -273,7 +268,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
                 if (selectionList.contains(img)) {
                     selectionList.remove(img);
-                    initaliseadapter.select(false, position);
+                    initializeAdapter.select(false, position);
                     mainImageAdapter.select(false, position);
                 } else {
                     if (options.getCount() <= selectionList.size()) {
@@ -284,11 +279,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                     img.setPosition(position);
                     selectionList.add(img);
-                    initaliseadapter.select(true, position);
+                    initializeAdapter.select(true, position);
                     mainImageAdapter.select(true, position);
                 }
                 selection_check.setVisibility(View.GONE);
-                topbar.setBackgroundColor(colorPrimaryDark);
+                topBar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText(selectionList.size() + " " + getResources().getString(R.string.pix_selected));
                 img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
@@ -298,7 +293,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private int video_counter_progress = 0;
 
     public static void start(final Fragment context, final Options options) {
-        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+        PermUtil.checkForCameraWritePermissions(context, new WorkFinish() {
             @Override
             public void onWorkFinish(Boolean check) {
                 Intent i = new Intent(context.getActivity(), Pix.class);
@@ -313,7 +308,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     }
 
     public static void start(final FragmentActivity context, final Options options) {
-        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+        PermUtil.checkForCameraWritePermissions(context, new WorkFinish() {
             @Override
             public void onWorkFinish(Boolean check) {
                 Intent i = new Intent(context, Pix.class);
@@ -396,15 +391,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
         Utility.getScreenSize(this);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-        }
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
         try {
             options = (Options) getIntent().getSerializableExtra(OPTIONS);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        maxVideoDuration = options.getVideoDurationLimitinSeconds() * 1000; //conversion in  milli seconds
+        maxVideoDuration = options.getVideoDurationLimitInSeconds() * 1000; //conversion in  milli seconds
 
         ((TextView) findViewById(R.id.message_bottom)).setText(options.isExcludeVideos() ? R.string.pix_bottom_message_without_video : R.string.pix_bottom_message_with_video);
         status_bar_height = Utility.getStatusBarSizePort(Pix.this);
@@ -413,9 +406,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         camera = findViewById(R.id.camera_view);
         camera.setMode(Mode.PICTURE);
-        if (options.isExcludeVideos()) {
-            camera.setAudio(Audio.OFF);
-        }
+        if (options.isExcludeVideos()) camera.setAudio(Audio.OFF);
         SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
         SizeSelector height = SizeSelectors.minHeight(Utility.HEIGHT);
         SizeSelector dimensions = SizeSelectors.and(width, height); // Matches sizes bigger than width X height
@@ -431,7 +422,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         camera.setVideoSize(result);
         camera.setLifecycleOwner(Pix.this);
 
-        if (options.isFrontfacing()) {
+        if (options.isFrontFacing()) {
             camera.setFacing(Facing.FRONT);
         } else {
             camera.setFacing(Facing.BACK);
@@ -442,9 +433,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onPictureTaken(PictureResult result) {
 
                 File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
+                if (!dir.exists()) dir.mkdirs();
                 File photo = new File(dir, "IMG_"
                         + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
                         + ".jpg");
@@ -490,16 +479,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                             min = video_counter_progress / 60;
                             sec = "" + (video_counter_progress - (60 * min));
                         }
-                        if (sec.length() == 1) {
-                            sec = "0" + sec;
-                        }
+                        if (sec.length() == 1) sec = "0" + sec;
                         counter = min + ":" + sec;
                         textView.setText(counter);
                         video_counter_handler.postDelayed(this, 1000);
                     }
                 };
                 video_counter_handler.postDelayed(video_counter_runnable, 1000);
-                clickme.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                clickMe.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 flash.animate().alpha(0).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 findViewById(R.id.message_bottom).animate().alpha(0).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 front.animate().alpha(0).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
@@ -509,7 +496,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             public void onVideoRecordingEnd() {
                 findViewById(R.id.video_counter_layout).setVisibility(View.GONE);
                 video_counter_handler.removeCallbacks(video_counter_runnable);
-                clickme.animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                clickMe.animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 findViewById(R.id.message_bottom).animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 flash.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 front.animate().alpha(1).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
@@ -518,9 +505,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         });
         zoom = 0.0f;
         flash = findViewById(R.id.flash);
-        clickme = findViewById(R.id.clickme);
+        clickMe = findViewById(R.id.clickme);
         front = findViewById(R.id.front);
-        topbar = findViewById(R.id.topbar);
+        topBar = findViewById(R.id.topbar);
         video_counter_progressbar = findViewById(R.id.video_pbr);
         selection_count = findViewById(R.id.selection_count);
         selection_back = findViewById(R.id.selection_back);
@@ -534,7 +521,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mScrollbar.setVisibility(View.GONE);
         mBubbleView.setVisibility(View.GONE);
         bottomButtons = findViewById(R.id.bottomButtons);
-        TOPBAR_HEIGHT = Utility.convertDpToPixel(56, Pix.this);
+        TOP_BAR_HEIGHT = Utility.convertDpToPixel(56, Pix.this);
         status_bar_bg = findViewById(R.id.status_bar_bg);
         status_bar_bg.getLayoutParams().height = status_bar_height;
         status_bar_bg.setTranslationY(-1 * status_bar_height);
@@ -543,9 +530,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         instantRecyclerView.setLayoutManager(linearLayoutManager);
-        initaliseadapter = new InstantImageAdapter(this);
-        initaliseadapter.addOnSelectionListener(onSelectionListener);
-        instantRecyclerView.setAdapter(initaliseadapter);
+        initializeAdapter = new InstantImageAdapter(this);
+        initializeAdapter.addOnSelectionListener(onSelectionListener);
+        instantRecyclerView.setAdapter(initializeAdapter);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.addOnScrollListener(mScrollListener);
         FrameLayout mainFrameLayout = findViewById(R.id.mainFrameLayout);
@@ -565,10 +552,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER) {
-                    return MainImageAdapter.SPAN_COUNT;
-                }
-                return 1;
+                return mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER ? MainImageAdapter.SPAN_COUNT : 1;
             }
         });
         recyclerView.setLayoutManager(mLayoutManager);
@@ -589,8 +573,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         if ((options.getPreSelectedUrls().size()) > options.getCount()) {
             int large = options.getPreSelectedUrls().size() - 1;
             int small = options.getCount();
-            for (int i = large; i > (small - 1); i--) {
-                options.getPreSelectedUrls().remove(i);
+            if (large >= small) {
+                options.getPreSelectedUrls().subList(small, large + 1).clear();
             }
         }
         DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
@@ -598,17 +582,17 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     }
 
     private void onClickMethods() {
-        clickme.setOnTouchListener(new View.OnTouchListener() {
+        clickMe.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     findViewById(R.id.clickmebg).setVisibility(View.GONE);
                     findViewById(R.id.clickmebg).animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-                    clickme.animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    clickMe.animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     findViewById(R.id.clickmebg).setVisibility(View.VISIBLE);
                     findViewById(R.id.clickmebg).animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
-                    clickme.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
+                    clickMe.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(new AccelerateDecelerateInterpolator()).start();
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP && camera.isTakingVideo()) {
                     camera.stopVideo();
@@ -617,7 +601,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 return false;
             }
         });
-        clickme.setOnLongClickListener(new View.OnLongClickListener() {
+        clickMe.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View v) {
@@ -626,9 +610,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
                 camera.setMode(Mode.VIDEO);
                 File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
+                if (!dir.exists()) dir.mkdirs();
                 File video = new File(dir, "VID_"
                         + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
                         + ".mp4");
@@ -638,7 +620,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 return true;
             }
         });
-        clickme.setOnClickListener(new View.OnClickListener() {
+        clickMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (selectionList.size() >= options.getCount()) {
@@ -655,7 +637,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 oj.setDuration(600l);
                 oj.start();
                 camera.takePicture();
-                return;
             }
         });
         findViewById(R.id.selection_ok).setOnClickListener(new View.OnClickListener() {
@@ -679,7 +660,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         selection_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                topbar.setBackgroundColor(colorPrimaryDark);
+                topBar.setBackgroundColor(colorPrimaryDark);
                 selection_count.setText(getResources().getString(R.string.pix_tap_to_select));
                 img_count.setText(String.valueOf(selectionList.size()));
                 DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
@@ -734,12 +715,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     }
                 });
                 oa1.start();
-                if (options.isFrontfacing()) {
-                    options.setFrontfacing(false);
+                if (options.isFrontFacing()) {
+                    options.setFrontFacing(false);
                     camera.setFacing(Facing.BACK);
                 } else {
                     camera.setFacing(Facing.FRONT);
-                    options.setFrontfacing(true);
+                    options.setFrontFacing(true);
                 }
             }
         });
@@ -748,15 +729,11 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private void updateImages() {
         mainImageAdapter.clearList();
         Cursor cursor = Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos());
-        if (cursor == null) {
-            return;
-        }
-        ArrayList<Img> INSTANTLIST = new ArrayList<>();
+        if (cursor == null) return;
+        ArrayList<Img> INSTANT_LIST = new ArrayList<>();
         String header = "";
         int limit = 100;
-        if (cursor.getCount() < limit) {
-            limit = cursor.getCount() - 1;
-        }
+        if (cursor.getCount() < limit) limit = cursor.getCount() - 1;
         int data = cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA);
         int mediaType = cursor.getColumnIndex(MediaStore.Files.FileColumns.MEDIA_TYPE);
         int contentUrl = cursor.getColumnIndex(MediaStore.Files.FileColumns._ID);
@@ -769,24 +746,22 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                     "" + cursor.getInt(contentUrl));
             calendar = Calendar.getInstance();
-            int finDate = imageDate; // mediaType == 1 ? imageDate : videoDate;
-            calendar.setTimeInMillis(cursor.getLong(finDate) * 1000);
+            calendar.setTimeInMillis(cursor.getLong(imageDate) * 1000);
             //Log.e("time",i+"->"+new SimpleDateFormat("hh:mm:ss dd/MM/yyyy",Locale.ENGLISH).format(calendar.getTime()));
             String dateDifference = Utility.getDateDifference(Pix.this, calendar);
             if (!header.equalsIgnoreCase("" + dateDifference)) {
                 header = "" + dateDifference;
                 pos += 1;
-                INSTANTLIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType)));
+                INSTANT_LIST.add(new Img("" + dateDifference, "", "", "", cursor.getInt(mediaType)));
             }
-            Img img =
-                    new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType));
+            Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos, cursor.getInt(mediaType));
             img.setPosition(pos);
             if (options.getPreSelectedUrls().contains(img.getUrl())) {
                 img.setSelected(true);
                 selectionList.add(img);
             }
             pos += 1;
-            INSTANTLIST.add(img);
+            INSTANT_LIST.add(img);
         }
         if (selectionList.size() > 0) {
             LongSelection = true;
@@ -800,20 +775,19 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             anim.setDuration(300);
             sendButton.startAnimation(anim);
             selection_check.setVisibility(View.GONE);
-            topbar.setBackgroundColor(colorPrimaryDark);
-            selection_count.setText(selectionList.size() + " " +
-                    getResources().getString(R.string.pix_selected));
+            topBar.setBackgroundColor(colorPrimaryDark);
+            selection_count.setText(selectionList.size() + " " + getResources().getString(R.string.pix_selected));
             img_count.setText(String.valueOf(selectionList.size()));
             DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
         }
-        mainImageAdapter.addImageList(INSTANTLIST);
-        initaliseadapter.addImageList(INSTANTLIST);
+        mainImageAdapter.addImageList(INSTANT_LIST);
+        initializeAdapter.addImageList(INSTANT_LIST);
         imageVideoFetcher = new ImageVideoFetcher(Pix.this) {
             @Override
             protected void onPostExecute(ModelList modelList) {
                 super.onPostExecute(modelList);
                 mainImageAdapter.addImageList(modelList.getLIST());
-                initaliseadapter.addImageList(modelList.getLIST());
+                initializeAdapter.addImageList(modelList.getLIST());
                 selectionList.addAll(modelList.getSelection());
                 if (selectionList.size() > 0) {
                     LongSelection = true;
@@ -827,9 +801,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     anim.setDuration(300);
                     sendButton.startAnimation(anim);
                     selection_check.setVisibility(View.GONE);
-                    topbar.setBackgroundColor(colorPrimaryDark);
-                    selection_count.setText(selectionList.size() + " " +
-                            getResources().getString(R.string.pix_selected));
+                    topBar.setBackgroundColor(colorPrimaryDark);
+                    selection_count.setText(selectionList.size() + " " + getResources().getString(R.string.pix_selected));
                     img_count.setText(String.valueOf(selectionList.size()));
                     DrawableCompat.setTint(selection_back.getDrawable(), Color.parseColor("#ffffff"));
                 }
@@ -851,15 +824,13 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         mBottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 
             @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-
-            }
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {}
 
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 Utility.manipulateVisibility(Pix.this, slideOffset, findViewById(R.id.arrow_up),
                         instantRecyclerView, recyclerView, status_bar_bg,
-                        topbar, bottomButtons, sendButton, LongSelection);
+                        topBar, bottomButtons, sendButton, LongSelection);
                 if (slideOffset == 1) {
                     Utility.showScrollbar(mScrollbar, Pix.this);
                     mainImageAdapter.notifyDataSetChanged();
@@ -873,7 +844,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     sendButton.setVisibility(View.GONE);
                     //  fotoapparat.stop();
                 } else if (slideOffset == 0) {
-                    initaliseadapter.notifyDataSetChanged();
+                    initializeAdapter.notifyDataSetChanged();
                     hideScrollbar();
                     img_count.setText(String.valueOf(selectionList.size()));
                     camera.open();
@@ -917,9 +888,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             if (mainImageAdapter != null) {
                 String text = mainImageAdapter.getSectionMonthYearText(targetPos);
                 mBubbleView.setText(text);
-                if (text.equalsIgnoreCase("")) {
-                    mBubbleView.setVisibility(View.GONE);
-                }
+                if (text.equalsIgnoreCase("")) mBubbleView.setVisibility(View.GONE);
             }
         }
     }
@@ -928,8 +897,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         if (!Utility.isViewVisible(mBubbleView)) {
             mBubbleView.setVisibility(View.VISIBLE);
             mBubbleView.setAlpha(0f);
-            mBubbleAnimator = mBubbleView
-                    .animate()
+            mBubbleAnimator = mBubbleView.animate()
                     .alpha(1f)
                     .setDuration(sBubbleAnimDuration)
                     .setListener(new AnimatorListenerAdapter() {
@@ -944,7 +912,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             mBubbleAnimator = mBubbleView.animate().alpha(0f)
                     .setDuration(sBubbleAnimDuration)
                     .setListener(new AnimatorListenerAdapter() {
-
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             super.onAnimationEnd(animation);
@@ -967,41 +934,33 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                if (event.getX() < mHandleView.getX() - ViewCompat.getPaddingStart(mHandleView)) {
+                if (event.getX() < mHandleView.getX() - ViewCompat.getPaddingStart(mHandleView))
                     return false;
-                }
                 mHandleView.setSelected(true);
                 handler.removeCallbacks(mScrollbarHider);
                 Utility.cancelAnimation(mScrollbarAnimator);
                 Utility.cancelAnimation(mBubbleAnimator);
 
-                if (!Utility.isViewVisible(mScrollbar) && (recyclerView.computeVerticalScrollRange()
-                        - mViewHeight > 0)) {
+                if (!Utility.isViewVisible(mScrollbar) && (recyclerView.computeVerticalScrollRange() - mViewHeight > 0))
                     mScrollbarAnimator = Utility.showScrollbar(mScrollbar, Pix.this);
-                }
 
-                if (mainImageAdapter != null) {
-                    showBubble();
-                }
+                if (mainImageAdapter != null) showBubble();
 
-                if (mFastScrollStateChangeListener != null) {
+                if (mFastScrollStateChangeListener != null)
                     mFastScrollStateChangeListener.onFastScrollStart(this);
-                }
             case MotionEvent.ACTION_MOVE:
                 final float y = event.getRawY();
-                setViewPositions(y - TOPBAR_HEIGHT);
+                setViewPositions(y - TOP_BAR_HEIGHT);
                 setRecyclerViewPosition(y);
                 return true;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 mHandleView.setSelected(false);
-                if (mHideScrollbar) {
+                if (mHideScrollbar)
                     handler.postDelayed(mScrollbarHider, sScrollbarHideDelay);
-                }
                 hideBubble();
-                if (mFastScrollStateChangeListener != null) {
+                if (mFastScrollStateChangeListener != null)
                     mFastScrollStateChangeListener.onFastScrollStop(this);
-                }
                 return true;
         }
         return super.onTouchEvent(event);
@@ -1009,21 +968,19 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
     @Override
     public void onBackPressed() {
-
         if (selectionList.size() > 0) {
             for (Img img : selectionList) {
                 options.setPreSelectedUrls(new ArrayList<String>());
                 mainImageAdapter.getItemList().get(img.getPosition()).setSelected(false);
                 mainImageAdapter.notifyItemChanged(img.getPosition());
-                initaliseadapter.getItemList().get(img.getPosition()).setSelected(false);
-                initaliseadapter.notifyItemChanged(img.getPosition());
+                initializeAdapter.getItemList().get(img.getPosition()).setSelected(false);
+                initializeAdapter.notifyItemChanged(img.getPosition());
             }
             LongSelection = false;
-            if (options.getCount() > 1) {
+            if (options.getCount() > 1)
                 selection_check.setVisibility(View.VISIBLE);
-            }
             DrawableCompat.setTint(selection_back.getDrawable(), colorPrimaryDark);
-            topbar.setBackgroundColor(Color.parseColor("#ffffff"));
+            topBar.setBackgroundColor(Color.parseColor("#ffffff"));
             Animation anim = new ScaleAnimation(
                     1f, 0f, // Start and end values for the X axis scaling
                     1f, 0f, // Start and end values for the Y axis scaling
@@ -1033,9 +990,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             anim.setDuration(300);
             anim.setAnimationListener(new Animation.AnimationListener() {
                 @Override
-                public void onAnimationStart(Animation animation) {
-
-                }
+                public void onAnimationStart(Animation animation) {}
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
@@ -1044,9 +999,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 }
 
                 @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
+                public void onAnimationRepeat(Animation animation) {}
             });
             sendButton.startAnimation(anim);
             selectionList.clear();

@@ -38,11 +38,11 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public static int SPAN_COUNT = 0;
     private static final int MARGIN = 4;
 
-    private ArrayList<Img> list;
+    private final ArrayList<Img> list;
     private OnSelectionListener onSelectionListener;
-    private FrameLayout.LayoutParams layoutParams;
-    private RequestManager glide;
-    private RequestOptions options;
+    private final FrameLayout.LayoutParams layoutParams;
+    private final RequestManager glide;
+    private final RequestOptions options;
 
     public MainImageAdapter(Context context, int spanCount) {
         this.list = new ArrayList<>();
@@ -78,12 +78,9 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-	    if (list.size() <= position) {
-		    return 0;
-	    }
+	    if (list.size() <= position) return 0;
         Img i = list.get(position);
-        return (i.getContentUrl().equalsIgnoreCase("")) ?
-                HEADER : ITEM;
+        return (i.getContentUrl().equalsIgnoreCase("")) ? HEADER : ITEM;
     }
 
     public void clearList() {
@@ -104,11 +101,11 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == HEADER) {
-            return new HeaderHolder(LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.header_row, parent, false));
+            return new HeaderHolder(LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.header_row, parent, false));
         } else {
-            View view = LayoutInflater.from(parent.getContext()).
-                    inflate(R.layout.main_image, parent, false);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.main_image, parent, false);
             return new Holder(view);
         }
     }
@@ -176,16 +173,14 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public String getSectionMonthYearText(int position) {
-	    if (list.size() <= position) {
-		    return "";
-	    }
+	    if (list.size() <= position) return "";
         return list.get(position).getHeaderDate();
     }
 
     public class Holder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private ImageView preview;
-        private ImageView selection;
-        private ImageView isVideo;
+        private final ImageView preview;
+        private final ImageView selection;
+        private final ImageView isVideo;
 
         Holder(View itemView) {
             super(itemView);
@@ -211,8 +206,8 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    public class HeaderHolder extends RecyclerView.ViewHolder {
-        private TextView header;
+    public static class HeaderHolder extends RecyclerView.ViewHolder {
+        private final TextView header;
 
         HeaderHolder(View itemView) {
             super(itemView);

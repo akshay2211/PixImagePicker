@@ -20,7 +20,7 @@ public class Constants {
             MediaStore.Images.Media.DATE_MODIFIED,
     };
     public static Uri URI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-    public static String ORDERBY = MediaStore.Images.Media.DATE_MODIFIED + " DESC";
+    public static String ORDER_BY = MediaStore.Images.Media.DATE_MODIFIED + " DESC";
 
     public static String[] IMAGE_VIDEO_PROJECTION = new String[]{
             MediaStore.Files.FileColumns.DATA,

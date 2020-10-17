@@ -10,11 +10,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.fxn.adapters.MyAdapter
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
-import com.fxn.pixsample.SampleFragment
 import com.fxn.utility.PermUtil
 import kotlinx.android.synthetic.main.fragment_sample.view.*
 import java.util.*
@@ -52,7 +50,7 @@ class SampleFragment : Fragment() {
                     .setCount(5)
                     .setPreSelectedUrls(returnValue)
                     .setExcludeVideos(false)
-                    .setVideoDurationLimitinSeconds(30)
+                    .setVideoDurationLimitInSeconds(30)
                     .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                     .setPath("/akshay/new")
             recyclerView.adapter = myAdapter

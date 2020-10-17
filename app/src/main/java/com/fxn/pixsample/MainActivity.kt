@@ -30,11 +30,11 @@ class MainActivity : AppCompatActivity() {
         options = Options.init()
                 .setRequestCode(requestCodePicker)
                 .setCount(5)
-                .setFrontfacing(false)
+                .setFrontFacing(false)
                 .setPreSelectedUrls(returnValue)
                 .setExcludeVideos(false)
                 .setSpanCount(4)
-                .setVideoDurationLimitinSeconds(30)
+                .setVideoDurationLimitInSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                 .setPath("pix/akshay")
         recyclerView.adapter = myAdapter

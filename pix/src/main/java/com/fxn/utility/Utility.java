@@ -43,7 +43,6 @@ import java.util.Locale;
 public class Utility {
 
     public static int HEIGHT, WIDTH;
-
     private String pathDir;
 
     public static void setupStatusBarHidden(AppCompatActivity appCompatActivity) {
@@ -58,17 +57,16 @@ public class Utility {
             }
             //w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             //  w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         }
     }
 
     public static void showStatusBar(AppCompatActivity appCompatActivity) {
         synchronized (appCompatActivity) {
-	     /* Window w = appCompatActivity.getWindow();
-	      View decorView = w.getDecorView();
-	      // Show Status Bar.
-	      int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-	      decorView.setSystemUiVisibility(uiOptions);*/
+            /* Window w = appCompatActivity.getWindow();
+            View decorView = w.getDecorView();
+            // Show Status Bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+            decorView.setSystemUiVisibility(uiOptions);*/
 
             appCompatActivity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
@@ -76,11 +74,11 @@ public class Utility {
 
     public static void hideStatusBar(AppCompatActivity appCompatActivity) {
         synchronized (appCompatActivity) {
-	      /*Window w = appCompatActivity.getWindow();
-	      View decorView = w.getDecorView();
-	      // Hide Status Bar.
-	      int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-	      decorView.setSystemUiVisibility(uiOptions);*/
+            /*Window w = appCompatActivity.getWindow();
+            View decorView = w.getDecorView();
+            // Hide Status Bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);*/
             appCompatActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
     }
@@ -93,11 +91,7 @@ public class Utility {
             int usableHeight = metrics.heightPixels;
             activity.getWindowManager().getDefaultDisplay().getRealMetrics(metrics);
             int realHeight = metrics.heightPixels;
-            if (realHeight > usableHeight) {
-                return realHeight - usableHeight;
-            } else {
-                return 0;
-            }
+            return realHeight > usableHeight ? realHeight - usableHeight : 0;
         }
         return 0;
     }
@@ -109,10 +103,7 @@ public class Utility {
             //Log.e("->activity", "----------->  " + check);
             Resources res = check.getBaseContext().getResources();
             int resourceId = res.getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
-                result = check.getResources().getDimensionPixelSize(resourceId);
-            }
-            return result;
+            return resourceId > 0 ? check.getResources().getDimensionPixelSize(resourceId) : result;
         }
         return 0;
     }
@@ -161,7 +152,7 @@ public class Utility {
 
     public static Cursor getCursor(Context context) {
         return context.getContentResolver().query(Constants.URI, Constants.PROJECTION,
-                null, null, Constants.ORDERBY);
+                null, null, Constants.ORDER_BY);
     }
 
     public static Cursor getImageVideoCursor(Context context, boolean excludeVideo) {
@@ -186,20 +177,17 @@ public class Utility {
     }
 
     public static void cancelAnimation(ViewPropertyAnimator animator) {
-        if (animator != null) {
-            animator.cancel();
-        }
+        if (animator != null) animator.cancel();
     }
 
-    public static void manipulateVisibility(AppCompatActivity activity, float slideOffset, View arrow_up,
-                                            RecyclerView instantRecyclerView, RecyclerView recyclerView,
-                                            View status_bar_bg, View topbar, View clickme, View sendButton, boolean longSelection) {
+    public static void manipulateVisibility(
+            AppCompatActivity activity, float slideOffset, View arrow_up,
+            RecyclerView instantRecyclerView, RecyclerView recyclerView,
+            View status_bar_bg, View topbar, View clickme, View sendButton, boolean longSelection) {
         instantRecyclerView.setAlpha(1 - slideOffset);
         arrow_up.setAlpha(1 - slideOffset);
         clickme.setAlpha(1 - slideOffset);
-        if (longSelection) {
-            sendButton.setAlpha(1 - slideOffset);
-        }
+        if (longSelection) sendButton.setAlpha(1 - slideOffset);
         topbar.setAlpha(slideOffset);
         recyclerView.setAlpha(slideOffset);
         if ((1 - slideOffset) == 0 && instantRecyclerView.getVisibility() == View.VISIBLE) {
@@ -238,18 +226,13 @@ public class Utility {
         ((Vibrator) c.getSystemService(Context.VIBRATOR_SERVICE)).vibrate(l);
     }
 
-    public static File writeImage(Bitmap bitmap, String path, int quality, int newWidth,
-                                  int newHeight) {
+    public static File writeImage(Bitmap bitmap, String path, int quality, int newWidth, int newHeight) {
         File dir = new File(Environment.getExternalStorageDirectory(), path);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
+        if (!dir.exists()) dir.mkdirs();
         File photo = new File(dir, "IMG_"
                 + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
                 + ".jpg");
-        if (photo.exists()) {
-            photo.delete();
-        }
+        if (photo.exists()) photo.delete();
         if (newWidth == 0 && newHeight == 0) {
             newWidth = bitmap.getWidth() / 2;
             newHeight = bitmap.getHeight() / 2;
@@ -285,7 +268,6 @@ public class Utility {
 
     public static Bitmap getScaledBitmap(int maxWidth, Bitmap rotatedBitmap) {
         try {
-
             int nh = (int) (rotatedBitmap.getHeight() * (512.0 / rotatedBitmap.getWidth()));
             return Bitmap.createScaledBitmap(rotatedBitmap, maxWidth, nh, true);
         } catch (Exception e) {
@@ -295,9 +277,7 @@ public class Utility {
     }
 
     public static Bitmap rotate(Bitmap scaledBitmap, int i) {
-        if (i == 0) {
-            return scaledBitmap;
-        }
+        if (i == 0) return scaledBitmap;
         Matrix matrix = new Matrix();
         matrix.preRotate(-i);
         return Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(),
@@ -317,9 +297,7 @@ public class Utility {
 
     public static boolean containsName(final ArrayList<Img> list, final String url) {
         for (Img o : list) {
-            if (o != null && o.getContentUrl().equals(url)) {
-                return true;
-            }
+            if (o != null && o.getContentUrl().equals(url)) return true;
         }
         return false;
     }
@@ -331,8 +309,7 @@ public class Utility {
             scanIntent.setData(contentUri);
             pix.sendBroadcast(scanIntent);
         } else {
-            pix.sendBroadcast(
-                    new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(photo.getAbsolutePath())));
+            pix.sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(photo.getAbsolutePath())));
         }
     }
 

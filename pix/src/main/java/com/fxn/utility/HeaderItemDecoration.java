@@ -9,14 +9,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by akshay on 28/03/18.
  */
 
 public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
 
-    private StickyHeaderInterface mListener;
-    private Context context;
+    private final StickyHeaderInterface mListener;
+    private final Context context;
 
     public HeaderItemDecoration(Context context, @NonNull StickyHeaderInterface listener) {
         mListener = listener;
@@ -24,7 +26,7 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+    public void onDrawOver(@NotNull Canvas c, @NotNull RecyclerView parent, @NotNull RecyclerView.State state) {
         super.onDrawOver(c, parent, state);
 
         View topChild = parent.getChildAt(0);

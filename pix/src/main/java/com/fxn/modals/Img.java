@@ -12,11 +12,10 @@ public class Img implements Serializable {
     private String url;
     private Boolean isSelected;
     private String scrollerDate;
-    private int media_type = 1;
+    private int media_type;
     private int position;
 
-    public Img(String headerDate, String contentUrl, String url, String scrollerDate,
-               int type) {
+    public Img(String headerDate, String contentUrl, String url, String scrollerDate, int type) {
         this.headerDate = headerDate;
         this.contentUrl = contentUrl;
         this.url = url;
@@ -24,7 +23,6 @@ public class Img implements Serializable {
         this.scrollerDate = scrollerDate;
         this.media_type = type;
     }
-
 
     public int getMedia_type() {
         return media_type;
