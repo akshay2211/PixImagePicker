@@ -48,7 +48,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 ```
-## Customise
+## Customize
 ### Theme
 include these items in colors.xml with custom color codes
 ```xml
@@ -58,7 +58,7 @@ include these items in colors.xml with custom color codes
 </resources>
 ```
 
-## Permission Handling
+## Permission handling
 include onRequestPermissionsResult method in your Activity/Fragment for permission selection
 ```java
 @Override
