@@ -89,8 +89,10 @@ class SampleFragment : Fragment() {
     }
 
     companion object {
+
         private const val ARG_PARAM1 = "param1"
         private const val ARG_PARAM2 = "param2"
+
         fun newInstance(param1: String?, param2: String?): SampleFragment {
             val fragment = SampleFragment()
             val args = Bundle()
