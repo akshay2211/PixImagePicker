@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fxn.modals.Img;
+import com.fxn.pix.Options;
 import com.fxn.pix.R;
 import com.otaliastudios.cameraview.size.Size;
 
@@ -169,6 +170,25 @@ public class Utility {
                 .query(Constants.IMAGE_VIDEO_URI, Constants.IMAGE_VIDEO_PROJECTION,
                         excludeVideo ? Constants.IMAGE_SELECTION : Constants.IMAGE_VIDEO_SELECTION, null, Constants.IMAGE_VIDEO_ORDERBY);
     }
+
+    public static Cursor getImageVideoCursor(Context context, Options.Mode mode) {
+        String projection;
+        switch (mode){
+            case Video:
+                projection = Constants.VIDEO_SELECTION;
+                break;
+            case Picture:
+                projection = Constants.IMAGE_SELECTION;
+                break;
+            default:
+                projection = Constants.IMAGE_VIDEO_SELECTION;
+                break;
+        }
+        return context.getContentResolver()
+                .query(Constants.IMAGE_VIDEO_URI, Constants.IMAGE_VIDEO_PROJECTION,
+                        projection, null, Constants.IMAGE_VIDEO_ORDERBY);
+    }
+
 
     public static boolean isViewVisible(View view) {
         return view != null && view.getVisibility() == View.VISIBLE;

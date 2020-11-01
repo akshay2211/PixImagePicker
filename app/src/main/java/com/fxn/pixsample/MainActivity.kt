@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 .setCount(5)
                 .setFrontfacing(false)
                 .setPreSelectedUrls(returnValue)
-                .setExcludeVideos(false)
+                .setMode(Options.Mode.All)
                 .setSpanCount(4)
                 .setVideoDurationLimitinSeconds(30)
                 .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)

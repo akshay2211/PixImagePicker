@@ -51,7 +51,7 @@ class SampleFragment : Fragment() {
                     .setRequestCode(requestCodePicker)
                     .setCount(5)
                     .setPreSelectedUrls(returnValue)
-                    .setExcludeVideos(false)
+                    .setMode(Options.Mode.Picture)
                     .setVideoDurationLimitinSeconds(30)
                     .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
                     .setPath("/akshay/new")
