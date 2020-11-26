@@ -88,6 +88,10 @@ public void onRequestPermissionsResult(int requestCode, String permissions[], in
   - [FastScroll]
   - [Header-decor]
   - [CameraView]
+  
+## Backers
+Become a backer and help us sustain our activities! 🙏🙏
+<a href="https://opencollective.com/piximagepicker#backers" target="_blank"><img src="https://opencollective.com/piximagepicker/backers.svg?width=890"></a>
 
 ## Download
 [![Download](https://api.bintray.com/packages/fxn769/android_projects/Pix/images/download.svg)](https://bintray.com/fxn769/android_projects/Pix/_latestVersion) or grab via Gradle:
