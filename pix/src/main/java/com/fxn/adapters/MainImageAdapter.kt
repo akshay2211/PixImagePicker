@@ -33,6 +33,7 @@ class MainImageAdapter(context: Context, spanCount: Int) : RecyclerView.Adapter<
     private val layoutParams: FrameLayout.LayoutParams
     private val glide: RequestManager
     private val options: RequestOptions
+
     fun addImage(image: Img): MainImageAdapter {
         itemList.add(image)
         notifyDataSetChanged()
@@ -81,18 +82,17 @@ class MainImageAdapter(context: Context, spanCount: Int) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val image = itemList[position]
         if (holder is Holder) {
-            val imageHolder = holder
             if (image.media_type == 1) {
-                glide.load(image.contentUrl).apply(options).into(imageHolder.preview)
-                imageHolder.isVideo.visibility = View.GONE
+                glide.load(image.contentUrl).apply(options).into(holder.preview)
+                holder.isVideo.visibility = View.GONE
             } else if (image.media_type == 3) {
                 glide.asBitmap()
                         .load(Uri.fromFile(File(image.url)))
                         .apply(options)
-                        .into(imageHolder.preview)
-                imageHolder.isVideo.visibility = View.VISIBLE
+                        .into(holder.preview)
+                holder.isVideo.visibility = View.VISIBLE
             }
-            imageHolder.selection.visibility = if (image.selected) View.VISIBLE else View.GONE
+            holder.selection.visibility = if (image.selected) View.VISIBLE else View.GONE
         } else if (holder is HeaderHolder) {
             holder.header.text = image.headerDate
         }
@@ -102,16 +102,16 @@ class MainImageAdapter(context: Context, spanCount: Int) : RecyclerView.Adapter<
         return itemList.size
     }
 
-    override fun getHeaderPositionForItem(position: Int): Int {
-        var itemPosition = position
+    override fun getHeaderPositionForItem(itemPosition: Int): Int {
+        var position = itemPosition
         var headerPosition = 0
         do {
-            if (isHeader(itemPosition)) {
-                headerPosition = itemPosition
+            if (isHeader(position)) {
+                headerPosition = position
                 break
             }
-            itemPosition -= 1
-        } while (itemPosition >= 0)
+            position -= 1
+        } while (position >= 0)
         return headerPosition
     }
 
@@ -128,7 +128,7 @@ class MainImageAdapter(context: Context, spanCount: Int) : RecyclerView.Adapter<
         return getItemViewType(itemPosition) == 1
     }
 
-    override fun getSectionText(position: Int): String? {
+    override fun getSectionText(position: Int): String {
         return itemList[position].headerDate
     }
 

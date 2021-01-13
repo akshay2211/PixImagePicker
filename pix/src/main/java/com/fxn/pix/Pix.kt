@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
@@ -37,7 +38,6 @@ import com.fxn.adapters.MainImageAdapter
 import com.fxn.interfaces.OnSelectionListener
 import com.fxn.interfaces.WorkFinish
 import com.fxn.modals.Img
-import com.fxn.pix.Pix
 import com.fxn.utility.*
 import com.fxn.utility.PermUtil.checkForCamaraWritePermissions
 import com.fxn.utility.Utility.Companion.cancelAnimation
@@ -75,30 +75,30 @@ import java.util.*
 
 class Pix : AppCompatActivity(), OnTouchListener {
     private lateinit var camera: CameraView
-    private var status_bar_height = 0
-    private var BottomBarHeight = 0
+    private var statusBarHeight = 0
+    private var bottomBarHeight = 0
     private var colorPrimaryDark = 0
     private var zoom = 0.0f
     private var dist = 0.0f
-    private val handler = Handler()
-    private val video_counter_handler = Handler()
-    private var video_counter_runnable: Runnable? = null
+    private val handler = Handler(Looper.getMainLooper())
+    private val videoCounterHandler = Handler(Looper.getMainLooper())
+    private var videoCounterRunnable: Runnable? = null
     private val mFastScrollStateChangeListener: FastScrollStateChangeListener? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var instantRecyclerView: RecyclerView
     private lateinit var mBottomSheetBehavior: BottomSheetBehavior<*>
     private var initaliseadapter: InstantImageAdapter? = null
-    private lateinit var status_bar_bg: View
+    private lateinit var statusBarBg: View
     private lateinit var mScrollbar: View
     private var topbar: View? = null
     private var bottomButtons: View? = null
     private lateinit var sendButton: View
     private lateinit var mBubbleView: TextView
-    private var img_count: TextView? = null
+    private var imgCount: TextView? = null
     private lateinit var mHandleView: ImageView
-    private lateinit var selection_back: ImageView
-    private lateinit var selection_check: ImageView
-    private var video_counter_progressbar: ProgressBar? = null
+    private lateinit var selectionBack: ImageView
+    private lateinit var selectionCheck: ImageView
+    private var videoCounterProgressbar: ProgressBar? = null
     private var mScrollbarAnimator: ViewPropertyAnimator? = null
     private lateinit var mBubbleAnimator: ViewPropertyAnimator
     private val selectionList: MutableSet<Img?> = HashSet()
@@ -106,9 +106,10 @@ class Pix : AppCompatActivity(), OnTouchListener {
     private var mainImageAdapter: MainImageAdapter? = null
     private var mViewHeight = 0f
     private val mHideScrollbar = true
-    private var LongSelection = false
+    private var longSelection = false
     private var options: Options? = null
-    private var selection_count: TextView? = null
+    private var selectionCount: TextView? = null
+
     private val mScrollListener: RecyclerView.OnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             if (!mHandleView.isSelected && recyclerView.isEnabled) {
@@ -143,6 +144,8 @@ class Pix : AppCompatActivity(), OnTouchListener {
     private var front: ImageView? = null
     private var clickme: ImageView? = null
     private var flashDrawable = 0
+
+    @SuppressLint("ClickableViewAccessibility")
     private val onCameraTouchListner = OnTouchListener { v, event ->
         if (event.pointerCount > 1) {
             when (event.action and MotionEvent.ACTION_MASK) {
@@ -153,11 +156,11 @@ class Pix : AppCompatActivity(), OnTouchListener {
                     if (newDist > dist) {
                         //zoom in
                         if (zoom < maxZoom) {
-                            zoom = zoom + 0.01f
+                            zoom += 0.01f
                         }
                     } else if (newDist < dist && zoom > 0) {
                         //zoom out
-                        zoom = zoom - 0.01f
+                        zoom -= 0.01f
                     }
                     dist = newDist
                     camera.zoom = zoom
@@ -169,10 +172,10 @@ class Pix : AppCompatActivity(), OnTouchListener {
         false
     }
     private val onSelectionListener: OnSelectionListener = object : OnSelectionListener {
-        override fun onClick(img: Img?, view: View?, position: Int) {
-            if (LongSelection) {
-                if (selectionList.contains(img)) {
-                    selectionList.remove(img)
+        override fun onClick(Img: Img?, view: View?, position: Int) {
+            if (longSelection) {
+                if (selectionList.contains(Img)) {
+                    selectionList.remove(Img)
                     initaliseadapter!!.select(false, position)
                     mainImageAdapter!!.select(false, position)
                 } else {
@@ -181,15 +184,15 @@ class Pix : AppCompatActivity(), OnTouchListener {
                                 selectionList.size), Toast.LENGTH_SHORT).show()
                         return
                     }
-                    img!!.position = position
-                    selectionList.add(img)
+                    Img!!.position = position
+                    selectionList.add(Img)
                     initaliseadapter!!.select(true, position)
                     mainImageAdapter!!.select(true, position)
                 }
                 if (selectionList.size == 0) {
-                    LongSelection = false
-                    selection_check.visibility = View.VISIBLE
-                    DrawableCompat.setTint(selection_back.drawable, colorPrimaryDark)
+                    longSelection = false
+                    selectionCheck.visibility = View.VISIBLE
+                    DrawableCompat.setTint(selectionBack.drawable, colorPrimaryDark)
                     topbar!!.setBackgroundColor(Color.parseColor("#ffffff"))
                     val anim: Animation = ScaleAnimation(
                             1f, 0f,  // Start and end values for the X axis scaling
@@ -209,14 +212,13 @@ class Pix : AppCompatActivity(), OnTouchListener {
                     })
                     sendButton.startAnimation(anim)
                 }
-                selection_count!!.text = selectionList.size.toString() + " " +
-                        resources.getString(R.string.pix_selected)
-                img_count!!.text = selectionList.size.toString()
+                selectionCount!!.text = selectionList.size.toString() + " " + resources.getString(R.string.pix_selected)
+                imgCount!!.text = selectionList.size.toString()
             } else {
-                img!!.position = position
-                selectionList.add(img)
+                Img!!.position = position
+                selectionList.add(Img)
                 returnObjects()
-                DrawableCompat.setTint(selection_back.drawable, colorPrimaryDark)
+                DrawableCompat.setTint(selectionBack.drawable, colorPrimaryDark)
                 topbar!!.setBackgroundColor(Color.parseColor("#ffffff"))
             }
         }
@@ -224,7 +226,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
         override fun onLongClick(img: Img?, view: View?, position: Int) {
             if (options!!.count > 1) {
                 vibe(this@Pix, 50)
-                LongSelection = true
+                longSelection = true
                 if (selectionList.size == 0 && (mBottomSheetBehavior.state
                                 != BottomSheetBehavior.STATE_EXPANDED)) {
                     sendButton.visibility = View.VISIBLE
@@ -252,11 +254,11 @@ class Pix : AppCompatActivity(), OnTouchListener {
                     initaliseadapter!!.select(true, position)
                     mainImageAdapter!!.select(true, position)
                 }
-                selection_check.visibility = View.GONE
+                selectionCheck.visibility = View.GONE
                 topbar!!.setBackgroundColor(colorPrimaryDark)
-                selection_count!!.text = selectionList.size.toString() + " " + resources.getString(R.string.pix_selected)
-                img_count!!.text = selectionList.size.toString()
-                DrawableCompat.setTint(selection_back.drawable, Color.parseColor("#ffffff"))
+                selectionCount!!.text = selectionList.size.toString() + " " + resources.getString(R.string.pix_selected)
+                imgCount!!.text = selectionList.size.toString()
+                DrawableCompat.setTint(selectionBack.drawable, Color.parseColor("#ffffff"))
             }
         }
     }
@@ -333,7 +335,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
         }
         maxVideoDuration = options!!.videoDurationLimitinSeconds * 1000 //conversion in  milli seconds
         (findViewById<View>(R.id.message_bottom) as TextView).setText(if (options!!.isExcludeVideos) R.string.pix_bottom_message_without_video else R.string.pix_bottom_message_with_video)
-        status_bar_height = getStatusBarSizePort(this@Pix)
+        statusBarHeight = getStatusBarSizePort(this@Pix)
         requestedOrientation = options!!.screenOrientation
         colorPrimaryDark = ResourcesCompat.getColor(resources, R.color.colorPrimaryPix, theme)
         camera = findViewById(R.id.camera_view)
@@ -391,11 +393,11 @@ class Pix : AppCompatActivity(), OnTouchListener {
             override fun onVideoRecordingStart() {
                 findViewById<View>(R.id.video_counter_layout).visibility = View.VISIBLE
                 video_counter_progress = 0
-                video_counter_progressbar!!.progress = 0
-                video_counter_runnable = object : Runnable {
+                videoCounterProgressbar!!.progress = 0
+                videoCounterRunnable = object : Runnable {
                     override fun run() {
                         ++video_counter_progress
-                        video_counter_progressbar!!.progress = video_counter_progress
+                        videoCounterProgressbar!!.progress = video_counter_progress
                         val textView = findViewById<TextView>(R.id.video_counter)
                         var counter = ""
                         var min = 0
@@ -409,10 +411,10 @@ class Pix : AppCompatActivity(), OnTouchListener {
                         }
                         counter = "$min:$sec"
                         textView.text = counter
-                        video_counter_handler.postDelayed(this, 1000)
+                        videoCounterHandler.postDelayed(this, 1000)
                     }
                 }
-                video_counter_handler.postDelayed(video_counter_runnable!!, 1000)
+                videoCounterHandler.postDelayed(videoCounterRunnable!!, 1000)
                 clickme!!.animate().scaleX(1.2f).scaleY(1.2f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 flash!!.animate().alpha(0f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 findViewById<View>(R.id.message_bottom).animate().alpha(0f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
@@ -421,7 +423,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
 
             override fun onVideoRecordingEnd() {
                 findViewById<View>(R.id.video_counter_layout).visibility = View.GONE
-                video_counter_handler.removeCallbacks(video_counter_runnable!!)
+                videoCounterHandler.removeCallbacks(videoCounterRunnable!!)
                 clickme!!.animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 findViewById<View>(R.id.message_bottom).animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 flash!!.animate().alpha(1f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
@@ -433,24 +435,24 @@ class Pix : AppCompatActivity(), OnTouchListener {
         clickme = findViewById(R.id.clickme)
         front = findViewById(R.id.front)
         topbar = findViewById(R.id.topbar)
-        video_counter_progressbar = findViewById(R.id.video_pbr)
-        selection_count = findViewById(R.id.selection_count)
-        selection_back = findViewById(R.id.selection_back)
-        selection_check = findViewById(R.id.selection_check)
-        selection_check.visibility = if (options!!.count > 1) View.VISIBLE else View.GONE
+        videoCounterProgressbar = findViewById(R.id.video_pbr)
+        selectionCount = findViewById(R.id.selection_count)
+        selectionBack = findViewById(R.id.selection_back)
+        selectionCheck = findViewById(R.id.selection_check)
+        selectionCheck.visibility = if (options!!.count > 1) View.VISIBLE else View.GONE
         sendButton = findViewById(R.id.sendButton)
-        img_count = findViewById(R.id.img_count)
+        imgCount = findViewById(R.id.img_count)
         mBubbleView = findViewById(R.id.fastscroll_bubble)
         mHandleView = findViewById(R.id.fastscroll_handle)
         mScrollbar = findViewById(R.id.fastscroll_scrollbar)
         mScrollbar.visibility = View.GONE
         mBubbleView.visibility = View.GONE
         bottomButtons = findViewById(R.id.bottomButtons)
-        TOPBAR_HEIGHT = convertDpToPixel(56f, this@Pix)
-        status_bar_bg = findViewById(R.id.status_bar_bg)
-        status_bar_bg.layoutParams.height = status_bar_height
-        status_bar_bg.translationY = (-1 * status_bar_height).toFloat()
-        status_bar_bg.requestLayout()
+        topBarHeight = convertDpToPixel(56f, this@Pix)
+        statusBarBg = findViewById(R.id.status_bar_bg)
+        statusBarBg.layoutParams.height = statusBarHeight
+        statusBarBg.translationY = (-1 * statusBarHeight).toFloat()
+        statusBarBg.requestLayout()
         instantRecyclerView = findViewById(R.id.instantRecyclerView)
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -462,10 +464,10 @@ class Pix : AppCompatActivity(), OnTouchListener {
         recyclerView.addOnScrollListener(mScrollListener)
         val mainFrameLayout = findViewById<FrameLayout>(R.id.mainFrameLayout)
         val main_content = findViewById<CoordinatorLayout>(R.id.main_content)
-        BottomBarHeight = getSoftButtonsBarSizePort(this)
+        bottomBarHeight = getSoftButtonsBarSizePort(this)
         val lp1 = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT)
-        lp1.setMargins(0, status_bar_height, 0, 0)
+        lp1.setMargins(0, statusBarHeight, 0, 0)
         main_content.layoutParams = lp1
         val layoutParams = sendButton.layoutParams as FrameLayout.LayoutParams
         layoutParams.setMargins(0, 0, convertDpToPixel(16f, this).toInt(),
@@ -499,13 +501,13 @@ class Pix : AppCompatActivity(), OnTouchListener {
                 options!!.preSelectedUrls.removeAt(i)
             }
         }
-        DrawableCompat.setTint(selection_back.drawable, colorPrimaryDark)
+        DrawableCompat.setTint(selectionBack.drawable, colorPrimaryDark)
         updateImages()
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
+    @SuppressLint("ObjectAnimatorBinding", "ClickableViewAccessibility")
     private fun onClickMethods() {
-        clickme!!.setOnTouchListener { v, event ->
+        clickme!!.setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP) {
                 findViewById<View>(R.id.clickmebg).visibility = View.GONE
                 findViewById<View>(R.id.clickmebg).animate().scaleX(1f).scaleY(1f).setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
@@ -532,8 +534,8 @@ class Pix : AppCompatActivity(), OnTouchListener {
             val video = File(dir, "VID_"
                     + SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(Date())
                     + ".mp4")
-            video_counter_progressbar!!.max = maxVideoDuration / 1000
-            video_counter_progressbar!!.invalidate()
+            videoCounterProgressbar!!.max = maxVideoDuration / 1000
+            videoCounterProgressbar!!.invalidate()
             camera.takeVideo(video, maxVideoDuration)
             true
         })
@@ -555,14 +557,14 @@ class Pix : AppCompatActivity(), OnTouchListener {
         })
         findViewById<View>(R.id.selection_ok).setOnClickListener { returnObjects() }
         sendButton.setOnClickListener { returnObjects() }
-        selection_back.setOnClickListener { mBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-        selection_check.setOnClickListener {
+        selectionBack.setOnClickListener { mBottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+        selectionCheck.setOnClickListener {
             topbar!!.setBackgroundColor(colorPrimaryDark)
-            selection_count!!.text = resources.getString(R.string.pix_tap_to_select)
-            img_count!!.text = selectionList.size.toString()
-            DrawableCompat.setTint(selection_back.drawable, Color.parseColor("#ffffff"))
-            LongSelection = true
-            selection_check.visibility = View.GONE
+            selectionCount!!.text = resources.getString(R.string.pix_tap_to_select)
+            imgCount!!.text = selectionList.size.toString()
+            DrawableCompat.setTint(selectionBack.drawable, Color.parseColor("#ffffff"))
+            longSelection = true
+            selectionCheck.visibility = View.GONE
         }
         val iv = flash!!.getChildAt(0) as ImageView
         flash!!.setOnClickListener {
@@ -574,18 +576,22 @@ class Pix : AppCompatActivity(), OnTouchListener {
                         override fun onAnimationEnd(animation: Animator) {
                             super.onAnimationEnd(animation)
                             iv.translationY = -(height / 2).toFloat()
-                            if (flashDrawable == R.drawable.ic_flash_auto_black_24dp) {
-                                flashDrawable = R.drawable.ic_flash_off_black_24dp
-                                iv.setImageResource(flashDrawable)
-                                camera.flash = Flash.OFF
-                            } else if (flashDrawable == R.drawable.ic_flash_off_black_24dp) {
-                                flashDrawable = R.drawable.ic_flash_on_black_24dp
-                                iv.setImageResource(flashDrawable)
-                                camera.flash = Flash.ON
-                            } else {
-                                flashDrawable = R.drawable.ic_flash_auto_black_24dp
-                                iv.setImageResource(flashDrawable)
-                                camera.flash = Flash.AUTO
+                            when (flashDrawable) {
+                                R.drawable.ic_flash_auto_black_24dp -> {
+                                    flashDrawable = R.drawable.ic_flash_off_black_24dp
+                                    iv.setImageResource(flashDrawable)
+                                    camera.flash = Flash.OFF
+                                }
+                                R.drawable.ic_flash_off_black_24dp -> {
+                                    flashDrawable = R.drawable.ic_flash_on_black_24dp
+                                    iv.setImageResource(flashDrawable)
+                                    camera.flash = Flash.ON
+                                }
+                                else -> {
+                                    flashDrawable = R.drawable.ic_flash_auto_black_24dp
+                                    iv.setImageResource(flashDrawable)
+                                    camera.flash = Flash.AUTO
+                                }
                             }
                             iv.animate().translationY(0f).setDuration(50).setListener(null).start()
                         }
@@ -653,7 +659,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
             INSTANTLIST.add(img)
         }
         if (selectionList.size > 0) {
-            LongSelection = true
+            longSelection = true
             sendButton.visibility = View.VISIBLE
             val anim: Animation = ScaleAnimation(
                     0f, 1f,  // Start and end values for the X axis scaling
@@ -663,23 +669,23 @@ class Pix : AppCompatActivity(), OnTouchListener {
             anim.fillAfter = true // Needed to keep the result of the animation
             anim.duration = 300
             sendButton.startAnimation(anim)
-            selection_check.visibility = View.GONE
+            selectionCheck.visibility = View.GONE
             topbar!!.setBackgroundColor(colorPrimaryDark)
-            selection_count!!.text = selectionList.size.toString() + " " +
-                    resources.getString(R.string.pix_selected)
-            img_count!!.text = selectionList.size.toString()
-            DrawableCompat.setTint(selection_back.drawable, Color.parseColor("#ffffff"))
+            selectionCount!!.text = selectionList.size.toString() + " " + resources.getString(R.string.pix_selected)
+            imgCount!!.text = selectionList.size.toString()
+            DrawableCompat.setTint(selectionBack.drawable, Color.parseColor("#ffffff"))
         }
         mainImageAdapter!!.addImageList(INSTANTLIST)
         initaliseadapter!!.addImageList(INSTANTLIST)
-        imageVideoFetcher = object : ImageVideoFetcher(this@Pix) {
+        imageVideoFetcher = @SuppressLint("StaticFieldLeak")
+        object : ImageVideoFetcher(this@Pix) {
             override fun onPostExecute(modelList: ModelList) {
                 super.onPostExecute(modelList)
                 mainImageAdapter!!.addImageList(modelList.lIST)
                 initaliseadapter!!.addImageList(modelList.lIST)
                 selectionList.addAll(modelList.selection)
                 if (selectionList.size > 0) {
-                    LongSelection = true
+                    longSelection = true
                     sendButton.visibility = View.VISIBLE
                     val anim: Animation = ScaleAnimation(
                             0f, 1f,  // Start and end values for the X axis scaling
@@ -689,12 +695,11 @@ class Pix : AppCompatActivity(), OnTouchListener {
                     anim.fillAfter = true // Needed to keep the result of the animation
                     anim.duration = 300
                     sendButton.startAnimation(anim)
-                    selection_check.visibility = View.GONE
+                    selectionCheck.visibility = View.GONE
                     topbar!!.setBackgroundColor(colorPrimaryDark)
-                    selection_count!!.text = selectionList.size.toString() + " " +
-                            resources.getString(R.string.pix_selected)
-                    img_count!!.text = selectionList.size.toString()
-                    DrawableCompat.setTint(selection_back.drawable, Color.parseColor("#ffffff"))
+                    selectionCount!!.text = selectionList.size.toString() + " " + resources.getString(R.string.pix_selected)
+                    imgCount!!.text = selectionList.size.toString()
+                    DrawableCompat.setTint(selectionBack.drawable, Color.parseColor("#ffffff"))
                 }
             }
         }
@@ -710,23 +715,22 @@ class Pix : AppCompatActivity(), OnTouchListener {
         val bottomSheet = findViewById<View>(R.id.bottom_sheet)
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         mBottomSheetBehavior.peekHeight = convertDpToPixel(194f, this).toInt()
-        mBottomSheetBehavior.setBottomSheetCallback(object : BottomSheetCallback() {
+        mBottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {}
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
                 manipulateVisibility(this@Pix, slideOffset, findViewById(R.id.arrow_up),
-                        instantRecyclerView, recyclerView, status_bar_bg,
-                        topbar!!, bottomButtons!!, sendButton, LongSelection)
+                        instantRecyclerView, recyclerView, statusBarBg,
+                        topbar!!, bottomButtons!!, sendButton, longSelection)
                 if (slideOffset == 1f) {
                     showScrollbar(mScrollbar, this@Pix)
                     mainImageAdapter!!.notifyDataSetChanged()
                     mViewHeight = mScrollbar.measuredHeight.toFloat()
                     handler.post { setViewPositions(getScrollProportion(recyclerView)) }
                     sendButton.visibility = View.GONE
-                    //  fotoapparat.stop();
                 } else if (slideOffset == 0f) {
                     initaliseadapter!!.notifyDataSetChanged()
                     hideScrollbar()
-                    img_count!!.text = selectionList.size.toString()
+                    imgCount!!.text = selectionList.size.toString()
                     camera.open()
                 }
             }
@@ -749,15 +753,18 @@ class Pix : AppCompatActivity(), OnTouchListener {
     }
 
     private fun setRecyclerViewPosition(y: Float) {
-        if (recyclerView != null && recyclerView.adapter != null) {
+        if (recyclerView.adapter != null) {
             val itemCount = recyclerView.adapter!!.itemCount
-            val proportion: Float
-            proportion = if (mHandleView.y == 0f) {
-                0f
-            } else if (mHandleView.y + mHandleView.height >= mViewHeight - sTrackSnapRange) {
-                1f
-            } else {
-                y / mViewHeight
+            val proportion: Float = when {
+                mHandleView.y == 0f -> {
+                    0f
+                }
+                mHandleView.y + mHandleView.height >= mViewHeight - sTrackSnapRange -> {
+                    1f
+                }
+                else -> {
+                    y / mViewHeight
+                }
             }
             val scrolledItemCount = Math.round(proportion * itemCount)
             val targetPos = getValueInRange(0, itemCount - 1, scrolledItemCount)
@@ -824,13 +831,13 @@ class Pix : AppCompatActivity(), OnTouchListener {
                 }
                 mFastScrollStateChangeListener?.onFastScrollStart(this)
                 val y = event.rawY
-                setViewPositions(y - TOPBAR_HEIGHT)
+                setViewPositions(y - topBarHeight)
                 setRecyclerViewPosition(y)
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
                 val y = event.rawY
-                setViewPositions(y - TOPBAR_HEIGHT)
+                setViewPositions(y - topBarHeight)
                 setRecyclerViewPosition(y)
                 return true
             }
@@ -856,11 +863,11 @@ class Pix : AppCompatActivity(), OnTouchListener {
                 initaliseadapter!!.itemList[img.position].selected = false
                 initaliseadapter!!.notifyItemChanged(img.position)
             }
-            LongSelection = false
+            longSelection = false
             if (options!!.count > 1) {
-                selection_check.visibility = View.VISIBLE
+                selectionCheck.visibility = View.VISIBLE
             }
-            DrawableCompat.setTint(selection_back.drawable, colorPrimaryDark)
+            DrawableCompat.setTint(selectionBack.drawable, colorPrimaryDark)
             topbar!!.setBackgroundColor(Color.parseColor("#ffffff"))
             val anim: Animation = ScaleAnimation(
                     1f, 0f,  // Start and end values for the X axis scaling
@@ -898,7 +905,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
         private const val OPTIONS = "options"
         private const val sTrackSnapRange = 5
         var IMAGE_RESULTS = "image_results"
-        var TOPBAR_HEIGHT = 0f
+        var topBarHeight = 0f
         private var maxVideoDuration = 40000
         private lateinit var imageVideoFetcher: ImageVideoFetcher
         fun start(context: Fragment, options: Options) {
@@ -906,7 +913,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
                 override fun onWorkFinish(check: Boolean?) {
                     val i = Intent(context.activity, Pix::class.java)
                     i.putExtra(OPTIONS, options)
-                    context.startActivityForResult(i, options.requestCode)
+                    context.startActivityForResult(i, options.requestCodeHere)
                 }
             })
         }
@@ -920,7 +927,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
                 override fun onWorkFinish(check: Boolean?) {
                     val i = Intent(context, Pix::class.java)
                     i.putExtra(OPTIONS, options)
-                    context.startActivityForResult(i, options.requestCode)
+                    context.startActivityForResult(i, options.requestCodeHere)
                 }
             })
         }

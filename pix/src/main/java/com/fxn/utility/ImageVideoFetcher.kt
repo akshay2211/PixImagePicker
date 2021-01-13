@@ -13,10 +13,9 @@ import java.util.*
  */
 open class ImageVideoFetcher(private val context: Context) : AsyncTask<Cursor?, Void?, ImageVideoFetcher.ModelList>() {
     var startingCount = 0
-    @JvmField
     var header = ""
     private val selectionList = ArrayList<Img>()
-    private val LIST = ArrayList<Img>()
+    private val list = ArrayList<Img>()
     var preSelectedUrls = ArrayList<String>()
         private set
 
@@ -73,7 +72,7 @@ open class ImageVideoFetcher(private val context: Context) : AsyncTask<Cursor?, 
                         if (!header.equals("" + dateDifference, ignoreCase = true)) {
                             header = "" + dateDifference
                             pos += 1
-                            LIST.add(Img("" + dateDifference, "", "", "", media_type))
+                            list.add(Img("" + dateDifference, "", "", "", media_type))
                         }
                         val img = Img("" + header, "" + path, cursor.getString(data), "" + pos, media_type)
                         img.position = pos
@@ -82,7 +81,7 @@ open class ImageVideoFetcher(private val context: Context) : AsyncTask<Cursor?, 
                             selectionList.add(img)
                         }
                         pos += 1
-                        LIST.add(img)
+                        list.add(img)
                     }
                     cursor.close()
                 }
@@ -90,7 +89,7 @@ open class ImageVideoFetcher(private val context: Context) : AsyncTask<Cursor?, 
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return ModelList(LIST, selectionList)
+        return ModelList(list, selectionList)
     }
 
     inner class ModelList(LIST: ArrayList<Img>, selection: ArrayList<Img>) {

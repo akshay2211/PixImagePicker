@@ -1,13 +1,14 @@
-package com.fxn.utility;
+package com.fxn.utility
 
 /**
  * Created by sangcomz on 09/04/2017.
  */
+class RegexUtil {
+    fun checkGif(path: String): Boolean {
+        return path.matches(GIF_PATTERN.toRegex())
+    }
 
-public class RegexUtil {
-    private static final String GIF_PATTERN = "(.+?)\\.gif$";
-
-    public boolean checkGif(String path) {
-        return path.matches(GIF_PATTERN);
+    companion object {
+        private const val GIF_PATTERN = "(.+?)\\.gif$"
     }
 }
