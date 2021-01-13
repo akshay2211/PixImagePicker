@@ -1,117 +1,80 @@
-package com.fxn.utility;
+package com.fxn.utility
 
-import android.content.Context;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.provider.MediaStore;
-
-import com.fxn.modals.Img;
-
-import java.util.ArrayList;
-import java.util.Calendar;
+import android.content.Context
+import android.database.Cursor
+import android.net.Uri
+import android.os.AsyncTask
+import android.provider.MediaStore
+import com.fxn.modals.Img
+import java.util.*
 
 /**
  * Created by akshay on 06/04/18.
  */
+class ImageFetcher(private val context: Context) : AsyncTask<Cursor?, Void?, ImageFetcher.ModelList>() {
+    var startingCount = 0
+    var header = ""
+    private val selectionList = ArrayList<Img>()
+    private val LIST = ArrayList<Img>()
+    var preSelectedUrls = ArrayList<String>()
+        private set
 
-public class ImageFetcher extends AsyncTask<Cursor, Void, ImageFetcher.ModelList> {
-
-
-    public int startingCount = 0;
-    public String header = "";
-    private ArrayList<Img> selectionList = new ArrayList<>();
-    private ArrayList<Img> LIST = new ArrayList<>();
-    private ArrayList<String> preSelectedUrls = new ArrayList<>();
-    private Context context;
-
-    public ImageFetcher(Context context) {
-        this.context = context;
+    fun setPreSelectedUrls(preSelectedUrls: ArrayList<String>): ImageFetcher {
+        this.preSelectedUrls = preSelectedUrls
+        return this
     }
 
-    public int getStartingCount() {
-        return startingCount;
-    }
-
-    public void setStartingCount(int startingCount) {
-        this.startingCount = startingCount;
-    }
-
-    public ArrayList<String> getPreSelectedUrls() {
-        return preSelectedUrls;
-    }
-
-    public ImageFetcher setPreSelectedUrls(ArrayList<String> preSelectedUrls) {
-        this.preSelectedUrls = preSelectedUrls;
-        return this;
-    }
-
-    @Override
-    protected ModelList doInBackground(Cursor... cursors) {
-        Cursor cursor = cursors[0];
+    override fun doInBackground(vararg params: Cursor?): ModelList {
+        val cursor = params[0]
         try {
             if (cursor != null) {
-                int date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED);
-                int data = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                int contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-
-                int limit = 100;
-                if (cursor.getCount() < limit) {
-                    limit = cursor.getCount() - 1;
+                val date = cursor.getColumnIndex(MediaStore.Images.Media.DATE_MODIFIED)
+                val data = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
+                val contentUrl = cursor.getColumnIndex(MediaStore.Images.Media._ID)
+                var limit = 100
+                if (cursor.count < limit) {
+                    limit = cursor.count - 1
                 }
-                cursor.move(limit);
-                synchronized (context) {
-                    int pos = getStartingCount();
-
-                    for (int i = limit; i < cursor.getCount(); i++) {
-                        cursor.moveToNext();
-                        Uri path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contentUrl));
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(cursor.getLong(date) * 1000);
-                        String dateDifference = Utility.getDateDifference(context, calendar);
-
-
-                        if (!header.equalsIgnoreCase("" + dateDifference)) {
-                            header = "" + dateDifference;
-                            pos += 1;
-                            LIST.add(new Img("" + dateDifference, "", "", "", 1));
+                cursor.move(limit)
+                synchronized(context) {
+                    var pos = startingCount
+                    for (i in limit until cursor.count) {
+                        cursor.moveToNext()
+                        val path = Uri.withAppendedPath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "" + cursor.getInt(contentUrl))
+                        val calendar = Calendar.getInstance()
+                        calendar.timeInMillis = cursor.getLong(date) * 1000
+                        val dateDifference = Utility.getDateDifference(context, calendar)
+                        if (!header.equals("" + dateDifference, ignoreCase = true)) {
+                            header = "" + dateDifference
+                            pos += 1
+                            LIST.add(Img("" + dateDifference, "", "", "", 1))
                         }
-                        Img img = new Img("" + header, "" + path, cursor.getString(data), "" + pos,
-                                1);
-                        img.setPosition(pos);
-                        if (preSelectedUrls.contains(img.getUrl())) {
-                            img.setSelected(true);
-                            selectionList.add(img);
+                        val img = Img("" + header, "" + path, cursor.getString(data), "" + pos,
+                                1)
+                        img.position = pos
+                        if (preSelectedUrls.contains(img.url)) {
+                            img.selected = true
+                            selectionList.add(img)
                         }
-                        pos += 1;
-                        LIST.add(img);
+                        pos += 1
+                        LIST.add(img)
                     }
-                    cursor.close();
+                    cursor.close()
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
-        return new ModelList(LIST, selectionList);
+        return ModelList(LIST, selectionList)
     }
 
-    public class ModelList {
-        ArrayList<Img> LIST = new ArrayList<>();
-        ArrayList<Img> selection = new ArrayList<>();
+    inner class ModelList(LIST: ArrayList<Img>, selection: ArrayList<Img>) {
+        var lIST = ArrayList<Img>()
+        var selection = ArrayList<Img>()
 
-        public ModelList(ArrayList<Img> LIST, ArrayList<Img> selection) {
-            this.LIST = LIST;
-            this.selection = selection;
-        }
-
-        public ArrayList<Img> getLIST() {
-            return LIST;
-        }
-
-        public ArrayList<Img> getSelection() {
-            return selection;
+        init {
+            lIST = LIST
+            this.selection = selection
         }
     }
-
 }

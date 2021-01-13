@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.fxn.utility.ui
 
-package com.fxn.utility.ui;
+import com.fxn.pix.Pix
 
-import com.fxn.pix.Pix;
-
-public interface FastScrollStateChangeListener {
-
+interface FastScrollStateChangeListener {
     /**
      * Called when fast scrolling begins
      */
-    void onFastScrollStart(Pix fastScroller);
+    fun onFastScrollStart(fastScroller: Pix?)
 
     /**
      * Called when fast scrolling ends
      */
-    void onFastScrollStop(Pix fastScroller);
+    fun onFastScrollStop(fastScroller: Pix?)
 }

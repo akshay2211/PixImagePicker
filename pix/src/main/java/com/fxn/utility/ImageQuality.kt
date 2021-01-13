@@ -1,5 +1,5 @@
-package com.fxn.utility;
+package com.fxn.utility
 
-public enum ImageQuality {
+enum class ImageQuality {
     LOW, REGULAR, HIGH
 }

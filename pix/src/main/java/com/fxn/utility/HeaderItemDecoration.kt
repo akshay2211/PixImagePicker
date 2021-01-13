@@ -1,96 +1,79 @@
-package com.fxn.utility;
+package com.fxn.utility
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Context
+import android.graphics.Canvas
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 /**
  * Created by akshay on 28/03/18.
  */
-
-public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
-
-    private StickyHeaderInterface mListener;
-    private Context context;
-
-    public HeaderItemDecoration(Context context, @NonNull StickyHeaderInterface listener) {
-        mListener = listener;
-        this.context = context;
-    }
-
-    @Override
-    public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
-        super.onDrawOver(c, parent, state);
-
-        View topChild = parent.getChildAt(0);
+class HeaderItemDecoration(private val context: Context, private val mListener: StickyHeaderInterface) : ItemDecoration() {
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(c, parent, state)
+        val topChild = parent.getChildAt(0)
         if (Utility.isNull(topChild)) {
-            return;
+            return
         }
-
-        int topChildPosition = parent.getChildAdapterPosition(topChild);
+        val topChildPosition = parent.getChildAdapterPosition(topChild)
         if (topChildPosition == RecyclerView.NO_POSITION) {
-            return;
+            return
         }
-
-        View currentHeader = getHeaderViewForItem(topChildPosition, parent);
-        currentHeader.setPadding((int) (currentHeader.getPaddingLeft() - Utility.convertPixelsToDp(5, context)),
-                currentHeader.getPaddingTop(),
-                currentHeader.getPaddingRight(),
-                currentHeader.getPaddingBottom());
-        fixLayoutSize(parent, currentHeader);
-        int contactPoint = currentHeader.getBottom();
-        View childInContact = getChildInContact(parent, contactPoint);
+        val currentHeader = getHeaderViewForItem(topChildPosition, parent)
+        currentHeader.setPadding((currentHeader.paddingLeft - Utility.convertPixelsToDp(5f, context)).toInt(),
+                currentHeader.paddingTop,
+                currentHeader.paddingRight,
+                currentHeader.paddingBottom)
+        fixLayoutSize(parent, currentHeader)
+        val contactPoint = currentHeader.bottom
+        val childInContact = getChildInContact(parent, contactPoint)
         if (Utility.isNull(childInContact)) {
             //Log.e("childInContact", "childInContact is null");
-            return;
+            return
         }
-
-        if (mListener.isHeader(parent.getChildAdapterPosition(childInContact))) {
-            moveHeader(c, currentHeader, childInContact);
-            return;
+        if (mListener.isHeader(parent.getChildAdapterPosition(childInContact!!))) {
+            moveHeader(c, currentHeader, childInContact)
+            return
         }
-
-        drawHeader(c, currentHeader);
+        drawHeader(c, currentHeader)
     }
 
-    private View getHeaderViewForItem(int itemPosition, RecyclerView parent) {
-        int headerPosition = mListener.getHeaderPositionForItem(itemPosition);
-        int layoutResId = mListener.getHeaderLayout(headerPosition);
-        View header = LayoutInflater.from(parent.getContext()).inflate(layoutResId, parent, false);
-        mListener.bindHeaderData(header, headerPosition);
-        return header;
+    private fun getHeaderViewForItem(itemPosition: Int, parent: RecyclerView): View {
+        val headerPosition = mListener.getHeaderPositionForItem(itemPosition)
+        val layoutResId = mListener.getHeaderLayout(headerPosition)
+        val header = LayoutInflater.from(parent.context).inflate(layoutResId, parent, false)
+        mListener.bindHeaderData(header, headerPosition)
+        return header
     }
 
-    private void drawHeader(Canvas c, View header) {
-        c.save();
-        c.translate(0, 0);
-        header.draw(c);
-        c.restore();
+    private fun drawHeader(c: Canvas, header: View) {
+        c.save()
+        c.translate(0f, 0f)
+        header.draw(c)
+        c.restore()
     }
 
-    private void moveHeader(Canvas c, View currentHeader, View nextHeader) {
-        c.save();
-        c.translate(0, nextHeader.getTop() - currentHeader.getHeight());
-        currentHeader.draw(c);
-        c.restore();
+    private fun moveHeader(c: Canvas, currentHeader: View, nextHeader: View?) {
+        c.save()
+        c.translate(0f, (nextHeader!!.top - currentHeader.height).toFloat())
+        currentHeader.draw(c)
+        c.restore()
     }
 
-    private View getChildInContact(RecyclerView parent, int contactPoint) {
-        View childInContact = null;
-        for (int i = 0; i < parent.getChildCount(); i++) {
-            View child = parent.getChildAt(i);
-            if ((child.getBottom() > contactPoint) && (child.getTop() <= contactPoint)) {
+    private fun getChildInContact(parent: RecyclerView, contactPoint: Int): View? {
+        var childInContact: View? = null
+        for (i in 0 until parent.childCount) {
+            val child = parent.getChildAt(i)
+            if (child.bottom > contactPoint && child.top <= contactPoint) {
                 // This child overlaps the contactPoint
-                childInContact = child;
-                break;
+                childInContact = child
+                break
             }
         }
-        return childInContact;
+        return childInContact
     }
 
     /**
@@ -98,54 +81,51 @@ public class HeaderItemDecoration extends RecyclerView.ItemDecoration {
      *
      * @param parent ViewGroup: RecyclerView in this case.
      */
-    private void fixLayoutSize(ViewGroup parent, View view) {
+    private fun fixLayoutSize(parent: ViewGroup, view: View) {
 
         // Specs for parent (RecyclerView)
-        int widthSpec = View.MeasureSpec.makeMeasureSpec(parent.getWidth(), View.MeasureSpec.EXACTLY);
-        int heightSpec = View.MeasureSpec.makeMeasureSpec(parent.getHeight(), View.MeasureSpec.UNSPECIFIED);
+        val widthSpec = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
+        val heightSpec = View.MeasureSpec.makeMeasureSpec(parent.height, View.MeasureSpec.UNSPECIFIED)
 
         // Specs for children (headers)
-        int childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.getPaddingLeft() + parent.getPaddingRight(), view.getLayoutParams().width);
-        int childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.getPaddingTop() + parent.getPaddingBottom(), view.getLayoutParams().height);
-
-        view.measure(childWidthSpec, childHeightSpec);
-
-        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        val childWidthSpec = ViewGroup.getChildMeasureSpec(widthSpec, parent.paddingLeft + parent.paddingRight, view.layoutParams.width)
+        val childHeightSpec = ViewGroup.getChildMeasureSpec(heightSpec, parent.paddingTop + parent.paddingBottom, view.layoutParams.height)
+        view.measure(childWidthSpec, childHeightSpec)
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
     }
 
-    public interface StickyHeaderInterface {
-
+    interface StickyHeaderInterface {
         /**
-         * This method gets called by {@link HeaderItemDecoration} to fetch the position of the header item in the adapter
+         * This method gets called by [HeaderItemDecoration] to fetch the position of the header item in the adapter
          * that is used for (represents) item at specified position.
          *
          * @param itemPosition int. Adapter's position of the item for which to do the search of the position of the header item.
          * @return int. Position of the header item in the adapter.
          */
-        int getHeaderPositionForItem(int itemPosition);
+        fun getHeaderPositionForItem(itemPosition: Int): Int
 
         /**
-         * This method gets called by {@link HeaderItemDecoration} to get layout resource id for the header item at specified adapter's position.
+         * This method gets called by [HeaderItemDecoration] to get layout resource id for the header item at specified adapter's position.
          *
          * @param headerPosition int. Position of the header item in the adapter.
          * @return int. Layout resource id.
          */
-        int getHeaderLayout(int headerPosition);
+        fun getHeaderLayout(headerPosition: Int): Int
 
         /**
-         * This method gets called by {@link HeaderItemDecoration} to setup the header View.
+         * This method gets called by [HeaderItemDecoration] to setup the header View.
          *
          * @param header         View. Header to set the data on.
          * @param headerPosition int. Position of the header item in the adapter.
          */
-        void bindHeaderData(View header, int headerPosition);
+        fun bindHeaderData(header: View?, headerPosition: Int)
 
         /**
-         * This method gets called by {@link HeaderItemDecoration} to verify whether the item represents a header.
+         * This method gets called by [HeaderItemDecoration] to verify whether the item represents a header.
          *
          * @param itemPosition int.
          * @return true, if item at the specified adapter's position represents a header.
          */
-        boolean isHeader(int itemPosition);
+        fun isHeader(itemPosition: Int): Boolean
     }
 }

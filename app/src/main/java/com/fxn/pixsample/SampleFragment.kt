@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fxn.adapters.MyAdapter
 import com.fxn.pix.Options
 import com.fxn.pix.Pix
-import com.fxn.pixsample.SampleFragment
 import com.fxn.utility.PermUtil
-import kotlinx.android.synthetic.main.fragment_sample.view.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 /**
@@ -44,23 +43,25 @@ class SampleFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_sample, container, false).apply {
-            recyclerView.layoutManager = LinearLayoutManager(activity)
-            myAdapter = MyAdapter(requireContext())
-            options = Options.init()
-                    .setRequestCode(requestCodePicker)
-                    .setCount(5)
-                    .setPreSelectedUrls(returnValue)
-                    .setExcludeVideos(false)
-                    .setVideoDurationLimitinSeconds(30)
-                    .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
-                    .setPath("/akshay/new")
-            recyclerView.adapter = myAdapter
-            fab.setOnClickListener {
-                options.preSelectedUrls = returnValue
-                Pix.start(this@SampleFragment, options)
-            }
+        val view = inflater.inflate(R.layout.fragment_sample, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        myAdapter = MyAdapter(requireContext())
+        options = Options.init()
+                .setRequestCode(requestCodePicker)
+                .setCount(5)
+                .setPreSelectedUrls(returnValue)
+                .setExcludeVideos(false)
+                .setVideoDurationLimitinSeconds(30)
+                .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)
+                .setPath("/akshay/new")
+        recyclerView.adapter = myAdapter
+        fab.setOnClickListener {
+            options.preSelectedUrls = returnValue
+            Pix.start(this@SampleFragment, options)
         }
+        return view
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

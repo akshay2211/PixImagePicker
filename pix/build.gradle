@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
     PUBLISH_ARTIFACT_ID = 'pix'
@@ -10,7 +10,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 5
         versionName "1.5.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -37,9 +37,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.exifinterface:exifinterface:1.2.0'
-    implementation 'com.otaliastudios:cameraview:2.6.2'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.exifinterface:exifinterface:1.3.2'
+    implementation 'com.otaliastudios:cameraview:2.6.4'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
