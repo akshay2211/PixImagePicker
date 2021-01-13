@@ -41,7 +41,7 @@ class MyAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerVie
         val f = File(list[position])
         val len = f.absolutePath.length
         Log.e("check", "f.absolutePath.subSequence(len-3,len)  " + f.absolutePath.subSequence(len - 3, len))
-        val bitmap = if (f.absolutePath.subSequence(len - 3, len).equals("mp4")) {
+        val bitmap = if (f.absolutePath.subSequence(len - 3, len) == "mp4") {
             (holder as Holder).play.visibility = View.VISIBLE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ThumbnailUtils.createVideoThumbnail(f, Size(500, 500), null)

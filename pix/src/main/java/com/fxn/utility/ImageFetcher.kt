@@ -17,7 +17,6 @@ class ImageFetcher(private val context: Context) : AsyncTask<Cursor?, Void?, Ima
     private val selectionList = ArrayList<Img>()
     private val LIST = ArrayList<Img>()
     var preSelectedUrls = ArrayList<String>()
-        private set
 
     fun setPreSelectedUrls(preSelectedUrls: ArrayList<String>): ImageFetcher {
         this.preSelectedUrls = preSelectedUrls

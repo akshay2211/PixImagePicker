@@ -146,7 +146,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
     private var flashDrawable = 0
 
     @SuppressLint("ClickableViewAccessibility")
-    private val onCameraTouchListner = OnTouchListener { v, event ->
+    private val onCameraTouchListner = OnTouchListener { _, event ->
         if (event.pointerCount > 1) {
             when (event.action and MotionEvent.ACTION_MASK) {
                 MotionEvent.ACTION_POINTER_DOWN -> dist = getFingerSpacing(event)
@@ -621,8 +621,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
 
     private fun updateImages() {
         mainImageAdapter!!.clearList()
-        val cursor = getImageVideoCursor(this@Pix, options!!.isExcludeVideos)
-                ?: return
+        val cursor = getImageVideoCursor(this@Pix, options!!.isExcludeVideos) ?: return
         val INSTANTLIST = ArrayList<Img>()
         var header = ""
         var limit = 100

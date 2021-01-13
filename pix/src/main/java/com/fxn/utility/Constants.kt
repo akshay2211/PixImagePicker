@@ -8,6 +8,7 @@ import android.provider.MediaStore
 object Constants {
     const val sScrollbarAnimDuration = 500
     var PROJECTION = arrayOf(
+            MediaStore.Images.Media.DATA,
             MediaStore.Images.Media._ID,
             //MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
             //MediaStore.Images.Media.BUCKET_ID,

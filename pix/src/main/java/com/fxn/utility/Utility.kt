@@ -26,6 +26,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
@@ -227,8 +229,8 @@ class Utility {
 
         @JvmStatic
         fun getValueInRange(min: Int, max: Int, value: Int): Int {
-            val minimum = Math.max(min, value)
-            return Math.min(minimum, max)
+            val minimum = max(min, value)
+            return min(minimum, max)
         }
 
         @JvmStatic
@@ -267,7 +269,7 @@ class Utility {
             return photo
         }
 
-        fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
+        private fun getResizedBitmap(bm: Bitmap, newWidth: Int, newHeight: Int): Bitmap {
             val width = bm.width
             val height = bm.height
             val scaleWidth = newWidth.toFloat() / width
@@ -337,7 +339,7 @@ class Utility {
             }
         }
 
-        fun gcd(p: Int, q: Int): Int {
+        private fun gcd(p: Int, q: Int): Int {
             return if (q == 0) p else gcd(q, p % q)
         }
 
@@ -351,7 +353,7 @@ class Utility {
             }
         }
 
-        fun showAnswer(a: Int, b: Int) {
+        private fun showAnswer(a: Int, b: Int) {
             Log.e("show ratio", "->  $a $b")
         }
     }
