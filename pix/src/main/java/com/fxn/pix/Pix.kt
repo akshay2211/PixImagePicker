@@ -3,6 +3,7 @@ package com.fxn.pix
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -502,6 +503,7 @@ class Pix : AppCompatActivity(), OnTouchListener {
         updateImages()
     }
 
+    @SuppressLint("ObjectAnimatorBinding")
     private fun onClickMethods() {
         clickme!!.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_UP) {
