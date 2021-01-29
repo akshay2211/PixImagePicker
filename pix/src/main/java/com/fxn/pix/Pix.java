@@ -624,6 +624,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 if (options.isExcludeVideos()) {
                     return false;
                 }
+                if (options.getMode() == Options.Mode.Picture){
+                    return false;
+                }
                 camera.setMode(Mode.VIDEO);
                 File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
                 if (!dir.exists()) {
@@ -648,6 +651,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     return;
                 }
                 if (camera.getMode() == Mode.VIDEO) {
+                    return;
+                }
+                if (options.getMode() == Options.Mode.Video){
                     return;
                 }
                 final ObjectAnimator oj = ObjectAnimator.ofFloat(camera, "alpha", 1f, 0f, 0f, 1f);
@@ -747,7 +753,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
     private void updateImages() {
         mainImageAdapter.clearList();
-        Cursor cursor = Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos());
+        Cursor cursor = Utility.getImageVideoCursor(Pix.this, options.getMode());
         if (cursor == null) {
             return;
         }
@@ -839,7 +845,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         imageVideoFetcher.setStartingCount(pos);
         imageVideoFetcher.header = header;
         imageVideoFetcher.setPreSelectedUrls(options.getPreSelectedUrls());
-        imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this, options.isExcludeVideos()));
+        imageVideoFetcher.execute(Utility.getImageVideoCursor(Pix.this, options.getMode()));
         cursor.close();
         setBottomSheetBehavior();
     }
