@@ -3,13 +3,12 @@ package com.fxn.utility;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.net.Uri;
+import android.media.MediaScannerConnection;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -173,7 +172,7 @@ public class Utility {
 
     public static Cursor getImageVideoCursor(Context context, Options.Mode mode) {
         String projection;
-        switch (mode){
+        switch (mode) {
             case Video:
                 projection = Constants.VIDEO_SELECTION;
                 break;
@@ -345,15 +344,8 @@ public class Utility {
     }
 
     public static void scanPhoto(Context pix, File photo) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            final Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            final Uri contentUri = Uri.fromFile(photo);
-            scanIntent.setData(contentUri);
-            pix.sendBroadcast(scanIntent);
-        } else {
-            pix.sendBroadcast(
-                    new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse(photo.getAbsolutePath())));
-        }
+        MediaScannerConnection.scanFile(pix, new String[]{photo.toString()},
+                new String[]{photo.getName()}, null);
     }
 
     public static int gcd(int p, int q) {

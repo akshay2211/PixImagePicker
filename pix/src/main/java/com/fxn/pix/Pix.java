@@ -440,12 +440,18 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         camera.addCameraListener(new CameraListener() {
             @Override
             public void onPictureTaken(PictureResult result) {
-                File dir = getExternalFilesDir(options.getPath());
+                File dir = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    dir = getExternalFilesDir(options.getPath());
+                } else {
+                    dir = Environment.getExternalStoragePublicDirectory(options.getPath());
+                }
+
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
 
-                //    Log.e("result","->"+dir.getAbsolutePath());
+                // Log.e("result", "->" + dir.getAbsolutePath());
                 File photo = new File(dir, "IMG_"
                         + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
                         + ".jpg");
@@ -456,6 +462,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                         Utility.vibe(Pix.this, 50);
                         Img img = new Img("", "", photo.getAbsolutePath(), "", 1);
                         selectionList.add(img);
+                        //Log.e("result photo", "->" + photo.getAbsolutePath());
                         Utility.scanPhoto(Pix.this, photo);
                         returnObjects();
                     }
@@ -629,7 +636,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                     return false;
                 }
                 camera.setMode(Mode.VIDEO);
-                File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
+                File dir = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    dir = getExternalFilesDir(options.getPath());
+                } else {
+                    dir = Environment.getExternalStoragePublicDirectory(options.getPath());
+                }
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
