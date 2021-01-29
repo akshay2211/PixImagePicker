@@ -31,7 +31,7 @@ Options options = Options.init()
       .setFrontfacing(false)                                         //Front Facing camera on start
       .setPreSelectedUrls(returnValue)                               //Pre selected Image Urls
       .setSpanCount(4)                                               //Span count for gallery min 1 & max 5
-      .setExcludeVideos(false)                                       //Option to exclude videos
+      .setMode(Options.Mode.All)                                     //Option to select only pictures or videos or both
       .setVideoDurationLimitinSeconds(30)                            //Duration for video recording
       .setScreenOrientation(Options.SCREEN_ORIENTATION_PORTRAIT)     //Orientaion
       .setPath("/pix/images");                                       //Custom Path For media Storage
@@ -103,20 +103,20 @@ repositories {
 }
  ```
 ```groovy
-implementation  'com.fxn769:pix:1.5.4'
+implementation  'com.fxn769:pix:1.5.5'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.fxn769</groupId>
   <artifactId>pix</artifactId>
-  <version>1.5.4</version>
+  <version>1.5.5</version>
   <type>pom</type>
 </dependency>
 ```
 or ivy:
 ```xml
-<dependency org='com.fxn769' name='pix' rev='1.5.4'>
+<dependency org='com.fxn769' name='pix' rev='1.5.5'>
   <artifact name='pix' ext='pom' ></artifact>
 </dependency>
 ```
