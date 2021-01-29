@@ -103,20 +103,20 @@ repositories {
 }
  ```
 ```groovy
-implementation  'com.fxn769:pix:1.5.5'
+implementation  'com.fxn769:pix:1.5.6'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.fxn769</groupId>
   <artifactId>pix</artifactId>
-  <version>1.5.5</version>
+  <version>1.5.6</version>
   <type>pom</type>
 </dependency>
 ```
 or ivy:
 ```xml
-<dependency org='com.fxn769' name='pix' rev='1.5.5'>
+<dependency org='com.fxn769' name='pix' rev='1.5.6'>
   <artifact name='pix' ext='pom' ></artifact>
 </dependency>
 ```
