@@ -440,11 +440,12 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         camera.addCameraListener(new CameraListener() {
             @Override
             public void onPictureTaken(PictureResult result) {
-
-                File dir = Environment.getExternalStoragePublicDirectory(options.getPath());
+                File dir = getExternalFilesDir(options.getPath());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
+
+                //    Log.e("result","->"+dir.getAbsolutePath());
                 File photo = new File(dir, "IMG_"
                         + new SimpleDateFormat("yyyyMMdd_HHmmSS", Locale.ENGLISH).format(new Date())
                         + ".jpg");
