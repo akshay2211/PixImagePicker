@@ -118,10 +118,10 @@ public class MainImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         Img image = list.get(position);
         if (holder instanceof Holder) {
             Holder imageHolder = (Holder) holder;
-            if (image.getMedia_type() == 1) {
+            if (image.getMediaType() == 1) {
                 glide.load(image.getContentUrl()).apply(options).into(imageHolder.preview);
                 imageHolder.isVideo.setVisibility(View.GONE);
-            } else if (image.getMedia_type() == 3) {
+            } else if (image.getMediaType() == 3) {
                 glide.asBitmap()
                         .load(Uri.fromFile(new File(image.getUrl())))
                         .apply(options)

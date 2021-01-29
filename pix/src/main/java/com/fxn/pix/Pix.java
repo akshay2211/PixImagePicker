@@ -85,7 +85,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private static ImageVideoFetcher imageVideoFetcher;
     private CameraView camera;
     private int status_bar_height = 0;
-    private int BottomBarHeight = 0;
+    //private int BottomBarHeight = 0;
     private int colorPrimaryDark;
     private float zoom = 0.0f;
     private float dist = 0.0f;
@@ -550,7 +550,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         recyclerView.addOnScrollListener(mScrollListener);
         FrameLayout mainFrameLayout = findViewById(R.id.mainFrameLayout);
         CoordinatorLayout main_content = findViewById(R.id.main_content);
-        BottomBarHeight = Utility.getSoftButtonsBarSizePort(this);
+        //BottomBarHeight = Utility.getSoftButtonsBarSizePort(this);
         FrameLayout.LayoutParams lp1 =
                 new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.MATCH_PARENT);
