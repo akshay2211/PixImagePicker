@@ -89,8 +89,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private int colorPrimaryDark;
     private float zoom = 0.0f;
     private float dist = 0.0f;
-    private Handler handler = new Handler();
-    private Handler video_counter_handler = new Handler();
+    private final Handler handler = new Handler();
+    private final Handler video_counter_handler = new Handler();
     private Runnable video_counter_runnable = null;
     private FastScrollStateChangeListener mFastScrollStateChangeListener;
     private RecyclerView recyclerView, instantRecyclerView;
@@ -102,8 +102,8 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private ProgressBar video_counter_progressbar = null;
     private ViewPropertyAnimator mScrollbarAnimator;
     private ViewPropertyAnimator mBubbleAnimator;
-    private Set<Img> selectionList = new HashSet<>();
-    private Runnable mScrollbarHider = new Runnable() {
+    private final Set<Img> selectionList = new HashSet<>();
+    private final Runnable mScrollbarHider = new Runnable() {
         @Override
         public void run() {
             hideScrollbar();
@@ -115,7 +115,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private boolean LongSelection = false;
     private Options options = null;
     private TextView selection_count;
-    private RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
+    private final RecyclerView.OnScrollListener mScrollListener = new RecyclerView.OnScrollListener() {
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -157,7 +157,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private ImageView front;
     private ImageView clickme;
     private int flashDrawable;
-    private View.OnTouchListener onCameraTouchListner = new View.OnTouchListener() {
+    private final View.OnTouchListener onCameraTouchListner = new View.OnTouchListener() {
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -190,7 +190,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             return false;
         }
     };
-    private OnSelectionListener onSelectionListener = new OnSelectionListener() {
+    private final OnSelectionListener onSelectionListener = new OnSelectionListener() {
         @Override
         public void onClick(Img img, View view, int position) {
             if (LongSelection) {
@@ -413,7 +413,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         camera = findViewById(R.id.camera_view);
         camera.setMode(Mode.PICTURE);
-        if (options.isExcludeVideos()) {
+        if (options.isExcludeVideos() || options.getMode() == Options.Mode.Picture) {
             camera.setAudio(Audio.OFF);
         }
         SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
@@ -624,7 +624,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 if (options.isExcludeVideos()) {
                     return false;
                 }
-                if (options.getMode() == Options.Mode.Picture){
+                if (options.getMode() == Options.Mode.Picture) {
                     return false;
                 }
                 camera.setMode(Mode.VIDEO);
@@ -653,7 +653,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
                 if (camera.getMode() == Mode.VIDEO) {
                     return;
                 }
-                if (options.getMode() == Options.Mode.Video){
+                if (options.getMode() == Options.Mode.Video) {
                     return;
                 }
                 final ObjectAnimator oj = ObjectAnimator.ofFloat(camera, "alpha", 1f, 0f, 0f, 1f);
