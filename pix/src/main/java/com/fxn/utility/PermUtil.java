@@ -5,14 +5,15 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 
-import com.fxn.interfaces.WorkFinish;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+
+import com.fxn.interfaces.WorkFinish;
+import com.fxn.pix.Options;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by akshay on 11/14/16.
@@ -51,7 +52,7 @@ public abstract class PermUtil {
     }
 
 
-    public static void checkForCamaraWritePermissions(final FragmentActivity activity, WorkFinish workFinish) {
+    public static void checkForCamaraWritePermissions(final FragmentActivity activity, final Options.Mode mode, WorkFinish workFinish) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             workFinish.onWorkFinish(true);
         } else {
@@ -61,6 +62,9 @@ public abstract class PermUtil {
                 permissionsNeeded.add("CAMERA");
             if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, activity))
                 permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
+            if (mode != Options.Mode.Picture && !addPermission(permissionsList, Manifest.permission.RECORD_AUDIO, activity)) {
+                permissionsNeeded.add("RECORD_AUDIO");
+            }
             if (permissionsList.size() > 0) {
                 activity.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                         REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
@@ -71,7 +75,7 @@ public abstract class PermUtil {
     }
 
 
-    public static void checkForCamaraWritePermissions(final Fragment fragment, WorkFinish workFinish) {
+    public static void checkForCamaraWritePermissions(final Fragment fragment, final Options.Mode mode, WorkFinish workFinish) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             workFinish.onWorkFinish(true);
         } else {
@@ -81,6 +85,9 @@ public abstract class PermUtil {
                 permissionsNeeded.add("CAMERA");
             if (!addPermission(permissionsList, Manifest.permission.WRITE_EXTERNAL_STORAGE, fragment.getActivity()))
                 permissionsNeeded.add("WRITE_EXTERNAL_STORAGE");
+            if (mode != Options.Mode.Picture && !addPermission(permissionsList, Manifest.permission.RECORD_AUDIO, fragment.getActivity())) {
+                permissionsNeeded.add("RECORD_AUDIO");
+            }
             if (permissionsList.size() > 0) {
                 fragment.requestPermissions(permissionsList.toArray(new String[permissionsList.size()]),
                         REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);

@@ -17,11 +17,6 @@ public class Options implements Serializable {
     private int height = 0, width = 0;
     private boolean frontfacing = false;
     private int videoDurationLimitinSeconds = 40;
-    /**
-     * @deprecated Use Options.Mode instead
-     */
-    @Deprecated()
-    private boolean excludeVideos = false;
     private Mode mode = Mode.All;
     public static final int SCREEN_ORIENTATION_UNSET = -2;
     public static final int SCREEN_ORIENTATION_UNSPECIFIED = -1;
@@ -68,26 +63,6 @@ public class Options implements Serializable {
     public Options setPreSelectedUrls(ArrayList<String> preSelectedUrls) {
         check();
         this.preSelectedUrls = preSelectedUrls;
-        return this;
-    }
-
-    /**
-     * @deprecated Use getMode() instead
-     * @return
-     */
-    @Deprecated
-    public boolean isExcludeVideos() {
-        return excludeVideos;
-    }
-
-    /**
-     * @deprecated Use setMode(Options.Mode instead}
-     * @param excludeVideos
-     * @return
-     */
-    @Deprecated
-    public Options setExcludeVideos(boolean excludeVideos) {
-        this.excludeVideos = excludeVideos;
         return this;
     }
 

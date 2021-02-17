@@ -10,17 +10,18 @@
         android:id="@+id/camera_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:keepScreenOn = "true"
+        android:keepScreenOn="true"
         android:layout_gravity="center"
-        app:cameraFacing = "back"
-        app:cameraFlash = "off"
-        app:cameraGestureLongTap = "autoFocus"
-        app:cameraGesturePinch = "zoom"
-        app:cameraGestureTap = "autoFocus"
-        app:cameraPictureFormat = "jpeg"
-        app:cameraVideoCodec = "deviceDefault"
-        app:cameraWhiteBalance = "auto"
-        />
+        app:cameraFacing="back"
+        app:cameraFlash="off"
+        android:soundEffectsEnabled="false"
+        app:cameraPlaySounds="false"
+        app:cameraGestureLongTap="autoFocus"
+        app:cameraGesturePinch="zoom"
+        app:cameraGestureTap="autoFocus"
+        app:cameraPictureFormat="jpeg"
+        app:cameraVideoCodec="deviceDefault"
+        app:cameraWhiteBalance="auto" />
 
     <LinearLayout
         android:id="@+id/video_counter_layout"

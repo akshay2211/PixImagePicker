@@ -111,7 +111,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     };
     private MainImageAdapter mainImageAdapter;
     private float mViewHeight;
-    private boolean mHideScrollbar = true;
+    private final boolean mHideScrollbar = true;
     private boolean LongSelection = false;
     private Options options = null;
     private TextView selection_count;
@@ -298,7 +298,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     private int video_counter_progress = 0;
 
     public static void start(final Fragment context, final Options options) {
-        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+        PermUtil.checkForCamaraWritePermissions(context, options.getMode(), new WorkFinish() {
             @Override
             public void onWorkFinish(Boolean check) {
                 Intent i = new Intent(context.getActivity(), Pix.class);
@@ -313,7 +313,7 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
     }
 
     public static void start(final FragmentActivity context, final Options options) {
-        PermUtil.checkForCamaraWritePermissions(context, new WorkFinish() {
+        PermUtil.checkForCamaraWritePermissions(context, options.getMode(), new WorkFinish() {
             @Override
             public void onWorkFinish(Boolean check) {
                 Intent i = new Intent(context, Pix.class);
@@ -405,15 +405,19 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
             e.printStackTrace();
         }
         maxVideoDuration = options.getVideoDurationLimitinSeconds() * 1000; //conversion in  milli seconds
-
-        ((TextView) findViewById(R.id.message_bottom)).setText(options.isExcludeVideos() ? R.string.pix_bottom_message_without_video : R.string.pix_bottom_message_with_video);
+        int modeText = R.string.pix_bottom_message_with_video;
+        if (options.getMode() == Options.Mode.Picture) {
+            modeText = R.string.pix_bottom_message_without_video;
+        } else if (options.getMode() == Options.Mode.Video) {
+            modeText = R.string.pix_bottom_message_with_only_video;
+        }
+        ((TextView) findViewById(R.id.message_bottom)).setText(modeText);
         status_bar_height = Utility.getStatusBarSizePort(Pix.this);
         setRequestedOrientation(options.getScreenOrientation());
-        colorPrimaryDark =
-                ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
+        colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
         camera = findViewById(R.id.camera_view);
         camera.setMode(Mode.PICTURE);
-        if (options.isExcludeVideos() || options.getMode() == Options.Mode.Picture) {
+        if (options.getMode() == Options.Mode.Picture) {
             camera.setAudio(Audio.OFF);
         }
         SizeSelector width = SizeSelectors.minWidth(Utility.WIDTH);
@@ -629,9 +633,6 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
 
             @Override
             public boolean onLongClick(View v) {
-                if (options.isExcludeVideos()) {
-                    return false;
-                }
                 if (options.getMode() == Options.Mode.Picture) {
                     return false;
                 }

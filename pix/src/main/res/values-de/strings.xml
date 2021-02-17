@@ -2,6 +2,7 @@
     <string name="app_name">Pix</string>
     <string name="selection_limiter_pix">Nicht mehr als %d Elemente auswählbar.</string>
     <string name="pix_bottom_message_without_video">Für Galerie Bilder hochwischen</string>
+    <string name="pix_bottom_message_with_only_video">Ziehen Sie Videos für die Galerie nach oben</string>
     <string name="pix_bottom_message_with_video">Für Video halten, für Foto tippen</string>
     <string name="pix_ok">OK</string>
     <string name="pix_tap_to_select">Auf Foto tippen, um es auszuwählen</string>
