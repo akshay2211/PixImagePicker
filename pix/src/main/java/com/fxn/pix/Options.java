@@ -7,9 +7,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
 public class Options implements Serializable {
-    public enum Mode{
+    public enum Mode {
         All, Picture, Video
     }
+
     private int count = 1;
     private int requestCode = 0;
     private int spanCount = 4;
@@ -18,6 +19,8 @@ public class Options implements Serializable {
     private boolean frontfacing = false;
     private int videoDurationLimitinSeconds = 40;
     private Mode mode = Mode.All;
+    private boolean showSwitchCamAndFlashButtons = true;
+    private boolean showTextUnderCamButton = true;
     public static final int SCREEN_ORIENTATION_UNSET = -2;
     public static final int SCREEN_ORIENTATION_UNSPECIFIED = -1;
     public static final int SCREEN_ORIENTATION_LANDSCAPE = 0;
@@ -156,5 +159,23 @@ public class Options implements Serializable {
     public Options setMode(Mode mode) {
         this.mode = mode;
         return this;
+    }
+
+    public Options setShowTextUnderCamButton(boolean shouldShow) {
+        this.showTextUnderCamButton = shouldShow;
+        return this;
+    }
+
+    public boolean showTextUnderCamButton() {
+        return showTextUnderCamButton;
+    }
+
+    public Options setShowSwitchCamAndFlashButtons(boolean shouldShow) {
+        this.showSwitchCamAndFlashButtons = shouldShow;
+        return this;
+    }
+
+    public boolean showSwitchCamAndFlashButtons() {
+        return showSwitchCamAndFlashButtons;
     }
 }

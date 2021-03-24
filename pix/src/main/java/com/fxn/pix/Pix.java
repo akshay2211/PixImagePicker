@@ -411,7 +411,14 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         } else if (options.getMode() == Options.Mode.Video) {
             modeText = R.string.pix_bottom_message_with_only_video;
         }
-        ((TextView) findViewById(R.id.message_bottom)).setText(modeText);
+
+        if (!options.showTextUnderCamButton()) {
+            ((TextView) findViewById(R.id.message_bottom)).setVisibility(View.GONE);
+        }else {
+            ((TextView) findViewById(R.id.message_bottom)).setText(modeText);
+        }
+
+
         status_bar_height = Utility.getStatusBarSizePort(Pix.this);
         setRequestedOrientation(options.getScreenOrientation());
         colorPrimaryDark = ResourcesCompat.getColor(getResources(), R.color.colorPrimaryPix, getTheme());
@@ -551,6 +558,9 @@ public class Pix extends AppCompatActivity implements View.OnTouchListener {
         status_bar_bg.getLayoutParams().height = status_bar_height;
         status_bar_bg.setTranslationY(-1 * status_bar_height);
         status_bar_bg.requestLayout();
+
+        if (!options.showSwitchCamAndFlashButtons()) front.setVisibility(View.GONE);
+        if (!options.showSwitchCamAndFlashButtons()) flash.setVisibility(View.GONE);
         instantRecyclerView = findViewById(R.id.instantRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
