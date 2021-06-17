@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Pix</string>
+    <string name="selection_limiter_pix">Veuillez séléctionner au maximum %d items</string>
+    <string name="pix_bottom_message_without_video">Déplacer les images vers le haut pour la galerie</string>
+    <string name="pix_bottom_message_with_only_video">Déplacer les vidéos vers le haut pour la galerie</string>
+    <string name="pix_bottom_message_with_video">Maintenez appuyé pour la video, presser et relacher pour prendre une photo</string>
+    <string name="pix_ok">OK</string>
+    <string name="pix_tap_to_select">Presser la photo pour selectionner</string>
+    <string name="pix_selected">Selectionné</string>
+    <string name="pix_recent">Reçent</string>
+    <string name="pix_last_month">Mois dernier</string>
+    <string name="pix_last_week">Semaine précédente</string>
+    <string name="cannot_click_image_pix">Ne peut pas ajouter plus de %s images</string>
+</resources>
