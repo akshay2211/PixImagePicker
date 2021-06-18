@@ -10,5 +10,12 @@
     <string name="pix_recent">Recent</string>
     <string name="pix_last_month">Last Month</string>
     <string name="pix_last_week">Last Week</string>
-  <string name="cannot_click_image_pix">Can not add more than %s images</string>
+    <string name="cannot_click_image_pix">Can not add more than %s images</string>
+    <string name="done" translatable="false">Done</string>
+    <string name="add_a_caption">Add a caption</string>
+    <string name="click_button">click button</string>
+    <string name="camera_flash_button">camera flash button</string>
+    <string name="lense_facing_button">lense facing button</string>
+    <string name="pix_top_to_select">Tap to select</string>
+    <string name="pix_counter_number">0:00</string>
 </resources>

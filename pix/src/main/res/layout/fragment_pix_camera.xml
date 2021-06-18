@@ -1,0 +1,20 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00f">
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true" />
+
+    <include
+        android:id="@+id/video_counter_layout"
+        layout="@layout/video_counter_layout" />
+
+    <include
+        android:id="@+id/grid_layout"
+        layout="@layout/grid_layout" />
+
+</FrameLayout>

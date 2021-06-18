@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/header"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:layout_gravity="center_vertical"
-	android:background="#fff"
-	android:paddingLeft="13dp"
-	android:paddingTop="11dp"
-	android:paddingBottom="9dp"
-	android:text="@string/pix_recent"
-	android:textAllCaps="true"
-	android:textColor="#807f7f"
-	android:textSize="12sp"
-	android:textStyle="bold">
+    android:id="@+id/header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="#fff"
+    android:paddingLeft="13dp"
+    android:paddingTop="11dp"
+    android:paddingBottom="9dp"
+    android:text="@string/pix_recent"
+    android:textAllCaps="true"
+    android:textColor="#807f7f"
+    android:textSize="12sp"
+    android:textStyle="bold">
 
 </TextView>

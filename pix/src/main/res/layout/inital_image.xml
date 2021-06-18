@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frame_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -7,7 +8,7 @@
         android:id="@+id/preview"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_margin="4px"
+        android:layout_margin="4dp"
         android:background="#80000000"
         android:scaleType="centerCrop" />
 

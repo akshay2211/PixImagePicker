@@ -1,8 +1,9 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-
+    <dimen name="margin_video_counter_pix">42dp</dimen>
     <dimen name="margin_top">0dp</dimen>
     <dimen name="margin_top_nve">0dp</dimen>
+    <dimen name="small_thumb">62dp</dimen>
     <dimen name="h1">36dp</dimen>
     <dimen name="h2">30dp</dimen>
     <dimen name="h3">24dp</dimen>
@@ -22,5 +23,6 @@
     <dimen name="fastscroll_bubble_radius">16dp</dimen>
     <dimen name="fastscroll_scrollbar_padding_end">12dp</dimen>
     <dimen name="fastscroll_bubble_size">38dp</dimen>
-
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>
