@@ -6,7 +6,7 @@ import android.provider.MediaStore
  * Created By Akshay Sharma on 17,June,2021
  * https://ak1.io
  */
-
+internal const val TAG = "Pix logs"
 internal const val sScrollbarAnimDuration = 500
 internal val IMAGE_VIDEO_PROJECTION = arrayOf(
     MediaStore.Files.FileColumns._ID,

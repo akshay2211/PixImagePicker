@@ -22,6 +22,7 @@ import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.PixViewModel
+import io.ak1.pix.utility.TAG
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -99,7 +100,7 @@ internal fun FragmentPixCameraBinding.setupClickControls(
                     val newUri = Uri.parse(uri.toString())
                     callback(3, newUri)
                 } else {
-                    Log.e("exc ", "$exc")
+                    Log.e(TAG, "$exc")
                 }
             }
             isEnabled = false
@@ -139,7 +140,6 @@ internal fun FragmentPixCameraBinding.setupClickControls(
                         }
                         cameraXManager?.videoCapture?.stopRecording()
                         isRecording = false
-                        Log.e("videoCounterLayout", "is set to GONE")
                         videoCounterLayout.videoCounterLayout.hide()
                         videoCounterHandler.removeCallbacks(videoCounterRunnable)
                         videoRecordingEndAnim()
@@ -158,9 +158,8 @@ internal fun FragmentPixCameraBinding.setupClickControls(
             cameraXManager?.takeVideo { uri, exc ->
                 if (exc == null) {
                     callback(3, uri)
-                    Log.e("uri ", "$uri")
                 } else {
-                    Log.e("exc ", "$exc")
+                    Log.e(TAG, "$exc")
                 }
 
             }
@@ -199,7 +198,6 @@ internal fun FragmentPixCameraBinding.setupClickControls(
                 }
                 callback(5, Uri.EMPTY)
                 isRecording = false
-                Log.e("videoCounterLayout", "is set to GONE")
                 videoCounterLayout.videoCounterLayout.hide()
                 videoCounterHandler.removeCallbacks(videoCounterRunnable)
                 videoRecordingEndAnim()
@@ -276,7 +274,7 @@ fun FragmentPixCameraBinding.setSelectionText(
 ) {
     gridLayout.selectionCount.text = if (size == 0) {
         gridLayout.selectionOk.hide()
-        fragmentActivity.resources.getString(R.string.pix_top_to_select)
+        fragmentActivity.resources.getString(R.string.pix_tap_to_select)
     } else {
         gridLayout.selectionOk.show()
         "$size ${fragmentActivity.resources.getString(R.string.pix_selected)}"

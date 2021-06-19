@@ -1,12 +1,10 @@
 package io.ak1.pix.helpers
 
+
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import io.ak1.pix.PixFragment
-
-
 import io.ak1.pix.models.Options
 import io.ak1.pix.utility.ARG_PARAM_PIX
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +36,6 @@ open class PixEventCallback {
     private val outputEvents = MutableSharedFlow<Results>()
 
     fun onBackPressedEvent() {
-        Log.e("onBackPressedEvent", "onBackPressedEvent called")
         CoroutineScope(Dispatchers.IO).launch {
             backPressedEvents.emit(Any())
         }
@@ -51,7 +48,6 @@ open class PixEventCallback {
         handler: suspend (Any) -> Unit
     ) = coroutineScope.launch(start = CoroutineStart.UNDISPATCHED) {
         backPressedEvents.asSharedFlow().collect {
-            Log.e("onBackPressedEvent", "onBackPressedEvent collected")
             handler(it)
         }
     }

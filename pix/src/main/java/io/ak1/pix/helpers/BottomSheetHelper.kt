@@ -1,6 +1,5 @@
 package io.ak1.pix.helpers
 
-import android.util.Log
 import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isInvisible
@@ -28,7 +27,6 @@ internal fun FragmentActivity.setup(
             override fun onStateChanged(bottomSheet: View, newState: Int) {
 
                 if (localState == BottomSheetBehavior.STATE_COLLAPSED && newState == BottomSheetBehavior.STATE_DRAGGING) {
-                    Log.e("onStateChanged", "localState $localState  newState $newState")
                     binding.gridLayout.sendButtonStateAnimation(false)
 
                 }

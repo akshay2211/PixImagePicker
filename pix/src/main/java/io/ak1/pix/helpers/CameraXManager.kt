@@ -95,11 +95,9 @@ class CameraXManager(
             .build()
         useCases.add(preview!!)
         // ImageCapture
-        Log.e("options", "-> ${options.mode.name}")
         when (options.mode) {
             Mode.Picture -> {
                 imageCapture = ImageCapture.Builder().apply {
-                    Log.e("flash mode", "->   ${options.flash.name}")
                     setFlashMode(
                         when (options.flash) {
                             Flash.Auto -> ImageCapture.FLASH_MODE_AUTO
@@ -124,9 +122,7 @@ class CameraXManager(
                 useCases.add(videoCapture!!)
             }
             else -> {
-                Log.e("options", "-> imageCapture")
                 imageCapture = ImageCapture.Builder().apply {
-                    Log.e("flash mode", "->   ${options.flash.name}")
                     setFlashMode(
                         when (options.flash) {
                             Flash.Auto -> ImageCapture.FLASH_MODE_AUTO
@@ -276,7 +272,7 @@ class CameraXManager(
             ContextCompat.getMainExecutor(requireActivity),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Log.e("TAG", "Photo capture failed: ${exc.message}", exc)
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
                     callback(Uri.EMPTY, exc.message)
                 }
 
@@ -305,14 +301,13 @@ class CameraXManager(
                 override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(videoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    Log.e("TAG", msg)
-                    Log.e("savedUri", "${outputFileResults.savedUri}")
+                    Log.e(TAG, msg)
                     outputFileResults.savedUri
                     callback(outputFileResults.savedUri ?: Uri.EMPTY, null)
                 }
 
                 override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
-                    Log.e("TAG", "video Capture failed: $message", cause)
+                    Log.e(TAG, "video Capture failed: $message", cause)
                     callback(Uri.EMPTY, message)
                 }
             })

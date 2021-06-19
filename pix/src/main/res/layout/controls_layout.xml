@@ -54,7 +54,7 @@
             android:layout_marginTop="47dp"
             android:layout_marginRight="50dp"
             android:background="@drawable/circle"
-            android:contentDescription="@string/lense_facing_button"
+            android:contentDescription="@string/lens_facing_button"
             android:padding="11dp"
             android:src="@drawable/ic_photo_camera" />
 

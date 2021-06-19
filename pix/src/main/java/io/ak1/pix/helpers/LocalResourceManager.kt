@@ -35,8 +35,10 @@ fun Context.getImageVideoCursor(mode: Mode): Cursor? {
 internal class LocalResourceManager(
     private val context: Context
 ) {
+    private val className = LocalResourceManager::class.java.simpleName
+
     init {
-        Log.e("LocalResourceManager", "initiated")
+        Log.v(TAG, "$className initiated")
     }
 
     var preSelectedUrls: List<Uri> = ArrayList()
@@ -46,10 +48,7 @@ internal class LocalResourceManager(
         mode: Mode = Mode.All
     ): ModelList {
         val cursor = context.getImageVideoCursor(mode)
-        Log.e(
-            "LocalResourceManager",
-            "retrieveInitialImages initiated $start $limit ${cursor?.count}"
-        )
+        Log.v(TAG, "$className retrieved images from $start to $limit and size ${cursor?.count}")
         val list = ArrayList<Img>()
         var header = ""
         val selectionList = ArrayList<Img>()
@@ -87,7 +86,7 @@ internal class LocalResourceManager(
                                 )
 
                             } catch (ex: Exception) {
-                                Log.e("capture exception", "ex = ${ex.message}")
+                                Log.e(TAG, "$className Exception ${ex.message}")
                                 Uri.EMPTY
                             }
 
@@ -103,12 +102,8 @@ internal class LocalResourceManager(
                                     Img(
                                         headerDate = "" + dateDifference,
                                         mediaType = mediaType
-                                    ).also {
-                                        Log.e(
-                                            "img",
-                                            "-> header modal ${it.headerDate} ${it.contentUrl}"
-                                        )
-                                    })
+                                    )
+                                )
                             }
                             Img(
                                 headerDate = header,
@@ -126,20 +121,21 @@ internal class LocalResourceManager(
                                 list.add(it)
                             }
 
-                        } catch (e: java.lang.Exception) {
-                            e.printStackTrace()
-                            Log.e("url exc", "-> ${e.message}")
+                        } catch (ex: java.lang.Exception) {
+                            ex.printStackTrace()
+                            Log.e(TAG, "$className Exception ${ex.message}")
                         }
                         cursor.moveToNext()
                     }
                     cursor.close()
                 }
             }
-        } catch (e: CancellationException) {
-            Log.e("CancellationException", " -> ${e.message}")
+        } catch (ex: CancellationException) {
+            Log.e(TAG, "$className CancellationException ${ex.message}")
             return ModelList(list = ArrayList(), selection = ArrayList())
-        } catch (e: Exception) {
-            e.printStackTrace()
+        } catch (ex: Exception) {
+            Log.e(TAG, "$className Exception ${ex.message}")
+            ex.printStackTrace()
         }
         return ModelList(list = list, selection = selectionList)
     }

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -49,7 +48,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             if (permissions.all {
                     it.value
                 }) {
-                Log.e("all", "permissions granted calling init again")
                 initialise(requireActivity())
             }
         }
@@ -63,7 +61,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
     override fun onResume() {
         super.onResume()
-        Log.e("lifecycle", "on resume ${mBottomSheetBehavior?.state}")
         if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
             Handler(Looper.getMainLooper()).postDelayed({
                 requireActivity().hideStatusBar()
@@ -82,7 +79,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.e("lifecycle", "onCreate")
         options = arguments?.getParcelable(ARG_PARAM_PIX) ?: Options()
         requireActivity().let {
             it.setupScreen()
@@ -96,7 +92,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = run {
-        Log.e("lifecycle", "onCreateView")
         _binding = FragmentPixCameraBinding.inflate(inflater, container, false)
         binding.root
     }
@@ -105,11 +100,9 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("lifecycle", "onViewCreated")
         reSetup()
         //in case of resetting the options in an live fragment
-        setFragmentResultListener("PixKey") { key, bundle ->
-            Log.e("key ", "-> $key")
+        setFragmentResultListener("PixKey") { _, bundle ->
             options = bundle.getParcelable(ARG_PARAM_PIX) ?: options
             reSetup()
         }
@@ -119,7 +112,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         requireActivity().let {
             it.setUpMargins(binding)
             permReqLauncher.permissionsFilter(it, options) {
-                Log.e("permissionsFilter", "success")
                 initialise(it)
             }
         }
@@ -128,7 +120,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
 
     private fun initialise(context: FragmentActivity) {
-        Log.e("initialise", "started")
         cameraXManager = CameraXManager(binding.viewFinder, context, options).also {
             it.startCamera()
         }
@@ -159,7 +150,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             model.selectionList.postValue(model.selectionList.value)
         }
         model.selectionList.observe(requireActivity()) {
-            Log.e("selectionList ", "size is now ${it.size}")
+            //Log.e(TAG, "selectionList size is now ${it.size}")
             if (it.size == 0) {
                 model.longSelection.postValue(false)
             } else if (!model.longSelectionValue) {
@@ -168,7 +159,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             binding.setSelectionText(requireActivity(), it.size)
         }
         model.longSelection.observe(requireActivity()) {
-            Log.e("longSelection ", "is now changed to  $it")
+            //Log.e(TAG, "longSelection is now changed to  $it")
             binding.longSelectionStatus(it)
             if (mBottomSheetBehavior?.state ?: BottomSheetBehavior.STATE_COLLAPSED == BottomSheetBehavior.STATE_COLLAPSED) {
                 binding.gridLayout.sendButtonStateAnimation(it)
@@ -180,7 +171,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 model.selectionList.postValue(HashSet())
                 val results = set.map { it.contentUrl }
                 resultCallback?.invoke(PixEventCallback.Results(results))
-                Log.e("PixEventCallback", "return SUCCESS ${model.selectionListSize}")
+                //Log.e(TAG,"PixEventCallback SUCCESS ${model.selectionListSize}")
                 PixBus.returnObjects(
                     event = PixEventCallback.Results(
                         results,
@@ -206,7 +197,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     private fun backPressController() {
         CoroutineScope(Dispatchers.Main).launch {
             PixBus.on(this) {
-                Log.e("onBackPressedEvent", "onBackPressedEvent handled")
                 val list = model.selectionList.value ?: HashSet()
                 when {
                     list.size > 0 -> {
@@ -261,7 +251,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     }
 
     private fun retrieveMedia() {
-        Log.e("data retrieval", "started")
         // options.preSelectedUrls.addAll(selectionList)
         if (options.preSelectedUrls.size > options.count) {
             val large = options.preSelectedUrls.size - 1
@@ -284,7 +273,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     private fun setupAdapters(context: FragmentActivity) {
         val onSelectionListener: OnSelectionListener = object : OnSelectionListener {
             override fun onClick(element: Img?, view: View?, position: Int) {
-                Log.e("clicked", "position $position")
                 model.onImageSelected(element, position) {
                     val size = model.selectionListSize
                     if (options.count <= size) {
@@ -298,7 +286,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
             override fun onLongClick(element: Img?, view: View?, position: Int) =
                 model.onImageLongSelected(element, position) {
-                    Log.e("clicked", " long position $position")
                     val size = model.selectionListSize
                     if (options.count <= size) {
                         requireActivity().toast(size)

@@ -122,7 +122,7 @@ internal fun RecyclerView.setupMainRecyclerView(
 fun Context.toast(size: Int) {
     Toast.makeText(
         this, String.format(
-            resources.getString(R.string.selection_limiter_pix),
+            resources.getString(R.string.pix_selection_limiter),
             size
         ), Toast.LENGTH_SHORT
     ).show()

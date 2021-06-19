@@ -3,7 +3,7 @@ package io.ak1.pix.helpers
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.util.Log
+import android.os.Build
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -17,16 +17,28 @@ import io.ak1.pix.models.Options
 
 // TODO: 18/06/21 remove WRITE_EXTERNAL_STORAGE check for api > 30
 private val REQUIRED_PERMISSIONS_IMAGES =
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+        arrayOf(
+            Manifest.permission.CAMERA
+        )
+    } else {
+        arrayOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+private val REQUIRED_PERMISSIONS_VIDEO = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
     arrayOf(
         Manifest.permission.CAMERA,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.RECORD_AUDIO
     )
-private val REQUIRED_PERMISSIONS_VIDEO =
+} else {
     arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.RECORD_AUDIO
     )
+}
 
 fun ActivityResultLauncher<Array<String>>.permissionsFilter(
     fragmentActivity: FragmentActivity,
@@ -36,7 +48,6 @@ fun ActivityResultLauncher<Array<String>>.permissionsFilter(
     if (fragmentActivity.allPermissionsGranted(options.mode)) {
         callback()
     } else {
-        Log.e("are we ", "launching permissions again??  ${options.mode.name}")
         this.launch(if (options.mode == Mode.Picture) REQUIRED_PERMISSIONS_IMAGES else REQUIRED_PERMISSIONS_VIDEO)
     }
 }
@@ -47,6 +58,5 @@ private fun Activity.allPermissionsGranted(mode: Mode) =
         val check = ContextCompat.checkSelfPermission(
             this, it
         ) == PackageManager.PERMISSION_GRANTED
-        Log.e("Permissions", "->  $it isGranted $check")
         check
     }

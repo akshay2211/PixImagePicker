@@ -2,7 +2,6 @@ package io.ak1.pix.adapters
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import com.bumptech.glide.util.FixedPreloadSizeProvider
 import io.ak1.pix.R
 import io.ak1.pix.databinding.HeaderRowBinding
 import io.ak1.pix.databinding.MainImageBinding
-
 import io.ak1.pix.helpers.hide
 import io.ak1.pix.helpers.show
 import io.ak1.pix.interfaces.OnSelectionListener
@@ -82,7 +80,6 @@ internal class MainImageAdapter(context: Context, internal val spanCount: Int) :
 
     fun select(isSelected: Boolean, pos: Int) {
         itemList[pos].selected = isSelected
-        Log.e("position ", "updating selection to $isSelected at $pos")
         notifyItemChanged(pos)
     }
 
