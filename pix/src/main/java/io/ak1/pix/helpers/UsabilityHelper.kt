@@ -22,9 +22,8 @@ import kotlinx.coroutines.launch
 
 open class PixEventCallback {
 
-    // TODO: 18/06/21 remove un-needed status
     enum class Status {
-        SUCCESS, BACK_PRESSED, ERROR, CANCELED
+        SUCCESS, BACK_PRESSED
     }
 
     data class Results(

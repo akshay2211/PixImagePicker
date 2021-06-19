@@ -27,7 +27,7 @@ fun Context.getImageVideoCursor(mode: Mode): Cursor? {
     return contentResolver
         .query(
             IMAGE_VIDEO_URI, IMAGE_VIDEO_PROJECTION,
-            projection, null, IMAGE_VIDEO_ORDERBY
+            projection, null, IMAGE_VIDEO_ORDER_BY
         )
 }
 

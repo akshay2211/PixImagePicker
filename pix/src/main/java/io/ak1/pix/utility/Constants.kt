@@ -28,6 +28,6 @@ internal const val VIDEO_SELECTION = (MediaStore.Files.FileColumns.MEDIA_TYPE + 
 internal const val IMAGE_SELECTION = (MediaStore.Files.FileColumns.MEDIA_TYPE + "="
         + MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE)
 internal val IMAGE_VIDEO_URI = MediaStore.Files.getContentUri("external")!!
-internal const val IMAGE_VIDEO_ORDERBY = MediaStore.Images.Media.DATE_MODIFIED + " DESC"
+internal const val IMAGE_VIDEO_ORDER_BY = MediaStore.Images.Media.DATE_MODIFIED + " DESC"
 var WIDTH = 0
 const val ARG_PARAM_PIX = "param_pix"

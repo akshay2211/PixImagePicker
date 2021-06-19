@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">#128C7E</color>
     <color name="purple_500">#128C7E</color>
     <color name="purple_700">#D83A56</color>
@@ -7,6 +7,6 @@
     <color name="teal_700">#D83A56</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimaryPix">#FF616D</color>
-    <color name="colorPrimaryLightPix">#80D83A56</color>
+    <color name="colorPrimaryPix" tools:keep="@color/colorPrimaryPix">#FF616D</color>
+    <color name="colorPrimaryLightPix" tools:keep="@color/colorPrimaryLightPix">#80D83A56</color>
 </resources>

@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package io.ak1.pix.adapters
 
 import android.content.Context
@@ -38,17 +40,6 @@ class InstantImageAdapter(context: Context) :
     private val padding: Int = (size / 3.5).toInt()
     fun addOnSelectionListener(onSelectionListener: OnSelectionListener?) {
         this.onSelectionListener = onSelectionListener
-    }
-
-    fun addImage(image: Img): InstantImageAdapter {
-        itemList.add(0, image)
-        notifyDataSetChanged()
-        return this
-    }
-
-    fun unselected(position: Int) {
-        itemList[position].selected = false
-        notifyItemChanged(position)
     }
 
     fun addImageList(images: ArrayList<Img>) {

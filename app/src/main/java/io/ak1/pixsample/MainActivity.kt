@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package io.ak1.pixsample
 
 import android.net.Uri
@@ -25,7 +27,7 @@ import io.ak1.pix.utility.WIDTH
 
 class MainActivity : AppCompatActivity() {
 
-    val resultsFragment = ResultsFragment {
+    private val resultsFragment = ResultsFragment {
         showCameraFragment()
     }
 
@@ -84,7 +86,7 @@ class ResultsFragment(private val clickCallback: View.OnClickListener) : Fragmen
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val layoutParams = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT

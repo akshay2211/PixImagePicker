@@ -15,9 +15,8 @@ import io.ak1.pix.models.Options
  * https://ak1.io
  */
 
-// TODO: 18/06/21 remove WRITE_EXTERNAL_STORAGE check for api > 30
 private val REQUIRED_PERMISSIONS_IMAGES =
-    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
         arrayOf(
             Manifest.permission.CAMERA
         )
@@ -27,7 +26,7 @@ private val REQUIRED_PERMISSIONS_IMAGES =
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
     }
-private val REQUIRED_PERMISSIONS_VIDEO = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.R) {
+private val REQUIRED_PERMISSIONS_VIDEO = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
     arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.RECORD_AUDIO

@@ -69,8 +69,7 @@ fun ViewGroup.setOnClickForFLash(options: Options, callback: (Options) -> Unit) 
             .start()
     }
 }
-
-@SuppressLint("RestrictedApi")
+@SuppressLint("ClickableViewAccessibility,RestrictedApi")
 internal fun FragmentPixCameraBinding.setupClickControls(
     model: PixViewModel,
     cameraXManager: CameraXManager?,
