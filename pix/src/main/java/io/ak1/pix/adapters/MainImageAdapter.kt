@@ -38,12 +38,17 @@ internal class MainImageAdapter(context: Context, internal val spanCount: Int) :
     StickyHeaderInterface,
     SectionIndexer, ListPreloader.PreloadModelProvider<Img> {
 
-    val itemList: ArrayList<Img> = ArrayList()
+    private val itemList: ArrayList<Img> = ArrayList()
     private var onSelectionListener: OnSelectionListener? = null
     private val layoutParams: FrameLayout.LayoutParams
     private val glide: RequestManager
     private val options: RequestOptions
     internal var sizeProvider: ListPreloader.PreloadSizeProvider<Img>
+
+    val listSize: Int
+        get() {
+            return itemList.size
+        }
 
     init {
         val size: Int = WIDTH / spanCount - MARGIN / 2

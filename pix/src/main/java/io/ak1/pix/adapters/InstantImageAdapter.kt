@@ -30,7 +30,7 @@ import java.util.*
 
 class InstantImageAdapter(context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    val itemList: ArrayList<Img> = ArrayList()
+    private val itemList: ArrayList<Img> = ArrayList()
     private var onSelectionListener: OnSelectionListener? = null
     private val glide: RequestManager = Glide.with(context)
     private val options: RequestOptions =

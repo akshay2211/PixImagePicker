@@ -31,7 +31,6 @@ fun Context.getImageVideoCursor(mode: Mode): Cursor? {
         )
 }
 
-// TODO: 18/06/21 remove all Log.e except in exceptions
 internal class LocalResourceManager(
     private val context: Context
 ) {
@@ -66,6 +65,9 @@ internal class LocalResourceManager(
                 if (cursor.count - start < limit) {
                     end = cursor.count - 1
                 }
+                if (end < start) {
+                    end += (start + 1)
+                }
                 if (start == 0) {
                     cursor.moveToFirst()
                 } else {
@@ -77,6 +79,7 @@ internal class LocalResourceManager(
                 }
                 synchronized(context) {
                     var pos = start
+                    Log.e(TAG, "$className start $start till end $end")
                     for (i in start until end) {
                         try {
                             val path = try {

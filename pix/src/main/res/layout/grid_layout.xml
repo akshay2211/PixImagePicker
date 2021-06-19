@@ -146,6 +146,7 @@
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/arrow_up"
+                            android:visibility="gone"
                             android:layout_width="20dp"
                             android:layout_height="16dp"
                             android:layout_gravity="bottom|center_horizontal"

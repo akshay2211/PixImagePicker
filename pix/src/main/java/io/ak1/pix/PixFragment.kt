@@ -144,10 +144,14 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     private fun observeSelectionList() {
         model.setOptions(options)
         model.imageList.observe(requireActivity()) {
+            //Log.e(TAG, "imageList size is now ${it.list.size}")
             instantImageAdapter.addImageList(it.list)
             mainImageAdapter.addImageList(it.list)
             model.selectionList.value?.addAll(it.selection)
             model.selectionList.postValue(model.selectionList.value)
+            binding.gridLayout.arrowUp.apply {
+                if (mainImageAdapter.listSize != 0) show() else hide()
+            }
         }
         model.selectionList.observe(requireActivity()) {
             //Log.e(TAG, "selectionList size is now ${it.size}")
@@ -259,7 +263,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 options.preSelectedUrls.removeAt(i)
             }
         }
-        scope.launch {
+        scope.async {
             val localResourceManager = LocalResourceManager(requireContext()).apply {
                 this.preSelectedUrls = options.preSelectedUrls
             }

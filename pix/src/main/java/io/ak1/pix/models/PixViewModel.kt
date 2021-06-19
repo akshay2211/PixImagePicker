@@ -30,7 +30,7 @@ internal class PixViewModel : ViewModel(), PixLifecycle {
 
     private lateinit var options: Options
     fun retrieveImages(localResourceManager: LocalResourceManager) {
-        val sizeInitial = 10
+        val sizeInitial = 100
         selectionList.value?.clear()
         allImagesList.postValue(
             localResourceManager.retrieveMedia(
@@ -38,7 +38,7 @@ internal class PixViewModel : ViewModel(), PixLifecycle {
                 mode = options.mode
             )
         )
-        // delay(5000)
+        //  delay(5000)
         allImagesList.postValue(
             localResourceManager.retrieveMedia(
                 start = sizeInitial + 1,

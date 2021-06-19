@@ -4,11 +4,13 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
+import io.ak1.pix.utility.TAG
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -18,27 +20,32 @@ import io.ak1.pix.models.Options
 private val REQUIRED_PERMISSIONS_IMAGES =
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
         arrayOf(
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         )
     } else {
         arrayOf(
             Manifest.permission.CAMERA,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
         )
     }
 private val REQUIRED_PERMISSIONS_VIDEO = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
     arrayOf(
         Manifest.permission.CAMERA,
-        Manifest.permission.RECORD_AUDIO
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.READ_EXTERNAL_STORAGE
     )
 } else {
     arrayOf(
         Manifest.permission.CAMERA,
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.RECORD_AUDIO
+        Manifest.permission.RECORD_AUDIO,
+        Manifest.permission.READ_EXTERNAL_STORAGE
     )
 }
 
+// TODO: 20/06/21 call onBackPressed() method if any permission is denied
 fun ActivityResultLauncher<Array<String>>.permissionsFilter(
     fragmentActivity: FragmentActivity,
     options: Options,
@@ -47,6 +54,7 @@ fun ActivityResultLauncher<Array<String>>.permissionsFilter(
     if (fragmentActivity.allPermissionsGranted(options.mode)) {
         callback()
     } else {
+        Log.e(TAG, "ASK Permission again")
         this.launch(if (options.mode == Mode.Picture) REQUIRED_PERMISSIONS_IMAGES else REQUIRED_PERMISSIONS_VIDEO)
     }
 }
