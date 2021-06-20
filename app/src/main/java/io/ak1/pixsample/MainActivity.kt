@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import io.ak1.pixsample.databinding.ActivityMainBinding
 import io.ak1.pixsample.samples.FragmentSample
 import io.ak1.pixsample.samples.NavControllerSample
+import io.ak1.pixsample.samples.ViewPager2Sample
 
 
 /**
@@ -25,14 +26,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
-        //      setupScreen()
-//        setSupportActionBar(binding.toolbar)
-
     }
 
     fun fragmentSampleClick(view: View) = startActivity(Intent(this, FragmentSample::class.java))
     fun navControllerSampleClick(view: View) =
         startActivity(Intent(this, NavControllerSample::class.java))
 
-    fun viewPager2SampleClick(view: View) {}
+    fun viewPager2SampleClick(view: View) =
+        startActivity(Intent(this, ViewPager2Sample::class.java))
 }
