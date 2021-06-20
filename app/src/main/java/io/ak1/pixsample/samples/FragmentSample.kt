@@ -68,22 +68,21 @@ class FragmentSample : AppCompatActivity() {
             PixBus.onBackPressedEvent()
     }
 
-    inner class ResultsFragment(private val clickCallback: View.OnClickListener) : Fragment() {
-        private val customAdapter = Adapter()
-        fun setList(list: List<Uri>) {
-            customAdapter.apply {
-                this.list.clear()
-                this.list.addAll(list)
-                notifyDataSetChanged()
-            }
-        }
-
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View = fragmentBody(requireActivity(), customAdapter, clickCallback)
-    }
-
 }
 
+class ResultsFragment(private val clickCallback: View.OnClickListener) : Fragment() {
+    private val customAdapter = Adapter()
+    fun setList(list: List<Uri>) {
+        customAdapter.apply {
+            this.list.clear()
+            this.list.addAll(list)
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = fragmentBody(requireActivity(), customAdapter, clickCallback)
+}

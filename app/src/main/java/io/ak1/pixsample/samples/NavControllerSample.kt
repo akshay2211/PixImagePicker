@@ -60,37 +60,37 @@ class NavControllerSample : AppCompatActivity() {
             super.onBackPressed()
         }
     }
+}
 
-    inner class ResultsFragment : Fragment() {
-        private val recyclerViewAdapter = Adapter()
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            PixBus.results(coroutineScope = CoroutineScope(Dispatchers.Main)) {
-                when (it.status) {
-                    PixEventCallback.Status.SUCCESS -> {
-                        recyclerViewAdapter.apply {
-                            this.list.clear()
-                            this.list.addAll(it.data)
-                            notifyDataSetChanged()
-                        }
+class NavResultsFragment : Fragment() {
+    private val recyclerViewAdapter = Adapter()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        PixBus.results(coroutineScope = CoroutineScope(Dispatchers.Main)) {
+            when (it.status) {
+                PixEventCallback.Status.SUCCESS -> {
+                    recyclerViewAdapter.apply {
+                        this.list.clear()
+                        this.list.addAll(it.data)
+                        notifyDataSetChanged()
                     }
-                    PixEventCallback.Status.BACK_PRESSED -> {
-                        requireActivity().onBackPressed()
-                    }
+                }
+                PixEventCallback.Status.BACK_PRESSED -> {
+                    requireActivity().onBackPressed()
                 }
             }
         }
+    }
 
-        override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View = fragmentBody(requireActivity(), recyclerViewAdapter) {
-            var bundle = bundleOf(ARG_PARAM_PIX to Options().apply {
-                isFrontFacing = false
-                mode = Mode.All
-                count = 5
-            })
-            findNavController().navigate(R.id.action_ResultsFragment_to_CameraFragment, bundle)
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = fragmentBody(requireActivity(), recyclerViewAdapter) {
+        var bundle = bundleOf(ARG_PARAM_PIX to Options().apply {
+            isFrontFacing = false
+            mode = Mode.All
+            count = 5
+        })
+        findNavController().navigate(R.id.action_ResultsFragment_to_CameraFragment, bundle)
     }
 }

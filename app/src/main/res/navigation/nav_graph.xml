@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ResultsFragment"
-        android:name="io.ak1.pixsample.samples.NavControllerSample$ResultsFragment">
+        android:name="io.ak1.pixsample.samples.NavResultsFragment">
         <action
             android:id="@+id/action_ResultsFragment_to_CameraFragment"
             app:destination="@id/CameraFragment" />
