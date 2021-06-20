@@ -11,7 +11,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.PixFragment
 import io.ak1.pix.R
-import io.ak1.pix.databinding.FragmentPixCameraBinding
+import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.utility.sScrollbarAnimDuration
 import kotlin.math.max
 import kotlin.math.min
@@ -56,7 +56,7 @@ fun getValueInRange(min: Int, max: Int, value: Int): Int {
     return min(minimum, max)
 }
 
-internal fun FragmentPixCameraBinding.setViewPositions(y: Float) {
+internal fun FragmentPixBinding.setViewPositions(y: Float) {
     val handleY: Int = getValueInRange(
         0, (mViewHeight - gridLayout.fastscrollHandle.height).toInt(),
         (y - gridLayout.fastscrollHandle.height / 2).toInt()
@@ -66,7 +66,7 @@ internal fun FragmentPixCameraBinding.setViewPositions(y: Float) {
 }
 
 
-fun FragmentPixCameraBinding.hideScrollbar() {
+fun FragmentPixBinding.hideScrollbar() {
     //val transX = resources.getDimensionPixelSize(R.dimen.fastscroll_scrollbar_padding_end).toFloat()
     mScrollbarAnimator =
         gridLayout.fastscrollScrollbar.animate().translationX(
@@ -91,7 +91,7 @@ fun FragmentPixCameraBinding.hideScrollbar() {
 
 fun scrollListener(
     fragment: PixFragment,
-    binding: FragmentPixCameraBinding
+    binding: FragmentPixBinding
 ): RecyclerView.OnScrollListener =
     object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -136,7 +136,7 @@ fun getScrollProportion(recyclerView: RecyclerView?): Float {
     return mViewHeight * proportion
 }
 
-fun FragmentPixCameraBinding.hideBubble() {
+fun FragmentPixBinding.hideBubble() {
     if (gridLayout.fastscrollBubble.isVisible) {
         mBubbleAnimator = gridLayout.fastscrollBubble.animate().alpha(0f)
             .setDuration(sBubbleAnimDuration.toLong())
@@ -158,7 +158,7 @@ fun FragmentPixCameraBinding.hideBubble() {
 }
 
 
-fun FragmentPixCameraBinding.setRecyclerViewPosition(y: Float) {
+fun FragmentPixBinding.setRecyclerViewPosition(y: Float) {
     if (gridLayout.recyclerView.adapter != null) {
         val itemCount = gridLayout.recyclerView.adapter!!.itemCount
         val proportion: Float = when {
@@ -177,7 +177,7 @@ fun FragmentPixCameraBinding.setRecyclerViewPosition(y: Float) {
     }
 }
 
-fun FragmentPixCameraBinding.showBubble() {
+fun FragmentPixBinding.showBubble() {
     if (!gridLayout.fastscrollBubble.isVisible) {
         gridLayout.fastscrollBubble.show()
         gridLayout.fastscrollBubble.alpha = 0f

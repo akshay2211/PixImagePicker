@@ -10,7 +10,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import io.ak1.pix.databinding.FragmentPixCameraBinding
+import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
@@ -46,7 +46,7 @@ class CameraXManager(
 
 
     /** Initialize CameraX, and prepare to bind the camera use cases  */
-    fun setUpCamera(binding: FragmentPixCameraBinding) {
+    fun setUpCamera(binding: FragmentPixBinding) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity)
         cameraProviderFuture.addListener({
             // CameraProvider
@@ -57,7 +57,7 @@ class CameraXManager(
     }
 
     /** Declare and bind preview, capture and analysis use cases */
-    fun bindCameraUseCases(binding: FragmentPixCameraBinding) {
+    fun bindCameraUseCases(binding: FragmentPixBinding) {
         // Get screen metrics used to setup camera for full screen resolution
         val metrics = DisplayMetrics().also { previewView.display.getRealMetrics(it) }
         Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")

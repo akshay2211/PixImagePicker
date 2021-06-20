@@ -19,7 +19,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.ak1.pix.adapters.InstantImageAdapter
 import io.ak1.pix.adapters.MainImageAdapter
-import io.ak1.pix.databinding.FragmentPixCameraBinding
+import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.helpers.*
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
@@ -40,7 +40,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     Fragment(), View.OnTouchListener {
 
     private val model: PixViewModel by viewModels()
-    private var _binding: FragmentPixCameraBinding? = null
+    private var _binding: FragmentPixBinding? = null
     private val binding get() = _binding!!
 
     private var permReqLauncher =
@@ -92,7 +92,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = run {
-        _binding = FragmentPixCameraBinding.inflate(inflater, container, false)
+        _binding = FragmentPixBinding.inflate(inflater, container, false)
         binding.root
     }
 

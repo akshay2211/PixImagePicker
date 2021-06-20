@@ -1,7 +1,7 @@
 package io.ak1.pix.helpers
 
 import android.view.animation.AccelerateDecelerateInterpolator
-import io.ak1.pix.databinding.FragmentPixCameraBinding
+import io.ak1.pix.databinding.FragmentPixBinding
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -9,7 +9,7 @@ import io.ak1.pix.databinding.FragmentPixCameraBinding
  */
 
 
-fun FragmentPixCameraBinding.videoRecordingStartAnim() {
+fun FragmentPixBinding.videoRecordingStartAnim() {
     val adInterpolator = AccelerateDecelerateInterpolator()
     gridLayout.controlsLayout.primaryClickButton.animate().apply {
         scaleX(1.2f)
@@ -34,7 +34,7 @@ fun FragmentPixCameraBinding.videoRecordingStartAnim() {
     }.start()
 }
 
-fun FragmentPixCameraBinding.videoRecordingEndAnim() {
+fun FragmentPixBinding.videoRecordingEndAnim() {
     val adInterpolator = AccelerateDecelerateInterpolator()
     gridLayout.controlsLayout.primaryClickButton.animate().apply {
         scaleX(1f)

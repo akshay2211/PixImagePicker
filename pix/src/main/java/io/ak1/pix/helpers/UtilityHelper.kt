@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.R
 
 import io.ak1.pix.adapters.MainImageAdapter
-import io.ak1.pix.databinding.FragmentPixCameraBinding
+import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.utility.HeaderItemDecoration
 import io.ak1.pix.utility.IMAGE_VIDEO_URI
 import java.io.File
@@ -66,7 +66,7 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
         this,
         arrayOf(file.toString()),
         arrayOf(file.name),
-    ) { path, uri ->
+    ) { _, uri ->
         val mainUri = Uri.withAppendedPath(
             IMAGE_VIDEO_URI,
             uri.lastPathSegment
@@ -74,7 +74,7 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
         callback?.invoke(mainUri)
     }
 
-fun FragmentActivity.setUpMargins(binding: FragmentPixCameraBinding) {
+fun FragmentActivity.setUpMargins(binding: FragmentPixBinding) {
     val height =
         if (this@setUpMargins.navigationBarHeight < 50) 0 else this@setUpMargins.navigationBarHeight
     binding.gridLayout.mainContent.updateLayoutParams<ViewGroup.MarginLayoutParams> {
