@@ -15,6 +15,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.PixSample">
+        <activity android:name=".samples.NavControllerSample"></activity>
         <activity android:name=".samples.FragmentSample" />
         <activity android:name=".MainActivity">
             <intent-filter>
