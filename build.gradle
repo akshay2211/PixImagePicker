@@ -8,6 +8,8 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.13.0' // NEW
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:1.4.10.2' // NEW
     }
 }
 
@@ -15,6 +17,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" }
     }
 }
 

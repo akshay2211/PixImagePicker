@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.vanniktech.maven.publish' // NEW
 }
 ext {
     PUBLISH_GROUP_ID = 'com.fxn769'
