@@ -36,10 +36,7 @@ class ViewPager2Sample : AppCompatActivity() {
         setContentView(binding.root)
         setupScreen()
         binding.tabLayout.apply {
-            addTab(this.newTab().apply {
-                setIcon(R.drawable.ic_camera)
-                view.layoutParams.width = 150
-            })
+            addTab(this.newTab().setIcon(R.drawable.ic_camera))
             val titles = arrayOf("Chat", "Status", "Call")
             titles.forEach { title ->
                 addTab(this.newTab().setText(title))
@@ -56,7 +53,7 @@ class ViewPager2Sample : AppCompatActivity() {
                 }
             })
         }.also {
-            //it.getTabAt(0)?.view?.layoutParams?.width = 150
+            it.getTabAt(0)?.view?.layoutParams?.width = 150
             val remainingSize = (WIDTH - 150) / 3
             (1..3).forEach { num ->
                 it.getTabAt(num)?.view?.layoutParams?.width = remainingSize
