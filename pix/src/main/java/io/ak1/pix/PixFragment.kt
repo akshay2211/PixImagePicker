@@ -182,6 +182,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                         PixEventCallback.Status.SUCCESS
                     )
                 )
+                retrieveMedia()
 
             }
         }
