@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
@@ -167,7 +166,6 @@ internal fun FragmentPixBinding.setupClickControls(
             true
         }
         setOnTouchListener { _, event ->
-
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
                 gridLayout.controlsLayout.primaryClickBackground.hide()
                 gridLayout.controlsLayout.primaryClickBackground.animate().scaleX(1f).scaleY(1f)
@@ -182,15 +180,11 @@ internal fun FragmentPixBinding.setupClickControls(
             } else if (event.action == MotionEvent.ACTION_DOWN) {
                 gridLayout.controlsLayout.primaryClickBackground.show()
                 gridLayout.controlsLayout.primaryClickBackground.animate().scaleX(1.2f).scaleY(1.2f)
-                    .setDuration(300).setInterpolator(
-                        AccelerateDecelerateInterpolator()
-                    ).start()
+                    .setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
                 gridLayout.controlsLayout.primaryClickButton.animate().scaleX(1.2f)
-                    .scaleY(1.2f).setDuration(300).setInterpolator(
-                        AccelerateDecelerateInterpolator()
-                    ).start()
+                    .scaleY(1.2f).setDuration(300)
+                    .setInterpolator(AccelerateDecelerateInterpolator()).start()
                 root.requestDisallowInterceptTouchEvent(true)
-
             }
             if ((event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) && isRecording) {
                 gridLayout.initialRecyclerviewContainer.apply {
@@ -252,27 +246,24 @@ internal fun FragmentPixBinding.setupClickControls(
 fun FragmentPixBinding.longSelectionStatus(
     enabled: Boolean
 ) {
-    val colorPrimaryDark = gridLayout.mainContent.context.color(R.color.colorPrimaryPix)
+    val colorPrimaryDark = root.context.color(R.color.primary_color_pix)
+    val colorSurface = root.context.color(R.color.surface_color_pix)
+
     if (enabled) {
         gridLayout.selectionCheck.hide()
-        gridLayout.selectionCount.setTextColor(Color.parseColor("#ffffff"))
+        gridLayout.selectionCount.setTextColor(colorSurface)
         gridLayout.topbar.setBackgroundColor(colorPrimaryDark)
-        DrawableCompat.setTint(gridLayout.selectionBack.drawable, Color.parseColor("#ffffff"))
+        DrawableCompat.setTint(gridLayout.selectionBack.drawable, colorSurface)
+        DrawableCompat.setTint(gridLayout.selectionCheck.drawable, colorSurface)
     } else {
         gridLayout.selectionCheck.show()
-        DrawableCompat.setTint(
-            gridLayout.selectionBack.drawable,
-            colorPrimaryDark
-        )
-        gridLayout.topbar.setBackgroundColor(Color.parseColor("#ffffff"))
+        DrawableCompat.setTint(gridLayout.selectionBack.drawable, colorPrimaryDark)
+        DrawableCompat.setTint(gridLayout.selectionCheck.drawable, colorPrimaryDark)
+        gridLayout.topbar.setBackgroundColor(colorSurface)
     }
-
 }
 
-
-fun FragmentPixBinding.setSelectionText(
-    fragmentActivity: FragmentActivity, size: Int = 0
-) {
+fun FragmentPixBinding.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
     gridLayout.selectionCount.text = if (size == 0) {
         gridLayout.selectionOk.hide()
         fragmentActivity.resources.getString(R.string.pix_tap_to_select)

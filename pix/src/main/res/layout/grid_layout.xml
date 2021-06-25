@@ -13,7 +13,7 @@
             android:id="@+id/status_bar_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_top"
-            android:background="@color/colorPrimaryPix"
+            android:background="@color/primary_color_pix"
             android:translationY="@dimen/margin_top_nve" />
 
 

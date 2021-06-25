@@ -20,14 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="PIX"
-            android:textColor="@color/colorPrimaryPix" />
+            android:textColor="@color/primary_color_pix" />
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Image Picker"
-            android:textColor="@color/colorPrimaryPix" />
+            android:textColor="@color/primary_color_pix" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,7 +40,7 @@
         android:onClick="fragmentSampleClick"
         android:padding="24dp"
         android:text="@string/fragment_implementation_sample"
-        android:textColor="@color/colorPrimaryPix" />
+        android:textColor="@color/primary_color_pix" />
 
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextAppearance.MaterialComponents.Body2"
@@ -51,7 +51,7 @@
         android:onClick="navControllerSampleClick"
         android:padding="24dp"
         android:text="@string/nav_controller_implementation_sample"
-        android:textColor="@color/colorPrimaryPix" />
+        android:textColor="@color/primary_color_pix" />
 
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/TextAppearance.MaterialComponents.Body2"
@@ -62,6 +62,6 @@
         android:onClick="viewPager2SampleClick"
         android:padding="24dp"
         android:text="@string/viewpager2_implementation_sample"
-        android:textColor="@color/colorPrimaryPix" />
+        android:textColor="@color/primary_color_pix" />
 
 </LinearLayout>

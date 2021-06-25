@@ -83,7 +83,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         requireActivity().let {
             it.setupScreen()
             it.actionBar?.hide()
-            colorPrimaryDark = it.color(R.color.colorPrimaryPix)
+            colorPrimaryDark = it.color(R.color.primary_color_pix)
         }
     }
 

@@ -10,7 +10,7 @@
         android:id="@+id/top_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryPix">
+        android:background="@color/primary_color_pix">
 
         <ImageView
             android:id="@+id/extra_spacing_top"
@@ -21,7 +21,7 @@
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryPix"
+            android:background="@color/primary_color_pix"
             android:elevation="0dp"
             app:title="@string/app_name"
             app:titleTextColor="@color/white" />
@@ -31,14 +31,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:background="@color/colorPrimaryPix"
+            android:background="@color/primary_color_pix"
             android:elevation="0dp"
             app:tabGravity="start"
             app:tabIndicatorAnimationMode="linear"
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/blackish"
+            app:tabSelectedTextColor="@android:color/darker_gray"
             app:tabTextColor="@color/white" />
 
 

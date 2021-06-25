@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Pix</string>
     <string name="pix_selection_limiter">Can\'t select more than %d items.</string>
     <string name="pix_bottom_message_without_video">Drag images up for gallery</string>
     <string name="pix_bottom_message_with_only_video">Drag videos up for gallery</string>
@@ -10,7 +9,6 @@
     <string name="pix_recent">Recent</string>
     <string name="pix_last_month">Last Month</string>
     <string name="pix_last_week">Last Week</string>
-    <string name="pix_cannot_click_image">Can not add more than %s images</string>
     <string name="pix_counter_number">0:00</string>
     <!-- content descriptions -->
     <string name="click_button">click button</string>

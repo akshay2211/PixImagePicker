@@ -7,6 +7,6 @@
     <color name="teal_700">#D83A56</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimaryPix" tools:keep="@color/colorPrimaryPix">#FF616D</color>
-    <color name="colorPrimaryLightPix" tools:keep="@color/colorPrimaryLightPix">#80D83A56</color>
+    <color name="primary_color_pix" tools:keep="@color/colorPrimaryPix">#FF616D</color>
+    <color name="primary_light_color_pix" tools:keep="@color/colorPrimaryLightPix">#80D83A56</color>
 </resources>
