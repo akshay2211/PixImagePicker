@@ -138,11 +138,12 @@ internal fun FragmentPixBinding.setupClickControls(
                             alpha = 1f
                             translationY = 0f
                         }
-                        cameraXManager?.videoCapture?.stopRecording()
+                        callback(5, Uri.EMPTY)
                         isRecording = false
                         videoCounterLayout.videoCounterLayout.hide()
                         videoCounterHandler.removeCallbacks(videoCounterRunnable)
                         videoRecordingEndAnim()
+                        cameraXManager?.videoCapture?.stopRecording()
                     } else {
                         videoCounterHandler.postDelayed(this, 1000)
                     }

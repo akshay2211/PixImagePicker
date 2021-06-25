@@ -173,6 +173,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             event?.getContentIfNotHandledOrReturnNull()?.let { set ->
                 binding.gridLayout.sendButtonStateAnimation(show = false, withAnim = false)
                 model.selectionList.postValue(HashSet())
+                options.preSelectedUrls.clear()
                 val results = set.map { it.contentUrl }
                 resultCallback?.invoke(PixEventCallback.Results(results))
                 //Log.e(TAG,"PixEventCallback SUCCESS ${model.selectionListSize}")
@@ -183,7 +184,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                     )
                 )
                 retrieveMedia()
-
             }
         }
     }
