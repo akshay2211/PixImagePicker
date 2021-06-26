@@ -158,9 +158,12 @@ class CameraXManager(
                 cameraSelector,
                 *useCases.toTypedArray()
             )
-            if (camera.cameraInfo.hasFlashUnit() && options.flash != Flash.Disabled) {
+            if (camera.cameraInfo.hasFlashUnit()) {
                 binding.gridLayout.controlsLayout.flashButton.show()
                 binding.setDrawableIconForFlash(options)
+            }
+            if (options.flash == Flash.Disabled) {
+                binding.gridLayout.controlsLayout.flashButton.hide()
             }
             // Attach the viewfinder's surface provider to preview use case
             preview?.setSurfaceProvider(previewView.surfaceProvider)

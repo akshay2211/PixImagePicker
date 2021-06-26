@@ -39,8 +39,7 @@
                     android:background="#fff"
                     android:orientation="vertical"
                     android:visibility="invisible"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="4" />
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
                 <TextView
                     android:id="@+id/fastscroll_bubble"

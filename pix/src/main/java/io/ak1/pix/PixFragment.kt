@@ -103,7 +103,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         reSetup()
         //in case of resetting the options in an live fragment
         setFragmentResultListener("PixKey") { _, bundle ->
-            options = bundle.getParcelable(ARG_PARAM_PIX) ?: options
+            options = bundle.getParcelable(ARG_PARAM_PIX) ?: Options()
             reSetup()
         }
     }

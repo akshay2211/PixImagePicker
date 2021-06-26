@@ -103,18 +103,18 @@ internal fun RecyclerView.setupMainRecyclerView(
     mainImageAdapter: MainImageAdapter,
     onFastScrollListener: RecyclerView.OnScrollListener
 ) {
-    (layoutManager as GridLayoutManager).spanSizeLookup =
-        object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER) {
-                    mainImageAdapter.spanCount
-                } else 1
+
+
+    (layoutManager as GridLayoutManager).apply {
+        spanCount = mainImageAdapter.spanCount
+        spanSizeLookup =
+            object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int) =
+                    if (mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER) mainImageAdapter.spanCount else 1
             }
-        }
-    addOnScrollListener(onFastScrollListener)
+    }
     adapter = mainImageAdapter
-    setHasFixedSize(true)
-    setItemViewCacheSize(20)
+    addOnScrollListener(onFastScrollListener)
     addItemDecoration(HeaderItemDecoration(context, mainImageAdapter))
     addOnScrollListener(context.preLoader(mainImageAdapter))
 }
