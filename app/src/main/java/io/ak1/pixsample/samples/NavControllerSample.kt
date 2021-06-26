@@ -12,16 +12,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.get
 import io.ak1.pix.helpers.PixBus
-import io.ak1.pix.helpers.PixEventCallback
+import io.ak1.pix.helpers.PixEventCallback.Status.BACK_PRESSED
+import io.ak1.pix.helpers.PixEventCallback.Status.SUCCESS
 import io.ak1.pix.helpers.setupScreen
 import io.ak1.pix.helpers.showStatusBar
-import io.ak1.pix.models.Mode
-import io.ak1.pix.models.Options
 import io.ak1.pix.utility.ARG_PARAM_PIX
 import io.ak1.pixsample.R
 import io.ak1.pixsample.commons.Adapter
 import io.ak1.pixsample.custom.fragmentBody
 import io.ak1.pixsample.databinding.ActivityNavControllerSampleBinding
+import io.ak1.pixsample.options
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 
@@ -44,11 +44,9 @@ class NavControllerSample : AppCompatActivity() {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         PixBus.results {
-            when (it.status) {
-                PixEventCallback.Status.SUCCESS -> {
-                    showStatusBar()
-                    navController.navigateUp()
-                }
+            if (it.status == SUCCESS) {
+                showStatusBar()
+                navController.navigateUp()
             }
         }
     }
@@ -68,14 +66,14 @@ class NavResultsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         PixBus.results(coroutineScope = CoroutineScope(Dispatchers.Main)) {
             when (it.status) {
-                PixEventCallback.Status.SUCCESS -> {
+                SUCCESS -> {
                     recyclerViewAdapter.apply {
                         this.list.clear()
                         this.list.addAll(it.data)
                         notifyDataSetChanged()
                     }
                 }
-                PixEventCallback.Status.BACK_PRESSED -> {
+                BACK_PRESSED -> {
                     requireActivity().onBackPressed()
                 }
             }
@@ -86,11 +84,7 @@ class NavResultsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = fragmentBody(requireActivity(), recyclerViewAdapter) {
-        var bundle = bundleOf(ARG_PARAM_PIX to Options().apply {
-            isFrontFacing = false
-            mode = Mode.All
-            count = 5
-        })
+        var bundle = bundleOf(ARG_PARAM_PIX to options)
         findNavController().navigate(R.id.action_ResultsFragment_to_CameraFragment, bundle)
     }
 }

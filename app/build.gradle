@@ -46,6 +46,7 @@ dependencies {
     implementation project(path: ':pix')
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation 'androidx.preference:preference:1.1.1'
     //implementation 'io.ak1.pix:piximagepicker:1.6.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

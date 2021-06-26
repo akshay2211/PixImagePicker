@@ -8,10 +8,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import io.ak1.pix.helpers.*
-import io.ak1.pix.models.Options
 import io.ak1.pix.utility.WIDTH
 import io.ak1.pixsample.R
 import io.ak1.pixsample.databinding.ActivityViewPager2SampleBinding
+import io.ak1.pixsample.options
 
 /**
  * Created By Akshay Sharma on 20,June,2021
@@ -20,9 +20,6 @@ import io.ak1.pixsample.databinding.ActivityViewPager2SampleBinding
 
 class ViewPager2Sample : AppCompatActivity() {
     private lateinit var binding: ActivityViewPager2SampleBinding
-    private val options = Options().apply {
-        this.count = 5
-    }
     var fragmentList = ArrayList<Fragment>().apply {
         add(pixFragment(options))
         add(SampleFragment())

@@ -1,0 +1,48 @@
+<resources>
+    <!-- Reply Preference -->
+
+    <string-array name="ratio_entries">
+        <item>Auto</item>
+        <item>4 : 3</item>
+        <item>16 : 9</item>
+    </string-array>
+
+    <string-array name="ratio_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="mode_entries">
+        <item>All</item>
+        <item>Picture Only</item>
+        <item>Video Only</item>
+    </string-array>
+
+    <string-array name="mode_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="flash_entries">
+        <item>Auto</item>
+        <item>Disabled</item>
+        <item>On</item>
+        <item>Off</item>
+    </string-array>
+
+    <string-array name="flash_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="span_values">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+</resources>

@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import io.ak1.pix.helpers.*
-import io.ak1.pix.models.Options
 import io.ak1.pixsample.R
 import io.ak1.pixsample.TAG
 import io.ak1.pixsample.commons.Adapter
 import io.ak1.pixsample.custom.fragmentBody
+import io.ak1.pixsample.options
 
 /**
  * Created By Akshay Sharma on 20,June,2021
@@ -35,9 +35,7 @@ class FragmentSample : AppCompatActivity() {
     }
 
     private fun showCameraFragment() {
-        addPixToActivity(R.id.container, Options().apply {
-            count = 15
-        }) {
+        addPixToActivity(R.id.container, options) {
             when (it.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     showResultsFragment()

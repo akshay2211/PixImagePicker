@@ -1,0 +1,76 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:isPreferenceVisible="false"
+        app:title="@string/theme_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/options_header">
+
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/ratio_entries"
+            app:entryValues="@array/ratio_values"
+            app:key="ratio"
+            app:title="@string/ratio_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            app:defaultValue="5"
+            app:key="count"
+            app:title="@string/count_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="4"
+            app:entries="@array/span_values"
+            app:entryValues="@array/span_values"
+            app:key="spanCount"
+            app:title="@string/grid_span_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="frontFacing"
+            app:title="@string/front_facing_title" />
+
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/mode_entries"
+            app:entryValues="@array/mode_values"
+            app:key="mode"
+            app:title="@string/mode_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            android:dependency="mode"
+            app:defaultValue="10"
+            app:key="videoDuration"
+            app:summary="@string/video_duration_summary"
+            app:title="@string/video_duration_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="0"
+            app:entries="@array/flash_entries"
+            app:entryValues="@array/flash_values"
+            app:key="flash"
+            app:title="@string/flash_title"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

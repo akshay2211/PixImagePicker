@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eee"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -13,12 +12,16 @@
         android:background="#fff"
         android:gravity="center_vertical"
         android:minHeight="180dp"
+        android:onClick="openSettings"
         android:padding="24dp">
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/TextAppearance.MaterialComponents.Headline3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_settings"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/primary_color_pix"
             android:text="PIX"
             android:textColor="@color/primary_color_pix" />
 
@@ -63,5 +66,10 @@
         android:padding="24dp"
         android:text="@string/viewpager2_implementation_sample"
         android:textColor="@color/primary_color_pix" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>
