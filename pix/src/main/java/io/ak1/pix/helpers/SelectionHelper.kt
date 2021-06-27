@@ -1,5 +1,6 @@
 package io.ak1.pix.helpers
 
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.core.view.isVisible
@@ -22,17 +23,14 @@ fun Int.selection(b: Boolean) {
 }
 
 fun GridLayoutBinding.sendButtonStateAnimation(show: Boolean, withAnim: Boolean = true) {
+    if (sendButton.visibility == View.GONE && !show) return
     if (show) {
-        if (sendButton.isVisible) {
-            return
-        }
+        if (sendButton.isVisible) return
         sendButton.show()
     } else if (!withAnim) {
         sendButton.hide()
     }
-    if (!show && !sendButton.isVisible) {
-        return
-    }
+    if (!show && !sendButton.isVisible) return
 
     var start = 1f
     var end = 0f

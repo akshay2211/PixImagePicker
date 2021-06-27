@@ -4,13 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
-import io.ak1.pix.utility.TAG
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -54,14 +52,12 @@ fun ActivityResultLauncher<Array<String>>.permissionsFilter(
     if (fragmentActivity.allPermissionsGranted(options.mode)) {
         callback()
     } else {
-        Log.e(TAG, "ASK Permission again")
         this.launch(if (options.mode == Mode.Picture) REQUIRED_PERMISSIONS_IMAGES else REQUIRED_PERMISSIONS_VIDEO)
     }
 }
 
 private fun Activity.allPermissionsGranted(mode: Mode) =
     (if (mode == Mode.Picture) REQUIRED_PERMISSIONS_IMAGES else REQUIRED_PERMISSIONS_VIDEO).all {
-
         val check = ContextCompat.checkSelfPermission(
             this, it
         ) == PackageManager.PERMISSION_GRANTED

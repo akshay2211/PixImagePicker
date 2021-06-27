@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_vertical"
-    android:background="#fff"
+    android:background="@color/surface_color_pix"
     android:paddingLeft="13dp"
     android:paddingTop="11dp"
     android:paddingBottom="9dp"
     android:textAllCaps="true"
-    android:textColor="#807f7f"
+    android:textColor="@color/text_color_pix"
     android:textSize="12sp"
     android:textStyle="bold">
 

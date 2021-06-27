@@ -26,6 +26,7 @@ import io.ak1.pix.models.Img
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.PixViewModel
 import io.ak1.pix.utility.ARG_PARAM_PIX
+import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import io.ak1.pix.utility.CustomItemTouchListener
 import kotlinx.coroutines.*
 import java.lang.Runnable
@@ -48,7 +49,12 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             if (permissions.all {
                     it.value
                 }) {
+                binding.permissionsLayout.permissionsLayout.hide()
+                binding.gridLayout.gridLayout.show()
                 initialise(requireActivity())
+            } else {
+                binding.gridLayout.gridLayout.hide()
+                binding.permissionsLayout.permissionsLayout.show()
             }
         }
 
@@ -100,26 +106,48 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        reSetup()
+        requireActivity().setup()
+    }
+
+    private fun FragmentActivity.setup() {
+        setUpMargins(binding)
+        permissions()
+        reSetup(this)
         //in case of resetting the options in an live fragment
-        setFragmentResultListener("PixKey") { _, bundle ->
-            options = bundle.getParcelable(ARG_PARAM_PIX) ?: Options()
-            reSetup()
+        setFragmentResultListener(ARG_PARAM_PIX_KEY) { _, bundle ->
+            val options1: Options? = bundle.getParcelable(ARG_PARAM_PIX)
+            options1?.let {
+                this@PixFragment.options.preSelectedUrls.apply {
+                    clear()
+                    addAll(it.preSelectedUrls)
+                }
+            }
+            permReqLauncher.permissionsFilter(this, options) {
+
+                retrieveMedia()
+            }
+
         }
     }
 
-    private fun reSetup() {
-        requireActivity().let {
-            it.setUpMargins(binding)
-            permReqLauncher.permissionsFilter(it, options) {
-                initialise(it)
+    private fun permissions() {
+        binding.permissionsLayout.permissionButton.setOnClickListener {
+            permReqLauncher.permissionsFilter(requireActivity(), options) {
+                initialise(requireActivity())
             }
         }
+    }
 
+    private fun reSetup(context: FragmentActivity) {
+        permReqLauncher.permissionsFilter(context, options) {
+            initialise(context)
+        }
     }
 
 
     private fun initialise(context: FragmentActivity) {
+        binding.permissionsLayout.permissionsLayout.hide()
+        binding.gridLayout.gridLayout.show()
         cameraXManager = CameraXManager(binding.viewFinder, context, options).also {
             it.startCamera()
         }
@@ -171,19 +199,16 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         }
         model.callResults.observe(requireActivity()) { event ->
             event?.getContentIfNotHandledOrReturnNull()?.let { set ->
-                binding.gridLayout.sendButtonStateAnimation(show = false, withAnim = false)
                 model.selectionList.postValue(HashSet())
                 options.preSelectedUrls.clear()
                 val results = set.map { it.contentUrl }
                 resultCallback?.invoke(PixEventCallback.Results(results))
-                //Log.e(TAG,"PixEventCallback SUCCESS ${model.selectionListSize}")
                 PixBus.returnObjects(
                     event = PixEventCallback.Results(
                         results,
                         PixEventCallback.Status.SUCCESS
                     )
                 )
-                retrieveMedia()
             }
         }
     }
@@ -264,7 +289,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 options.preSelectedUrls.removeAt(i)
             }
         }
-        scope.async {
+        scope.launch {
             val localResourceManager = LocalResourceManager(requireContext()).apply {
                 this.preSelectedUrls = options.preSelectedUrls
             }

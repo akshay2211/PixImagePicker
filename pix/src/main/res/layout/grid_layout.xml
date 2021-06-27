@@ -36,7 +36,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="-2px"
                     android:layout_marginTop="@dimen/small_thumb"
-                    android:background="#fff"
+                    android:background="@color/surface_color_pix"
                     android:orientation="vertical"
                     android:visibility="invisible"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
@@ -93,7 +93,7 @@
                         android:id="@+id/topbar"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/small_thumb"
-                        android:background="#fff"
+                        android:background="@color/surface_color_pix"
                         android:visibility="gone">
 
                         <ImageView

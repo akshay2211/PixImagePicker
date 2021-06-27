@@ -2,6 +2,7 @@ package io.ak1.pix.adapters
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +26,8 @@ import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.interfaces.SectionIndexer
 import io.ak1.pix.interfaces.StickyHeaderInterface
 import io.ak1.pix.models.Img
+import io.ak1.pix.utility.TAG
 import io.ak1.pix.utility.WIDTH
-import java.util.*
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -191,7 +192,12 @@ internal class MainImageAdapter(context: Context, internal val spanCount: Int) :
 
 
     override fun getPreloadItems(position: Int): MutableList<Img> {
-        return itemList.subList(position, position + 1)
+        return try {
+            itemList.subList(position, position + 1)
+        } catch (e: Exception) {
+            Log.e(TAG, "getPreloadItems ", e)
+            ArrayList()
+        }
     }
 
     override fun getPreloadRequestBuilder(image: Img): RequestBuilder<*> {
@@ -201,7 +207,6 @@ internal class MainImageAdapter(context: Context, internal val spanCount: Int) :
             3 -> glide.asBitmap()
                 .load(image.contentUrl)
                 .apply(options)
-
             else -> glide.load(image.contentUrl).apply(options)
         }
     }

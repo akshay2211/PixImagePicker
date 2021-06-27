@@ -4,9 +4,12 @@ package io.ak1.pix.helpers
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import io.ak1.pix.PixFragment
 import io.ak1.pix.models.Options
 import io.ak1.pix.utility.ARG_PARAM_PIX
+import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
@@ -93,6 +96,19 @@ fun pixFragment(
             putParcelable(ARG_PARAM_PIX, options)
         }
     }
+}
+
+fun FragmentManager.resetMedia(preSelectedUrls: ArrayList<Uri> = ArrayList()) {
+    setFragmentResult(
+        ARG_PARAM_PIX_KEY,
+        bundleOf(ARG_PARAM_PIX to if (preSelectedUrls.isEmpty()) null else Options().apply {
+            this.preSelectedUrls.apply {
+                clear()
+                addAll(preSelectedUrls)
+            }
+        })
+    )
+
 }
 // TODO: 18/06/21 more usability methods to be added
 // TODO: 18/06/21 add documentation for usability methods
