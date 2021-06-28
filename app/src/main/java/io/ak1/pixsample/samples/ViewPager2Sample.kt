@@ -1,6 +1,10 @@
 package io.ak1.pixsample.samples
 
+import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -10,6 +14,8 @@ import com.google.android.material.tabs.TabLayout
 import io.ak1.pix.helpers.*
 import io.ak1.pix.utility.WIDTH
 import io.ak1.pixsample.R
+import io.ak1.pixsample.commons.Adapter
+import io.ak1.pixsample.custom.fragmentBody2
 import io.ak1.pixsample.databinding.ActivityViewPager2SampleBinding
 import io.ak1.pixsample.options
 
@@ -19,10 +25,13 @@ import io.ak1.pixsample.options
  */
 
 class ViewPager2Sample : AppCompatActivity() {
+    private val iconWidth = 150
     private lateinit var binding: ActivityViewPager2SampleBinding
+    private val pixFragment = pixFragment(options)
+    private val viewPagerResultsFragment = ViewPagerResultsFragment()
     var fragmentList = ArrayList<Fragment>().apply {
-        add(pixFragment(options))
-        add(SampleFragment())
+        add(pixFragment)
+        add(viewPagerResultsFragment)
         add(SampleFragment())
         add(SampleFragment())
     }
@@ -50,8 +59,8 @@ class ViewPager2Sample : AppCompatActivity() {
                 }
             })
         }.also {
-            it.getTabAt(0)?.view?.layoutParams?.width = 150
-            val remainingSize = (WIDTH - 150) / 3
+            it.getTabAt(0)?.view?.layoutParams?.width = iconWidth
+            val remainingSize = (WIDTH - iconWidth) / 3
             (1..3).forEach { num ->
                 it.getTabAt(num)?.view?.layoutParams?.width = remainingSize
             }
@@ -72,7 +81,10 @@ class ViewPager2Sample : AppCompatActivity() {
                     selectedPage = position
                     binding.tabLayout.getTabAt(position)?.select()
                     when (position) {
-                        1 -> showStatusBar()
+                        1 -> {
+                            showStatusBar()
+                            supportFragmentManager.resetMedia()
+                        }
                     }
                 }
 
@@ -91,7 +103,7 @@ class ViewPager2Sample : AppCompatActivity() {
                     }
                 }
             })
-            currentItem = 1
+            setCurrentItem(1, false)
         }
 
         supportActionBar?.hide()
@@ -99,6 +111,7 @@ class ViewPager2Sample : AppCompatActivity() {
             when (it.status) {
                 PixEventCallback.Status.SUCCESS -> {
                     binding.viewPager.currentItem = 1
+                    viewPagerResultsFragment.setList(it.data)
                 }
                 PixEventCallback.Status.BACK_PRESSED -> {
                     binding.viewPager.currentItem = 1
@@ -122,3 +135,19 @@ class ViewPager2Sample : AppCompatActivity() {
 }
 
 class SampleFragment : Fragment()
+class ViewPagerResultsFragment : Fragment() {
+    private val customAdapter = Adapter()
+    fun setList(list: List<Uri>) {
+        customAdapter.apply {
+            this.list.clear()
+            this.list.addAll(list)
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = fragmentBody2(requireActivity(), customAdapter)
+}

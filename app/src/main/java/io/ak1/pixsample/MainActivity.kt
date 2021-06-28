@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 1
             }
-            spanCount = sp.getString("spanCount", "1")?.toInt() ?: 10
+            spanCount = sp.getString("spanCount", "4")?.toInt() ?: 4
         }
     }
 

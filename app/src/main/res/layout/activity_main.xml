@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#efefef"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -38,10 +39,12 @@
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:background="@color/white"
         android:onClick="fragmentSampleClick"
         android:padding="24dp"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
         android:text="@string/fragment_implementation_sample"
         android:textColor="@color/primary_color_pix" />
 
@@ -49,7 +52,9 @@
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
         android:background="@color/white"
         android:onClick="navControllerSampleClick"
         android:padding="24dp"
@@ -60,9 +65,11 @@
         style="@style/TextAppearance.MaterialComponents.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="3dp"
         android:background="@color/white"
         android:onClick="viewPager2SampleClick"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
         android:padding="24dp"
         android:text="@string/viewpager2_implementation_sample"
         android:textColor="@color/primary_color_pix" />

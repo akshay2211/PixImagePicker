@@ -38,8 +38,10 @@
             app:tabIndicatorColor="@color/white"
             app:tabIndicatorHeight="2dp"
             app:tabMode="fixed"
-            app:tabSelectedTextColor="@android:color/darker_gray"
-            app:tabTextColor="@color/white" />
+            app:tabIconTint="@color/white"
+            app:tabRippleColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="#eee" />
 
 
     </com.google.android.material.appbar.AppBarLayout>

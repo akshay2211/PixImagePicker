@@ -7,9 +7,12 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.Space
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.ak1.pix.helpers.toPx
 import io.ak1.pixsample.R
 
 /**
@@ -47,6 +50,35 @@ fun fragmentBody(
             imageTintList = ColorStateList.valueOf(Color.WHITE)
             setImageResource(R.drawable.ic_photo_camera)
             setOnClickListener(clickCallback)
+        })
+    }
+}
+
+fun fragmentBody2(
+    context: Context,
+    adapter: RecyclerView.Adapter<io.ak1.pixsample.commons.Adapter.ViewHolder>,
+): View {
+    val layoutParams = LinearLayout.LayoutParams(
+        FrameLayout.LayoutParams.MATCH_PARENT,
+        FrameLayout.LayoutParams.MATCH_PARENT
+    ).apply {
+        this.gravity = Gravity.RIGHT or Gravity.BOTTOM
+        weight = 1f
+    }
+    return LinearLayout(context).apply {
+        orientation = LinearLayout.VERTICAL
+        this.layoutParams = layoutParams
+        addView(Space(context).apply {
+            this.layoutParams = LinearLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                context.toPx(100f).toInt()
+            )
+        })
+        addView(RecyclerView(context).apply {
+            layoutManager = GridLayoutManager(context, 3)
+            setPadding(0, 100, 0, 0)
+            this.layoutParams = layoutParams
+            this.adapter = adapter
         })
     }
 }
