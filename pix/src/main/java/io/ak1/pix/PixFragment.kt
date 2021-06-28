@@ -289,6 +289,10 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 options.preSelectedUrls.removeAt(i)
             }
         }
+        if (scope.isActive) {
+            scope.cancel()
+        }
+        scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             val localResourceManager = LocalResourceManager(requireContext()).apply {
                 this.preSelectedUrls = options.preSelectedUrls

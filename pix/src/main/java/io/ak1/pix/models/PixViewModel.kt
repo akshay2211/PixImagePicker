@@ -29,7 +29,7 @@ internal class PixViewModel : ViewModel(), PixLifecycle {
     val imageList: LiveData<ModelList> = allImagesList
 
     private lateinit var options: Options
-    fun retrieveImages(localResourceManager: LocalResourceManager) {
+    suspend fun retrieveImages(localResourceManager: LocalResourceManager) {
         val sizeInitial = 100
         selectionList.value?.clear()
         allImagesList.postValue(
@@ -38,13 +38,13 @@ internal class PixViewModel : ViewModel(), PixLifecycle {
                 mode = options.mode
             )
         )
-        //  delay(5000)
-        allImagesList.postValue(
-            localResourceManager.retrieveMedia(
-                start = sizeInitial + 1,
-                mode = options.mode
-            )
+        val modelList = localResourceManager.retrieveMedia(
+            start = sizeInitial + 1,
+            mode = options.mode
         )
+        if (modelList.list.isNotEmpty()) {
+            allImagesList.postValue(modelList)
+        }
     }
 
 
