@@ -25,15 +25,6 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
         RecyclerView.ViewHolder(imageView) {
         fun bind() {
             imageView.apply {
-                val layoutparams = layoutParams as RelativeLayout.LayoutParams
-                layoutparams.apply {
-                    setMargins(10, 10, 10, 10)
-                    val size = (WIDTH / 3) - 20
-                    height = size
-                    width = size
-                }
-                this.layoutParams = layoutparams
-                scaleType = ImageView.ScaleType.CENTER_CROP
                 Glide.with(imageView.context).asBitmap()
                     .load(list[adapterPosition])
                     .apply(options)
@@ -44,10 +35,16 @@ class Adapter : RecyclerView.Adapter<Adapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(ImageView(parent.context).apply {
+            scaleType = ImageView.ScaleType.CENTER_CROP
             layoutParams = RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT
-            )
+            ).apply {
+                setMargins(10, 10, 10, 10)
+                val size = (WIDTH / 3) - 20
+                height = size
+                width = size
+            }
         })
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind()
