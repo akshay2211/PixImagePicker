@@ -25,9 +25,7 @@ Pix is a WhatsApp image picker replica. with this you can integrate a image pick
 
  
 ## Demo
-![](media/media.gif)
-![](media/one.png)
-![](media/two.png)
+![](media/two.gif)
 
 ## Usage
 set configuration as
@@ -137,8 +135,7 @@ or ivy:
 </dependency>
 ```
 
-#### find docs for old versions here [1.5.6](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.5.6)
-and [1.2.5](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
+#### find docs for old versions here [1.5.6](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.5.6) and [1.2.5](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
 
 ## License
 Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
