@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:id="@+id/controls_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <ImageView
+            android:id="@+id/primary_click_background"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/red_circle"
+            android:contentDescription="@string/click_button"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/primary_click_button"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/ring"
+            android:contentDescription="@string/click_button" />
+
+        <FrameLayout
+            android:id="@+id/flash_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top|left"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="47dp"
+            android:background="@drawable/circle"
+            android:padding="11dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/flash_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/camera_flash_button"
+                android:src="@drawable/ic_flash_off_black_24dp" />
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/lens_facing"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="47dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/circle"
+            android:contentDescription="@string/lens_facing_button"
+            android:padding="11dp"
+            android:src="@drawable/ic_photo_camera" />
+
+        <TextView
+            android:id="@+id/message_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="5dp"
+            android:text="@string/pix_bottom_message_with_video"
+            android:textColor="#fff"
+            android:textSize="12sp" />
+
+    </FrameLayout>
+
+</merge>
