@@ -44,20 +44,20 @@ set configuration as
 ```
 Ratio can be
 ```kotlin
-RATIO_4_3, RATIO_16_9, RATIO_AUTO
+  RATIO_4_3, RATIO_16_9, RATIO_AUTO
 ```
 Mode to to select the media type can be as
 ```kotlin
- All, Picture, Video
+  All, Picture, Video
 ```
 Then pass this config to the pix fragment either via
 ```kotlin
-        addPixToActivity(R.id.container, options) {
-            when (it.status) {
-                PixEventCallback.Status.SUCCESS -> //use results as it.data
-                PixEventCallback.Status.BACK_PRESSED -> // back pressed called
-            }
-        }
+     addPixToActivity(R.id.container, options) {
+          when (it.status) {
+              PixEventCallback.Status.SUCCESS -> //use results as it.data
+              PixEventCallback.Status.BACK_PRESSED -> // back pressed called
+          }
+      }
 ```
 or plain fragment can be retrieved via
 ```kotlin
@@ -74,12 +74,12 @@ The results can be retrieved via the constructor callback from the fragment
 ```
 Or can be retrieved by anywhere in the Application from the state flow eventbus
 ```kotlin
-        PixBus.results {
-            when (it.status) {
-                 PixEventCallback.Status.SUCCESS ->  //use results as it.data
-                 PixEventCallback.Status.BACK_PRESSED -> // back pressed called
-            }
+    PixBus.results {
+        when (it.status) {
+             PixEventCallback.Status.SUCCESS ->  //use results as it.data
+             PixEventCallback.Status.BACK_PRESSED -> // back pressed called
         }
+    }
 ```
 
 ## Customise
@@ -111,12 +111,12 @@ Become a backer and help us sustain our activities! 🙏🙏
  
 include in app level build.gradle
  ```groovy
-repositories {
-       mavenCentral()
-}
+ repositories {
+    mavenCentral()
+ }
  ```
 ```groovy
-implementation  'io.ak1.pix:piximagepicker:1.6.2'
+ implementation  'io.ak1.pix:piximagepicker:1.6.2'
 ```
 or Maven:
 ```xml
@@ -134,7 +134,7 @@ or ivy:
 </dependency>
 ```
 
-#### find docs for old versions here [1.5.6](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.5.6) and [1.2.5](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
+#### Find docs for old versions in wiki [1.5.6](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.5.6) and [1.2.5](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
 
 ## License
 Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
