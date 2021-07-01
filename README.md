@@ -81,6 +81,10 @@ Or can be retrieved by anywhere in the Application from the state flow eventbus
         }
     }
 ```
+For detailed usage kindly refer to the below samples
+ - [FragmentSample](app/src/main/java/io/ak1/pixsample/samples/FragmentSample.kt) for Plain Fragment implementation
+ - [NavControllerSample](app/src/main/java/io/ak1/pixsample/samples/NavControllerSample.kt) for Fragments with NavController implementation
+ - [ViewPager2Sample](app/src/main/java/io/ak1/pixsample/samples/ViewPager2Sample.kt) for Fragments with ViewPager2 implementation
 
 ## Customise
 ### Theme
