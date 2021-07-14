@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -69,9 +70,12 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         super.onResume()
         if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
             Handler(Looper.getMainLooper()).postDelayed({
-                requireActivity().hideStatusBar()
+                try {
+                    requireActivity().hideStatusBar()
+                } catch (e: IllegalStateException) {
+                    e.message?.let { Log.e("PixFragment", it) }
+                }
             }, 200)
-
         }
     }
 
