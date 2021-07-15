@@ -35,15 +35,23 @@ class Options : Parcelable {
     var spanCount = 4
     var path = "Pix/Camera"
     var isFrontFacing = false
-    var videoDurationLimitInSeconds = 10
     var mode = Mode.All
     var flash = Flash.Auto
     var preSelectedUrls = ArrayList<Uri>()
+    var videoOptions : VideoOptions = VideoOptions()
 }
 
 @Parcelize
 enum class Mode : Parcelable {
     All, Picture, Video
+}
+
+@Parcelize
+class VideoOptions : Parcelable {
+    var videoBitrate : Int? = null
+    var audioBitrate : Int? = null
+    var videoFrameRate : Int? = null
+    var videoDurationLimitInSeconds = 10
 }
 
 @Parcelize

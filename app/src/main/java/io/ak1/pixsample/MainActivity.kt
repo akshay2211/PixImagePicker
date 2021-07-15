@@ -7,10 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
-import io.ak1.pix.models.Flash
-import io.ak1.pix.models.Mode
-import io.ak1.pix.models.Options
-import io.ak1.pix.models.Ratio
+import io.ak1.pix.models.*
 import io.ak1.pixsample.databinding.ActivityMainBinding
 import io.ak1.pixsample.samples.FragmentSample
 import io.ak1.pixsample.samples.NavControllerSample
@@ -61,13 +58,15 @@ class MainActivity : AppCompatActivity() {
                 "2" -> Mode.Video
                 else -> Mode.All
             }
-            videoDurationLimitInSeconds = try {
-                sp.getString("videoDuration", "30")?.toInt() ?: 30
-            } catch (e: Exception) {
-                sp.apply {
-                    edit().putString("videoDuration", "30").commit()
+            videoOptions = VideoOptions().apply {
+                videoDurationLimitInSeconds = try {
+                    sp.getString("videoDuration", "30")?.toInt() ?: 30
+                } catch (e: Exception) {
+                    sp.apply {
+                        edit().putString("videoDuration", "30").commit()
+                    }
+                    30
                 }
-                30
             }
             count = try {
                 sp.getString("count", "1")?.toInt() ?: 1

@@ -118,7 +118,16 @@ class CameraXManager(
                 useCases.add(imageCapture!!)
             }
             Mode.Video -> {
-                videoCapture = createVideoCaptureUseCase(screenAspectRatio)
+                val videoBitrate = options.videoOptions.videoBitrate
+                val audioBitrate = options.videoOptions.audioBitrate
+                val videoFrameRate = options.videoOptions.videoFrameRate
+
+                videoCapture = createVideoCaptureUseCase(
+                    screenAspectRatio,
+                    videoBitrate,
+                    audioBitrate,
+                    videoFrameRate
+                )
                 useCases.add(videoCapture!!)
             }
             else -> {
@@ -141,7 +150,16 @@ class CameraXManager(
                     .setTargetRotation(rotation)
                     .build()
                 useCases.add(imageCapture!!)
-                videoCapture = createVideoCaptureUseCase(screenAspectRatio)
+                val videoBitrate = options.videoOptions.videoBitrate
+                val audioBitrate = options.videoOptions.audioBitrate
+                val videoFrameRate = options.videoOptions.videoFrameRate
+
+                videoCapture = createVideoCaptureUseCase(
+                    screenAspectRatio,
+                    videoBitrate,
+                    audioBitrate,
+                    videoFrameRate
+                )
                 useCases.add(videoCapture!!)
             }
         }
@@ -174,11 +192,18 @@ class CameraXManager(
 
 
     @SuppressLint("RestrictedApi")
-    private fun createVideoCaptureUseCase(screenAspectRatio: Int): VideoCapture {
+    private fun createVideoCaptureUseCase(
+        screenAspectRatio: Int, videoBitrate: Int?,
+        audioBitrate: Int?,
+        videoFrameRate: Int?
+    ): VideoCapture {
         val builder = VideoCapture.Builder().apply {
             //setTargetRotation(previewView.display.rotation)
             // setAudioRecordSource()
             //setAudioSource(MediaRecorder.AudioSource
+            videoBitrate?.let { setBitRate(it) }
+            audioBitrate?.let { setAudioBitRate(it) }
+            videoFrameRate?.let { setVideoFrameRate(it) }
         }.setTargetAspectRatio(screenAspectRatio)
         return builder.build()
     }
@@ -282,7 +307,7 @@ class CameraXManager(
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    Toast.makeText(requireActivity, msg, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireActivity, msg, Toast.LENGTH_SHORT).show()
                     Log.d("TAG", msg)
                     callback(savedUri, null)
                 }
