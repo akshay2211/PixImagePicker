@@ -132,7 +132,7 @@ internal fun FragmentPixBinding.setupClickControls(
                         videoCounterProgress.counterText
 
 
-                    if (videoCounterProgress > options.videoDurationLimitInSeconds) {
+                    if (videoCounterProgress > options.videoOptions.videoDurationLimitInSeconds) {
                         gridLayout.initialRecyclerviewContainer.apply {
                             alpha = 1f
                             translationY = 0f
@@ -150,7 +150,7 @@ internal fun FragmentPixBinding.setupClickControls(
             }
             videoCounterHandler.postDelayed(videoCounterRunnable, 1000)
             videoRecordingStartAnim()
-            val maxVideoDuration = options.videoDurationLimitInSeconds
+            val maxVideoDuration = options.videoOptions.videoDurationLimitInSeconds
             videoCounterLayout.videoPbr.max = maxVideoDuration / 1000
             videoCounterLayout.videoPbr.invalidate()
             gridLayout.initialRecyclerviewContainer.animate().translationY(500f).alpha(0f)
