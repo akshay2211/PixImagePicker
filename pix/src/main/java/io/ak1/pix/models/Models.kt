@@ -45,7 +45,7 @@ class Options : Parcelable {
 enum class Mode : Parcelable {
     All, Picture, Video
 }
-
+@SuppressLint("ParcelCreator")
 @Parcelize
 class VideoOptions : Parcelable {
     var videoBitrate : Int? = null

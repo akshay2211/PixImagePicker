@@ -118,15 +118,11 @@ class CameraXManager(
                 useCases.add(imageCapture!!)
             }
             Mode.Video -> {
-                val videoBitrate = options.videoOptions.videoBitrate
-                val audioBitrate = options.videoOptions.audioBitrate
-                val videoFrameRate = options.videoOptions.videoFrameRate
-
                 videoCapture = createVideoCaptureUseCase(
                     screenAspectRatio,
-                    videoBitrate,
-                    audioBitrate,
-                    videoFrameRate
+                    options.videoOptions.videoBitrate,
+                    options.videoOptions.audioBitrate,
+                    options.videoOptions.videoFrameRate
                 )
                 useCases.add(videoCapture!!)
             }
@@ -150,15 +146,11 @@ class CameraXManager(
                     .setTargetRotation(rotation)
                     .build()
                 useCases.add(imageCapture!!)
-                val videoBitrate = options.videoOptions.videoBitrate
-                val audioBitrate = options.videoOptions.audioBitrate
-                val videoFrameRate = options.videoOptions.videoFrameRate
-
                 videoCapture = createVideoCaptureUseCase(
                     screenAspectRatio,
-                    videoBitrate,
-                    audioBitrate,
-                    videoFrameRate
+                    options.videoOptions.videoBitrate,
+                    options.videoOptions.audioBitrate,
+                    options.videoOptions.videoFrameRate
                 )
                 useCases.add(videoCapture!!)
             }
