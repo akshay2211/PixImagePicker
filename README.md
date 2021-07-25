@@ -3,7 +3,7 @@
 # Pix (WhatsApp Style Image and Video Picker)
 
 Pix is a WhatsApp image picker replica. with this you can integrate a image picker just like WhatsApp.
-
+[![](https://androidweekly.net/issues/issue-476/badge?style=flat-square)](https://androidweekly.net/issues/issue-476)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/887abd593a5a499495c4f071accb132a)](https://app.codacy.com/app/akshay2211/PixImagePicker?utm_source=github.com&utm_medium=referral&utm_content=akshay2211/PixImagePicker&utm_campaign=Badge_Grade_Dashboard)
 [![](https://img.shields.io/badge/Android%20Arsenal-PixImagePicker-blue.svg?style=flat-square)](https://android-arsenal.com/details/1/6935)
 [![](https://img.shields.io/badge/Medium-Pix-black.svg?style=flat-square)](https://medium.com/@fxn769/pix-media-picker-android-library-1ec3c5e5f91a)
