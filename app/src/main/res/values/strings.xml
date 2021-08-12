@@ -1,6 +1,28 @@
 <resources>
-    <string name = "app_name">PixSample</string>
-	
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name = "hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">PixSample</string>
+    <string name="fragment_implementation_sample">Fragment Implementation Sample</string>
+    <string name="nav_controller_implementation_sample">NavController Implementation Sample</string>
+    <string name="viewpager2_implementation_sample">ViewPager2 Implementation Sample</string>
+    <string name="configuration">Configuration</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="options_header">Edit Options</string>
+    <string name="ratio_title">Image/Video Ratio</string>
+    <string name="count_title">Maximum number of images to be selected</string>
+    <string name="grid_span_title">Number of columns in the grid</string>
+    <string name="front_facing_title">Camera front facing</string>
+    <string name="video_duration_title">Video Duration</string>
+    <string name="video_duration_summary">Add video duration limit in seconds</string>
+    <string name="flash_title">Flash</string>
+    <string name="theme_header">Theme</string>
+    <string name="mode_title">Capture mode</string>
 </resources>

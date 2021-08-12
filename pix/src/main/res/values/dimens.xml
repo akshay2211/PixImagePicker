@@ -1,26 +1,8 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-
+    <dimen name="margin_video_counter_pix">42dp</dimen>
     <dimen name="margin_top">0dp</dimen>
     <dimen name="margin_top_nve">0dp</dimen>
-    <dimen name="h1">36dp</dimen>
-    <dimen name="h2">30dp</dimen>
-    <dimen name="h3">24dp</dimen>
-    <dimen name="h4">18dp</dimen>
-    <dimen name="h5">16dp</dimen>
-    <dimen name="h6">14dp</dimen>
-    <dimen name="h7">13dp</dimen>
-    <dimen name="h8">12dp</dimen>
-    <dimen name="h9">7dp</dimen>
-    <dimen name="h0">40dp</dimen>
-    <dimen name="curves">3dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="top_bar">45dp</dimen>
-    <dimen name="tab_bar">45dp</dimen>
-    <dimen name="vehicle_specs_width">100dp</dimen>
-    <dimen name="rounded_edges_dialog">6dp</dimen>
-    <dimen name="fastscroll_bubble_radius">16dp</dimen>
-    <dimen name="fastscroll_scrollbar_padding_end">12dp</dimen>
+    <dimen name="small_thumb">62dp</dimen>
     <dimen name="fastscroll_bubble_size">38dp</dimen>
-
 </resources>

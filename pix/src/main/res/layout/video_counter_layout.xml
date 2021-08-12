@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/video_counter_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="@dimen/margin_video_counter_pix"
+        android:elevation="100dp"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="14.5dp"
+                android:layout_height="14.5dp"
+                android:layout_gravity="center"
+                android:padding="1dp"
+                android:src="@drawable/red_circle" />
+
+            <ProgressBar
+                android:id="@+id/video_pbr"
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:indeterminate="false"
+                android:progress="0"
+                android:progressDrawable="@drawable/circle_pbr"
+                android:rotation="-90" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/video_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="9dp"
+            android:text="@string/pix_counter_number"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</merge>

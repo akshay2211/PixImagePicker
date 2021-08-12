@@ -1,24 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fxn.pixsample.MainActivity">
+    android:orientation="vertical"
+    android:background="#efefef"
+    tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_margin="5dp"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_library_add_black_24dp"
-        android:tint="#ffffff"
-        app:fabSize="normal" />
-</FrameLayout>
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:minHeight="180dp"
+        android:onClick="openSettings"
+        android:padding="24dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextAppearance.MaterialComponents.Headline3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/ic_settings"
+            android:drawablePadding="24dp"
+            android:drawableTint="@color/primary_color_pix"
+            android:text="PIX"
+            android:textColor="@color/primary_color_pix" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Image Picker"
+            android:textColor="@color/primary_color_pix" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:background="@color/white"
+        android:onClick="fragmentSampleClick"
+        android:padding="24dp"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:text="@string/fragment_implementation_sample"
+        android:textColor="@color/primary_color_pix" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:background="@color/white"
+        android:onClick="navControllerSampleClick"
+        android:padding="24dp"
+        android:text="@string/nav_controller_implementation_sample"
+        android:textColor="@color/primary_color_pix" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:background="@color/white"
+        android:onClick="viewPager2SampleClick"
+        android:gravity="center_vertical"
+        android:minHeight="72dp"
+        android:padding="24dp"
+        android:text="@string/viewpager2_implementation_sample"
+        android:textColor="@color/primary_color_pix" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+</LinearLayout>
