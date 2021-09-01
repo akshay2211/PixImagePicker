@@ -58,8 +58,11 @@ class CameraXManager(
 
     /** Declare and bind preview, capture and analysis use cases */
     fun bindCameraUseCases(binding: FragmentPixBinding) {
+        // Check if view is correctly attached to window, stop binding otherwise
+        val display = previewView.display ?: return
+
         // Get screen metrics used to setup camera for full screen resolution
-        val metrics = DisplayMetrics().also { previewView.display.getRealMetrics(it) }
+        val metrics = DisplayMetrics().also { display.getRealMetrics(it) }
         Log.d(TAG, "Screen metrics: ${metrics.widthPixels} x ${metrics.heightPixels}")
 
         val screenAspectRatio = when (options.ratio) {
