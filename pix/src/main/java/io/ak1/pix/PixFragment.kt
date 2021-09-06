@@ -379,7 +379,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             PixBus.returnObjects(
                 event = PixEventCallback.Results(
                     ArrayList(),
-                    PixEventCallback.Status.SUCCESS
+                    PixEventCallback.Status.BACK_PRESSED
                 )
             )
         }
