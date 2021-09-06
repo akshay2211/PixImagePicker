@@ -370,9 +370,19 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
 
     private fun CameraXManager.startCamera() {
-        setUpCamera(binding)
-        binding.gridLayout.controlsLayout.flashButton.show()
-        binding.setDrawableIconForFlash(options)
+        try {
+            setUpCamera(binding)
+            binding.gridLayout.controlsLayout.flashButton.show()
+            binding.setDrawableIconForFlash(options)
+        }catch (e:IllegalStateException){
+            resultCallback?.invoke(PixEventCallback.Results())
+            PixBus.returnObjects(
+                event = PixEventCallback.Results(
+                    ArrayList(),
+                    PixEventCallback.Status.SUCCESS
+                )
+            )
+        }
     }
 
     override fun onDestroy() {

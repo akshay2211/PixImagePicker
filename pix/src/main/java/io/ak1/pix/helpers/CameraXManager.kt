@@ -46,6 +46,7 @@ class CameraXManager(
 
 
     /** Initialize CameraX, and prepare to bind the camera use cases  */
+    @Throws(IllegalStateException::class)
     fun setUpCamera(binding: FragmentPixBinding) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity)
         cameraProviderFuture.addListener({
@@ -57,6 +58,7 @@ class CameraXManager(
     }
 
     /** Declare and bind preview, capture and analysis use cases */
+    @Throws(IllegalStateException::class)
     fun bindCameraUseCases(binding: FragmentPixBinding) {
         // Check if view is correctly attached to window, stop binding otherwise
         val display = previewView.display ?: return
