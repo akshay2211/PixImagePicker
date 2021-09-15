@@ -59,6 +59,7 @@ private fun manipulateVisibility(
         controlsLayout.controlsLayout.alpha = 1 - slideOffset
         topbar.alpha = slideOffset
         recyclerView.alpha = slideOffset
+        recyclerView.itemAnimator = null
         if (1 - slideOffset == 0f) {
             instantRecyclerView.hide()
             arrowUp.hide()
