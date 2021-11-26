@@ -160,9 +160,21 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         observeSelectionList()
         retrieveMedia()
         setBottomSheetBehavior()
+        updateGalleryViews()
         setupControls()
         backPressController()
+    }
 
+    private fun updateGalleryViews() {
+        if (options.showGallery) {
+            binding.gridLayout.initialRecyclerviewContainer.show()
+            binding.gridLayout.controlsLayout.messageBottom.show()
+            binding.gridLayout.bottomSheet.show()
+        } else {
+            binding.gridLayout.initialRecyclerviewContainer.hide()
+            binding.gridLayout.controlsLayout.messageBottom.hide()
+            binding.gridLayout.bottomSheet.hide()
+        }
     }
 
     override fun onDestroyView() {
