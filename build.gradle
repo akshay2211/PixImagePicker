@@ -8,20 +8,20 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.vanniktech:gradle-maven-publish-plugin:0.15.1'
+        // classpath 'com.vanniktech:gradle-maven-publish-plugin:0.15.1'
     }
 }
 
 allprojects {
-    plugins.withId("com.vanniktech.maven.publish") {
-        mavenPublish {
-            sonatypeHost = "S01"
-        }
-    }
+    // plugins.withId("com.vanniktech.maven.publish") {
+    //     mavenPublish {
+    //         sonatypeHost = "S01"
+    //     }
+    // }
     repositories {
         google()
         mavenCentral()
-        maven { url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" }
+        // maven { url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" }
     }
 }
 
