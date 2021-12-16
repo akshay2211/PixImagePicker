@@ -14,3 +14,7 @@
 .cxx
 local.properties
 /.idea/
+
+*.jks
+*.apk
+output-metadata.json
