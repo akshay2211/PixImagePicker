@@ -44,7 +44,12 @@ fun fragmentBody(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(32, 32, 32, 32)
+                setMargins(
+                    32,
+                    32,
+                    32,
+                    32 + 160
+                ) // 160 is the height of bottom navigation bar in Pixel
                 this.gravity = Gravity.RIGHT or Gravity.BOTTOM
             }
             imageTintList = ColorStateList.valueOf(Color.WHITE)

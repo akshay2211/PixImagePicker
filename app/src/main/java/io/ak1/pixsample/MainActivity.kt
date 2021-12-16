@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 1
             }
             spanCount = sp.getString("spanCount", "4")?.toInt() ?: 4
+            showGallery = sp.getBoolean("showGallery", false)
         }
     }
 

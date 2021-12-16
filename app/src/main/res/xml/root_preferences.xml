@@ -27,6 +27,11 @@
             app:title="@string/ratio_title"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:key="showGallery"
+            app:title="@string/show_gallery" />
+
         <EditTextPreference
             android:defaultValue="5"
             app:defaultValue="5"

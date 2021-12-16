@@ -20,6 +20,7 @@
     <string name="count_title">Maximum number of images to be selected</string>
     <string name="grid_span_title">Number of columns in the grid</string>
     <string name="front_facing_title">Camera front facing</string>
+    <string name="show_gallery">Show gallery</string>
     <string name="video_duration_title">Video Duration</string>
     <string name="video_duration_summary">Add video duration limit in seconds</string>
     <string name="flash_title">Flash</string>
