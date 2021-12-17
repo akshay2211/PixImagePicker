@@ -14,4 +14,6 @@
     <string name="click_button">click button</string>
     <string name="camera_flash_button">camera flash button</string>
     <string name="lens_facing_button">lens facing button</string>
+    <string name="pix_fragment">PixFragment</string>
+    <string name="image_preview_fragment">Image Preview Fragment</string>
 </resources>

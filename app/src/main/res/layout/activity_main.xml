@@ -74,9 +74,11 @@
         android:text="@string/viewpager2_implementation_sample"
         android:textColor="@color/primary_color_pix" />
 
-    <Space
+    <ImageView
+        android:id="@+id/demoImg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
         android:layout_weight="1" />
 
 </LinearLayout>

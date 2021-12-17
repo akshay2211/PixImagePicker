@@ -32,6 +32,8 @@ android {
     }
     buildFeatures {
         viewBinding true
+        //add this to use pix as pix uses data-binding.
+        dataBinding true
     }
 }
 

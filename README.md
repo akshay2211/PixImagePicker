@@ -81,6 +81,14 @@ Or can be retrieved by anywhere in the Application from the state flow eventbus
         }
     }
 ```
+Or can be used via navgraph by following
+```kotlin
+     val startResultActivity = registerPixCamera(options) { result ->
+       Log.e("Images: ", "${result.id},   ${result.imageUriList}")
+    }
+    startResultActivity.launch("input_identifier")
+```
+
 For detailed usage kindly refer to the below samples
  - [FragmentSample](app/src/main/java/io/ak1/pixsample/samples/FragmentSample.kt) for Plain Fragment implementation
  - [NavControllerSample](app/src/main/java/io/ak1/pixsample/samples/NavControllerSample.kt) for Fragments with NavController implementation

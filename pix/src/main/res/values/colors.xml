@@ -5,4 +5,9 @@
     <color name="primary_light_color_pix">#80075e54</color>
     <color name="surface_color_pix">#ffffff</color>
     <color name="text_color_pix">#807f7f</color>
+    <color name="colorPrimaryPix">#075e54</color>
+    <color name="colorPrimaryLightPix">#80075e54</color>
+    <color name="colorPrimary">#2b3745</color>
+    <color name="colorPrimaryDark">#1a2934</color>
+    <color name="colorAccent">#1a2934</color>
 </resources>

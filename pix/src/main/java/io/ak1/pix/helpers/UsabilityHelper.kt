@@ -1,13 +1,17 @@
 package io.ak1.pix.helpers
 
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentManager
-import io.ak1.pix.PixFragment
-import io.ak1.pix.models.Options
+import io.ak1.pix.models.*
+import io.ak1.pix.ui.PixFragment
+import io.ak1.pix.ui.camera.CameraActivityContract
 import io.ak1.pix.utility.ARG_PARAM_PIX
 import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +21,8 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created By Akshay Sharma on 17,June,2021
@@ -29,10 +35,15 @@ open class PixEventCallback {
         SUCCESS, BACK_PRESSED
     }
 
-    data class Results(
-        var data: List<Uri> = ArrayList(),
-        var status: Status = Status.SUCCESS
-    )
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    class Results(var results: List<Uri> = ArrayList(), var responseStatus: Status = Status.SUCCESS) : Parcelable {
+        @IgnoredOnParcel
+        val data: List<Uri> = results
+
+        @IgnoredOnParcel
+        val status: Status = responseStatus
+    }
 
     private val backPressedEvents = MutableSharedFlow<Any>()
     private val outputEvents = MutableSharedFlow<Results>()
@@ -84,6 +95,24 @@ fun AppCompatActivity.addPixToActivity(
                 putParcelable(ARG_PARAM_PIX, options)
             }
         }).commit()
+}
+
+/**
+ * Call this method in on create for Activity and onCreateView/onViewCreated in Fragment
+ * */
+
+fun AppCompatActivity.registerPixCamera(options: Options?,
+                                     resultCallback: ((CameraActivityContract.CameraActivityResult) -> Unit)? = null)
+: ActivityResultLauncher<String> {
+    return registerForActivityResult(CameraActivityContract(options)) { result ->
+        result?.let {
+            resultCallback?.invoke(it)
+        }
+    }
+}
+
+fun launchPixCamera(resultLauncher: ActivityResultLauncher<String>, input: String) {
+    resultLauncher.launch(input)
 }
 
 fun pixFragment(

@@ -9,7 +9,7 @@ import android.view.View
 import android.view.ViewPropertyAnimator
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import io.ak1.pix.PixFragment
+import io.ak1.pix.ui.PixFragment
 import io.ak1.pix.R
 import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.utility.sScrollbarAnimDuration

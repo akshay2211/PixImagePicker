@@ -4,9 +4,12 @@ package io.ak1.pixsample
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
+import io.ak1.pix.helpers.registerPixCamera
 import io.ak1.pix.models.*
 import io.ak1.pixsample.databinding.ActivityMainBinding
 import io.ak1.pixsample.samples.FragmentSample
@@ -25,12 +28,19 @@ var options = Options()
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var startResultActivity: ActivityResultLauncher<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+        startResultActivity = registerPixCamera(null) { result ->
+            if(result.imageUriList?.isNotEmpty() == true) {
+                binding.demoImg.setImageURI(result.imageUriList?.get(0))
+            }
+            Log.e("Images: ", "${result.id},   ${result.imageUriList}")
+        }
     }
 
     override fun onResume() {
@@ -81,8 +91,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fragmentSampleClick(view: View) =
-        startActivity(Intent(this, FragmentSample::class.java))
+    fun fragmentSampleClick(view: View) = startResultActivity?.launch("1")
 
     fun navControllerSampleClick(view: View) =
         startActivity(Intent(this, NavControllerSample::class.java))

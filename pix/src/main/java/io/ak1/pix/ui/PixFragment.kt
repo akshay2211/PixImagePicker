@@ -1,4 +1,4 @@
-package io.ak1.pix
+package io.ak1.pix.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import io.ak1.pix.R
 import io.ak1.pix.adapters.InstantImageAdapter
 import io.ak1.pix.adapters.MainImageAdapter
 import io.ak1.pix.databinding.FragmentPixBinding
@@ -218,13 +220,17 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 model.selectionList.postValue(HashSet())
                 options.preSelectedUrls.clear()
                 val results = set.map { it.contentUrl }
-                resultCallback?.invoke(PixEventCallback.Results(results))
-                PixBus.returnObjects(
-                    event = PixEventCallback.Results(
-                        results,
-                        PixEventCallback.Status.SUCCESS
-                    )
-                )
+                resultCallback?.invoke(PixEventCallback.Results(results)) ?: run {
+                    if (results.isNotEmpty()) {
+                        (activity as? PixActivity)?.navigate(R.id.action_navigation_image_preview,
+                            bundleOf(ARG_PARAM_PIX to PixEventCallback.Results(
+                                results,
+                                PixEventCallback.Status.SUCCESS
+                            )))
+                    } else {
+                        (activity as? PixActivity)?.finish()
+                    }
+                }
             }
         }
     }

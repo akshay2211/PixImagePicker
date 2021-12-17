@@ -14,6 +14,6 @@
     </fragment>
     <fragment
         android:id="@+id/CameraFragment"
-        android:name="io.ak1.pix.PixFragment"
+        android:name="io.ak1.pix.ui.PixFragment"
         tools:layout="@layout/fragment_pix"></fragment>
 </navigation>

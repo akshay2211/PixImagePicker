@@ -2,6 +2,8 @@
 buildscript {
     ext.kotlin_version = "1.5.0"
     repositories {
+        //require to use jitpack otherwise photoviewer lib in pix is not compiled.
+        maven { url "https://jitpack.io" }
         google()
         mavenCentral()
     }
@@ -19,6 +21,8 @@ allprojects {
     //     }
     // }
     repositories {
+        //require to use jitpack otherwise photoviewer lib in pix is not compiled.
+        maven { url "https://jitpack.io" }
         google()
         mavenCentral()
         // maven { url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" }
