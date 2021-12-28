@@ -159,6 +159,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         setupFastScroller(context)
         observeSelectionList()
         retrieveMedia()
+        setGalleryViewVisibility()
         setBottomSheetBehavior()
         setupControls()
         backPressController()
@@ -181,8 +182,10 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             mainImageAdapter.addImageList(it.list)
             model.selectionList.value?.addAll(it.selection)
             model.selectionList.postValue(model.selectionList.value)
-            binding.gridLayout.arrowUp.apply {
-                if (mainImageAdapter.listSize != 0) show() else hide()
+            if (options.isGalleryEnabled) {
+                binding.gridLayout.arrowUp.apply {
+                    if (mainImageAdapter.listSize != 0) show() else hide()
+                }
             }
         }
         model.selectionList.observe(requireActivity()) {
@@ -285,6 +288,8 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     }
 
     private fun retrieveMedia() {
+        if (!options.isGalleryEnabled) return
+
         // options.preSelectedUrls.addAll(selectionList)
         if (options.preSelectedUrls.size > options.count) {
             val large = options.preSelectedUrls.size - 1
@@ -306,6 +311,11 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             model.retrieveImages(localResourceManager)
         }
 
+    }
+
+    private fun setGalleryViewVisibility() = binding.apply {
+        gridLayout.initialRecyclerviewContainer.visibility = if (options.isGalleryEnabled) View.VISIBLE
+        else View.GONE
     }
 
     private fun setupAdapters(context: FragmentActivity) {

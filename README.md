@@ -35,6 +35,7 @@ set configuration as
         spanCount = 4                                               //Number for columns in grid
         path = "Pix/Camera"                                         //Custom Path For media Storage
         isFrontFacing = false                                       //Front Facing camera on start
+        isGalleryEnabled = true                                     //Option to enable/disable gallery
         videoDurationLimitInSeconds = 10                            //Duration for video recording
         mode = Mode.All                                             //Option to select only pictures or videos or both
         flash = Flash.Auto                                          //Option to select flash type

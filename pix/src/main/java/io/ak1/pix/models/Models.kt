@@ -35,6 +35,7 @@ class Options : Parcelable {
     var spanCount = 4
     var path = "Pix/Camera"
     var isFrontFacing = false
+    var isGalleryEnabled = true
     var mode = Mode.All
     var flash = Flash.Auto
     var preSelectedUrls = ArrayList<Uri>()
