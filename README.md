@@ -120,20 +120,20 @@ include in app level build.gradle
  }
  ```
 ```groovy
- implementation  'io.ak1.pix:piximagepicker:1.6.2'
+ implementation  'io.ak1.pix:piximagepicker:1.6.3'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>io.ak1.pix</groupId>
   <artifactId>piximagepicker</artifactId>
-  <version>1.6.2</version>
+  <version>1.6.3</version>
   <type>pom</type>
 </dependency>
 ```
 or ivy:
 ```xml
-<dependency org='io.ak1.pix' name='piximagepicker' rev='1.6.2'>
+<dependency org='io.ak1.pix' name='piximagepicker' rev='1.6.3'>
   <artifact name='pix' ext='pom' ></artifact>
 </dependency>
 ```
