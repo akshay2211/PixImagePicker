@@ -3,6 +3,7 @@
 # Pix (WhatsApp Style Image and Video Picker)
 
 Pix is a WhatsApp image picker replica. with this you can integrate a image picker just like WhatsApp.
+
 [![](https://androidweekly.net/issues/issue-476/badge?style=flat-square)](https://androidweekly.net/issues/issue-476)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/887abd593a5a499495c4f071accb132a)](https://app.codacy.com/app/akshay2211/PixImagePicker?utm_source=github.com&utm_medium=referral&utm_content=akshay2211/PixImagePicker&utm_campaign=Badge_Grade_Dashboard)
 [![](https://img.shields.io/badge/Android%20Arsenal-PixImagePicker-blue.svg?style=flat-square)](https://android-arsenal.com/details/1/6935)
@@ -12,15 +13,6 @@ Pix is a WhatsApp image picker replica. with this you can integrate a image pick
 [![Pix Image Picker](https://www.appbrain.com/stats/libraries/shield/pix-image-picker.svg)](https://www.appbrain.com/stats/libraries/details/pix-image-picker/pix-image-picker)
 <img src="http://img.shields.io/liberapay/receives/akshay2211.svg?logo=liberapay">
 [![xscode](https://img.shields.io/badge/Available%20on-xs%3Acode-blue?style=?style=plastic&logo=appveyor&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////////VXz1bAAAAAJ0Uk5T/wDltzBKAAAAlUlEQVR42uzXSwqAMAwE0Mn9L+3Ggtgkk35QwcnSJo9S+yGwM9DCooCbgn4YrJ4CIPUcQF7/XSBbx2TEz4sAZ2q1RAECBAiYBlCtvwN+KiYAlG7UDGj59MViT9hOwEqAhYCtAsUZvL6I6W8c2wcbd+LIWSCHSTeSAAECngN4xxIDSK9f4B9t377Wd7H5Nt7/Xz8eAgwAvesLRjYYPuUAAAAASUVORK5CYII=)](https://xscode.com/akshay2211/piximagepicker)
-
-## New in PixImagePicker
-1. Androidx Camera API integration
-2. Scoped storage to support Android Version 30
-3. Minimum SDK from 19 to 21
-4. Migration from Java to Kotlin
-5. Ability to use it as a Fragment
-6. Re-structuring from scratch
-
 
  
 ## Demo
