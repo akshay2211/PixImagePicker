@@ -104,7 +104,7 @@ Become a backer and help us sustain our activities! 🙏🙏
 <a href="https://opencollective.com/piximagepicker#backers" target="_blank"><img src="https://opencollective.com/piximagepicker/backers.svg?width=890"></a>
 
 ## Download
-[![Download](https://search.maven.org/artifact/io.ak1.pix/piximagepicker)](https://search.maven.org/artifact/io.ak1.pix/piximagepicker) or grab via Gradle:
+[Download](https://search.maven.org/artifact/io.ak1.pix/piximagepicker) or grab via Gradle:
  
 include in app level build.gradle
  ```groovy
