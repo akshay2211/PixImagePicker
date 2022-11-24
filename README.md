@@ -131,7 +131,8 @@ or ivy:
 </dependency>
 ```
 
-#### Find docs for old versions in wiki [1.5.6](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.5.6) and [1.2.5](https://github.com/akshay2211/PixImagePicker/wiki/Documendation-ver-1.2.5)
+#### Find docs for old versions in [wiki](https://github.com/akshay2211/PixImagePicker/wiki) for 1.5.6 and 1.2.5
+#### Also you can find the source for version 1.5.6 [here](https://github.com/akshay2211/PixImagePicker/tree/activity_branch).
 
 ## License
 Licensed under the Apache License, Version 2.0, [click here for the full license](/LICENSE).
