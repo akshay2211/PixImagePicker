@@ -142,7 +142,7 @@ internal fun FragmentPixBinding.setupClickControls(
                         videoCounterLayout.videoCounterLayout.hide()
                         videoCounterHandler.removeCallbacks(videoCounterRunnable)
                         videoRecordingEndAnim()
-                        cameraXManager?.videoCapture?.stopRecording()
+                      //  cameraXManager?.videoCapture?.stopRecording()
                     } else {
                         videoCounterHandler.postDelayed(this, 1000)
                     }
@@ -196,7 +196,7 @@ internal fun FragmentPixBinding.setupClickControls(
                 videoCounterLayout.videoCounterLayout.hide()
                 videoCounterHandler.removeCallbacks(videoCounterRunnable)
                 videoRecordingEndAnim()
-                cameraXManager?.videoCapture?.stopRecording()
+                //  cameraXManager?.videoCapture?.stopRecording()
             }
             false
         }

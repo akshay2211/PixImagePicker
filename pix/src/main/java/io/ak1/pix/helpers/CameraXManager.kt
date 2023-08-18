@@ -4,9 +4,10 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.DisplayMetrics
 import android.util.Log
-import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.Recorder
+import androidx.camera.video.VideoCapture
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -18,7 +19,6 @@ import io.ak1.pix.models.Ratio
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -36,7 +36,7 @@ class CameraXManager(
     private val executor = ContextCompat.getMainExecutor(requireActivity)
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
     var imageCapture: ImageCapture? = null
-    var videoCapture: VideoCapture? = null
+    var videoCapture: VideoCapture<Recorder>? = null
     private var useCases = ArrayList<UseCase>()
     private var preview: Preview? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -191,15 +191,16 @@ class CameraXManager(
         screenAspectRatio: Int, videoBitrate: Int?,
         audioBitrate: Int?,
         videoFrameRate: Int?
-    ): VideoCapture {
-        val builder = VideoCapture.Builder().apply {
+    ): VideoCapture<Recorder> {
+        val recorder = Recorder.Builder().build()
+        val builder = VideoCapture.Builder(recorder).apply {
             //setTargetRotation(previewView.display.rotation)
             // setAudioRecordSource()
             //setAudioSource(MediaRecorder.AudioSource
-            videoBitrate?.let { setBitRate(it) }
-            audioBitrate?.let { setAudioBitRate(it) }
-            videoFrameRate?.let { setVideoFrameRate(it) }
-        }.setTargetAspectRatio(screenAspectRatio)
+            /*  videoBitrate?.let { setBitRate(it) }
+              audioBitrate?.let { setAudioBitRate(it) }
+              videoFrameRate?.let { setVideoFrameRate(it) }*/
+        }//.setTargetAspectRatio(screenAspectRatio)
         return builder.build()
     }
 
@@ -317,23 +318,23 @@ class CameraXManager(
                 FILENAME_FORMAT, Locale.US
             ).format(System.currentTimeMillis()) + ".mp4"
         )
-        videoCapture?.startRecording(
-            VideoCapture.OutputFileOptions.Builder(videoFile).build(),
-            executor,
-            object : VideoCapture.OnVideoSavedCallback {
-                override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
-                    val savedUri = Uri.fromFile(videoFile)
-                    val msg = "Photo capture succeeded: $savedUri"
-                    Log.e(TAG, msg)
-                    outputFileResults.savedUri
-                    callback(outputFileResults.savedUri ?: Uri.EMPTY, null)
-                }
+        /* videoCapture?.startRecording(
+             VideoCapture.OutputFileOptions.Builder(videoFile).build(),
+             executor,
+             object : VideoCapture.OnVideoSavedCallback {
+                 override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
+                     val savedUri = Uri.fromFile(videoFile)
+                     val msg = "Photo capture succeeded: $savedUri"
+                     Log.e(TAG, msg)
+                     outputFileResults.savedUri
+                     callback(outputFileResults.savedUri ?: Uri.EMPTY, null)
+                 }
 
-                override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
-                    Log.e(TAG, "video Capture failed: $message", cause)
-                    callback(Uri.EMPTY, message)
-                }
-            })
+                 override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
+                     Log.e(TAG, "video Capture failed: $message", cause)
+                     callback(Uri.EMPTY, message)
+                 }
+             })*/
         //videoCapture?.stopRecording()
     }
 

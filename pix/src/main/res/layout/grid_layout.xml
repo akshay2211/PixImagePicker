@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/grid_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/grid_layout"
+    <View
+        android:id="@+id/status_bar_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:visibility="gone"
-            android:id="@+id/status_bar_bg"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_top"
-            android:background="@color/primary_color_pix"
+        android:layout_height="@dimen/margin_top"
+        android:background="@color/primary_color_pix"
+        android:visibility="gone"
             android:translationY="@dimen/margin_top_nve" />
 
 
@@ -196,5 +194,3 @@
             layout="@layout/controls_layout" />
 
     </FrameLayout>
-
-</merge>

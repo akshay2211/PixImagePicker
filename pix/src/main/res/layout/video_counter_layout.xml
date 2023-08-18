@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/video_counter_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|top"
+    android:layout_marginTop="@dimen/margin_video_counter_pix"
+    android:elevation="100dp"
+    android:orientation="horizontal"
+    android:visibility="gone">
 
-    <LinearLayout
-        android:id="@+id/video_counter_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="@dimen/margin_video_counter_pix"
-        android:elevation="100dp"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <FrameLayout
+    <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical">
@@ -47,4 +45,3 @@
             android:textSize="12sp" />
 
     </LinearLayout>
-</merge>

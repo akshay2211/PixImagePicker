@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/permissions_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="24dp"
+    android:visibility="gone"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/permissions_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="24dp"
-        android:visibility="gone"
-        app:cardElevation="0dp"
-        app:strokeWidth="1dp">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="24dp"
@@ -43,4 +41,3 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </com.google.android.material.card.MaterialCardView>
-</merge>
