@@ -15,6 +15,7 @@ import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.Ratio
+import io.ak1.pix.utility.PixBindings
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,7 +47,7 @@ class CameraXManager(
 
 
     /** Initialize CameraX, and prepare to bind the camera use cases  */
-    fun setUpCamera(binding: FragmentPixBinding) {
+    fun setUpCamera(binding: PixBindings) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity)
         cameraProviderFuture.addListener({
             // CameraProvider
@@ -57,7 +58,7 @@ class CameraXManager(
     }
 
     /** Declare and bind preview, capture and analysis use cases */
-    fun bindCameraUseCases(binding: FragmentPixBinding) {
+    fun bindCameraUseCases(binding: PixBindings) {
         // Check if view is correctly attached to window, stop binding otherwise
         val display = previewView.display ?: return
 
@@ -172,11 +173,11 @@ class CameraXManager(
                 *useCases.toTypedArray()
             )
             if (camera.cameraInfo.hasFlashUnit()) {
-                binding.gridLayout.controlsLayout.flashButton.show()
+                binding.controlsLayout.flashButton.show()
                 binding.setDrawableIconForFlash(options)
             }
             if (options.flash == Flash.Disabled) {
-                binding.gridLayout.controlsLayout.flashButton.hide()
+                binding.controlsLayout.flashButton.hide()
             }
             // Attach the viewfinder's surface provider to preview use case
             preview?.setSurfaceProvider(previewView.surfaceProvider)

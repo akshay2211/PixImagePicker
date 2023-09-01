@@ -18,8 +18,10 @@ import io.ak1.pix.R
 
 import io.ak1.pix.adapters.MainImageAdapter
 import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.databinding.GridLayoutBinding
 import io.ak1.pix.utility.HeaderItemDecoration
 import io.ak1.pix.utility.IMAGE_VIDEO_URI
+import io.ak1.pix.utility.PixBindings
 import java.io.File
 
 /**
@@ -74,7 +76,7 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
         callback?.invoke(mainUri)
     }
 
-fun FragmentActivity.setUpMargins(binding: FragmentPixBinding) {
+fun FragmentActivity.setUpMargins(binding: PixBindings) {
     val height =
         if (this@setUpMargins.navigationBarHeight < 50) 0 else this@setUpMargins.navigationBarHeight
     binding.gridLayout.mainContent.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -85,7 +87,7 @@ fun FragmentActivity.setUpMargins(binding: FragmentPixBinding) {
             height
         )
     }
-    binding.gridLayout.controlsLayout.controlsLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+    binding.controlsLayout.controlsLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
         updateMargins(0, 0, 0, height)
     }
     binding.gridLayout.sendButton.apply {

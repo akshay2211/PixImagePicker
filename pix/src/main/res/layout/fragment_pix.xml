@@ -10,15 +10,12 @@
         app:scaleType="fitCenter" />
 
     <include
-        android:id="@+id/video_counter_layout"
         layout="@layout/video_counter_layout" />
 
     <include
-        android:id="@+id/grid_layout"
         layout="@layout/grid_layout" />
 
     <include
-        android:id="@+id/permissions_layout"
         layout="@layout/permissions_layout" />
 
 
