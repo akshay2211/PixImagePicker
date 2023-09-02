@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.PixFragment
 import io.ak1.pix.R
 import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.utility.PixBindings
 import io.ak1.pix.utility.sScrollbarAnimDuration
 import kotlin.math.max
 import kotlin.math.min
@@ -56,17 +57,17 @@ fun getValueInRange(min: Int, max: Int, value: Int): Int {
     return min(minimum, max)
 }
 
-internal fun FragmentPixBinding.setViewPositions(y: Float) {
+internal fun PixBindings.setViewPositions(y: Float) {
     val handleY: Int = getValueInRange(
         0, (mViewHeight - gridLayout.fastscrollHandle.height).toInt(),
         (y - gridLayout.fastscrollHandle.height / 2).toInt()
     )
-    gridLayout.fastscrollBubble.y = handleY + root.context.toPx(60f)
+    gridLayout.fastscrollBubble.y = handleY + fragmentPix.root.context.toPx(60f)
     gridLayout.fastscrollHandle.y = handleY.toFloat()
 }
 
 
-fun FragmentPixBinding.hideScrollbar() {
+fun PixBindings.hideScrollbar() {
     //val transX = resources.getDimensionPixelSize(R.dimen.fastscroll_scrollbar_padding_end).toFloat()
     mScrollbarAnimator =
         gridLayout.fastscrollScrollbar.animate().translationX(
@@ -91,7 +92,7 @@ fun FragmentPixBinding.hideScrollbar() {
 
 fun scrollListener(
     fragment: PixFragment,
-    binding: FragmentPixBinding
+    binding: PixBindings
 ): RecyclerView.OnScrollListener =
     object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -136,7 +137,7 @@ fun getScrollProportion(recyclerView: RecyclerView?): Float {
     return mViewHeight * proportion
 }
 
-fun FragmentPixBinding.hideBubble() {
+fun PixBindings.hideBubble() {
     if (gridLayout.fastscrollBubble.isVisible) {
         mBubbleAnimator = gridLayout.fastscrollBubble.animate().alpha(0f)
             .setDuration(sBubbleAnimDuration.toLong())
@@ -158,7 +159,7 @@ fun FragmentPixBinding.hideBubble() {
 }
 
 
-fun FragmentPixBinding.setRecyclerViewPosition(y: Float) {
+fun PixBindings.setRecyclerViewPosition(y: Float) {
     if (gridLayout.recyclerView.adapter != null) {
         val itemCount = gridLayout.recyclerView.adapter!!.itemCount
         val proportion: Float = when {
@@ -177,7 +178,7 @@ fun FragmentPixBinding.setRecyclerViewPosition(y: Float) {
     }
 }
 
-fun FragmentPixBinding.showBubble() {
+fun PixBindings.showBubble() {
     if (!gridLayout.fastscrollBubble.isVisible) {
         gridLayout.fastscrollBubble.show()
         gridLayout.fastscrollBubble.alpha = 0f

@@ -20,7 +20,11 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import io.ak1.pix.adapters.InstantImageAdapter
 import io.ak1.pix.adapters.MainImageAdapter
+import io.ak1.pix.databinding.ControlsLayoutBinding
 import io.ak1.pix.databinding.FragmentPixBinding
+import io.ak1.pix.databinding.GridLayoutBinding
+import io.ak1.pix.databinding.PermissionsLayoutBinding
+import io.ak1.pix.databinding.VideoCounterLayoutBinding
 import io.ak1.pix.helpers.*
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
@@ -29,6 +33,7 @@ import io.ak1.pix.models.PixViewModel
 import io.ak1.pix.utility.ARG_PARAM_PIX
 import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import io.ak1.pix.utility.CustomItemTouchListener
+import io.ak1.pix.utility.PixBindings
 import kotlinx.coroutines.*
 import java.lang.Runnable
 import kotlin.coroutines.cancellation.CancellationException
@@ -42,7 +47,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     Fragment(), View.OnTouchListener {
 
     private val model: PixViewModel by viewModels()
-    private var _binding: FragmentPixBinding? = null
+    private var _binding: PixBindings? = null
     private val binding get() = _binding!!
 
     private var permReqLauncher =
@@ -102,8 +107,15 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ) = run {
-        _binding = FragmentPixBinding.inflate(inflater, container, false)
-        binding.root
+        val fragmentPixBinding = FragmentPixBinding.inflate(inflater, container, false)
+        _binding = PixBindings(
+            fragmentPixBinding,
+            VideoCounterLayoutBinding.bind(fragmentPixBinding.root),
+            PermissionsLayoutBinding.bind(fragmentPixBinding.root),
+            GridLayoutBinding.bind(fragmentPixBinding.root),
+            ControlsLayoutBinding.bind(fragmentPixBinding.root)
+        )
+        fragmentPixBinding.root
     }
 
 
@@ -152,7 +164,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     private fun initialise(context: FragmentActivity) {
         binding.permissionsLayout.permissionsLayout.hide()
         binding.gridLayout.gridLayout.show()
-        cameraXManager = CameraXManager(binding.viewFinder, context, options).also {
+        cameraXManager = CameraXManager(binding.fragmentPix.viewFinder, context, options).also {
             it.startCamera()
         }
         setupAdapters(context)
@@ -371,7 +383,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
     private fun CameraXManager.startCamera() {
         setUpCamera(binding)
-        binding.gridLayout.controlsLayout.flashButton.show()
+        binding.controlsLayout.flashButton.show()
         binding.setDrawableIconForFlash(options)
     }
 

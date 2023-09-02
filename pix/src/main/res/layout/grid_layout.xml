@@ -152,7 +152,7 @@
                             android:background="@drawable/ic_expand_less_black_24dp" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/instantRecyclerView"
+                            android:id="@+id/instant_recycler_view"
                             android:layout_width="match_parent"
                             android:layout_height="82dp"
                             android:orientation="horizontal"
@@ -192,7 +192,6 @@
         </FrameLayout>
 
         <include
-            android:id="@+id/controls_layout"
             layout="@layout/controls_layout" />
 
     </FrameLayout>

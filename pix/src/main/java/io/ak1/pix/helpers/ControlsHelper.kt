@@ -21,6 +21,7 @@ import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
 import io.ak1.pix.models.PixViewModel
+import io.ak1.pix.utility.PixBindings
 import io.ak1.pix.utility.TAG
 
 /**
@@ -28,8 +29,8 @@ import io.ak1.pix.utility.TAG
  * https://ak1.io
  */
 
-fun FragmentPixBinding.setDrawableIconForFlash(options: Options) {
-    gridLayout.controlsLayout.flashImage.setImageResource(
+fun PixBindings.setDrawableIconForFlash(options: Options) {
+    controlsLayout.flashImage.setImageResource(
         when (options.flash) {
             Flash.Off -> R.drawable.ic_flash_off_black_24dp
             Flash.On -> R.drawable.ic_flash_on_black_24dp
@@ -70,20 +71,20 @@ fun ViewGroup.setOnClickForFLash(options: Options, callback: (Options) -> Unit) 
 }
 
 @SuppressLint("ClickableViewAccessibility,RestrictedApi")
-internal fun FragmentPixBinding.setupClickControls(
+internal fun PixBindings.setupClickControls(
     model: PixViewModel,
     cameraXManager: CameraXManager?,
     options: Options,
     callback: (Int, Uri) -> Unit
 ) {
-    gridLayout.controlsLayout.messageBottom.setText(
+    controlsLayout.messageBottom.setText(
         when (options.mode) {
             Mode.Picture -> R.string.pix_bottom_message_without_video
             Mode.Video -> R.string.pix_bottom_message_with_only_video
             else -> R.string.pix_bottom_message_with_video
         }
     )
-    gridLayout.controlsLayout.primaryClickButton.apply {
+    controlsLayout.primaryClickButton.apply {
         var videoCounterProgress: Int
 
         val videoCounterHandler = Handler(Looper.getMainLooper())
@@ -167,24 +168,24 @@ internal fun FragmentPixBinding.setupClickControls(
         }
         setOnTouchListener { _, event ->
             if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
-                gridLayout.controlsLayout.primaryClickBackground.hide()
-                gridLayout.controlsLayout.primaryClickBackground.animate().scaleX(1f).scaleY(1f)
+                controlsLayout.primaryClickBackground.hide()
+                controlsLayout.primaryClickBackground.animate().scaleX(1f).scaleY(1f)
                     .setDuration(300).setInterpolator(
                         AccelerateDecelerateInterpolator()
                     ).start()
-                gridLayout.controlsLayout.primaryClickButton.animate().scaleX(1f)
+                controlsLayout.primaryClickButton.animate().scaleX(1f)
                     .scaleY(1f).setDuration(300).setInterpolator(
                         AccelerateDecelerateInterpolator()
                     ).start()
-                root.requestDisallowInterceptTouchEvent(false)
+                fragmentPix.root.requestDisallowInterceptTouchEvent(false)
             } else if (event.action == MotionEvent.ACTION_DOWN) {
-                gridLayout.controlsLayout.primaryClickBackground.show()
-                gridLayout.controlsLayout.primaryClickBackground.animate().scaleX(1.2f).scaleY(1.2f)
+                controlsLayout.primaryClickBackground.show()
+                controlsLayout.primaryClickBackground.animate().scaleX(1.2f).scaleY(1.2f)
                     .setDuration(300).setInterpolator(AccelerateDecelerateInterpolator()).start()
-                gridLayout.controlsLayout.primaryClickButton.animate().scaleX(1.2f)
+                controlsLayout.primaryClickButton.animate().scaleX(1.2f)
                     .scaleY(1.2f).setDuration(300)
                     .setInterpolator(AccelerateDecelerateInterpolator()).start()
-                root.requestDisallowInterceptTouchEvent(true)
+                fragmentPix.root.requestDisallowInterceptTouchEvent(true)
             }
             if ((event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) && isRecording) {
                 gridLayout.initialRecyclerviewContainer.apply {
@@ -208,7 +209,7 @@ internal fun FragmentPixBinding.setupClickControls(
             callback(2, Uri.EMPTY)
         }
     }
-    gridLayout.controlsLayout.flashButton.setOnClickForFLash(options) {
+    controlsLayout.flashButton.setOnClickForFLash(options) {
         setDrawableIconForFlash(it)
         cameraXManager?.imageCapture?.flashMode = when (options.flash) {
             Flash.Auto -> ImageCapture.FLASH_MODE_AUTO
@@ -217,15 +218,15 @@ internal fun FragmentPixBinding.setupClickControls(
             else -> ImageCapture.FLASH_MODE_AUTO
         }
     }
-    gridLayout.controlsLayout.lensFacing.setOnClickListener {
+    controlsLayout.lensFacing.setOnClickListener {
         val oa1 = ObjectAnimator.ofFloat(
-            gridLayout.controlsLayout.lensFacing,
+            controlsLayout.lensFacing,
             "scaleX",
             1f,
             0f
         ).setDuration(150)
         val oa2 = ObjectAnimator.ofFloat(
-            gridLayout.controlsLayout.lensFacing,
+            controlsLayout.lensFacing,
             "scaleX",
             0f,
             1f
@@ -233,7 +234,7 @@ internal fun FragmentPixBinding.setupClickControls(
         oa1.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
                 super.onAnimationEnd(animation)
-                gridLayout.controlsLayout.lensFacing.setImageResource(R.drawable.ic_photo_camera)
+                controlsLayout.lensFacing.setImageResource(R.drawable.ic_photo_camera)
                 oa2.start()
             }
         })
@@ -243,11 +244,11 @@ internal fun FragmentPixBinding.setupClickControls(
     }
 }
 
-fun FragmentPixBinding.longSelectionStatus(
+fun PixBindings.longSelectionStatus(
     enabled: Boolean
 ) {
-    val colorPrimaryDark = root.context.color(R.color.primary_color_pix)
-    val colorSurface = root.context.color(R.color.surface_color_pix)
+    val colorPrimaryDark = fragmentPix.root.context.color(R.color.primary_color_pix)
+    val colorSurface = fragmentPix.root.context.color(R.color.surface_color_pix)
 
     if (enabled) {
         gridLayout.selectionCheck.hide()
@@ -263,7 +264,7 @@ fun FragmentPixBinding.longSelectionStatus(
     }
 }
 
-fun FragmentPixBinding.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
+fun PixBindings.setSelectionText(fragmentActivity: FragmentActivity, size: Int = 0) {
     gridLayout.selectionCount.text = if (size == 0) {
         gridLayout.selectionOk.hide()
         fragmentActivity.resources.getString(R.string.pix_tap_to_select)
