@@ -68,13 +68,16 @@ class MainActivity : AppCompatActivity() {
                     30
                 }
             }
+            /**
+             * allow to user can select 5 image first time.
+             */
             count = try {
-                sp.getString("count", "1")?.toInt() ?: 1
+                sp.getString("count", "5")?.toInt() ?: 5
             } catch (e: Exception) {
                 sp.apply {
-                    edit().putString("count", "1").commit()
+                    edit().putString("count", "5").commit()
                 }
-                1
+                5
             }
             spanCount = sp.getString("spanCount", "4")?.toInt() ?: 4
         }
