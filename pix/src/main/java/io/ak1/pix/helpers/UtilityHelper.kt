@@ -17,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.R
 
 import io.ak1.pix.adapters.MainImageAdapter
-import io.ak1.pix.databinding.FragmentPixBinding
-import io.ak1.pix.databinding.GridLayoutBinding
 import io.ak1.pix.utility.HeaderItemDecoration
 import io.ak1.pix.utility.IMAGE_VIDEO_URI
 import io.ak1.pix.utility.PixBindings
@@ -63,7 +61,7 @@ val Int.counterText: String
         return "$min:$sec"
     }
 
-fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
+fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null){
     MediaScannerConnection.scanFile(
         this,
         arrayOf(file.toString()),
@@ -74,7 +72,7 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) =
             uri.lastPathSegment
         )
         callback?.invoke(mainUri)
-    }
+    }}
 
 fun FragmentActivity.setUpMargins(binding: PixBindings) {
     val height =

@@ -16,7 +16,6 @@ import androidx.camera.core.ImageCapture
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.FragmentActivity
 import io.ak1.pix.R
-import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
@@ -143,7 +142,7 @@ internal fun PixBindings.setupClickControls(
                         videoCounterLayout.videoCounterLayout.hide()
                         videoCounterHandler.removeCallbacks(videoCounterRunnable)
                         videoRecordingEndAnim()
-                        cameraXManager?.videoCapture?.stopRecording()
+                        cameraXManager?.recording?.stop()
                     } else {
                         videoCounterHandler.postDelayed(this, 1000)
                     }
@@ -197,7 +196,7 @@ internal fun PixBindings.setupClickControls(
                 videoCounterLayout.videoCounterLayout.hide()
                 videoCounterHandler.removeCallbacks(videoCounterRunnable)
                 videoRecordingEndAnim()
-                cameraXManager?.videoCapture?.stopRecording()
+                cameraXManager?.recording?.stop()
             }
             false
         }

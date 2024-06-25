@@ -1,16 +1,24 @@
 package io.ak1.pix.helpers
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.net.Uri
+import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
-import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.video.FallbackStrategy
+import androidx.camera.video.MediaStoreOutputOptions
+import androidx.camera.video.Quality
+import androidx.camera.video.QualitySelector
+import androidx.camera.video.Recorder
+import androidx.camera.video.Recording
+import androidx.camera.video.VideoCapture
+import androidx.camera.video.VideoRecordEvent
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.models.Flash
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.Options
@@ -34,10 +42,11 @@ class CameraXManager(
     private val requireActivity: FragmentActivity,
     private val options: Options,
 ) {
+    var recording: Recording? = null
     private val executor = ContextCompat.getMainExecutor(requireActivity)
     private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
     var imageCapture: ImageCapture? = null
-    var videoCapture: VideoCapture? = null
+    var videoCapture: VideoCapture<Recorder>? = null
     private var useCases = ArrayList<UseCase>()
     private var preview: Preview? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -187,92 +196,29 @@ class CameraXManager(
     }
 
 
+
     @SuppressLint("RestrictedApi")
     private fun createVideoCaptureUseCase(
         screenAspectRatio: Int, videoBitrate: Int?,
         audioBitrate: Int?,
         videoFrameRate: Int?
-    ): VideoCapture {
-        val builder = VideoCapture.Builder().apply {
-            //setTargetRotation(previewView.display.rotation)
-            // setAudioRecordSource()
-            //setAudioSource(MediaRecorder.AudioSource
-            videoBitrate?.let { setBitRate(it) }
-            audioBitrate?.let { setAudioBitRate(it) }
-            videoFrameRate?.let { setVideoFrameRate(it) }
-        }.setTargetAspectRatio(screenAspectRatio)
-        return builder.build()
-    }
+    ): VideoCapture<Recorder> {
 
+        val qualitySelector = QualitySelector.fromOrderedList(
+            listOf(Quality.UHD, Quality.FHD, Quality.HD, Quality.SD),
+            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD))
 
-    /*private fun createImageAnalyserUseCase(): ImageAnalysis {
-        val imageAnalysis = ImageAnalysis.Builder()
-            .setTargetResolution(Size(1280, 720))
-            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
-            .build()
-
-        imageAnalysis.setAnalyzer(executor, {
-            //image as a param
-            //val rotationDegrees = image.imageInfo.rotationDegrees
-            // insert your code here.
-        })
-        return imageAnalysis
-    }
-
-    private fun createPreviewUseCase(): Preview {
-        return Preview.Builder().apply {
-        }
-            .build()
-            .also {
-                it.setSurfaceProvider(previewView.surfaceProvider)
-
+        val recorder = Recorder.Builder()
+            .setExecutor(executor)
+            .setQualitySelector(qualitySelector)
+            .setAspectRatio(screenAspectRatio).apply {
+            videoBitrate?.let { this.setTargetVideoEncodingBitRate(it) }
             }
-    }
-
-    private fun createImageCaptureUseCase(options: Options): ImageCapture {
-        //reference
-        //https://developer.android.com/reference/androidx/camera/extensions/AutoImageCaptureExtender
-
-        val builder = ImageCapture.Builder().apply {
-            // setTargetRotation(previewView.display.rotation)
-            Log.e("flash mode", "->   ${options.flash.name}")
-            setFlashMode(
-                when (options.flash) {
-                    Flash.Auto -> ImageCapture.FLASH_MODE_AUTO
-                    Flash.Off -> ImageCapture.FLASH_MODE_OFF
-                    Flash.On -> ImageCapture.FLASH_MODE_ON
-                    else -> ImageCapture.FLASH_MODE_AUTO
-                }
-            )
-
-        }
-        /**
-         *
-        // Create an Extender object which can be used to apply extension
-        // configurations.
-        val bokehImageCapture = BokehImageCaptureExtender.create(builder)
-        if (bokehImageCapture.isExtensionAvailable(cameraSelector)) {
-        // Enable the extension if available.
-        bokehImageCapture.enableExtension(cameraSelector)
-        }
-        val hdrImageCaptureExtender = HdrImageCaptureExtender.create(builder)
-        if (hdrImageCaptureExtender.isExtensionAvailable(cameraSelector)) {
-        // Enable the extension if available.
-        hdrImageCaptureExtender.enableExtension(cameraSelector)
-        }
-        val nightImageCaptureExtender = NightImageCaptureExtender.create(builder)
-        if (nightImageCaptureExtender.isExtensionAvailable(cameraSelector)) {
-        // Enable the extension if available.
-        nightImageCaptureExtender.enableExtension(cameraSelector)
-        }
-
-         */
-
-        return builder
-            // .setTargetRotation(view.display.rotation)
             .build()
 
-    }*/
+        val videoCapture = VideoCapture.withOutput(recorder)
+        return videoCapture
+    }
 
     fun takePhoto(callback: (Uri, String?) -> Unit) {
         // Get a stable reference of the modifiable image capture use case
@@ -305,37 +251,49 @@ class CameraXManager(
                     val msg = "Photo capture succeeded: $savedUri"
                     //Toast.makeText(requireActivity, msg, Toast.LENGTH_SHORT).show()
                     Log.d("TAG", msg)
-                    callback(savedUri, null)
+                    requireActivity.scanPhoto(photoFile){
+                        output.savedUri?.let {
+                            callback(it, null)
+                        }
+                    }
                 }
             })
     }
 
     @SuppressLint("RestrictedApi", "MissingPermission")
     fun takeVideo(callback: (Uri, String?) -> Unit) {
-        val videoFile = File(
-            getOutputDirectory(),
-            SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
-            ).format(System.currentTimeMillis()) + ".mp4"
-        )
-        videoCapture?.startRecording(
-            VideoCapture.OutputFileOptions.Builder(videoFile).build(),
-            executor,
-            object : VideoCapture.OnVideoSavedCallback {
-                override fun onVideoSaved(outputFileResults: VideoCapture.OutputFileResults) {
-                    val savedUri = Uri.fromFile(videoFile)
-                    val msg = "Photo capture succeeded: $savedUri"
-                    Log.e(TAG, msg)
-                    outputFileResults.savedUri
-                    callback(outputFileResults.savedUri ?: Uri.EMPTY, null)
-                }
+        // Create MediaStoreOutputOptions for our recorder
+        val name = "Pix-recording-" +
+            SimpleDateFormat(FILENAME_FORMAT, Locale.US)
+                    .format(System.currentTimeMillis()) + ".mp4"
+        val contentValues = ContentValues().apply {
+            put(MediaStore.Video.Media.DISPLAY_NAME, name)
+        }
+        val mediaStoreOutput = MediaStoreOutputOptions.Builder(requireActivity.contentResolver,
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            .setContentValues(contentValues)
+            .build()
 
-                override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
-                    Log.e(TAG, "video Capture failed: $message", cause)
-                    callback(Uri.EMPTY, message)
+if (videoCapture==null) return
+        recording = null
+         recording = videoCapture!!.output
+            .prepareRecording(requireActivity, mediaStoreOutput)
+            .withAudioEnabled()
+            .start(executor
+            ) {vre ->
+            when (vre) {
+                is VideoRecordEvent.Start -> {
+                    Log.d(TAG, "Recording started")
                 }
-            })
-        //videoCapture?.stopRecording()
+                is VideoRecordEvent.Pause -> {
+                    Log.d(TAG, "Recording stopped")
+                }
+                is VideoRecordEvent.Resume -> {
+                }
+                is VideoRecordEvent.Finalize ->{
+                    callback(vre.outputResults.outputUri, null)
+                }
+            }}
     }
 
     private fun getOutputDirectory(): File {

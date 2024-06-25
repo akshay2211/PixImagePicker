@@ -48,7 +48,7 @@ fun fragmentBody(
                 this.gravity = Gravity.RIGHT or Gravity.BOTTOM
             }
             imageTintList = ColorStateList.valueOf(Color.WHITE)
-            setImageResource(R.drawable.ic_photo_camera)
+            setImageResource(io.ak1.pix.R.drawable.ic_photo_camera)
             setOnClickListener(clickCallback)
         })
     }

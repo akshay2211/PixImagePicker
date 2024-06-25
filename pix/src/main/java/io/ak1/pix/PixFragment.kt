@@ -209,7 +209,9 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         model.longSelection.observe(requireActivity()) {
             //Log.e(TAG, "longSelection is now changed to  $it")
             binding.longSelectionStatus(it)
-            if (mBottomSheetBehavior?.state ?: BottomSheetBehavior.STATE_COLLAPSED == BottomSheetBehavior.STATE_COLLAPSED) {
+            if ((mBottomSheetBehavior?.state
+                    ?: BottomSheetBehavior.STATE_COLLAPSED) == BottomSheetBehavior.STATE_COLLAPSED
+            ) {
                 binding.gridLayout.sendButtonStateAnimation(it)
             }
         }
@@ -270,14 +272,14 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 0 -> model.returnObjects()
                 1 -> mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
                 2 -> model.longSelection.postValue(true)
-                3 -> requireActivity().scanPhoto(uri.toFile()) { it ->
+                3 -> {
                     if (model.selectionList.value.isNullOrEmpty()) {
-                        model.selectionList.value?.add(Img(contentUrl = it))
+                        model.selectionList.value?.add(Img(contentUrl = uri))
                         scope.cancel(CancellationException("canceled intentionally"))
                         model.returnObjects()
-                        return@scanPhoto
+                        return@setupClickControls
                     }
-                    model.selectionList.value?.add(Img(contentUrl = it))
+                    model.selectionList.value?.add(Img(contentUrl = uri))
                     Handler(Looper.getMainLooper()).post {
                         binding.setSelectionText(
                             requireActivity(),
