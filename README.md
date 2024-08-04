@@ -31,6 +31,7 @@ set configuration as
         mode = Mode.All                                             //Option to select only pictures or videos or both
         flash = Flash.Auto                                          //Option to select flash type
         preSelectedUrls = ArrayList<Uri>()                          //Pre selected Image Urls
+        videoOptions : VideoOptions                                 //Video configurations
     }
 
 ```
@@ -112,20 +113,20 @@ include in app level build.gradle
  }
  ```
 ```groovy
- implementation  'io.ak1.pix:piximagepicker:1.6.3'
+ implementation  'io.ak1.pix:piximagepicker:1.6.5'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>io.ak1.pix</groupId>
   <artifactId>piximagepicker</artifactId>
-  <version>1.6.3</version>
+  <version>1.6.5</version>
   <type>pom</type>
 </dependency>
 ```
 or ivy:
 ```xml
-<dependency org='io.ak1.pix' name='piximagepicker' rev='1.6.3'>
+<dependency org='io.ak1.pix' name='piximagepicker' rev='1.6.5'>
   <artifact name='pix' ext='pom' ></artifact>
 </dependency>
 ```
