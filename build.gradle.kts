@@ -6,14 +6,6 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven" }
-    }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register<Delete>("clean") {
+    delete(layout.buildDirectory)
 }
