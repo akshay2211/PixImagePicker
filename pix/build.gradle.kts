@@ -3,8 +3,12 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
     id("kotlin-parcelize")
-    id("maven-publish")
+    alias(libs.plugins.maven.publish)
+    signing
 }
+
+group = "io.ak1.pix"
+version = "1.6.8"
 
 android {
     compileSdk = 36
@@ -69,4 +73,8 @@ dependencies {
     // Testing
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
+}
+
+signing {
+    sign(publishing.publications)
 }
