@@ -50,15 +50,16 @@ jobs:
       - name: Generate Dokka documentation
         run: |
           chmod +x gradlew
-          ./gradlew :pix:dokkaHtml
+          ./gradlew :pix:dokkaGenerate
         continue-on-error: true
 
       - name: Copy Dokka to docs
         run: |
           mkdir -p docs/api
           if [ -d "pix/build/dokka/html" ]; then
-            cp -r pix/build/dokka/html/* docs/api/
+            cp -r pix/build/dokka/html/. docs/api/
             echo "✓ Dokka copied successfully"
+            ls -la docs/api/ | head -10
           else
             echo "⚠ Dokka not found, continuing without API docs"
           fi
@@ -73,11 +74,9 @@ jobs:
 
       - name: Upload Pages artifact
         if: github.event_name == 'push'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: github-pages
-          path: site/
-          retention-days: 1
+          path: 'site/'
 
   deploy:
     needs: build
