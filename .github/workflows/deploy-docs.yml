@@ -5,6 +5,8 @@ on:
     branches:
       - master
       - main
+    tags:
+      - 'v*'
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
@@ -18,7 +20,7 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -34,6 +36,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -64,7 +67,7 @@ jobs:
             echo "⚠ Dokka not found, continuing without API docs"
           fi
 
-      - name: Install MkDocs dependencies
+      - name: Install MkDocs and mike
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
@@ -72,20 +75,53 @@ jobs:
       - name: Build documentation with MkDocs
         run: mkdocs build
 
-      - name: Upload Pages artifact
+      - name: Configure git for mike
         if: github.event_name == 'push'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Get version tag
+        if: github.event_name == 'push'
+        id: version
+        run: |
+          if [[ "${{ github.ref }}" == "refs/tags/v"* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/}"
+            echo "version=${VERSION}" >> $GITHUB_OUTPUT
+            echo "is_release=true" >> $GITHUB_OUTPUT
+            echo "✓ Release version detected: ${VERSION}"
+          else
+            echo "version=dev" >> $GITHUB_OUTPUT
+            echo "is_release=false" >> $GITHUB_OUTPUT
+            echo "ℹ Dev version"
+          fi
+
+      - name: Deploy with mike (Release version)
+        if: github.event_name == 'push' && steps.version.outputs.is_release == 'true'
+        run: |
+          mike deploy --push --update-aliases ${{ steps.version.outputs.version }} latest
+          echo "✓ Deployed version ${{ steps.version.outputs.version }} as latest"
+
+      - name: Deploy with mike (Development version)
+        if: github.event_name == 'push' && steps.version.outputs.is_release == 'false' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: |
+          mike deploy --push dev
+          echo "✓ Deployed dev version"
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'site/'
 
   deploy:
     needs: build
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+    if: github.event_name == 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy PR preview to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

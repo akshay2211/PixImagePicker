@@ -19,6 +19,7 @@ theme:
     - search.suggest
     - search.highlight
     - content.tabs.link
+    - announce.dismiss
   palette:
     - scheme: default
       primary: teal
@@ -32,6 +33,10 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+
+extra:
+  version:
+    provider: mike
 
 plugins:
   - search
@@ -69,3 +74,4 @@ nav:
     - Case Studies: community/case-studies.md
     - Roadmap: community/roadmap.md
     - Contributing: community/contributing.md
+  - Changelog: changelog.md
