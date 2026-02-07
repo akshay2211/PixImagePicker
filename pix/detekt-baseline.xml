@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+    <ManuallySuppressedIssues />
+    <CurrentIssues>
+        <ID>CommentWrapping:PreLoadHelper.kt$/*maxPreload*/</ID>
+        <ID>CyclomaticComplexMethod:CameraXManager.kt$CameraXManager$fun bindCameraUseCases(binding:
+            PixBindings)
+        </ID>
+        <ID>
+            CyclomaticComplexMethod:ControlsHelper.kt$@SuppressLint("ClickableViewAccessibility,RestrictedApi")
+            internal fun PixBindings.setupClickControls( model: PixViewModel, cameraXManager:
+            CameraXManager?, options: Options, callback: (Int, Uri) -> Unit )
+        </ID>
+        <ID>CyclomaticComplexMethod:LocalResourceManager.kt$LocalResourceManager$fun
+            retrieveMedia(start: Int = 0, limit: Int = 0, mode: Mode = Mode.All): ModelList
+        </ID>
+        <ID>EmptyFunctionBlock:CustomItemTouchListener.kt$CustomItemTouchListener${}</ID>
+        <ID>EmptyFunctionBlock:SelectionHelper.kt$&lt;no name provided>${}</ID>
+        <ID>ForbiddenComment:MainImageAdapter.kt$MainImageAdapter$// TODO: 18/06/21 first header
+            blinks on image selection need to be resolved
+        </ID>
+        <ID>ForbiddenComment:PermissionsHelper.kt$// TODO: 20/06/21 call onBackPressed() method if
+            any permission is denied
+        </ID>
+        <ID>ForbiddenComment:SelectionHelper.kt$// TODO: 18/06/21 if possible include in fragment
+            class
+        </ID>
+        <ID>ForbiddenComment:UsabilityHelper.kt$// TODO: 18/06/21 add documentation for usability
+            methods
+        </ID>
+        <ID>ForbiddenComment:UsabilityHelper.kt$// TODO: 18/06/21 more usability methods to be
+            added
+        </ID>
+        <ID>LongMethod:CameraXManager.kt$CameraXManager$fun bindCameraUseCases(binding:
+            PixBindings)
+        </ID>
+        <ID>LongMethod:ControlsHelper.kt$@SuppressLint("ClickableViewAccessibility,RestrictedApi")
+            internal fun PixBindings.setupClickControls( model: PixViewModel, cameraXManager:
+            CameraXManager?, options: Options, callback: (Int, Uri) -> Unit )
+        </ID>
+        <ID>LongMethod:LocalResourceManager.kt$LocalResourceManager$fun retrieveMedia(start: Int =
+            0, limit: Int = 0, mode: Mode = Mode.All): ModelList
+        </ID>
+        <ID>MagicNumber:AnimationHelper.kt$1.2f</ID>
+        <ID>MagicNumber:AnimationHelper.kt$300</ID>
+        <ID>MagicNumber:BottomSheetHelper.kt$194f</ID>
+        <ID>MagicNumber:ControlsHelper.kt$1.2f</ID>
+        <ID>MagicNumber:ControlsHelper.kt$100</ID>
+        <ID>MagicNumber:ControlsHelper.kt$1000</ID>
+        <ID>MagicNumber:ControlsHelper.kt$1000L</ID>
+        <ID>MagicNumber:ControlsHelper.kt$150</ID>
+        <ID>MagicNumber:ControlsHelper.kt$200</ID>
+        <ID>MagicNumber:ControlsHelper.kt$3</ID>
+        <ID>MagicNumber:ControlsHelper.kt$300</ID>
+        <ID>MagicNumber:ControlsHelper.kt$4</ID>
+        <ID>MagicNumber:ControlsHelper.kt$5</ID>
+        <ID>MagicNumber:ControlsHelper.kt$500f</ID>
+        <ID>MagicNumber:ControlsHelper.kt$&lt;no name provided>$100</ID>
+        <ID>MagicNumber:ControlsHelper.kt$&lt;no name provided>$1000</ID>
+        <ID>MagicNumber:ControlsHelper.kt$&lt;no name provided>$5</ID>
+        <ID>MagicNumber:ControlsHelper.kt$&lt;no name provided>$50</ID>
+        <ID>MagicNumber:DateTImeHelper.kt$2</ID>
+        <ID>MagicNumber:DateTImeHelper.kt$7</ID>
+        <ID>MagicNumber:FastScrollHelper.kt$60f</ID>
+        <ID>MagicNumber:HeaderItemDecoration.kt$HeaderItemDecoration$5f</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter$100</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter$256</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter$3</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter$3.5</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter$72f</ID>
+        <ID>MagicNumber:InstantImageAdapter.kt$InstantImageAdapter.Holder$3</ID>
+        <ID>MagicNumber:LocalResourceManager.kt$LocalResourceManager$1000</ID>
+        <ID>MagicNumber:MainImageAdapter.kt$MainImageAdapter$3</ID>
+        <ID>MagicNumber:MainImageAdapter.kt$MainImageAdapter$50</ID>
+        <ID>MagicNumber:MainImageAdapter.kt$MainImageAdapter.Holder$3</ID>
+        <ID>MagicNumber:Models.kt$Options$4</ID>
+        <ID>MagicNumber:Models.kt$VideoOptions$10</ID>
+        <ID>MagicNumber:PixFragment.kt$PixFragment$200</ID>
+        <ID>MagicNumber:PixFragment.kt$PixFragment$3</ID>
+        <ID>MagicNumber:PixFragment.kt$PixFragment$4</ID>
+        <ID>MagicNumber:PixFragment.kt$PixFragment$5</ID>
+        <ID>MagicNumber:PixFragment.kt$PixFragment$56f</ID>
+        <ID>MagicNumber:PixViewModel.kt$PixViewModel$100</ID>
+        <ID>MagicNumber:PreLoadHelper.kt$30</ID>
+        <ID>MagicNumber:SelectionHelper.kt$0.5f</ID>
+        <ID>MagicNumber:SelectionHelper.kt$300</ID>
+        <ID>MagicNumber:UtilityHelper.kt$160f</ID>
+        <ID>MagicNumber:UtilityHelper.kt$16f</ID>
+        <ID>MagicNumber:UtilityHelper.kt$50</ID>
+        <ID>MagicNumber:UtilityHelper.kt$59</ID>
+        <ID>MagicNumber:UtilityHelper.kt$60</ID>
+        <ID>MaxLineLength:PixInterfaces.kt$StickyHeaderInterface$*</ID>
+        <ID>NestedBlockDepth:FastScrollHelper.kt$fun scrollListener(fragment: PixFragment, binding:
+            PixBindings): RecyclerView.OnScrollListener
+        </ID>
+        <ID>PrintStackTrace:LocalResourceManager.kt$LocalResourceManager$ex</ID>
+        <ID>ReturnCount:HeaderItemDecoration.kt$HeaderItemDecoration$override fun onDrawOver(c:
+            Canvas, parent: RecyclerView, state: RecyclerView.State)
+        </ID>
+        <ID>ReturnCount:LocalResourceManager.kt$LocalResourceManager$fun retrieveMedia(start: Int =
+            0, limit: Int = 0, mode: Mode = Mode.All): ModelList
+        </ID>
+        <ID>ReturnCount:PixFragment.kt$PixFragment$@SuppressLint("ClickableViewAccessibility")
+            override fun onTouch(v: View?, event: MotionEvent): Boolean
+        </ID>
+        <ID>ReturnCount:SelectionHelper.kt$fun GridLayoutBinding.sendButtonStateAnimation(show:
+            Boolean, withAnim: Boolean = true)
+        </ID>
+        <ID>SpreadOperator:CameraXManager.kt$CameraXManager$( requireActivity, cameraSelector,
+            *useCases.toTypedArray() )
+        </ID>
+        <ID>TooGenericExceptionCaught:CameraXManager.kt$CameraXManager$exc: Exception</ID>
+        <ID>TooGenericExceptionCaught:LocalResourceManager.kt$LocalResourceManager$ex: Exception
+        </ID>
+        <ID>TooGenericExceptionCaught:MainImageAdapter.kt$MainImageAdapter$e: Exception</ID>
+        <ID>TooManyFunctions:MainImageAdapter.kt$MainImageAdapter :
+            AdapterStickyHeaderInterfaceSectionIndexerPreloadModelProvider
+        </ID>
+        <ID>TooManyFunctions:PixFragment.kt$PixFragment : FragmentOnTouchListener</ID>
+        <ID>UnusedParameter:CameraXManager.kt$CameraXManager$audioBitrate: Int?</ID>
+        <ID>UnusedParameter:CameraXManager.kt$CameraXManager$videoFrameRate: Int?</ID>
+        <ID>UnusedPrivateProperty:LocalResourceManager.kt$LocalResourceManager$i</ID>
+        <ID>UseCheckOrError:CameraXManager.kt$CameraXManager$throw IllegalStateException("Back and
+            front camera are unavailable")
+        </ID>
+        <ID>UseCheckOrError:CameraXManager.kt$CameraXManager$throw IllegalStateException("Camera
+            initialization failed.")
+        </ID>
+    </CurrentIssues>
+</SmellBaseline>

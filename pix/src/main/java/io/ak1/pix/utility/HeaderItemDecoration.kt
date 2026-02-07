@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix.utility
 
 import android.content.Context
@@ -14,11 +29,8 @@ import io.ak1.pix.interfaces.StickyHeaderInterface
  * https://ak1.io
  */
 
-
-class HeaderItemDecoration(
-    private val context: Context,
-    private val mListener: StickyHeaderInterface
-) : RecyclerView.ItemDecoration() {
+class HeaderItemDecoration(private val context: Context, private val mListener: StickyHeaderInterface) :
+    RecyclerView.ItemDecoration() {
     override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(c, parent, state)
         val topChild = parent.getChildAt(0) ?: return
@@ -36,7 +48,7 @@ class HeaderItemDecoration(
         fixLayoutSize(parent, currentHeader)
         val contactPoint = currentHeader.bottom
         val childInContact = getChildInContact(parent, contactPoint)
-            ?: //Log.e("childInContact", "childInContact is null");
+            ?: // Log.e("childInContact", "childInContact is null");
             return
         if (mListener.isHeader(parent.getChildAdapterPosition(childInContact))) {
             moveHeader(c, currentHeader, childInContact)
@@ -86,7 +98,6 @@ class HeaderItemDecoration(
      * @param parent ViewGroup: RecyclerView in this case.
      */
     private fun fixLayoutSize(parent: ViewGroup, view: View) {
-
         // Specs for parent (RecyclerView)
         val widthSpec = View.MeasureSpec.makeMeasureSpec(parent.width, View.MeasureSpec.EXACTLY)
         val heightSpec =

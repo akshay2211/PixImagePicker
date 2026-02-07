@@ -134,6 +134,71 @@ or ivy:
 #### Find docs for old versions in [wiki](https://github.com/akshay2211/PixImagePicker/wiki) for 1.5.6 and 1.2.5
 #### Also you can find the source for version 1.5.6 [here](https://github.com/akshay2211/PixImagePicker/tree/activity_branch).
 
+## Development
+
+### Code Quality Tools
+
+This project uses modern code quality tools to maintain high standards:
+
+- **Spotless**: Automatic code formatting with ktlint
+- **Detekt**: Static code analysis for Kotlin best practices
+- **Dokka**: API documentation generation
+
+### Setup
+
+1. Install the pre-commit hook:
+   ```bash
+   chmod +x .git/hooks/pre-commit
+   ```
+
+2. Run code formatting:
+   ```bash
+   ./gradlew :pix:spotlessApply
+   ```
+
+3. Run static analysis:
+   ```bash
+   ./gradlew :pix:detekt
+   ```
+
+4. Generate documentation:
+   ```bash
+   ./gradlew :pix:dokkaHtml
+   ```
+   View at: `pix/build/dokka/html/index.html`
+
+### Available Tasks
+
+```bash
+# Spotless
+./gradlew :pix:spotlessCheck      # Check formatting
+./gradlew :pix:spotlessApply      # Apply formatting
+
+# Detekt
+./gradlew :pix:detekt             # Run analysis
+./gradlew :pix:detektCreateBaseline # Create baseline for existing violations
+
+# Dokka
+./gradlew :pix:dokkaHtml          # Generate HTML docs
+./gradlew :pix:dokkaHtmlOpen      # Generate and open docs
+
+# Combined
+./gradlew :pix:check              # Run all checks
+./gradlew :pix:build              # Full build with checks
+```
+
+### Contributing
+
+Before submitting a PR:
+
+1. Ensure code is formatted: `./gradlew :pix:spotlessCheck`
+2. Pass static analysis: `./gradlew :pix:detekt`
+3. Add documentation to public APIs
+4. Write tests for new features
+
+The pre-commit hook will automatically run these checks on `git commit`. You can bypass it with
+`git commit --no-verify` if needed (not recommended).
+
 ## WIP for KMP migration.
 
 ## License

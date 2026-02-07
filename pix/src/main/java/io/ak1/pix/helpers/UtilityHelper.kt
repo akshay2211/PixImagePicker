@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix.helpers
 
 import android.content.Context
@@ -15,7 +30,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.ak1.pix.R
-
 import io.ak1.pix.adapters.MainImageAdapter
 import io.ak1.pix.utility.HeaderItemDecoration
 import io.ak1.pix.utility.IMAGE_VIDEO_URI
@@ -27,13 +41,11 @@ import java.io.File
  * https://ak1.io
  */
 
-
 fun Context.toDp(px: Float): Float =
     px / (resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
 
 fun Context.toPx(dp: Float): Float =
     dp * (resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-
 
 fun View.hide() {
     visibility = View.GONE
@@ -61,7 +73,7 @@ val Int.counterText: String
         return "$min:$sec"
     }
 
-fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null){
+fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null) {
     MediaScannerConnection.scanFile(
         this,
         arrayOf(file.toString()),
@@ -72,7 +84,8 @@ fun Context.scanPhoto(file: File, callback: ((Uri) -> Unit)? = null){
             uri.lastPathSegment
         )
         callback?.invoke(mainUri)
-    }}
+    }
+}
 
 fun FragmentActivity.setUpMargins(binding: PixBindings) {
     val height =
@@ -91,7 +104,9 @@ fun FragmentActivity.setUpMargins(binding: PixBindings) {
     binding.gridLayout.sendButton.apply {
         updateLayoutParams<ViewGroup.MarginLayoutParams> {
             updateMargins(
-                0, 0, this@apply.context.toPx(16f).toInt(),
+                0,
+                0,
+                this@apply.context.toPx(16f).toInt(),
                 this@apply.context.toPx(160f).toInt() + height
             )
         }
@@ -103,14 +118,17 @@ internal fun RecyclerView.setupMainRecyclerView(
     mainImageAdapter: MainImageAdapter,
     onFastScrollListener: RecyclerView.OnScrollListener
 ) {
-
-
     (layoutManager as GridLayoutManager).apply {
         spanCount = mainImageAdapter.spanCount
         spanSizeLookup =
             object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int) =
-                    if (mainImageAdapter.getItemViewType(position) == MainImageAdapter.HEADER) mainImageAdapter.spanCount else 1
+                override fun getSpanSize(position: Int) = if (mainImageAdapter.getItemViewType(position) ==
+                    MainImageAdapter.HEADER
+                ) {
+                    mainImageAdapter.spanCount
+                } else {
+                    1
+                }
             }
     }
     adapter = mainImageAdapter
@@ -121,10 +139,12 @@ internal fun RecyclerView.setupMainRecyclerView(
 
 fun Context.toast(size: Int) {
     Toast.makeText(
-        this, String.format(
+        this,
+        String.format(
             resources.getString(R.string.pix_selection_limiter),
             size
-        ), Toast.LENGTH_SHORT
+        ),
+        Toast.LENGTH_SHORT
     ).show()
 }
 

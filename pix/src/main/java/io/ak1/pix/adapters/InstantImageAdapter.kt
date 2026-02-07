@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 @file:Suppress("unused")
 
 package io.ak1.pix.adapters
@@ -20,16 +35,13 @@ import io.ak1.pix.helpers.show
 import io.ak1.pix.helpers.toPx
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
-import java.util.*
 
 /**
  * Created By Akshay Sharma on 17,June,2021
  * https://ak1.io
  */
 
-
-class InstantImageAdapter(context: Context) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class InstantImageAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val itemList: ArrayList<Img> = ArrayList()
     private var onSelectionListener: OnSelectionListener? = null
     private val glide: RequestManager = Glide.with(context)
@@ -58,41 +70,39 @@ class InstantImageAdapter(context: Context) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        if (viewType == MainImageAdapter.HEADER) {
-            HolderNone(
-                InitalImageBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = if (viewType == MainImageAdapter.HEADER) {
+        HolderNone(
+            InitalImageBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
-        } else {
-            Holder(
-                InitalImageBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
+        )
+    } else {
+        Holder(
+            InitalImageBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             )
-        }
+        )
+    }
 
     override fun getItemCount() = itemList.size
 
     override fun getItemViewType(position: Int) =
         if (itemList[position].contentUrl == Uri.EMPTY) MainImageAdapter.HEADER else MainImageAdapter.ITEM
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        if (holder is Holder) {
-            holder.bind()
-        } else {
-            (holder as HolderNone).bind()
-        }
-
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = if (holder is Holder) {
+        holder.bind()
+    } else {
+        (holder as HolderNone).bind()
+    }
 
     inner class Holder(private val initialImageBinding: InitalImageBinding) :
         RecyclerView.ViewHolder(initialImageBinding.root),
-        View.OnClickListener, View.OnLongClickListener {
+        View.OnClickListener,
+        View.OnLongClickListener {
         fun bind() {
             val image = itemList[adapterPosition]
             val layoutParams = FrameLayout.LayoutParams(size.toInt(), size.toInt())
@@ -134,7 +144,7 @@ class InstantImageAdapter(context: Context) :
         }
     }
 
-    inner class HolderNone(private val initialImageBinding: InitalImageBinding) :
+    class HolderNone(private val initialImageBinding: InitalImageBinding) :
         RecyclerView.ViewHolder(initialImageBinding.root) {
         fun bind() {
             initialImageBinding.frameLayout.apply {
@@ -143,5 +153,4 @@ class InstantImageAdapter(context: Context) :
             }
         }
     }
-
 }

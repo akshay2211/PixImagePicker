@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix.helpers
 
 import android.animation.Animator
@@ -53,9 +68,11 @@ fun ViewGroup.setOnClickForFLash(options: Options, callback: (Options) -> Unit) 
                         Flash.Auto -> {
                             options.flash = Flash.Off
                         }
+
                         Flash.Off -> {
                             options.flash = Flash.On
                         }
+
                         else -> {
                             options.flash = Flash.Auto
                         }
@@ -106,7 +123,6 @@ internal fun PixBindings.setupClickControls(
             Handler(Looper.getMainLooper()).postDelayed({
                 isEnabled = true
             }, 1000L)
-
         }
         var isRecording = false
         setOnLongClickListener {
@@ -130,7 +146,6 @@ internal fun PixBindings.setupClickControls(
                     videoCounterLayout.videoPbr.progress = videoCounterProgress
                     videoCounterLayout.videoCounter.text =
                         videoCounterProgress.counterText
-
 
                     if (videoCounterProgress > options.videoOptions.videoDurationLimitInSeconds) {
                         gridLayout.initialRecyclerviewContainer.apply {
@@ -161,7 +176,6 @@ internal fun PixBindings.setupClickControls(
                 } else {
                     Log.e(TAG, "$exc")
                 }
-
             }
             true
         }
@@ -243,9 +257,7 @@ internal fun PixBindings.setupClickControls(
     }
 }
 
-fun PixBindings.longSelectionStatus(
-    enabled: Boolean
-) {
+fun PixBindings.longSelectionStatus(enabled: Boolean) {
     val colorPrimaryDark = fragmentPix.root.context.color(R.color.primary_color_pix)
     val colorSurface = fragmentPix.root.context.color(R.color.surface_color_pix)
 

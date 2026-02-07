@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix.helpers
 
 import android.content.Context
@@ -8,9 +23,14 @@ import android.util.Log
 import io.ak1.pix.models.Img
 import io.ak1.pix.models.Mode
 import io.ak1.pix.models.ModelList
-import io.ak1.pix.utility.*
-import java.util.*
-import kotlin.collections.ArrayList
+import io.ak1.pix.utility.IMAGE_SELECTION
+import io.ak1.pix.utility.IMAGE_VIDEO_ORDER_BY
+import io.ak1.pix.utility.IMAGE_VIDEO_PROJECTION
+import io.ak1.pix.utility.IMAGE_VIDEO_SELECTION
+import io.ak1.pix.utility.IMAGE_VIDEO_URI
+import io.ak1.pix.utility.TAG
+import io.ak1.pix.utility.VIDEO_SELECTION
+import java.util.Calendar
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -26,14 +46,15 @@ fun Context.getImageVideoCursor(mode: Mode): Cursor? {
     }
     return contentResolver
         .query(
-            IMAGE_VIDEO_URI, IMAGE_VIDEO_PROJECTION,
-            projection, null, IMAGE_VIDEO_ORDER_BY
+            IMAGE_VIDEO_URI,
+            IMAGE_VIDEO_PROJECTION,
+            projection,
+            null,
+            IMAGE_VIDEO_ORDER_BY
         )
 }
 
-internal class LocalResourceManager(
-    private val context: Context
-) {
+internal class LocalResourceManager(private val context: Context) {
     private val className = LocalResourceManager::class.java.simpleName
 
     init {
@@ -41,11 +62,7 @@ internal class LocalResourceManager(
     }
 
     var preSelectedUrls: List<Uri> = ArrayList()
-    fun retrieveMedia(
-        start: Int = 0,
-        limit: Int = 0,
-        mode: Mode = Mode.All
-    ): ModelList {
+    fun retrieveMedia(start: Int = 0, limit: Int = 0, mode: Mode = Mode.All): ModelList {
         val cursor = context.getImageVideoCursor(mode)
         Log.v(TAG, "$className retrieved images from $start to $limit and size ${cursor?.count}")
         val list = ArrayList<Img>()
@@ -75,7 +92,8 @@ internal class LocalResourceManager(
                     header =
                         context.resources.getDateDifference(
                             Calendar.getInstance()
-                                .apply { timeInMillis = cursor.getLong(imageDate) * 1000 })
+                                .apply { timeInMillis = cursor.getLong(imageDate) * 1000 }
+                        )
                 }
                 synchronized(context) {
                     var pos = start
@@ -87,7 +105,6 @@ internal class LocalResourceManager(
                                     IMAGE_VIDEO_URI,
                                     "" + cursor.getInt(contentUrl)
                                 )
-
                             } catch (ex: Exception) {
                                 Log.e(TAG, "$className Exception ${ex.message}")
                                 Uri.EMPTY
@@ -96,7 +113,8 @@ internal class LocalResourceManager(
                             val dateDifference =
                                 context.resources.getDateDifference(
                                     Calendar.getInstance()
-                                        .apply { timeInMillis = cursor.getLong(imageDate) * 1000 })
+                                        .apply { timeInMillis = cursor.getLong(imageDate) * 1000 }
+                                )
                             val mediaType = cursor.getInt(mediaTypeColumnId)
                             if (!header.equals("" + dateDifference, ignoreCase = true)) {
                                 header = "" + dateDifference
@@ -123,7 +141,6 @@ internal class LocalResourceManager(
                                 pos += 1
                                 list.add(it)
                             }
-
                         } catch (ex: java.lang.Exception) {
                             ex.printStackTrace()
                             Log.e(TAG, "$className Exception ${ex.message}")

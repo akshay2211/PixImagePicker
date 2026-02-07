@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix
 
 import android.annotation.SuppressLint
@@ -10,7 +25,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toFile
 import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -25,7 +39,44 @@ import io.ak1.pix.databinding.FragmentPixBinding
 import io.ak1.pix.databinding.GridLayoutBinding
 import io.ak1.pix.databinding.PermissionsLayoutBinding
 import io.ak1.pix.databinding.VideoCounterLayoutBinding
-import io.ak1.pix.helpers.*
+import io.ak1.pix.helpers.CameraXManager
+import io.ak1.pix.helpers.LocalResourceManager
+import io.ak1.pix.helpers.PixBus
+import io.ak1.pix.helpers.PixEventCallback
+import io.ak1.pix.helpers.S_SCROLLBAR_HIDE_DELAY
+import io.ak1.pix.helpers.cancelAnimation
+import io.ak1.pix.helpers.color
+import io.ak1.pix.helpers.getScrollProportion
+import io.ak1.pix.helpers.handler
+import io.ak1.pix.helpers.hide
+import io.ak1.pix.helpers.hideBubble
+import io.ak1.pix.helpers.hideScrollbar
+import io.ak1.pix.helpers.hideStatusBar
+import io.ak1.pix.helpers.instantImageAdapter
+import io.ak1.pix.helpers.longSelectionStatus
+import io.ak1.pix.helpers.mBubbleAnimator
+import io.ak1.pix.helpers.mScrollbarAnimator
+import io.ak1.pix.helpers.mViewHeight
+import io.ak1.pix.helpers.mainImageAdapter
+import io.ak1.pix.helpers.permissionsFilter
+import io.ak1.pix.helpers.scrollListener
+import io.ak1.pix.helpers.selection
+import io.ak1.pix.helpers.sendButtonStateAnimation
+import io.ak1.pix.helpers.setDrawableIconForFlash
+import io.ak1.pix.helpers.setRecyclerViewPosition
+import io.ak1.pix.helpers.setSelectionText
+import io.ak1.pix.helpers.setUpMargins
+import io.ak1.pix.helpers.setViewPositions
+import io.ak1.pix.helpers.setup
+import io.ak1.pix.helpers.setupClickControls
+import io.ak1.pix.helpers.setupMainRecyclerView
+import io.ak1.pix.helpers.setupScreen
+import io.ak1.pix.helpers.show
+import io.ak1.pix.helpers.showBubble
+import io.ak1.pix.helpers.showScrollbar
+import io.ak1.pix.helpers.toPx
+import io.ak1.pix.helpers.toast
+import io.ak1.pix.helpers.toolbarHeight
 import io.ak1.pix.interfaces.OnSelectionListener
 import io.ak1.pix.models.Img
 import io.ak1.pix.models.Options
@@ -34,8 +85,12 @@ import io.ak1.pix.utility.ARG_PARAM_PIX
 import io.ak1.pix.utility.ARG_PARAM_PIX_KEY
 import io.ak1.pix.utility.CustomItemTouchListener
 import io.ak1.pix.utility.PixBindings
-import kotlinx.coroutines.*
-import java.lang.Runnable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
@@ -44,9 +99,12 @@ import kotlin.coroutines.cancellation.CancellationException
  */
 
 class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Unit)? = null) :
-    Fragment(), View.OnTouchListener {
+    Fragment(),
+    View.OnTouchListener {
 
     private val model: PixViewModel by viewModels()
+
+    @Suppress("ktlint:standard:backing-property-naming")
     private var _binding: PixBindings? = null
     private val binding get() = _binding!!
 
@@ -54,7 +112,8 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
             if (permissions.all {
                     it.value
-                }) {
+                }
+            ) {
                 binding.permissionsLayout.permissionsLayout.hide()
                 binding.gridLayout.gridLayout.show()
                 initialise(requireActivity())
@@ -89,7 +148,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         if (mBottomSheetBehavior?.state != BottomSheetBehavior.STATE_COLLAPSED) {
             mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,11 +160,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         }
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ) = run {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,) = run {
         val fragmentPixBinding = FragmentPixBinding.inflate(inflater, container, false)
         _binding = PixBindings(
             fragmentPixBinding,
@@ -118,7 +172,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         fragmentPixBinding.root
     }
 
-
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -129,7 +182,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         setUpMargins(binding)
         permissions()
         reSetup(this)
-        //in case of resetting the options in an live fragment
+        // in case of resetting the options in an live fragment
         setFragmentResultListener(ARG_PARAM_PIX_KEY) { _, bundle ->
             val options1: Options? = bundle.getParcelable(ARG_PARAM_PIX)
             options1?.let {
@@ -139,10 +192,8 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                 }
             }
             permReqLauncher.permissionsFilter(this, options) {
-
                 retrieveMedia()
             }
-
         }
     }
 
@@ -160,7 +211,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         }
     }
 
-
     private fun initialise(context: FragmentActivity) {
         binding.permissionsLayout.permissionsLayout.hide()
         binding.gridLayout.gridLayout.show()
@@ -174,7 +224,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         setBottomSheetBehavior()
         setupControls()
         backPressController()
-
     }
 
     override fun onDestroyView() {
@@ -188,7 +237,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
     private fun observeSelectionList() {
         model.setOptions(options)
         model.imageList.observe(requireActivity()) {
-            //Log.e(TAG, "imageList size is now ${it.list.size}")
+            // Log.e(TAG, "imageList size is now ${it.list.size}")
             instantImageAdapter.addImageList(it.list)
             mainImageAdapter.addImageList(it.list)
             model.selectionList.value?.addAll(it.selection)
@@ -198,7 +247,7 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             }
         }
         model.selectionList.observe(requireActivity()) {
-            //Log.e(TAG, "selectionList size is now ${it.size}")
+            // Log.e(TAG, "selectionList size is now ${it.size}")
             if (it.size == 0) {
                 model.longSelection.postValue(false)
             } else if (!model.longSelectionValue) {
@@ -207,10 +256,12 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             binding.setSelectionText(requireActivity(), it.size)
         }
         model.longSelection.observe(requireActivity()) {
-            //Log.e(TAG, "longSelection is now changed to  $it")
+            // Log.e(TAG, "longSelection is now changed to  $it")
             binding.longSelectionStatus(it)
-            if ((mBottomSheetBehavior?.state
-                    ?: BottomSheetBehavior.STATE_COLLAPSED) == BottomSheetBehavior.STATE_COLLAPSED
+            if ((
+                    mBottomSheetBehavior?.state
+                        ?: BottomSheetBehavior.STATE_COLLAPSED
+                    ) == BottomSheetBehavior.STATE_COLLAPSED
             ) {
                 binding.gridLayout.sendButtonStateAnimation(it)
             }
@@ -241,7 +292,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         }
     }
 
-
     private fun backPressController() {
         CoroutineScope(Dispatchers.Main).launch {
             PixBus.on(this) {
@@ -255,9 +305,11 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                         }
                         model.selectionList.postValue(HashSet())
                     }
+
                     mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_EXPANDED -> {
                         mBottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
                     }
+
                     else -> {
                         model.returnObjects()
                     }
@@ -270,8 +322,11 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
         binding.setupClickControls(model, cameraXManager, options) { int, uri ->
             when (int) {
                 0 -> model.returnObjects()
+
                 1 -> mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+
                 2 -> model.longSelection.postValue(true)
+
                 3 -> {
                     if (model.selectionList.value.isNullOrEmpty()) {
                         model.selectionList.value?.add(Img(contentUrl = uri))
@@ -286,14 +341,14 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                             (model.selectionList.value ?: HashSet()).size
                         )
                         options.preSelectedUrls.clear()
-                        options.preSelectedUrls.addAll(
-                            (model.selectionList.value ?: HashSet()).map { it.contentUrl })
+                        options.preSelectedUrls.addAll((model.selectionList.value ?: HashSet()).map { it.contentUrl })
                         retrieveMedia()
                     }
                 }
-                4 -> if (model.longSelectionValue) binding.gridLayout.sendButtonStateAnimation(false)
-                5 -> if (model.longSelectionValue) binding.gridLayout.sendButtonStateAnimation(true)
 
+                4 -> if (model.longSelectionValue) binding.gridLayout.sendButtonStateAnimation(false)
+
+                5 -> if (model.longSelectionValue) binding.gridLayout.sendButtonStateAnimation(true)
             }
         }
     }
@@ -319,7 +374,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             mainImageAdapter.clearList()
             model.retrieveImages(localResourceManager)
         }
-
     }
 
     private fun setupAdapters(context: FragmentActivity) {
@@ -359,11 +413,12 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             instantRecyclerView.adapter = instantImageAdapter
             instantRecyclerView.addOnItemTouchListener(CustomItemTouchListener(binding))
             recyclerView.setupMainRecyclerView(
-                context, mainImageAdapter, scrollListener(this@PixFragment, binding)
+                context,
+                mainImageAdapter,
+                scrollListener(this@PixFragment, binding)
             )
         }
     }
-
 
     private fun setBottomSheetBehavior() {
         mBottomSheetBehavior = BottomSheetBehavior.from(binding.gridLayout.bottomSheet)
@@ -381,7 +436,6 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
             }
         }
     }
-
 
     private fun CameraXManager.startCamera() {
         setUpCamera(binding)
@@ -408,8 +462,11 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
                     gridLayout.fastscrollHandle.isSelected = true
                     handler.removeCallbacks(mScrollbarHider)
                     cancelAnimation(mScrollbarAnimator, mBubbleAnimator)
-                    if (!gridLayout.fastscrollScrollbar.isVisible && (gridLayout.recyclerView.computeVerticalScrollRange()
-                                - mViewHeight > 0)
+                    if (!gridLayout.fastscrollScrollbar.isVisible &&
+                        (
+                            gridLayout.recyclerView.computeVerticalScrollRange() -
+                                mViewHeight > 0
+                            )
                     ) {
                         mScrollbarAnimator =
                             showScrollbar(gridLayout.fastscrollScrollbar, requireActivity())
@@ -423,16 +480,18 @@ class PixFragment(private val resultCallback: ((PixEventCallback.Results) -> Uni
 
                 return true
             }
+
             MotionEvent.ACTION_MOVE -> {
                 val y = event.rawY
                 binding.setViewPositions(y - toolbarHeight)
                 binding.setRecyclerViewPosition(y)
                 return true
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 v?.parent?.requestDisallowInterceptTouchEvent(false)
                 binding.gridLayout.fastscrollHandle.isSelected = false
-                handler.postDelayed(mScrollbarHider, sScrollbarHideDelay.toLong())
+                handler.postDelayed(mScrollbarHider, S_SCROLLBAR_HIDE_DELAY.toLong())
                 binding.hideBubble()
                 return true
             }

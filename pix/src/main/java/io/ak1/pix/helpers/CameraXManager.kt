@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2026 Akshay Sharma
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.ak1.pix.helpers
 
 import android.annotation.SuppressLint
@@ -6,7 +21,12 @@ import android.net.Uri
 import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Log
-import androidx.camera.core.*
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.core.UseCase
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.video.FallbackStrategy
 import androidx.camera.video.MediaStoreOutputOptions
@@ -26,8 +46,7 @@ import io.ak1.pix.models.Ratio
 import io.ak1.pix.utility.PixBindings
 import java.io.File
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
+import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -53,7 +72,6 @@ class CameraXManager(
 
     // Select back camera as a default
     private var cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
 
     /** Initialize CameraX, and prepare to bind the camera use cases  */
     fun setUpCamera(binding: PixBindings) {
@@ -83,7 +101,6 @@ class CameraXManager(
         Log.d(TAG, "Preview aspect ratio: $screenAspectRatio")
 
         val rotation = previewView.display.rotation
-
 
         // CameraProvider
         val cameraProvider = cameraProvider
@@ -130,6 +147,7 @@ class CameraXManager(
                     .build()
                 useCases.add(imageCapture!!)
             }
+
             Mode.Video -> {
                 videoCapture = createVideoCaptureUseCase(
                     screenAspectRatio,
@@ -139,6 +157,7 @@ class CameraXManager(
                 )
                 useCases.add(videoCapture!!)
             }
+
             else -> {
                 imageCapture = ImageCapture.Builder().apply {
                     setFlashMode(
@@ -169,7 +188,6 @@ class CameraXManager(
             }
         }
 
-
         // Must unbind the use-cases before rebinding them
         cameraProvider.unbindAll()
 
@@ -189,30 +207,29 @@ class CameraXManager(
                 binding.controlsLayout.flashButton.hide()
             }
             // Attach the viewfinder's surface provider to preview use case
-            preview?.setSurfaceProvider(previewView.surfaceProvider)
+            preview?.surfaceProvider = previewView.surfaceProvider
         } catch (exc: Exception) {
             Log.e(TAG, "Use case binding failed", exc)
         }
     }
 
-
-
     @SuppressLint("RestrictedApi")
     private fun createVideoCaptureUseCase(
-        screenAspectRatio: Int, videoBitrate: Int?,
+        screenAspectRatio: Int,
+        videoBitrate: Int?,
         audioBitrate: Int?,
         videoFrameRate: Int?
     ): VideoCapture<Recorder> {
-
         val qualitySelector = QualitySelector.fromOrderedList(
             listOf(Quality.UHD, Quality.FHD, Quality.HD, Quality.SD),
-            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD))
+            FallbackStrategy.lowerQualityOrHigherThan(Quality.SD)
+        )
 
         val recorder = Recorder.Builder()
             .setExecutor(executor)
             .setQualitySelector(qualitySelector)
             .setAspectRatio(screenAspectRatio).apply {
-            videoBitrate?.let { this.setTargetVideoEncodingBitRate(it) }
+                videoBitrate?.let { this.setTargetVideoEncodingBitRate(it) }
             }
             .build()
 
@@ -228,7 +245,8 @@ class CameraXManager(
         val photoFile = File(
             getOutputDirectory(),
             SimpleDateFormat(
-                FILENAME_FORMAT, Locale.US
+                FILENAME_FORMAT,
+                Locale.US
             ).format(System.currentTimeMillis()) + ".jpg"
         )
 
@@ -249,15 +267,16 @@ class CameraXManager(
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo capture succeeded: $savedUri"
-                    //Toast.makeText(requireActivity, msg, Toast.LENGTH_SHORT).show()
+                    // Toast.makeText(requireActivity, msg, Toast.LENGTH_SHORT).show()
                     Log.d("TAG", msg)
-                    requireActivity.scanPhoto(photoFile){
+                    requireActivity.scanPhoto(photoFile) {
                         output.savedUri?.let {
                             callback(it, null)
                         }
                     }
                 }
-            })
+            }
+        )
     }
 
     @SuppressLint("RestrictedApi", "MissingPermission")
@@ -265,54 +284,58 @@ class CameraXManager(
         // Create MediaStoreOutputOptions for our recorder
         val name = "Pix-recording-" +
             SimpleDateFormat(FILENAME_FORMAT, Locale.US)
-                    .format(System.currentTimeMillis()) + ".mp4"
+                .format(System.currentTimeMillis()) + ".mp4"
         val contentValues = ContentValues().apply {
             put(MediaStore.Video.Media.DISPLAY_NAME, name)
         }
-        val mediaStoreOutput = MediaStoreOutputOptions.Builder(requireActivity.contentResolver,
-            MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+        val mediaStoreOutput = MediaStoreOutputOptions.Builder(
+            requireActivity.contentResolver,
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+        )
             .setContentValues(contentValues)
             .build()
 
-if (videoCapture==null) return
+        if (videoCapture == null) return
         recording = null
-         recording = videoCapture!!.output
+        recording = videoCapture!!.output
             .prepareRecording(requireActivity, mediaStoreOutput)
             .withAudioEnabled()
-            .start(executor
-            ) {vre ->
-            when (vre) {
-                is VideoRecordEvent.Start -> {
-                    Log.d(TAG, "Recording started")
+            .start(executor) { vre ->
+                when (vre) {
+                    is VideoRecordEvent.Start -> {
+                        Log.d(TAG, "Recording started")
+                    }
+
+                    is VideoRecordEvent.Pause -> {
+                        Log.d(TAG, "Recording stopped")
+                    }
+
+                    is VideoRecordEvent.Resume -> {
+                    }
+
+                    is VideoRecordEvent.Finalize -> {
+                        callback(vre.outputResults.outputUri, null)
+                    }
                 }
-                is VideoRecordEvent.Pause -> {
-                    Log.d(TAG, "Recording stopped")
-                }
-                is VideoRecordEvent.Resume -> {
-                }
-                is VideoRecordEvent.Finalize ->{
-                    callback(vre.outputResults.outputUri, null)
-                }
-            }}
+            }
     }
 
     private fun getOutputDirectory(): File {
         val mediaDir = requireActivity.externalMediaDirs.firstOrNull()?.let {
             File(it, options.path).apply { mkdirs() }
         }
-        return if (mediaDir != null && mediaDir.exists())
-            mediaDir else requireActivity.filesDir
+        return if (mediaDir != null && mediaDir.exists()) {
+            mediaDir
+        } else {
+            requireActivity.filesDir
+        }
     }
 
     /** Returns true if the device has an available back camera. False otherwise */
-    private fun hasBackCamera(): Boolean {
-        return cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false
-    }
+    private fun hasBackCamera(): Boolean = cameraProvider?.hasCamera(CameraSelector.DEFAULT_BACK_CAMERA) ?: false
 
     /** Returns true if the device has an available front camera. False otherwise */
-    private fun hasFrontCamera(): Boolean {
-        return cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
-    }
+    private fun hasFrontCamera(): Boolean = cameraProvider?.hasCamera(CameraSelector.DEFAULT_FRONT_CAMERA) ?: false
 
     private fun aspectRatio(width: Int, height: Int): Int {
         val previewRatio = max(width, height).toDouble() / min(width, height)
@@ -322,12 +345,10 @@ if (videoCapture==null) return
         return AspectRatio.RATIO_16_9
     }
 
-
     companion object {
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val TAG = "CameraXBasic"
         private const val RATIO_4_3_VALUE = 4.0 / 3.0
         private const val RATIO_16_9_VALUE = 16.0 / 9.0
     }
-
 }
