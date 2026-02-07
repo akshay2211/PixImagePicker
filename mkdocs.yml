@@ -1,0 +1,68 @@
+site_name: Pix Image Picker
+site_description: WhatsApp-style image and video picker for Android
+site_author: Akshay Sharma
+repo_url: https://github.com/akshay2211/PixImagePicker
+repo_name: akshay2211/PixImagePicker
+edit_uri: edit/master/docs/
+
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+  palette:
+    - scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - offline
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:pymdownx.emoji.twemoji
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - admonition
+  - tables
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Overview: getting-started/overview.md
+    - Installation: getting-started/installation.md
+    - Quick Start: getting-started/quick-start.md
+  - Documentation:
+    - Usage: documentation/usage.md
+    - Configuration: documentation/configuration.md
+    - Customization: documentation/customization.md
+    - Examples: documentation/examples.md
+    - API Reference: documentation/api-reference.md
+  - Why Pix:
+    - Why This Library Exists: why-pix/why.md
+    - Problem & Solution: why-pix/problem.md
+    - Alternatives: why-pix/alternatives.md
+  - Community:
+    - Benchmarks: community/benchmarks.md
+    - Case Studies: community/case-studies.md
+    - Roadmap: community/roadmap.md
+    - Contributing: community/contributing.md
