@@ -1,0 +1,1971 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WhatsApp-style image and video picker for Android">
+      
+      
+        <meta name="author" content="Akshay Sharma">
+      
+      
+        <link rel="canonical" href="https://akshay2211.github.io/PixImagePicker/dev/why-pix/problem.html">
+      
+      
+        <link rel="prev" href="why.html">
+      
+      
+        <link rel="next" href="alternatives.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://github.com/akshay2211.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Problem & Solution - Pix Image Picker</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#problem-solution" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Pix Image Picker" class="md-header__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pix Image Picker
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Problem & Solution
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/overview.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../documentation/usage.html" class="md-tabs__link">
+          
+  
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="why.html" class="md-tabs__link">
+          
+  
+  
+  Why Pix
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../community/benchmarks.html" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../changelog.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Pix Image Picker" class="md-nav__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    Pix Image Picker
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/configuration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Pix
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why Pix
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="why.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why This Library Exists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problem & Solution
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="problem.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problem & Solution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problems-with-existing-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problems with Existing Approaches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Problems with Existing Approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-android-system-intent-picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: Android System Intent Picker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-building-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Building from Scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-outdatedlimited-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: Outdated/Limited Libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specific-pain-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Pain Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specific Pain Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-camera-integration-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Camera Integration Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-storage-permission-chaos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Storage Permission Chaos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Performance Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-user-experience-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. User Experience Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pix-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Pix Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-time-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Time Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Time Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building from Scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Pix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-saved-75-weeks-per-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Saved: ~7.5 weeks per project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Costs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real Costs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-build-custom-picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Build Custom Picker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-use-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Use Pix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savings-99500-199500-for-mid-size-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Savings: $99,500 - $199,500 for mid-size team
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-existing-options-were-inadequate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Existing Options Were Inadequate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="alternatives.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternatives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/benchmarks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/case-studies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Case Studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/roadmap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../community/contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problems-with-existing-approaches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Problems with Existing Approaches
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Problems with Existing Approaches">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-android-system-intent-picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1: Android System Intent Picker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-building-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2: Building from Scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-outdatedlimited-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3: Outdated/Limited Libraries
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#specific-pain-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Specific Pain Points
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Specific Pain Points">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-camera-integration-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Camera Integration Complexity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-storage-permission-chaos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Storage Permission Chaos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Performance Optimization
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-user-experience-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. User Experience Consistency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-pix-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Pix Solution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-time-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Time Comparison
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Time Comparison">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-from-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building from Scratch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Pix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-saved-75-weeks-per-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Saved: ~7.5 weeks per project
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-costs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real Costs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real Costs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-build-custom-picker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Build Custom Picker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-use-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Use Pix
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#savings-99500-199500-for-mid-size-team" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Savings: $99,500 - $199,500 for mid-size team
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-existing-options-were-inadequate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Existing Options Were Inadequate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="problem-solution">Problem &amp; Solution</h1>
+<h2 id="the-problems-with-existing-approaches">The Problems with Existing Approaches</h2>
+<h3 id="problem-1-android-system-intent-picker">Problem 1: Android System Intent Picker</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Traditional approach - limited and inconsistent</span>
+<span class="n">Intent</span><span class="p">(</span><span class="n">Intent</span><span class="p">.</span><span class="na">ACTION_PICK</span><span class="p">).</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;image/*&quot;</span>
+<span class="w">    </span><span class="n">startActivityForResult</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">REQUEST_CODE</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Issues:</strong>
+- ❌ No control over UI/UX
+- ❌ Inconsistent across device manufacturers
+- ❌ Limited customization options
+- ❌ Poor user experience on some devices
+- ❌ Can't theme to match app brand
+- ❌ Limited configuration options
+- ❌ No camera integration</p>
+<p><strong>Real-world impact:</strong>
+Users see different interfaces on different devices, creating a fragmented experience that hurts app consistency and professionalism.</p>
+<h3 id="problem-2-building-from-scratch">Problem 2: Building from Scratch</h3>
+<p>Many teams attempt to build their own picker:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Common custom implementation challenges:</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">CustomMediaPickerFragment</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Fragment</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// - Need to handle camera integration</span>
+<span class="w">    </span><span class="c1">// - Need to manage storage permissions</span>
+<span class="w">    </span><span class="c1">// - Need to handle different Android API levels</span>
+<span class="w">    </span><span class="c1">// - Need to implement efficient image loading</span>
+<span class="w">    </span><span class="c1">// - Need to manage configuration changes</span>
+<span class="w">    </span><span class="c1">// - Need to optimize for memory</span>
+<span class="w">    </span><span class="c1">// - Need extensive testing</span>
+<span class="w">    </span><span class="c1">// - Need to maintain over time</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Issues:</strong>
+- ❌ <strong>Time-consuming</strong> - Takes weeks to implement properly
+- ❌ <strong>High maintenance</strong> - Requires ongoing updates as Android evolves
+- ❌ <strong>Fragile</strong> - Easy to introduce bugs
+- ❌ <strong>Performance issues</strong> - Without optimization, scrolling becomes janky
+- ❌ <strong>API changes</strong> - Need to update for each Android version
+- ❌ <strong>Permission handling</strong> - Complex, error-prone permission logic
+- ❌ <strong>Device compatibility</strong> - Works differently on different devices</p>
+<p><strong>Cost estimate:</strong>
+- Development: 3-5 weeks
+- Testing: 1-2 weeks
+- Maintenance per year: 2-3 weeks
+- <strong>Total: 6-10 weeks of developer time</strong></p>
+<h3 id="problem-3-outdatedlimited-libraries">Problem 3: Outdated/Limited Libraries</h3>
+<p>When looking for existing solutions, developers find:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example of outdated library issues</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">oldPickerLib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;some.old:picker:1.0&quot;</span><span class="w"> </span><span class="c1">// From 2015</span>
+<span class="c1">// - No longer maintained</span>
+<span class="c1">// - Uses deprecated APIs</span>
+<span class="c1">// - Not compatible with modern Android</span>
+<span class="c1">// - Poor performance</span>
+<span class="c1">// - Limited features</span>
+</code></pre></div>
+<p><strong>Issues:</strong>
+- ❌ <strong>Unmaintained</strong> - Many popular libraries are no longer updated
+- ❌ <strong>Outdated APIs</strong> - Use deprecated Android frameworks
+- ❌ <strong>No support</strong> - Issues reported years ago still unfixed
+- ❌ <strong>Limited features</strong> - Don't include modern requirements
+- ❌ <strong>Heavy dependencies</strong> - Include unnecessary bloat
+- ❌ <strong>License concerns</strong> - Unclear or restrictive licenses</p>
+<h2 id="specific-pain-points">Specific Pain Points</h2>
+<h3 id="1-camera-integration-complexity">1. Camera Integration Complexity</h3>
+<p>Without a good library, developers struggle with:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// The challenges of camera integration:</span>
+<span class="c1">// - CameraX API complexity</span>
+<span class="c1">// - Orientation handling</span>
+<span class="c1">// - Preview management</span>
+<span class="c1">// - Capture file handling</span>
+<span class="c1">// - Memory management</span>
+<span class="c1">// - Permission timing</span>
+<span class="c1">// - Lifecycle coordination</span>
+</code></pre></div>
+<p><strong>Impact:</strong> 1-2 weeks of development for basic camera functionality.</p>
+<h3 id="2-storage-permission-chaos">2. Storage Permission Chaos</h3>
+<p>Android permission model changes frequently:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Different approaches needed for different API levels:</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Build</span><span class="p">.</span><span class="na">VERSION</span><span class="p">.</span><span class="na">SDK_INT</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">Build</span><span class="p">.</span><span class="na">VERSION_CODES</span><span class="p">.</span><span class="na">TIRAMISU</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// API 33+: READ_MEDIA_IMAGES, READ_MEDIA_VIDEO</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">Build</span><span class="p">.</span><span class="na">VERSION</span><span class="p">.</span><span class="na">SDK_INT</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">Build</span><span class="p">.</span><span class="na">VERSION_CODES</span><span class="p">.</span><span class="na">R</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// API 30-32: READ_EXTERNAL_STORAGE + scoped storage</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// API 16-29: READ_EXTERNAL_STORAGE</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Impact:</strong> 1+ week of testing across API levels.</p>
+<h3 id="3-performance-optimization">3. Performance Optimization</h3>
+<p>Image loading needs careful optimization:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Without proper optimization:</span>
+<span class="c1">// - Out of memory crashes</span>
+<span class="c1">// - Janky scrolling</span>
+<span class="c1">// - Battery drain from loading</span>
+<span class="c1">// - Network requests overload</span>
+</code></pre></div>
+<p><strong>Impact:</strong> 1-2 weeks of performance debugging.</p>
+<h3 id="4-user-experience-consistency">4. User Experience Consistency</h3>
+<p>Building a good UX requires:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Need to handle:</span>
+<span class="c1">// - Smooth animations</span>
+<span class="c1">// - Responsive gestures</span>
+<span class="c1">// - State preservation</span>
+<span class="c1">// - Orientation changes</span>
+<span class="c1">// - Screen size variations</span>
+<span class="c1">// - Device-specific quirks</span>
+</code></pre></div>
+<p><strong>Impact:</strong> 2-3 weeks of UI/UX work.</p>
+<h2 id="the-pix-solution">The Pix Solution</h2>
+<p>Pix eliminates all these problems:</p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Pix Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>System Intent Limitations</strong></td>
+<td>Custom, fully customizable UI</td>
+</tr>
+<tr>
+<td><strong>Build from Scratch</strong></td>
+<td>Complete implementation in minutes</td>
+</tr>
+<tr>
+<td><strong>Outdated Libraries</strong></td>
+<td>Modern, actively maintained</td>
+</tr>
+<tr>
+<td><strong>Camera Complexity</strong></td>
+<td>CameraX integration built-in</td>
+</tr>
+<tr>
+<td><strong>Permission Handling</strong></td>
+<td>Handles all API levels automatically</td>
+</tr>
+<tr>
+<td><strong>Performance Issues</strong></td>
+<td>Optimized image loading and memory management</td>
+</tr>
+<tr>
+<td><strong>UX Consistency</strong></td>
+<td>Professional, tested UI out of the box</td>
+</tr>
+<tr>
+<td><strong>Maintenance Burden</strong></td>
+<td>Regular updates and support</td>
+</tr>
+</tbody>
+</table>
+<h2 id="development-time-comparison">Development Time Comparison</h2>
+<h3 id="building-from-scratch">Building from Scratch</h3>
+<ul>
+<li>Camera: 2 weeks</li>
+<li>Permissions: 1 week</li>
+<li>Image Loading: 2 weeks</li>
+<li>UI/UX: 2 weeks</li>
+<li>Testing: 1 week</li>
+<li><strong>Total: 8 weeks</strong></li>
+</ul>
+<h3 id="using-pix">Using Pix</h3>
+<ul>
+<li>Integration: 1-2 hours</li>
+<li>Customization: 1-2 hours</li>
+<li>Testing: 2-4 hours</li>
+<li><strong>Total: 1 day</strong></li>
+</ul>
+<h3 id="time-saved-75-weeks-per-project">Time Saved: ~7.5 weeks per project</h3>
+<h2 id="real-costs">Real Costs</h2>
+<h3 id="option-a-build-custom-picker">Option A: Build Custom Picker</h3>
+<ul>
+<li><strong>One-time cost:</strong> $70,000 - $140,000 (2-4 developers × 8 weeks)</li>
+<li><strong>Annual maintenance:</strong> $10,000 - $20,000</li>
+<li><strong>Total 3-year cost:</strong> $100,000 - $200,000</li>
+</ul>
+<h3 id="option-b-use-pix">Option B: Use Pix</h3>
+<ul>
+<li><strong>One-time integration:</strong> &lt; $500</li>
+<li><strong>Annual maintenance:</strong> $0</li>
+<li><strong>Total 3-year cost:</strong> &lt; $500</li>
+</ul>
+<h3 id="savings-99500-199500-for-mid-size-team">Savings: $99,500 - $199,500 for mid-size team</h3>
+<h2 id="why-existing-options-were-inadequate">Why Existing Options Were Inadequate</h2>
+<p>Before Pix:</p>
+<ol>
+<li><strong>No maintained, modern alternatives</strong></li>
+<li>Most popular libraries had no updates in 5+ years</li>
+<li>
+<p>Relied on deprecated APIs</p>
+</li>
+<li>
+<p><strong>Google's solution was incomplete</strong></p>
+</li>
+<li>System intent picker too limited</li>
+<li>
+<p>Android's built-in options insufficient</p>
+</li>
+<li>
+<p><strong>Market gap existed</strong></p>
+</li>
+<li>Thousands of developers needed this</li>
+<li>
+<p>No good solution was available</p>
+</li>
+<li>
+<p><strong>Custom implementations had hidden costs</strong></p>
+</li>
+<li>Time to build</li>
+<li>Time to maintain</li>
+<li>Risk of bugs and compatibility issues</li>
+</ol>
+<h2 id="conclusion">Conclusion</h2>
+<p>Pix solves real, expensive problems that countless developers face. It's not just a convenience—it's a solution that:</p>
+<ul>
+<li><strong>Saves time</strong> - Weeks of development</li>
+<li><strong>Reduces cost</strong> - Eliminates expensive custom implementation</li>
+<li><strong>Improves quality</strong> - Tested, optimized solution</li>
+<li><strong>Reduces risk</strong> - No device compatibility issues</li>
+<li><strong>Enables faster delivery</strong> - Get to market faster</li>
+</ul>
+<hr />
+<p>Next: <a href="alternatives.html">Learn how Pix compares to alternatives</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "announce.dismiss"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

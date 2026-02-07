@@ -1,0 +1,2474 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WhatsApp-style image and video picker for Android">
+      
+      
+        <meta name="author" content="Akshay Sharma">
+      
+      
+        <link rel="canonical" href="https://akshay2211.github.io/PixImagePicker/dev/community/roadmap.html">
+      
+      
+        <link rel="prev" href="case-studies.html">
+      
+      
+        <link rel="next" href="contributing.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://github.com/akshay2211.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Roadmap - Pix Image Picker</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#roadmap" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Pix Image Picker" class="md-header__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pix Image Picker
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Roadmap
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/overview.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../documentation/usage.html" class="md-tabs__link">
+          
+  
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../why-pix/why.html" class="md-tabs__link">
+          
+  
+  
+  Why Pix
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="benchmarks.html" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../changelog.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Pix Image Picker" class="md-nav__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    Pix Image Picker
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/configuration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Pix
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why Pix
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/why.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why This Library Exists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/problem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problem & Solution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/alternatives.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternatives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="benchmarks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="case-studies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Case Studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="roadmap.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version History
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version History">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v168-current-february-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.6.8 (Current - February 2025)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v170-q2-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.7.0 (Q2 2025)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v1.7.0 (Q2 2025)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v180-q4-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.8.0 (Q4 2025)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v1.8.0 (Q4 2025)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v200-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.0.0 (2026)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v2.0.0 (2026)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-redesign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Redesign
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-in-backlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features in Backlog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features in Backlog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#short-term-next-6-months" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Short-term (Next 6 months)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium-term-6-12-months" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medium-term (6-12 months)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-term-1-2-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long-term (1-2 years)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-upcoming-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Upcoming Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Upcoming Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetpack-compose-support-v17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jetpack Compose Support (v1.7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-filtering-v17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Filtering (v1.7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kmp-support-v18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KMP Support (v1.8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-cropping-v18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Cropping (v1.8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-currently-planned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not Currently Planned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-request-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Request Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-features-get-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Features Get Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeline-transparency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeline Transparency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-track-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Track Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-release-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Release Schedule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version Release Schedule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-release-cadence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Release Cadence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecation-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecation Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-to-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing to Pix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing to Pix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Contribute
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-about-the-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions About the Roadmap?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version History
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version History">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v168-current-february-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.6.8 (Current - February 2025)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v170-q2-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.7.0 (Q2 2025)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v1.7.0 (Q2 2025)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planned-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Planned Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improvements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Improvements
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v180-q4-2025" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v1.8.0 (Q4 2025)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v1.8.0 (Q4 2025)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v200-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        v2.0.0 (2026)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="v2.0.0 (2026)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#major-redesign" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Major Redesign
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-in-backlog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features in Backlog
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features in Backlog">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#short-term-next-6-months" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Short-term (Next 6 months)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#medium-term-6-12-months" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Medium-term (6-12 months)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-term-1-2-years" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long-term (1-2 years)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#detailed-upcoming-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Detailed Upcoming Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Detailed Upcoming Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jetpack-compose-support-v17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jetpack Compose Support (v1.7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-filtering-v17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Filtering (v1.7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kmp-support-v18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KMP Support (v1.8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#image-cropping-v18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Cropping (v1.8)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#not-currently-planned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not Currently Planned
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-request-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Request Features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-features-get-added" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Features Get Added
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeline-transparency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeline Transparency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-track-progress" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Track Progress
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#version-release-schedule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version Release Schedule
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Version Release Schedule">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-release-cadence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Current Release Cadence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#support-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Support Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deprecation-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecation Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-to-pix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributing to Pix
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing to Pix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to Contribute
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions-about-the-roadmap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions About the Roadmap?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="roadmap">Roadmap</h1>
+<p>Planned features, improvements, and the future direction of Pix Image Picker.</p>
+<h2 id="version-history">Version History</h2>
+<h3 id="v168-current-february-2025">v1.6.8 (Current - February 2025)</h3>
+<p><strong>Released:</strong> February 2025</p>
+<p><strong>Features:</strong>
+- ✅ Material 3 design updates
+- ✅ Android 14+ support
+- ✅ Improved scoped storage handling
+- ✅ Performance optimizations
+- ✅ CameraX 1.3+ support
+- ✅ Enhanced theme customization</p>
+<p><strong>Improvements:</strong>
+- Better orientation handling
+- Faster image loading
+- Reduced memory footprint
+- Fixed known issues with specific devices</p>
+<hr />
+<h2 id="v170-q2-2025">v1.7.0 (Q2 2025)</h2>
+<h3 id="planned-features">Planned Features</h3>
+<p><strong>1. Jetpack Compose Support</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// Compose API coming soon</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">PixPicker</span><span class="p">(</span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="n">Options</span><span class="p">,</span><span class="w"> </span><span class="n">onResult</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Composable version of Pix</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>2. Advanced Filtering</strong>
+- Filter by date range
+- Filter by size range
+- Filter by media type
+- Custom filter implementations</p>
+<p><strong>3. Multiple Selection Modes</strong>
+- Range selection
+- Album-based selection
+- Intelligent selection suggestions</p>
+<p><strong>4. Enhanced Video Support</strong>
+- Thumbnail preview in video timeline
+- Duration indicator in gallery
+- Video information display</p>
+<p><strong>Status:</strong> In Development</p>
+<h3 id="improvements">Improvements</h3>
+<ul>
+<li>Better performance with very large galleries (5000+ items)</li>
+<li>Improved dark mode support</li>
+<li>Better orientation transition handling</li>
+</ul>
+<hr />
+<h2 id="v180-q4-2025">v1.8.0 (Q4 2025)</h2>
+<h3 id="major-features">Major Features</h3>
+<p><strong>1. Kotlin Multiplatform (KMP) Support</strong></p>
+<p>Making Pix available on multiple platforms:
+<div class="highlight"><pre><span></span><code><span class="c1">// Expected in v1.8</span>
+<span class="c1">// Android support (already there)</span>
+<span class="c1">// iOS support (via KMP)</span>
+<span class="c1">// Desktop support (via KMP)</span>
+</code></pre></div></p>
+<p><strong>Current Status:</strong> In Planning
+- iOS implementation
+- Shared business logic
+- Platform-specific UI</p>
+<p><strong>Benefits:</strong>
+- Code sharing across platforms
+- Consistent API across Android, iOS, Web
+- Reduces duplication
+- Easier maintenance</p>
+<p><strong>2. Cropping &amp; Editing</strong>
+- Basic image cropping
+- Rotation support
+- Built-in crop UI
+- Customizable crop ratios</p>
+<p><strong>3. Web Version (React)</strong>
+- JavaScript/React wrapper
+- Web picker functionality
+- File upload support</p>
+<hr />
+<h2 id="v200-2026">v2.0.0 (2026)</h2>
+<h3 id="major-redesign">Major Redesign</h3>
+<p><strong>Architecture Update:</strong>
+- Modern MVVM with Jetpack Compose
+- Reactive state management
+- Improved separation of concerns</p>
+<p><strong>Platform Expansion:</strong>
+- iOS support via KMP
+- Web support via React
+- Desktop support</p>
+<p><strong>Feature Expansion:</strong>
+- Advanced image/video editing
+- Cloud storage integration
+- Multiple source support (Photos, Drive, OneDrive)</p>
+<hr />
+<h2 id="features-in-backlog">Features in Backlog</h2>
+<h3 id="short-term-next-6-months">Short-term (Next 6 months)</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Priority</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compose support</td>
+<td>High</td>
+<td>2 weeks</td>
+</tr>
+<tr>
+<td>Advanced filtering</td>
+<td>High</td>
+<td>1 week</td>
+</tr>
+<tr>
+<td>Better video support</td>
+<td>High</td>
+<td>3 days</td>
+</tr>
+<tr>
+<td>Album view</td>
+<td>Medium</td>
+<td>1 week</td>
+</tr>
+<tr>
+<td>Batch edit metadata</td>
+<td>Medium</td>
+<td>2 weeks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="medium-term-6-12-months">Medium-term (6-12 months)</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Priority</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>KMP support</td>
+<td>High</td>
+<td>4 weeks</td>
+</tr>
+<tr>
+<td>Image cropping</td>
+<td>Medium</td>
+<td>2 weeks</td>
+</tr>
+<tr>
+<td>Cloud integration</td>
+<td>Medium</td>
+<td>3 weeks</td>
+</tr>
+<tr>
+<td>iOS version</td>
+<td>Medium</td>
+<td>8 weeks</td>
+</tr>
+</tbody>
+</table>
+<h3 id="long-term-1-2-years">Long-term (1-2 years)</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Priority</th>
+<th>Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desktop app</td>
+<td>Low</td>
+<td>6 weeks</td>
+</tr>
+<tr>
+<td>Web version</td>
+<td>Low</td>
+<td>4 weeks</td>
+</tr>
+<tr>
+<td>Advanced editing</td>
+<td>Low</td>
+<td>8 weeks</td>
+</tr>
+<tr>
+<td>AI features</td>
+<td>Low</td>
+<td>TBD</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="detailed-upcoming-features">Detailed Upcoming Features</h2>
+<h3 id="jetpack-compose-support-v17">Jetpack Compose Support (v1.7)</h3>
+<p><strong>Why this matters:</strong>
+- Modern Android development standard
+- Better performance
+- Easier to write and maintain
+- Future-proof</p>
+<p><strong>Current status:</strong> Design phase</p>
+<p><strong>Timeline:</strong> Q2 2025</p>
+<h3 id="advanced-filtering-v17">Advanced Filtering (v1.7)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Proposed API</span>
+<span class="n">Options</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">filters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">        </span><span class="n">DateRangeFilter</span><span class="p">(</span><span class="n">from</span><span class="p">,</span><span class="w"> </span><span class="n">to</span><span class="p">),</span>
+<span class="w">        </span><span class="n">SizeRangeFilter</span><span class="p">(</span><span class="n">minSize</span><span class="p">,</span><span class="w"> </span><span class="n">maxSize</span><span class="p">),</span>
+<span class="w">        </span><span class="n">MediaTypeFilter</span><span class="p">(</span><span class="n">Mode</span><span class="p">.</span><span class="na">Picture</span><span class="p">),</span>
+<span class="w">        </span><span class="n">CustomFilter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">uri</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">include</span><span class="p">(</span><span class="n">uri</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Benefits:</strong>
+- Users find media faster
+- Reduce large selections
+- Better UX for specific use cases</p>
+<p><strong>Timeline:</strong> Q2 2025</p>
+<h3 id="kmp-support-v18">KMP Support (v1.8)</h3>
+<p><strong>Phase 1:</strong> Shared business logic
+- Selection logic
+- Configuration handling
+- Result processing</p>
+<p><strong>Phase 2:</strong> iOS implementation
+- Native iOS UI
+- Camera integration
+- Permission handling</p>
+<p><strong>Phase 3:</strong> Multi-platform API
+- Consistent API across platforms
+- Shared models
+- Platform-specific implementations</p>
+<p><strong>Timeline:</strong> Q4 2025 - Q1 2026</p>
+<h3 id="image-cropping-v18">Image Cropping (v1.8)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Crop images after selection</span>
+<span class="n">Options</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">enableCropping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">cropAspectRatios</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">        </span><span class="n">Ratio</span><span class="p">.</span><span class="na">RATIO_4_3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Ratio</span><span class="p">.</span><span class="na">RATIO_16_9</span><span class="p">,</span>
+<span class="w">        </span><span class="n">Ratio</span><span class="p">.</span><span class="na">RATIO_1_1</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Benefits:</strong>
+- One-step crop and pick
+- Better UX
+- Reduce app complexity</p>
+<p><strong>Timeline:</strong> Q4 2025</p>
+<hr />
+<h2 id="not-currently-planned">Not Currently Planned</h2>
+<p>The following features are <strong>not planned</strong> for Pix (at least not in the near future):</p>
+<ol>
+<li><strong>Advanced Image Editing</strong></li>
+<li>Heavy editing is outside Pix's scope</li>
+<li>Use dedicated editing libraries instead</li>
+<li>
+<p>Pix focus: selection, not editing</p>
+</li>
+<li>
+<p><strong>Social Media Integration</strong></p>
+</li>
+<li>Sharing is app-specific</li>
+<li>Pix focuses on media selection</li>
+<li>
+<p>Use sharing APIs separately</p>
+</li>
+<li>
+<p><strong>Built-in Cloud Sync</strong></p>
+</li>
+<li>Sync is complex and app-specific</li>
+<li>Better handled by apps themselves</li>
+<li>
+<p>Pix focus: local media selection</p>
+</li>
+<li>
+<p><strong>Machine Learning Features</strong></p>
+</li>
+<li>Not relevant to all users</li>
+<li>Better as optional integration</li>
+<li>Future possibility</li>
+</ol>
+<hr />
+<h2 id="how-to-request-features">How to Request Features</h2>
+<p>Want a feature not listed above?</p>
+<ol>
+<li><strong>Check existing issues</strong> on <a href="https://github.com/akshay2211/PixImagePicker/issues">GitHub</a></li>
+<li><strong>Create new issue</strong> with:</li>
+<li>Clear description</li>
+<li>Use case</li>
+<li>Proposed API (if possible)</li>
+<li>
+<p>Why you think others need it</p>
+</li>
+<li>
+<p><strong>Discuss in community</strong></p>
+</li>
+<li>GitHub Discussions</li>
+<li>Stack Overflow</li>
+<li>
+<p>Reddit (r/androiddev)</p>
+</li>
+<li>
+<p><strong>Contribute</strong></p>
+</li>
+<li>Submit PR for small features</li>
+<li>Discuss larger changes first</li>
+<li>See <a href="contributing.html">Contributing Guide</a></li>
+</ol>
+<hr />
+<h2 id="development-process">Development Process</h2>
+<h3 id="how-features-get-added">How Features Get Added</h3>
+<ol>
+<li><strong>Proposal</strong> - Community discusses need</li>
+<li><strong>Design</strong> - Team designs API and approach</li>
+<li><strong>Development</strong> - Feature is implemented</li>
+<li><strong>Testing</strong> - Thorough testing across devices</li>
+<li><strong>Documentation</strong> - Docs and examples updated</li>
+<li><strong>Release</strong> - Feature shipped in minor/major version</li>
+</ol>
+<h3 id="timeline-transparency">Timeline Transparency</h3>
+<ul>
+<li>Current work: Posted on GitHub Projects</li>
+<li>Planned features: Listed on roadmap (this page)</li>
+<li>In progress: Tagged in GitHub issues</li>
+<li>Completed: Released in version</li>
+</ul>
+<h3 id="how-to-track-progress">How to Track Progress</h3>
+<ol>
+<li><strong>GitHub Issues</strong> - Feature discussions and tracking</li>
+<li><strong>GitHub Projects</strong> - Visual progress board</li>
+<li><strong>GitHub Milestones</strong> - Version planning</li>
+<li><strong>Releases</strong> - Completed features</li>
+<li><strong>Changelog</strong> - What changed in each version</li>
+</ol>
+<hr />
+<h2 id="version-release-schedule">Version Release Schedule</h2>
+<h3 id="current-release-cadence">Current Release Cadence</h3>
+<ul>
+<li><strong>Major versions</strong> (v1.x → v2.0): Every 12-18 months</li>
+<li><strong>Minor versions</strong> (v1.6 → v1.7): Every 3-4 months</li>
+<li><strong>Patch versions</strong> (v1.6.0 → v1.6.8): Every 2-4 weeks</li>
+<li><strong>Hotfixes</strong>: As needed for critical bugs</li>
+</ul>
+<h3 id="support-policy">Support Policy</h3>
+<ul>
+<li><strong>Current version:</strong> Full support</li>
+<li><strong>Previous minor version:</strong> Bug fixes and critical updates</li>
+<li><strong>Older versions:</strong> Critical security fixes only</li>
+</ul>
+<h3 id="deprecation-policy">Deprecation Policy</h3>
+<p>Deprecations are announced 2+ versions in advance:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Deprecated</span><span class="p">(</span><span class="s">&quot;Use newFeature instead&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ReplaceWith</span><span class="p">(</span><span class="s">&quot;newFeature&quot;</span><span class="p">))</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">oldFeature</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="contributing-to-pix">Contributing to Pix</h2>
+<p>Want to help shape Pix's future?</p>
+<h3 id="how-to-contribute">How to Contribute</h3>
+<ol>
+<li><strong>Feedback</strong> - Report issues and suggest features</li>
+<li><strong>Testing</strong> - Test pre-release versions</li>
+<li><strong>Documentation</strong> - Improve docs and examples</li>
+<li><strong>Code</strong> - Submit PRs for bugs and features</li>
+<li><strong>Community</strong> - Help others in discussions</li>
+</ol>
+<p>See <a href="contributing.html">Contributing Guide</a> for details.</p>
+<hr />
+<h2 id="questions-about-the-roadmap">Questions About the Roadmap?</h2>
+<ul>
+<li><strong>GitHub Issues</strong> - Technical questions</li>
+<li><strong>GitHub Discussions</strong> - Feature discussions</li>
+<li><strong>Twitter</strong> - For quick questions</li>
+<li><strong>Email</strong> - For urgent matters</li>
+</ul>
+<hr />
+<h2 id="summary">Summary</h2>
+<p>Pix is actively developed and evolving. Key upcoming improvements:</p>
+<table>
+<thead>
+<tr>
+<th>When</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Q2 2025</strong></td>
+<td>Compose support, advanced filtering</td>
+</tr>
+<tr>
+<td><strong>Q4 2025</strong></td>
+<td>KMP support, image cropping</td>
+</tr>
+<tr>
+<td><strong>2026</strong></td>
+<td>iOS version, multi-platform support</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Status:</strong> On track for all scheduled deliverables</p>
+<hr />
+<p>Next: <a href="contributing.html">Learn how to contribute</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "announce.dismiss"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

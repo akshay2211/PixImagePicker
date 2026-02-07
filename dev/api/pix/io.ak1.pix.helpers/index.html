@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.ak1.pix.helpers</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    pix
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.6.8        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":pix/main">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":pix/main"
+                                       data-filter=":pix/main"/>
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    pix
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="pix::io.ak1.pix.helpers////PointingToDeclaration//-1354957892">
+  <div class="breadcrumbs"><a href="../../index.html">pix</a><span class="delimiter">/</span><span class="current">io.ak1.pix.helpers</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1742266065%2FClasslikes%2F-1354957892" anchor-label="CameraXManager" id="-1742266065%2FClasslikes%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-camera-x-manager/index.html"><span>Camera</span><wbr></wbr><span><span>XManager</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1742266065%2FClasslikes%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-camera-x-manager/index.html">CameraXManager</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">previewView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/camera/view/PreviewView.html">PreviewView</a><span class="token punctuation">, </span></span><span class="parameter ">requireActivity<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentActivity.html">FragmentActivity</a><span class="token punctuation">, </span></span><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-517921528%2FClasslikes%2F-1354957892" anchor-label="PixBus" id="-517921528%2FClasslikes%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pix-bus/index.html"><span>Pix</span><wbr></wbr><span><span>Bus</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-517921528%2FClasslikes%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">object </span><a href="-pix-bus/index.html">PixBus</a> : <a href="-pix-event-callback/index.html">PixEventCallback</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1308582569%2FClasslikes%2F-1354957892" anchor-label="PixEventCallback" id="1308582569%2FClasslikes%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-pix-event-callback/index.html"><span>Pix</span><wbr></wbr><span>Event</span><wbr></wbr><span><span>Callback</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1308582569%2FClasslikes%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-pix-event-callback/index.html">PixEventCallback</a></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="444929181%2FProperties%2F-1354957892" anchor-label="counterText" id="444929181%2FProperties%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="counter-text.html"><span>counter</span><wbr></wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="444929181%2FProperties%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">.</span><a href="counter-text.html">counterText</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-767325319%2FProperties%2F-1354957892" anchor-label="navigationBarHeight" id="-767325319%2FProperties%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="navigation-bar-height.html"><span>navigation</span><wbr></wbr><span>Bar</span><wbr></wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-767325319%2FProperties%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="navigation-bar-height.html">navigationBarHeight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="402967127%2FProperties%2F-1354957892" anchor-label="statusBarHeight" id="402967127%2FProperties%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="status-bar-height.html"><span>status</span><wbr></wbr><span>Bar</span><wbr></wbr><span><span>Height</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="402967127%2FProperties%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="status-bar-height.html">statusBarHeight</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1570884865%2FFunctions%2F-1354957892" anchor-label="addPixToActivity" id="1570884865%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add-pix-to-activity.html"><span>add</span><wbr></wbr><span>Pix</span><wbr></wbr><span>To</span><wbr></wbr><span><span>Activity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1570884865%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/appcompat/app/AppCompatActivity.html">AppCompatActivity</a><span class="token punctuation">.</span><a href="add-pix-to-activity.html"><span class="token function">addPixToActivity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">containerId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">resultCallback<span class="token operator">: </span><span class="token punctuation">(</span><a href="-pix-event-callback/-results/index.html">PixEventCallback.Results</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1656510342%2FFunctions%2F-1354957892" anchor-label="cancelAnimation" id="1656510342%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="cancel-animation.html"><span>cancel</span><wbr></wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1656510342%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="cancel-animation.html"><span class="token function">cancelAnimation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">vararg </span>animator<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/ViewPropertyAnimator.html">ViewPropertyAnimator</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-835125612%2FFunctions%2F-1354957892" anchor-label="color" id="-835125612%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="color.html"><span><span>color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-835125612%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="color.html"><span class="token function">color</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/ColorRes.html"><span class="token annotation builtin">ColorRes</span></a> </span>color<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-86049794%2FFunctions%2F-1354957892" anchor-label="getDateDifference" id="-86049794%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-date-difference.html"><span>get</span><wbr></wbr><span>Date</span><wbr></wbr><span><span>Difference</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-86049794%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/res/Resources.html">Resources</a><span class="token punctuation">.</span><a href="get-date-difference.html"><span class="token function">getDateDifference</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">calendar<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/util/Calendar.html">Calendar</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="806008822%2FFunctions%2F-1354957892" anchor-label="getImageVideoCursor" id="806008822%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-image-video-cursor.html"><span>get</span><wbr></wbr><span>Image</span><wbr></wbr><span>Video</span><wbr></wbr><span><span>Cursor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="806008822%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="get-image-video-cursor.html"><span class="token function">getImageVideoCursor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mode<span class="token operator">: </span><a href="../io.ak1.pix.models/-mode/index.html">Mode</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-426908484%2FFunctions%2F-1354957892" anchor-label="getScreenSize" id="-426908484%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-screen-size.html"><span>get</span><wbr></wbr><span>Screen</span><wbr></wbr><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-426908484%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="get-screen-size.html"><span class="token function">getScreenSize</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-693539631%2FFunctions%2F-1354957892" anchor-label="getScrollProportion" id="-693539631%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-scroll-proportion.html"><span>get</span><wbr></wbr><span>Scroll</span><wbr></wbr><span><span>Proportion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-693539631%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-scroll-proportion.html"><span class="token function">getScrollProportion</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">recyclerView<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/RecyclerView.html">RecyclerView</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="169274853%2FFunctions%2F-1354957892" anchor-label="getValueInRange" id="169274853%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-value-in-range.html"><span>get</span><wbr></wbr><span>Value</span><wbr></wbr><span>In</span><wbr></wbr><span><span>Range</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="169274853%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="get-value-in-range.html"><span class="token function">getValueInRange</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">min<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">max<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="409899223%2FFunctions%2F-1354957892" anchor-label="hide" id="409899223%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hide.html"><span><span>hide</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="409899223%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a><span class="token punctuation">.</span><a href="hide.html"><span class="token function">hide</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1596269771%2FFunctions%2F-1354957892" anchor-label="hideBubble" id="-1596269771%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hide-bubble.html"><span>hide</span><wbr></wbr><span><span>Bubble</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1596269771%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="hide-bubble.html"><span class="token function">hideBubble</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1147068493%2FFunctions%2F-1354957892" anchor-label="hideScrollbar" id="1147068493%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hide-scrollbar.html"><span>hide</span><wbr></wbr><span><span>Scrollbar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1147068493%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="hide-scrollbar.html"><span class="token function">hideScrollbar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1173509408%2FFunctions%2F-1354957892" anchor-label="hideStatusBar" id="1173509408%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="hide-status-bar.html"><span>hide</span><wbr></wbr><span>Status</span><wbr></wbr><span><span>Bar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1173509408%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="hide-status-bar.html"><span class="token function">hideStatusBar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1187096980%2FFunctions%2F-1354957892" anchor-label="invisible" id="1187096980%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="invisible.html"><span><span>invisible</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1187096980%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a><span class="token punctuation">.</span><a href="invisible.html"><span class="token function">invisible</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2121931052%2FFunctions%2F-1354957892" anchor-label="longSelectionStatus" id="-2121931052%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="long-selection-status.html"><span>long</span><wbr></wbr><span>Selection</span><wbr></wbr><span><span>Status</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2121931052%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="long-selection-status.html"><span class="token function">longSelectionStatus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-980623332%2FFunctions%2F-1354957892" anchor-label="permissionsFilter" id="-980623332%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="permissions-filter.html"><span>permissions</span><wbr></wbr><span><span>Filter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-980623332%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/activity/result/ActivityResultLauncher.html">ActivityResultLauncher</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="permissions-filter.html"><span class="token function">permissionsFilter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fragmentActivity<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentActivity.html">FragmentActivity</a><span class="token punctuation">, </span></span><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a><span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-647308285%2FFunctions%2F-1354957892" anchor-label="pixFragment" id="-647308285%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pix-fragment.html"><span>pix</span><wbr></wbr><span><span>Fragment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-647308285%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="pix-fragment.html"><span class="token function">pixFragment</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a><span class="token punctuation">, </span></span><span class="parameter ">resultCallback<span class="token operator">: </span><span class="token punctuation">(</span><a href="-pix-event-callback/-results/index.html">PixEventCallback.Results</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../io.ak1.pix/-pix-fragment/index.html">PixFragment</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-900616339%2FFunctions%2F-1354957892" anchor-label="resetMedia" id="-900616339%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-media.html"><span>reset</span><wbr></wbr><span><span>Media</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-900616339%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentManager.html">FragmentManager</a><span class="token punctuation">.</span><a href="reset-media.html"><span class="token function">resetMedia</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">preSelectedUrls<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-array-list/index.html">ArrayList</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a><span class="token operator">&gt;</span><span class="token operator"> = </span>ArrayList()</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1025637829%2FFunctions%2F-1354957892" anchor-label="scanPhoto" id="-1025637829%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scan-photo.html"><span>scan</span><wbr></wbr><span><span>Photo</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1025637829%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="scan-photo.html"><span class="token function">scanPhoto</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">file<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/File.html">File</a><span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/android/net/Uri.html">Uri</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="854666318%2FFunctions%2F-1354957892" anchor-label="scrollListener" id="854666318%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scroll-listener.html"><span>scroll</span><wbr></wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="854666318%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scroll-listener.html"><span class="token function">scrollListener</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fragment<span class="token operator">: </span><a href="../io.ak1.pix/-pix-fragment/index.html">PixFragment</a><span class="token punctuation">, </span></span><span class="parameter ">binding<span class="token operator">: </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/recyclerview/widget/RecyclerView.OnScrollListener.html">RecyclerView.OnScrollListener</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="716909823%2FFunctions%2F-1354957892" anchor-label="selection" id="716909823%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="selection.html"><span><span>selection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="716909823%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">.</span><a href="selection.html"><span class="token function">selection</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">b<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1880815615%2FFunctions%2F-1354957892" anchor-label="sendButtonStateAnimation" id="-1880815615%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="send-button-state-animation.html"><span>send</span><wbr></wbr><span>Button</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Animation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1880815615%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span>ERROR CLASS: Symbol not found for GridLayoutBinding<span class="token punctuation">.</span><a href="send-button-state-animation.html"><span class="token function">sendButtonStateAnimation</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">show<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">withAnim<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-190240615%2FFunctions%2F-1354957892" anchor-label="setDrawableIconForFlash" id="-190240615%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-drawable-icon-for-flash.html"><span>set</span><wbr></wbr><span>Drawable</span><wbr></wbr><span>Icon</span><wbr></wbr><span>For</span><wbr></wbr><span><span>Flash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-190240615%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="set-drawable-icon-for-flash.html"><span class="token function">setDrawableIconForFlash</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="741497734%2FFunctions%2F-1354957892" anchor-label="setOnClickForFLash" id="741497734%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-on-click-for-f-lash.html"><span>set</span><wbr></wbr><span>On</span><wbr></wbr><span>Click</span><wbr></wbr><span>For</span><wbr></wbr><span><span>FLash</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="741497734%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/view/ViewGroup.html">ViewGroup</a><span class="token punctuation">.</span><a href="set-on-click-for-f-lash.html"><span class="token function">setOnClickForFLash</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">options<span class="token operator">: </span><a href="../io.ak1.pix.models/-options/index.html">Options</a><span class="token punctuation">, </span></span><span class="parameter ">callback<span class="token operator">: </span><span class="token punctuation">(</span><a href="../io.ak1.pix.models/-options/index.html">Options</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1985444749%2FFunctions%2F-1354957892" anchor-label="setRecyclerViewPosition" id="-1985444749%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-recycler-view-position.html"><span>set</span><wbr></wbr><span>Recycler</span><wbr></wbr><span>View</span><wbr></wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1985444749%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="set-recycler-view-position.html"><span class="token function">setRecyclerViewPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">y<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="80445718%2FFunctions%2F-1354957892" anchor-label="setSelectionText" id="80445718%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-selection-text.html"><span>set</span><wbr></wbr><span>Selection</span><wbr></wbr><span><span>Text</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="80445718%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="set-selection-text.html"><span class="token function">setSelectionText</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">fragmentActivity<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentActivity.html">FragmentActivity</a><span class="token punctuation">, </span></span><span class="parameter ">size<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="896453990%2FFunctions%2F-1354957892" anchor-label="setUpMargins" id="896453990%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="set-up-margins.html"><span>set</span><wbr></wbr><span>Up</span><wbr></wbr><span><span>Margins</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="896453990%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/fragment/app/FragmentActivity.html">FragmentActivity</a><span class="token punctuation">.</span><a href="set-up-margins.html"><span class="token function">setUpMargins</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">binding<span class="token operator">: </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-824488586%2FFunctions%2F-1354957892" anchor-label="setupScreen" id="-824488586%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="setup-screen.html"><span>setup</span><wbr></wbr><span><span>Screen</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-824488586%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="setup-screen.html"><span class="token function">setupScreen</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-189582126%2FFunctions%2F-1354957892" anchor-label="show" id="-189582126%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show.html"><span><span>show</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-189582126%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a><span class="token punctuation">.</span><a href="show.html"><span class="token function">show</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1564641114%2FFunctions%2F-1354957892" anchor-label="showBubble" id="1564641114%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-bubble.html"><span>show</span><wbr></wbr><span><span>Bubble</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1564641114%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="show-bubble.html"><span class="token function">showBubble</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1819377325%2FFunctions%2F-1354957892" anchor-label="showScrollbar" id="-1819377325%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-scrollbar.html"><span>show</span><wbr></wbr><span><span>Scrollbar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1819377325%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="show-scrollbar.html"><span class="token function">showScrollbar</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mScrollbar<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/View.html">View</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/view/ViewPropertyAnimator.html">ViewPropertyAnimator</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="600955035%2FFunctions%2F-1354957892" anchor-label="showStatusBar" id="600955035%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="show-status-bar.html"><span>show</span><wbr></wbr><span>Status</span><wbr></wbr><span><span>Bar</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="600955035%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/app/Activity.html">Activity</a><span class="token punctuation">.</span><a href="show-status-bar.html"><span class="token function">showStatusBar</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="825075800%2FFunctions%2F-1354957892" anchor-label="toast" id="825075800%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="toast.html"><span><span>toast</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="825075800%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="toast.html"><span class="token function">toast</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-211713031%2FFunctions%2F-1354957892" anchor-label="toDp" id="-211713031%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-dp.html"><span>to</span><wbr></wbr><span><span>Dp</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-211713031%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="to-dp.html"><span class="token function">toDp</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">px<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1174682763%2FFunctions%2F-1354957892" anchor-label="toPx" id="-1174682763%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-px.html"><span>to</span><wbr></wbr><span><span>Px</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1174682763%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">.</span><a href="to-px.html"><span class="token function">toPx</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">dp<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1627341029%2FFunctions%2F-1354957892" anchor-label="videoRecordingEndAnim" id="-1627341029%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="video-recording-end-anim.html"><span>video</span><wbr></wbr><span>Recording</span><wbr></wbr><span>End</span><wbr></wbr><span><span>Anim</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1627341029%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="video-recording-end-anim.html"><span class="token function">videoRecordingEndAnim</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="382961652%2FFunctions%2F-1354957892" anchor-label="videoRecordingStartAnim" id="382961652%2FFunctions%2F-1354957892" data-filterable-set=":pix/main"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":pix/main" data-filterable-set=":pix/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="video-recording-start-anim.html"><span>video</span><wbr></wbr><span>Recording</span><wbr></wbr><span>Start</span><wbr></wbr><span><span>Anim</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="382961652%2FFunctions%2F-1354957892"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":pix/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="../io.ak1.pix.utility/-pix-bindings/index.html">PixBindings</a><span class="token punctuation">.</span><a href="video-recording-start-anim.html"><span class="token function">videoRecordingStartAnim</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Created By Akshay Sharma on 17,June,2021 https://ak1.io</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

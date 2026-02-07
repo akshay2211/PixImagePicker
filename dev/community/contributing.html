@@ -1,0 +1,2372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="WhatsApp-style image and video picker for Android">
+      
+      
+        <meta name="author" content="Akshay Sharma">
+      
+      
+        <link rel="canonical" href="https://akshay2211.github.io/PixImagePicker/dev/community/contributing.html">
+      
+      
+        <link rel="prev" href="roadmap.html">
+      
+      
+        <link rel="next" href="../changelog.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="https://github.com/akshay2211.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Contributing - Pix Image Picker</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+        <script src="https://unpkg.com/iframe-worker/shim"></script>
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contributing-to-pix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Pix Image Picker" class="md-header__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pix Image Picker
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Contributing
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../getting-started/overview.html" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../documentation/usage.html" class="md-tabs__link">
+          
+  
+  
+  Documentation
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../why-pix/why.html" class="md-tabs__link">
+          
+  
+  
+  Why Pix
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="benchmarks.html" class="md-tabs__link">
+          
+  
+  
+  Community
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../changelog.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Changelog
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Pix Image Picker" class="md-nav__button md-logo" aria-label="Pix Image Picker" data-md-component="logo">
+      
+  <img src="https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif" alt="logo">
+
+    </a>
+    Pix Image Picker
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/akshay2211/PixImagePicker" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    akshay2211/PixImagePicker
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/overview.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/installation.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/quick-start.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quick Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Documentation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/usage.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Usage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/configuration.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/customization.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/examples.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../documentation/api-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why Pix
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Why Pix
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/why.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why This Library Exists
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/problem.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Problem & Solution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-pix/alternatives.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alternatives
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Community
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Community
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="benchmarks.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmarks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="case-studies.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Case Studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roadmap.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="contributing.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code of Conduct
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to Contribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ways to Contribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-report-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Report Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-suggest-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Suggest Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-improve-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Improve Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-contribute-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Contribute Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Contribute Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Quality Standards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-answer-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Answer Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-share-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Share Your Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pull Request Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-submitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before Submitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributor-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributor Recognition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Codebase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pr-blocked-by-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR blocked by tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge conflicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-pipeline-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI pipeline failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-successful-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips for Successful Contributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thank-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thank You!
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../changelog.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Changelog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#code-of-conduct" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code of Conduct
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ways-to-contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ways to Contribute
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ways to Contribute">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-report-bugs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Report Bugs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-suggest-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Suggest Features
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-improve-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Improve Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-contribute-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Contribute Code
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Contribute Code">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Started
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#code-quality-standards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Quality Standards
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-answer-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Answer Questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-share-your-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Share Your Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull Request Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pull Request Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#before-submitting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Before Submitting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR Description
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review Process
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after-merge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After Merge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributor-recognition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contributor Recognition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Questions?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Development Resources
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development Resources">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-codebase" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the Codebase
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#important-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Stack
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Git Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Issues
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pr-blocked-by-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PR blocked by tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#merge-conflicts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Merge conflicts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ci-pipeline-failure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI pipeline failure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tips-for-successful-contributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tips for Successful Contributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thank-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thank You!
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="contributing-to-pix">Contributing to Pix</h1>
+<p>Thank you for considering contributing to Pix Image Picker! This guide will help you get started.</p>
+<h2 id="code-of-conduct">Code of Conduct</h2>
+<p>Please review our <a href="../../CODE_OF_CONDUCT.md">Code of Conduct</a> before contributing.</p>
+<p><strong>In summary:</strong>
+- Be respectful and inclusive
+- Welcome diverse perspectives
+- Focus on constructive feedback
+- Report violations to maintainers</p>
+<h2 id="ways-to-contribute">Ways to Contribute</h2>
+<h3 id="1-report-bugs">1. Report Bugs</h3>
+<p>Found a bug? Help us fix it!</p>
+<p><strong>How to report:</strong>
+1. Check <a href="https://github.com/akshay2211/PixImagePicker/issues">existing issues</a> first
+2. Create a new issue with:
+   - Clear title
+   - Description of problem
+   - Steps to reproduce
+   - Expected vs. actual behavior
+   - Device/Android version
+   - Code example (if applicable)</p>
+<p><strong>Good bug report:</strong>
+<div class="highlight"><pre><span></span><code>Title: Camera not working on Samsung Galaxy S21
+
+Description:
+When I try to capture a photo with front camera, it crashes.
+
+Steps:
+1. Open Pix with Mode.Picture
+2. Tap camera icon
+3. Tap front camera toggle
+4. Try to take photo
+
+Expected: Photo is captured
+Actual: App crashes with ANR
+
+Device: Samsung Galaxy S21
+Android: 13
+</code></pre></div></p>
+<h3 id="2-suggest-features">2. Suggest Features</h3>
+<p>Have an idea to improve Pix?</p>
+<p><strong>How to suggest:</strong>
+1. Check <a href="https://github.com/akshay2211/PixImagePicker/discussions">existing issues/discussions</a>
+2. Create a discussion or issue with:
+   - Clear title
+   - Why you need this
+   - Use case
+   - Proposed solution (if any)</p>
+<p><strong>Good feature request:</strong>
+<div class="highlight"><pre><span></span><code>Title: Support for image cropping
+
+Use case:
+Many apps require users to crop profile pictures before uploading.
+
+Proposal:
+Add optional cropping screen after image selection with:
+- Drag corners to adjust
+- Pinch to zoom
+- Preset aspect ratios
+</code></pre></div></p>
+<h3 id="3-improve-documentation">3. Improve Documentation</h3>
+<p>Help make Pix easier to understand!</p>
+<p><strong>What needs help:</strong>
+- Typos and clarity improvements
+- Additional examples
+- Troubleshooting guides
+- Translations
+- Video tutorials</p>
+<p><strong>How to contribute:</strong>
+1. Fork the repo
+2. Edit documentation in <code>/docs</code>
+3. Test your changes locally with MkDocs
+4. Submit PR with clear description</p>
+<h3 id="4-contribute-code">4. Contribute Code</h3>
+<p>Ready to code? We'd love your help!</p>
+<h4 id="getting-started">Getting Started</h4>
+<ol>
+<li>
+<p><strong>Fork the repository</strong>
+   <div class="highlight"><pre><span></span><code>gh<span class="w"> </span>repo<span class="w"> </span>fork<span class="w"> </span>akshay2211/PixImagePicker<span class="w"> </span>--clone
+<span class="nb">cd</span><span class="w"> </span>PixImagePicker
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Create a feature branch</strong>
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+<span class="c1"># or for bugs:</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/bug-description
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Set up development environment</strong>
+   <div class="highlight"><pre><span></span><code><span class="c1"># Open in Android Studio</span>
+<span class="c1"># Wait for Gradle sync</span>
+<span class="c1"># Review code quality setup (Spotless, Detekt, etc.)</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Make your changes</strong></p>
+</li>
+<li>Write clean, readable code</li>
+<li>Follow Android best practices</li>
+<li>Add comments for complex logic</li>
+<li>
+<p>Write tests for new features</p>
+</li>
+<li>
+<p><strong>Run quality checks</strong>
+   <div class="highlight"><pre><span></span><code><span class="c1"># Format code</span>
+./gradlew<span class="w"> </span>:pix:spotlessApply
+
+<span class="c1"># Static analysis</span>
+./gradlew<span class="w"> </span>:pix:detekt
+
+<span class="c1"># Run tests</span>
+./gradlew<span class="w"> </span>:pix:test
+
+<span class="c1"># Build</span>
+./gradlew<span class="w"> </span>:pix:build
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Commit with clear messages</strong>
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add: feature description</span>
+
+<span class="s2">- Bullet point explaining change</span>
+<span class="s2">- Why this change was needed</span>
+<span class="s2">- Any important notes&quot;</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Push and create PR</strong>
+   <div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature-name
+<span class="c1"># Then create PR on GitHub</span>
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="code-quality-standards">Code Quality Standards</h4>
+<p><strong>Follow these standards:</strong></p>
+<ul>
+<li><strong>Kotlin style</strong> - Uses ktlint (via Spotless)</li>
+<li><strong>Best practices</strong> - Detekt static analysis</li>
+<li><strong>Testing</strong> - Unit tests for new code</li>
+<li><strong>Documentation</strong> - KDoc for public APIs</li>
+<li><strong>Performance</strong> - Profile changes if performance-critical</li>
+</ul>
+<p><strong>Code format:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1">// Good</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">doSomething</span><span class="p">():</span><span class="w"> </span><span class="kt">String</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;result&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Bad (will fail spotlessCheck)</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">MyClass</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">doSomething</span><span class="p">(</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&quot;result&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h4 id="testing">Testing</h4>
+<p>All new features should include tests:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example test structure</span>
+<span class="kd">class</span><span class="w"> </span><span class="nc">PixFragmentTest</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">testFragmentCreation</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Options</span><span class="p">().</span><span class="na">apply</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="nv">fragment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pixFragment</span><span class="p">(</span><span class="n">options</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">assertNotNull</span><span class="p">(</span><span class="n">fragment</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@Test</span>
+<span class="w">    </span><span class="kd">fun</span><span class="w"> </span><span class="nf">testResultCallback</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Test callback mechanism</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><strong>Run tests:</strong>
+<div class="highlight"><pre><span></span><code>./gradlew<span class="w"> </span>:pix:test
+</code></pre></div></p>
+<h4 id="documentation">Documentation</h4>
+<p>Update docs for new features:</p>
+<ol>
+<li>
+<p><strong>Code documentation</strong> - KDoc comments
+   <div class="highlight"><pre><span></span><code><span class="cm">/**</span>
+<span class="cm"> * Creates a Pix picker fragment with the specified options.</span>
+<span class="cm"> *</span>
+<span class="cm"> * @param options Configuration options for the picker</span>
+<span class="cm"> * @param callback Called when user makes selection</span>
+<span class="cm"> * @return Configured PixFragment instance</span>
+<span class="cm"> */</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">pixFragment</span><span class="p">(</span><span class="n">options</span><span class="p">:</span><span class="w"> </span><span class="n">Options</span><span class="p">,</span><span class="w"> </span><span class="n">callback</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="n">Result</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">):</span><span class="w"> </span><span class="n">PixFragment</span>
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>User documentation</strong> - Update relevant <code>.md</code> files</p>
+</li>
+<li><strong>Sample app</strong> - Add example code in app module</li>
+<li><strong>Changelog</strong> - Note your contribution</li>
+</ol>
+<h3 id="5-answer-questions">5. Answer Questions</h3>
+<p>Help other developers in:
+- <a href="https://github.com/akshay2211/PixImagePicker/discussions">GitHub Discussions</a>
+- <a href="https://stackoverflow.com/questions/tagged/piximagepicker">Stack Overflow</a>
+- <a href="https://www.reddit.com/r/androiddev/">Reddit r/androiddev</a></p>
+<h3 id="6-share-your-work">6. Share Your Work</h3>
+<p>Tell the world about Pix:
+- Write blog posts
+- Create video tutorials
+- Share on social media
+- Contribute to open-source lists</p>
+<h2 id="pull-request-process">Pull Request Process</h2>
+<h3 id="before-submitting">Before Submitting</h3>
+<ul>
+<li>[ ] Code follows project style (run <code>spotlessApply</code>)</li>
+<li>[ ] Static analysis passes (<code>detekt</code>)</li>
+<li>[ ] Tests pass locally (<code>./gradlew :pix:test</code>)</li>
+<li>[ ] Build succeeds (<code>./gradlew :pix:build</code>)</li>
+<li>[ ] Documentation updated (if needed)</li>
+<li>[ ] Changelog updated (if needed)</li>
+</ul>
+<h3 id="pr-description">PR Description</h3>
+<div class="highlight"><pre><span></span><code><span class="gu">## Description</span>
+Brief description of what this PR does.
+
+<span class="gu">## Type of Change</span>
+<span class="k">- [ ]</span> Bug fix
+<span class="k">- [ ]</span> New feature
+<span class="k">- [ ]</span> Documentation update
+<span class="k">- [ ]</span> Performance improvement
+<span class="k">- [ ]</span> Other (please describe)
+
+<span class="gu">## Related Issue</span>
+Fixes <span class="ni">#issue_number</span>
+
+<span class="gu">## Changes Made</span>
+<span class="k">-</span><span class="w"> </span>Change 1
+<span class="k">-</span><span class="w"> </span>Change 2
+<span class="k">-</span><span class="w"> </span>Change 3
+
+<span class="gu">## Testing</span>
+Describe testing done:
+<span class="k">-</span><span class="w"> </span>Device: [e.g., Pixel 6 Pro]
+<span class="k">-</span><span class="w"> </span>Android Version: [e.g., 13]
+<span class="k">-</span><span class="w"> </span>Test steps: [e.g., reproduce issue from <span class="ni">#123</span>]
+
+<span class="gu">## Screenshots (if applicable)</span>
+[Add screenshots of UI changes]
+
+<span class="gu">## Checklist</span>
+<span class="k">- [ ]</span> Code follows style guidelines
+<span class="k">- [ ]</span> Self-review completed
+<span class="k">- [ ]</span> Comments added for complex logic
+<span class="k">- [ ]</span> Tests written/updated
+<span class="k">- [ ]</span> Documentation updated
+<span class="k">- [ ]</span> No new warnings generated
+</code></pre></div>
+<h3 id="review-process">Review Process</h3>
+<ol>
+<li><strong>Maintainer reviews</strong> your PR</li>
+<li><strong>Feedback</strong> provided (if any changes needed)</li>
+<li><strong>Address feedback</strong> with new commits</li>
+<li><strong>Approval</strong> once all concerns resolved</li>
+<li><strong>Merge</strong> into master branch</li>
+</ol>
+<p><strong>Timeline:</strong> Usually 3-7 days for review</p>
+<h3 id="after-merge">After Merge</h3>
+<ul>
+<li>Your code is part of Pix!</li>
+<li>You'll be credited in changelog</li>
+<li>Thanks for helping the community</li>
+</ul>
+<h2 id="contributor-recognition">Contributor Recognition</h2>
+<p>We recognize and thank contributors:
+- <strong>GitHub:</strong> Shown in contributor list
+- <strong>Changelog:</strong> Listed in version notes
+- <strong>Hall of Fame:</strong> Featured on documentation</p>
+<h2 id="questions">Questions?</h2>
+<ul>
+<li><strong>GitHub Issues</strong> - Technical questions</li>
+<li><strong>GitHub Discussions</strong> - Feature/design discussions</li>
+<li><strong>Email</strong> - For private matters</li>
+<li><strong>Twitter</strong> - For quick contact</li>
+</ul>
+<h2 id="development-resources">Development Resources</h2>
+<h3 id="understanding-the-codebase">Understanding the Codebase</h3>
+<p>Key modules:
+- <code>pix/</code> - Main library
+  - <code>core/</code> - Core functionality
+  - <code>ui/</code> - UI components (Fragments, etc.)
+  - <code>data/</code> - Data access layer
+- <code>app/</code> - Sample application</p>
+<h3 id="important-classes">Important Classes</h3>
+<ul>
+<li><code>Pix</code> - Main entry point</li>
+<li><code>Options</code> - Configuration</li>
+<li><code>PixFragment</code> - Main UI fragment</li>
+<li><code>PixBus</code> - Event bus for results</li>
+<li><code>PixEventCallback</code> - Result callback interface</li>
+</ul>
+<h3 id="technology-stack">Technology Stack</h3>
+<ul>
+<li><strong>Language:</strong> Kotlin</li>
+<li><strong>Architecture:</strong> MVVM</li>
+<li><strong>Database:</strong> N/A (uses media store)</li>
+<li><strong>Image Loading:</strong> Glide</li>
+<li><strong>Camera:</strong> CameraX</li>
+<li><strong>Threading:</strong> Coroutines</li>
+<li><strong>UI:</strong> AndroidX Fragments</li>
+<li><strong>Build:</strong> Gradle with Kotlin DSL</li>
+</ul>
+<h2 id="git-workflow">Git Workflow</h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Keep your fork updated</span>
+git<span class="w"> </span>fetch<span class="w"> </span>upstream
+git<span class="w"> </span>rebase<span class="w"> </span>upstream/master
+
+<span class="c1"># Before PR, ensure clean history</span>
+git<span class="w"> </span>rebase<span class="w"> </span>-i<span class="w"> </span>HEAD~3<span class="w">  </span><span class="c1"># squash if needed</span>
+
+<span class="c1"># Push to your fork</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature
+</code></pre></div>
+<h2 id="common-issues">Common Issues</h2>
+<h3 id="pr-blocked-by-tests">PR blocked by tests</h3>
+<ul>
+<li>Run <code>./gradlew :pix:test</code> locally</li>
+<li>Check test logs for failures</li>
+<li>Fix issues and push new commits</li>
+</ul>
+<h3 id="merge-conflicts">Merge conflicts</h3>
+<ul>
+<li>Sync with master: <code>git fetch upstream &amp;&amp; git rebase upstream/master</code></li>
+<li>Resolve conflicts manually</li>
+<li>Run tests again</li>
+<li>Push resolved version</li>
+</ul>
+<h3 id="ci-pipeline-failure">CI pipeline failure</h3>
+<ul>
+<li>Check GitHub Actions logs</li>
+<li>Common causes: formatting, tests, build</li>
+<li>Run local checks before pushing</li>
+</ul>
+<h2 id="tips-for-successful-contributions">Tips for Successful Contributions</h2>
+<ol>
+<li><strong>Start small</strong> - Begin with small PRs to learn the process</li>
+<li><strong>Communicate</strong> - Discuss large changes before coding</li>
+<li><strong>Test thoroughly</strong> - Test on multiple devices/API levels</li>
+<li><strong>Follow conventions</strong> - Match existing code style</li>
+<li><strong>Be patient</strong> - Maintainers volunteer their time</li>
+<li><strong>Ask for help</strong> - Don't hesitate to ask questions</li>
+<li><strong>Read existing code</strong> - Learn from similar implementations</li>
+</ol>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><strong><a href="https://kotlinlang.org/docs/reference/coding-conventions.html">Kotlin Style Guide</a></strong></li>
+<li><strong><a href="https://developer.android.com/jetpack">Android Architecture</a></strong></li>
+<li><strong><a href="https://git-scm.com/doc">Git Documentation</a></strong></li>
+<li><strong><a href="https://guides.github.com/">GitHub Guides</a></strong></li>
+</ul>
+<h2 id="thank-you">Thank You!</h2>
+<p>Contributing to Pix helps:
+- ✅ Thousands of developers worldwide
+- ✅ Improve Android development ecosystem
+- ✅ Create better user experiences
+- ✅ Build something meaningful</p>
+<p>We truly appreciate your contribution, no matter how small!</p>
+<hr />
+<p>Ready to contribute? <a href="https://github.com/akshay2211/PixImagePicker/blob/master/CONTRIBUTING.md">Start here</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "announce.dismiss"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
