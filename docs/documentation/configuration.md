@@ -153,4 +153,4 @@ val fragment = pixFragment(Options())
 For advanced scenarios and fine-tuning, see:
 
 - [Customization Guide](customization.md) - Theme and UI customization
-- [API Reference](../api/index.html) - Detailed API documentation
+- [API Reference](../../api/index.html) - Detailed API documentation

@@ -298,7 +298,7 @@ Ready to join successful teams using Pix?
 
 1. **Check the [Quick Start Guide](../getting-started/quick-start.md)**
 2. **Review [Examples](../documentation/examples.md)**
-3. **Read the [API Reference](../api/index.html)**
+3. **Read the [API Reference](../../api/index.html)**
 4. **Start with one feature**
 5. **Expand as needed**
 

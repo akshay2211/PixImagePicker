@@ -116,4 +116,4 @@ See the [Examples](../documentation/examples.md) page for Navigation with NavCon
 - Explore [Usage Guide](../documentation/usage.md) for advanced features
 - Check [Configuration](../documentation/configuration.md) for all options
 - View [Examples](../documentation/examples.md) for common patterns
-- Read the [API Reference](../api/index.html) for detailed documentation
+- Read the [API Reference](../../api/index.html) for detailed documentation

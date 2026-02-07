@@ -1,14 +1,17 @@
 site_name: Pix Image Picker
 site_description: WhatsApp-style image and video picker for Android
 site_author: Akshay Sharma
+site_url: https://akshay2211.github.io/PixImagePicker/
 repo_url: https://github.com/akshay2211/PixImagePicker
 repo_name: akshay2211/PixImagePicker
 edit_uri: edit/master/docs/
+docs_dir: docs
+site_dir: site
 
 theme:
   name: material
-  logo: assets/logo.png
-  favicon: assets/favicon.png
+  logo: https://raw.githubusercontent.com/akshay2211/PixImagePicker/master/media/header.gif
+  favicon: https://github.com/akshay2211.png
   features:
     - navigation.tabs
     - navigation.tabs.sticky

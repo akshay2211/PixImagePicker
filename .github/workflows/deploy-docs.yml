@@ -10,13 +10,12 @@ on:
       - 'mkdocs.yml'
       - '.github/workflows/deploy-docs.yml'
       - 'requirements.txt'
+      - 'pix/**'
+      - 'build.gradle.kts'
   pull_request:
     branches:
       - master
       - main
-    paths:
-      - 'docs/**'
-      - 'mkdocs.yml'
 
 permissions:
   contents: read
@@ -36,18 +35,40 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Install dependencies
+      - name: Generate Dokka documentation
+        run: |
+          chmod +x gradlew
+          ./gradlew :pix:dokkaHtml
+        continue-on-error: true
+
+      - name: Copy Dokka to docs
+        run: |
+          mkdir -p docs/api
+          if [ -d "pix/build/dokka/html" ]; then
+            cp -r pix/build/dokka/html/* docs/api/
+            echo "✓ Dokka copied successfully"
+          else
+            echo "⚠ Dokka not found, continuing without API docs"
+          fi
+
+      - name: Install MkDocs dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Build documentation
+      - name: Build documentation with MkDocs
         run: mkdocs build
 
       - name: Upload Pages artifact
