@@ -14,10 +14,16 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
     - name: Make gradlew executable
       run: chmod +x ./gradlew
-    - name: Android Build
-      uses: vgaidarji/android-github-actions-build@v1.0.1
-      with:
-        args: "./gradlew assembleDebug"
+
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug

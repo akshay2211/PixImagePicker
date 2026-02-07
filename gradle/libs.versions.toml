@@ -80,12 +80,6 @@ androidx-navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-
 # CameraX
 camerax = ["androidx-camera-camera2", "androidx-camera-lifecycle", "androidx-camera-view", "androidx-camera-extensions"]
 
-# Glide
-glide = ["glide", "glide-recyclerview-integration"]
-
-# Testing
-test-android = ["androidx-test-ext-junit", "androidx-test-espresso-core"]
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
