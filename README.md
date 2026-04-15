@@ -187,6 +187,11 @@ This project uses modern code quality tools to maintain high standards:
 ./gradlew :pix:build              # Full build with checks
 ```
 
+### Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=akshay2211/PixImagePicker&type=Date)](https://star-history.com/#akshay2211/PixImagePicker&Date)
+
+
 ### Contributing
 
 Before submitting a PR:
